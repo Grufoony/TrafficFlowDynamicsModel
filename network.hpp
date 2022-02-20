@@ -8,9 +8,9 @@ namespace net {
 
 class Network {
 private:
-  int lenght; // lunghezza = numero colonne
-  int height; // altezza = numero righe
-  std::valarray<Street> net;
+  int _lenght; // lunghezza = numero colonne
+  int _height; // altezza = numero righe
+  std::valarray<Street> _net;
 
 public:
   Network(int, int);

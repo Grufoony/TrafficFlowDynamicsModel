@@ -1,4 +1,4 @@
 #include "vehicle.hpp"
 #include <cassert>
 
-Vehicle::Vehicle(int t) : type{t} { assert(type > -1 && type < 9); }
+Vehicle::Vehicle(int t) : _type{t} { assert(_type > -1 && _type < 9); }

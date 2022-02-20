@@ -3,12 +3,12 @@
 
 class Vehicle {
 private:
-  int type;
-  int source;
-  int destination;
+  int _type;
+  int _source;
+  int _destination;
 
 public:
-  Vehicle(int t);
+  Vehicle(int);
 };
 
 #endif

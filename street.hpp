@@ -6,12 +6,12 @@
 
 class Street {
 private:
-  static const int lenght = 1;    // lunghezza della strada
-  static const int capacity = 10; // capacità massima di veicoli
-  static const int v_max = 50;    // velocità massima per ogni strada
-  static const int v_min = 7;     // velocità minima per ogni strada
-  std::vector<Vehicle> vehicles;  // veicoli presenti sulla strada
-  double k = 2.;                  // costante per la decrescita della velocità
+  static const int _lenght = 1;    // lunghezza della strada
+  static const int _capacity = 10; // capacità massima di veicoli
+  static const int _vMax = 50;     // velocità massima per ogni strada
+  static const int _vMin = 7;      // velocità minima per ogni strada
+  std::vector<Vehicle> _vehicles;  // veicoli presenti sulla strada
+  double _k = 2.;                  // costante per la decrescita della velocità
 
 public:
   int getLenght() const;
