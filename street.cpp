@@ -1,9 +1,15 @@
 #include "street.hpp"
 
-Street::Street() { n_v = 0; }
 int Street::getLenght() const { return lenght; }
 int Street::getCapacity() const { return capacity; }
-int Street::getNVehicles() { return n_v; }
-double Street::getVelocity() { return (v_max - k * n_v); }
-void Street::addVehicle() { ++n_v; }
-void Street::remVehicle() { --n_v; }
+int Street::getNVehicles() { return vehicles.size(); }
+double Street::getVelocity() {
+  auto v = v_max - k * vehicles.size();
+  if (v < v_min) {
+    return v_min;
+  } else {
+    return v;
+  }
+}
+void Street::addVehicle(Vehicle v) { vehicles.push_back(v); }
+// void Street::remVehicle() { --n_v; }
