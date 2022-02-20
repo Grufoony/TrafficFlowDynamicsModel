@@ -3,11 +3,11 @@
 
 #include <cassert>
 
-net::Network::Network(int column, int row) : _lenght{column}, _height{row} {
+net::Network::Network(int row, int column) : _lenght{row}, _height{column} {
   assert(_lenght > 0);
   assert(_height > 2 &&
          _height % 2 != 0); // ho 3 sorgenti quindi mi servono almeno 3 righe
-  _net.resize(_height * _lenght);
+  _net.resize(_lenght * _height);
 }
 
 Street &net::Network::operator()(int row, int column) {
