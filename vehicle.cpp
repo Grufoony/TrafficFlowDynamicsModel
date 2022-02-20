@@ -2,7 +2,7 @@
 #include <cassert>
 #include <stdexcept>
 
-Vehicle::Vehicle(int t) : _type{t} {
+Vehicle::Vehicle(int t, int y) : _type{t}, _y{y} {
   assert(_type > -1 && _type < 9);
   switch (_type) {
   case 0:

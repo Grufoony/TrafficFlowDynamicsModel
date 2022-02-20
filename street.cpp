@@ -2,14 +2,14 @@
 
 int Street::getLenght() const { return _lenght; }
 int Street::getCapacity() const { return _capacity; }
-int Street::getNVehicles() { return _vehicles.size(); }
+int Street::getNVehicles() { return _nVehicles; }
 double Street::getVelocity() {
-  auto v = _vMax - _k * _vehicles.size();
+  auto v = _vMax - _k * _nVehicles;
   if (v < _vMin) {
     return _vMin;
   } else {
     return v;
   }
 }
-void Street::addVehicle(Vehicle v) { _vehicles.push_back(v); }
-// void Street::remVehicle() { --n_v; }
+void Street::addVehicle() { ++_nVehicles; }
+void Street::remVehicle() { --_nVehicles; }
