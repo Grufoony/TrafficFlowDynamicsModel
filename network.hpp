@@ -2,7 +2,7 @@
 #define NETWORK_HPP
 
 #include "street.hpp"
-#include <valarray>
+#include <valarray> // alloca meno memoria di un vector
 
 namespace net {
 
