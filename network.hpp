@@ -10,9 +10,8 @@ namespace net {
 
 class Network {
 private:
-  int _lenght; // lunghezza = numero colonne
-  int _height; // altezza = numero righe
-  double _temperature;
+  int _lenght;                    // lunghezza = numero colonne
+  int _height;                    // altezza = numero righe
   std::valarray<Street> _net;     // network di strade
   std::vector<Vehicle> _vehicles; // veicoli immessi nel sistema
 

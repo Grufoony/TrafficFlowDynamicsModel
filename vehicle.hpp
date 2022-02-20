@@ -11,6 +11,8 @@ private:
   // coordinate nel network
   int _x = 0;
   int _y;
+  // temperatura
+  static constexpr double _temperature = 0.;
 
 public:
   Vehicle(int, int);
