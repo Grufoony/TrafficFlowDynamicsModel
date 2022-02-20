@@ -17,7 +17,8 @@ private:
 
 public:
   Network(int, int);
-  Street &operator()(int, int); // operatore per usare il network a matrice
+  Street &operator()(int,
+                     int) noexcept; // operatore per usare il network a matrice
   int getSize() const;
   void addVehicle(int);
 };

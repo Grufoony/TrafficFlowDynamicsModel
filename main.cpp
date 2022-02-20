@@ -4,7 +4,7 @@
 #include <iostream>
 
 int main() {
-  auto network = net::Network(4, 5);
+  auto network = net::Network(3, 3);
   std::cout << network(3, 4).getVelocity() << '\n';
   return 0;
 }

@@ -1,7 +1,7 @@
 #include "street.hpp"
 
-int Street::getLenght() const { return _lenght; }
-int Street::getCapacity() const { return _capacity; }
+int Street::getLenght() const noexcept { return _lenght; }
+int Street::getCapacity() const noexcept { return _capacity; }
 int Street::getNVehicles() { return _nVehicles; }
 double Street::getVelocity() {
   auto v = _vMax - _k * _nVehicles;

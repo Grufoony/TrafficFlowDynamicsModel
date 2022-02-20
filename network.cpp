@@ -11,8 +11,16 @@ net::Network::Network(int row, int column) : _lenght{row}, _height{column} {
   _net.resize(_lenght * _height);
 }
 
-Street &net::Network::operator()(int row, int column) {
-  return _net[row * _lenght * _height + column];
+// operatore per trattare il valarray come matrice
+Street &net::Network::operator()(int row, int column) noexcept {
+  auto index = row * _lenght * _height + column;
+  if (index > static_cast<int>(_net.size())) {
+    return _net[index - _net.size()];
+  } else if (index < 0) {
+    return _net[index + _net.size()];
+  } else {
+    return _net[index];
+  }
 }
 
 int net::Network::getSize() const { return _net.size(); }
@@ -30,7 +38,7 @@ void net::Network::addVehicle(int type) {
     y = (_height - 1) / 2;
     break;
   default:
-    throw std::runtime_error("Errore in addVehicle\n");
+    throw std::runtime_error("Errore in Network::addVehicle\n");
   }
   _vehicles.push_back(Vehicle(type, y));
 }

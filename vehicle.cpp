@@ -42,6 +42,6 @@ Vehicle::Vehicle(int t, int y) : _type{t}, _y{y} {
     _destination = -1;
     break;
   default:
-    throw std::runtime_error("Errore nell'assegnazione del tipo di veicolo\n");
+    throw std::runtime_error("Errore in Vehicle::Vehicle\n");
   }
 }
