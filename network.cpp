@@ -9,4 +9,8 @@ net::Network::Network(int x, int y) : lenght{x}, height{y} {
   net.resize(height * lenght);
 }
 
+Street &net::Network::operator()(int row, int column) {
+  return net[row * lenght * height + column];
+}
+
 int net::Network::getSize() const { return net.size(); }

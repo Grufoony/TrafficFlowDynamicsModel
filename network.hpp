@@ -8,15 +8,13 @@ namespace net {
 
 class Network {
 private:
-  int lenght;
-  int height;
+  int lenght; // lunghezza = numero colonne
+  int height; // altezza = numero righe
   std::valarray<Street> net;
 
 public:
   Network(int, int);
-  Street &operator()(int row, int column) {
-    return net[row * lenght * height + column];
-  }
+  Street &operator()(int, int); // operatore per usare il network a matrice
   int getSize() const;
 };
 
