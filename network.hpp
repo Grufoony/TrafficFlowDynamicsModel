@@ -16,12 +16,16 @@ private:
   std::vector<Vehicle> _vehicles; // veicoli immessi nel sistema
   const double _temperature = 0.; // temperatura del network
 
+  void updateProbability(Vehicle); // aggiorna il vettore probabilità di
+                                   // spostamento del veicolo
+
 public:
   Network(int, int);
   Street &operator()(int,
                      int) noexcept; // operatore per usare il network a matrice
   int getSize() const;
   void addVehicle(int);
+  void test();
 };
 
 } // namespace net

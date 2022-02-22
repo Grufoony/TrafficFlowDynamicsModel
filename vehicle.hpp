@@ -22,7 +22,7 @@ public:
   int getX();
   int getY();
   int getDestination();
-  
+
   std::vector<double> getProbArray();
   void setProb(std::vector<double>);
 };
