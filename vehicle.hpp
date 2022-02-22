@@ -1,6 +1,8 @@
 #ifndef VEHICLE_HPP
 #define VEHICLE_HPP
 
+#include <vector>
+
 class Vehicle {
 private:
   int _type;
@@ -12,13 +14,17 @@ private:
   int _x = 0;
   int _y;
 
-  double *_probability; // [0] -y || [1] +x || [2] +y || [3] -x
+  std::vector<double> _probability = {
+      0., 0., 0., 0.}; // [0] -y || [1] +x || [2] +y || [3] -x
 
 public:
-  Vehicle(int, int);
-  ~Vehicle();
+  Vehicle(int, int) noexcept;
   int getX();
   int getY();
+  int getDestination();
+  
+  std::vector<double> getProbArray();
+  void setProb(std::vector<double>);
 };
 
 #endif

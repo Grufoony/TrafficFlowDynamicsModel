@@ -2,7 +2,7 @@
 #include <cassert>
 #include <stdexcept>
 
-Vehicle::Vehicle(int t, int y) : _type{t}, _y{y} {
+Vehicle::Vehicle(int t, int y) noexcept : _type{t}, _y{y} {
   assert(_type > -1 && _type < 9);
   switch (_type) {
   case 0:
@@ -42,15 +42,13 @@ Vehicle::Vehicle(int t, int y) : _type{t}, _y{y} {
     _destination = -1;
     break;
   default:
-    throw std::runtime_error("Errore in Vehicle::Vehicle\n");
-  }
-  _probability = new double[4];
-  for (int i = 0; i < 4; ++i) {
-    _probability[i] = 0;
+    break;
   }
 }
 
-Vehicle::~Vehicle() { delete _probability; }
-
 int Vehicle::getX() { return _x; }
 int Vehicle::getY() { return _y; }
+int Vehicle::getDestination() { return _destination; }
+
+std::vector<double> Vehicle::getProbArray() { return _probability; }
+void Vehicle::setProb(std::vector<double> values) { _probability = values; }
