@@ -8,7 +8,7 @@ private:
   static const int _vMax = 50;     // velocità massima per ogni strada
   static const int _vMin = 7;      // velocità minima per ogni strada
   static constexpr double _k = 2.; // costante per la decrescita della velocità
-  int _nVehicles;                  // veicoli presenti sulla strada
+  int _nVehicles = 0;              // veicoli presenti sulla strada
 
 public:
   int getLenght() const noexcept;
