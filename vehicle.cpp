@@ -44,4 +44,13 @@ Vehicle::Vehicle(int t, int y) : _type{t}, _y{y} {
   default:
     throw std::runtime_error("Errore in Vehicle::Vehicle\n");
   }
+  _probability = new double[4];
+  for (int i = 0; i < 4; ++i) {
+    _probability[i] = 0;
+  }
 }
+
+Vehicle::~Vehicle() { delete _probability; }
+
+int Vehicle::getX() { return _x; }
+int Vehicle::getY() { return _y; }
