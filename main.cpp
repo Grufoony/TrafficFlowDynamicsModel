@@ -1,11 +1,11 @@
-#include "network.hpp"
+#include "Street.hpp"
 
 #include <iostream>
 
 int main() {
-  auto network = net::Network(3, 3);
-  network.addVehicle(0);
-  // std::cout << network(3, 2).getVelocity() << '\n';
-  network.test();
+  Street s(1, 0);
+  auto x = s.getNodes();
+  std::cout << x[0] << '\n';
+  std::cout << x[1] << '\n';
   return 0;
 }
