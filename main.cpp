@@ -1,11 +1,10 @@
-#include "Street.hpp"
+#include "Vehicle.hpp"
 
 #include <iostream>
 
 int main() {
-  Street s(1, 0);
-  auto x = s.getNodes();
-  std::cout << x[0] << '\n';
-  std::cout << x[1] << '\n';
+  Vehicle::addVehicleType(1, 10);
+  // std::cout << x[0] << '\n';
+  // std::cout << x[1] << '\n';
   return 0;
 }

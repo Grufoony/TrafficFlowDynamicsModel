@@ -4,7 +4,6 @@
 class VehicleType {
 private:
   int _trip[2]; // 0=source, 1=destination
-  int _position;
 
 public:
   VehicleType(int, int);

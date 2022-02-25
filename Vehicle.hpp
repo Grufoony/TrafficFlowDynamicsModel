@@ -9,10 +9,11 @@ private:
   static int _nVehicleType;
   static VehicleType *_vehicleType[_maxNumVehicleType];
   int _index;
+  int _position;
   int _timePenalty; // penalità di tempo da scontare
 public:
   Vehicle(int);
-  void addVehicleType(int, int);
+  static void addVehicleType(int, int);
   void setTimePenalty(int);
   int getTimePenalty();
 };
