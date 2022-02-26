@@ -7,10 +7,8 @@
 class Graph {
 private:
   std::vector<std::vector<int>> _adjMatrix; // matrice di adiacenza
-  std::list<int> *_adj;                     // adjlist
   int _n;                                   // dimension
 public:
-  Graph(int);
   Graph(const char *); // import from file
   void addEdge(int, int, bool);
 
