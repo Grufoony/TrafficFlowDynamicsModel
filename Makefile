@@ -8,5 +8,7 @@ all:
 	clang-format -i Street.hpp
 	clang-format -i Network.cpp
 	clang-format -i Network.hpp
+	clang-format -i Graph.cpp
+	clang-format -i Graph.hpp
 	clear
-	g++ main.cpp Street.cpp Vehicle.cpp VehicleType.cpp -o test.out -Wall -Wextra
+	g++ main.cpp Graph.cpp Street.cpp Vehicle.cpp VehicleType.cpp -o test.out -Wall -Wextra

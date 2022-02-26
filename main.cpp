@@ -1,10 +1,11 @@
+#include "Graph.hpp"
 #include "Vehicle.hpp"
 
 #include <iostream>
 
 int main() {
-  Vehicle::addVehicleType(1, 10);
-  // std::cout << x[0] << '\n';
-  // std::cout << x[1] << '\n';
+  Graph g("matrix.dat");
+
+  g.print();
   return 0;
 }
