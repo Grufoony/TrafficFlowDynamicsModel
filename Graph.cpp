@@ -1,8 +1,62 @@
 #include "Graph.hpp"
 
+#include <climits>
 #include <cmath>
 #include <fstream>
 #include <iostream>
+
+int Graph::_minDistance(std::vector<int> dist, std::vector<bool> sptSet) {
+  // Initialize min value
+  int min = INT_MAX, min_index;
+
+  for (int v = 0; v < _n; v++)
+    if (sptSet.at(v) == false && dist.at(v) <= min)
+      min = dist.at(v), min_index = v;
+
+  return min_index;
+}
+
+void Graph::_dijkstra(int src) {
+  std::vector<int> dist(
+      _n); // The output array.  dist[i] will hold the shortest
+  // distance from src to i
+
+  std::vector<bool> sptSet(
+      _n); // sptSet[i] will be true if vertex i is included in shortest
+  // path tree or shortest distance from src to i is finalized
+
+  // Initialize all distances as INFINITE and stpSet[] as false
+  for (int i = 0; i < _n; ++i)
+    dist.at(i) = INT_MAX, sptSet.at(i) = false;
+
+  // Distance of source vertex from itself is always 0
+  dist.at(src) = 0;
+
+  // Find shortest path for all vertices
+  for (int count = 0; count < _n - 1; ++count) {
+    // Pick the minimum distance vertex from the set of vertices not
+    // yet processed. u is always equal to src in the first iteration.
+    int u = _minDistance(dist, sptSet);
+
+    // Mark the picked vertex as processed
+    sptSet.at(u) = true;
+
+    // Update dist value of the adjacent vertices of the picked vertex.
+    for (int v = 0; v < _n; ++v)
+
+      // Update dist[v] only if is not in sptSet, there is an edge from
+      // u to v, and total weight of path from src to  v through u is
+      // smaller than current value of dist[v]
+      if (!sptSet.at(v) && _adjMatrix.at(u).at(v) && dist.at(u) != INT_MAX &&
+          dist.at(u) + _adjMatrix.at(u).at(v) < dist.at(v))
+        dist.at(v) = dist.at(u) + _adjMatrix.at(u).at(v);
+  }
+
+  // print the constructed distance array (REMOVE)
+  std::cout << "Vertex   Distance from Source\n";
+  for (int i = 0; i < _n; ++i)
+    std::cout << i << '\t' << '\t' << dist.at(i) << '\n';
+}
 
 Graph::Graph(const char *fName) {
   _n = 0;
@@ -104,3 +158,6 @@ void Graph::print() {
     ++i;
   }
 }
+
+// funzione da eliminare (REMOVE)
+void Graph::test(int x) { _dijkstra(x); }
