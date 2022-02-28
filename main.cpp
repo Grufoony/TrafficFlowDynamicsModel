@@ -5,5 +5,6 @@
 
 int main() {
   Graph g("matrix.dat");
+  g.print();
   return 0;
 }
