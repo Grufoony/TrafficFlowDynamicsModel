@@ -1,7 +1,6 @@
 #ifndef GRAPH_HPP
 #define GRAPH_HPP
 
-#include <list>
 #include <vector>
 
 class Graph {
