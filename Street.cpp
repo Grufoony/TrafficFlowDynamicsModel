@@ -1,11 +1,9 @@
 #include "Street.hpp"
 
 Street::Street(int n_1, int n_2) {
-  _nodes = new int[2];
   _nodes[0] = n_1;
   _nodes[1] = n_2;
 }
-Street::~Street() { delete _nodes; }
 
 int *Street::getNodes() { return _nodes; }
 int Street::getLenght() const noexcept { return _lenght; }

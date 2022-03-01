@@ -6,8 +6,6 @@ all:
 	clang-format -i VehicleType.hpp
 	clang-format -i Street.cpp
 	clang-format -i Street.hpp
-	clang-format -i Network.cpp
-	clang-format -i Network.hpp
 	clang-format -i Graph.cpp
 	clang-format -i Graph.hpp
 	clear

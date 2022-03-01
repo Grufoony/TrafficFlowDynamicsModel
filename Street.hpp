@@ -8,11 +8,10 @@ private:
   static const int _vMax = 50;          // velocità massima per ogni strada
   static const int _vMin = 7;           // velocità minima per ogni strada
   int _nVehicles = 0;                   // veicoli presenti sulla strada
-  int *_nodes;                          // nodi a cui è collegata
+  int _nodes[2];                        // nodi a cui è collegata
 
 public:
   Street(int, int);
-  ~Street();
 
   int *getNodes();
   int getLenght() const noexcept;

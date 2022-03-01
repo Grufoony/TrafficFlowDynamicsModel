@@ -16,7 +16,7 @@ int Graph::_minDistance(std::vector<int> dist, std::vector<bool> sptSet) {
   return min_index;
 }
 
-void Graph::_dijkstra(int src) {
+int Graph::_dijkstra(int src, int dst) {
   std::vector<int> dist(
       _n); // The output array.  dist[i] will hold the shortest
   // distance from src to i
@@ -56,6 +56,8 @@ void Graph::_dijkstra(int src) {
   std::cout << "Vertex   Distance from Source\n";
   for (int i = 0; i < _n; ++i)
     std::cout << i << '\t' << '\t' << dist.at(i) << '\n';
+
+  return dist.at(dst);
 }
 
 Graph::Graph(const char *fName) {
@@ -78,6 +80,9 @@ Graph::Graph(const char *fName) {
     for (int v = 0; v < _n; ++v) {
       data >> x;
       temp.push_back(static_cast<int>(x));
+      if (x) {
+        _streets.push_back(Street(u, v));
+      }
     }
     _adjMatrix.push_back(temp);
   }
@@ -130,8 +135,8 @@ void Graph::addEdge(int u, int v, bool b) {
 }
 
 void Graph::printMatrix() {
-  for (auto row : _adjMatrix) {
-    for (auto it : row) {
+  for (auto &row : _adjMatrix) {
+    for (auto &it : row) {
       std::cout << it;
     }
     std::cout << '\n';
@@ -140,7 +145,7 @@ void Graph::printMatrix() {
 
 void Graph::print() {
   int i = 0;
-  for (auto row : _adjMatrix) {
+  for (auto &row : _adjMatrix) {
     std::cout << i;
     if (!(_nodesCoordinates.empty())) {
       std::cout << " (" << _nodesCoordinates.at(0).at(i) << ','
@@ -148,7 +153,7 @@ void Graph::print() {
     }
     std::cout << "-->";
     int j = 0;
-    for (auto it : row) {
+    for (auto &it : row) {
       if (it) {
         std::cout << '\t' << j;
       }
@@ -160,4 +165,4 @@ void Graph::print() {
 }
 
 // funzione da eliminare (REMOVE)
-void Graph::test(int x) { _dijkstra(x); }
+void Graph::test(int x, int y) { std::cout << _streets.at(2).getNodes()[1]; }
