@@ -21,8 +21,8 @@ public:
   Graph(const char *, const char *); // import from file (matrix + coordinates)
   void addEdge(int, int, bool);
 
-  void printMatrix();
-  void print();
+  void printMatrix() noexcept;
+  void print() noexcept;
 
   // funzione da eliminare che verrà usata per accedere alle private (REMOVE)
   void test(int, int);

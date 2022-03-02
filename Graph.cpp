@@ -4,6 +4,7 @@
 #include <cmath>
 #include <fstream>
 #include <iostream>
+#include <stdexcept>
 
 void printPath(std::vector<int> parent, int j) {
 
@@ -16,6 +17,7 @@ void printPath(std::vector<int> parent, int j) {
   std::cout << "->" << j;
 }
 
+// function for dijkstra
 int Graph::_minDistance(std::vector<int> dist, std::vector<bool> sptSet) {
   // Initialize min value
   int min = INT_MAX, min_index;
@@ -27,6 +29,8 @@ int Graph::_minDistance(std::vector<int> dist, std::vector<bool> sptSet) {
   return min_index;
 }
 
+// from
+// https://www.geeksforgeeks.org/printing-paths-dijkstras-shortest-path-algorithm/
 int Graph::_dijkstra(int src, int dst) {
   std::vector<int> dist(
       _n); // The output array.  dist[i] will hold the shortest
@@ -82,8 +86,11 @@ Graph::Graph(const char *fName) {
   _n = 0;
   std::fstream data;
 
-  // setto la dimensione del database
+  // set database's dimension
   data.open(fName);
+  if (!data) {
+    throw std::runtime_error("Matrix file does not exist.\n");
+  }
   bool x;
   while (data >> x) {
     ++_n;
@@ -91,7 +98,7 @@ Graph::Graph(const char *fName) {
   data.close();
   _n = std::sqrt(_n);
 
-  //   importo la matrice di adiacenza e creo il grafo
+  // import adj matrix from file
   data.open(fName);
   for (int u = 0; u < _n; ++u) {
     std::vector<int> temp;
@@ -110,8 +117,11 @@ Graph::Graph(const char *fName) {
 Graph::Graph(const char *fName, const char *fCoordinates) {
   _n = 0;
   std::fstream data;
-  // setto la dimensione del database
+  // set database's dimension
   data.open(fCoordinates);
+  if (!data) {
+    throw std::runtime_error("Coordinates file does not exist.\n");
+  }
   bool x;
   double y;
   while (data >> y) {
@@ -120,7 +130,7 @@ Graph::Graph(const char *fName, const char *fCoordinates) {
   data.close();
   _n = _n / 2;
 
-  // importo le coordinate dei nodi
+  // import coordinates
   data.open(fCoordinates);
   for (int u = 0; u < 2; ++u) {
     std::vector<double> temp;
@@ -132,8 +142,11 @@ Graph::Graph(const char *fName, const char *fCoordinates) {
   }
   data.close();
 
-  // importo la matrice di adiacenza e creo il grafo
+  // import adj matrix from file
   data.open(fName);
+  if (!data) {
+    throw std::runtime_error("Matrix file does not exist.\n");
+  }
   for (int u = 0; u < _n; ++u) {
     std::vector<int> temp;
     for (int v = 0; v < _n; ++v) {
@@ -152,7 +165,7 @@ void Graph::addEdge(int u, int v, bool b) {
   }
 }
 
-void Graph::printMatrix() {
+void Graph::printMatrix() noexcept {
   for (auto &row : _adjMatrix) {
     for (auto &it : row) {
       std::cout << it;
@@ -161,7 +174,7 @@ void Graph::printMatrix() {
   }
 }
 
-void Graph::print() {
+void Graph::print() noexcept {
   int i = 0;
   for (auto &row : _adjMatrix) {
     std::cout << i;
