@@ -165,6 +165,8 @@ void Graph::addEdge(int u, int v, bool b) {
   }
 }
 
+void Graph::addVehicle(int type) { _vehicles.push_back(Vehicle(type)); }
+
 void Graph::printMatrix() noexcept {
   for (auto &row : _adjMatrix) {
     for (auto &it : row) {
