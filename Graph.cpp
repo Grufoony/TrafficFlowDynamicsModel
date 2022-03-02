@@ -5,6 +5,17 @@
 #include <fstream>
 #include <iostream>
 
+void printPath(std::vector<int> parent, int j) {
+
+  // Base Case : If j is source
+  if (parent.at(j) == -1)
+    return;
+
+  printPath(parent, parent[j]);
+
+  std::cout << "->" << j;
+}
+
 int Graph::_minDistance(std::vector<int> dist, std::vector<bool> sptSet) {
   // Initialize min value
   int min = INT_MAX, min_index;
@@ -25,9 +36,11 @@ int Graph::_dijkstra(int src, int dst) {
       _n); // sptSet[i] will be true if vertex i is included in shortest
   // path tree or shortest distance from src to i is finalized
 
+  std::vector<int> parent(_n); // Parent array to store shortest path tree
+
   // Initialize all distances as INFINITE and stpSet[] as false
   for (int i = 0; i < _n; ++i)
-    dist.at(i) = INT_MAX, sptSet.at(i) = false;
+    dist.at(i) = INT_MAX, sptSet.at(i) = false, parent.at(i) = -1;
 
   // Distance of source vertex from itself is always 0
   dist.at(src) = 0;
@@ -48,14 +61,19 @@ int Graph::_dijkstra(int src, int dst) {
       // u to v, and total weight of path from src to  v through u is
       // smaller than current value of dist[v]
       if (!sptSet.at(v) && _adjMatrix.at(u).at(v) && dist.at(u) != INT_MAX &&
-          dist.at(u) + _adjMatrix.at(u).at(v) < dist.at(v))
+          dist.at(u) + _adjMatrix.at(u).at(v) < dist.at(v)) {
+        parent.at(v) = u;
         dist.at(v) = dist.at(u) + _adjMatrix.at(u).at(v);
+      }
   }
 
   // print the constructed distance array (REMOVE)
-  std::cout << "Vertex   Distance from Source\n";
-  for (int i = 0; i < _n; ++i)
-    std::cout << i << '\t' << '\t' << dist.at(i) << '\n';
+  std::cout << "Vertex\tDistance from Source\tPath\n";
+  for (int i = 0; i < _n; ++i) {
+    std::cout << i << '\t' << '\t' << dist.at(i) << '\t' << '\t';
+    printPath(parent, i);
+    std::cout << '\n';
+  }
 
   return dist.at(dst);
 }
@@ -165,4 +183,4 @@ void Graph::print() {
 }
 
 // funzione da eliminare (REMOVE)
-void Graph::test(int x, int y) { std::cout << _streets.at(2).getNodes()[1]; }
+void Graph::test(int x, int y) { _dijkstra(x, y); }

@@ -5,6 +5,6 @@
 
 int main() {
   Graph g("matrix.dat");
-  g.test(1, 1);
+  g.test(0, 1);
   return 0;
 }
