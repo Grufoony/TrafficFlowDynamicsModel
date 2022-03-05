@@ -12,8 +12,8 @@ private:
   std::vector<Street> _streets;
   int _n; // dimension
 
-  int _minDistance(std::vector<int>, std::vector<bool>);
-  int _dijkstra(int, int); // algoritmo per la distanza minima tra due nodi
+  int _minDistance(int, int); // algoritmo per la distanza minima tra due nodi
+  std::vector<int> _Path(int, int);
   // double _attractionModule(int);
 
 public:

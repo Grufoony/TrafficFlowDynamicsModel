@@ -5,7 +5,7 @@
 #include <fstream>
 #include <iostream>
 
-int Graph::_minDistance(std::vector<int> dist, std::vector<bool> sptSet) {
+int minDistance(std::vector<int> dist, std::vector<bool> sptSet, int _n) {
   // Initialize min value
   int min = INT_MAX, min_index;
 
@@ -16,7 +16,7 @@ int Graph::_minDistance(std::vector<int> dist, std::vector<bool> sptSet) {
   return min_index;
 }
 
-int Graph::_dijkstra(int src, int dst) {
+int Graph::_minDistance(int src, int dst) {
   std::vector<int> dist(
       _n); // The output array.  dist[i] will hold the shortest
   // distance from src to i
@@ -36,7 +36,51 @@ int Graph::_dijkstra(int src, int dst) {
   for (int count = 0; count < _n - 1; ++count) {
     // Pick the minimum distance vertex from the set of vertices not
     // yet processed. u is always equal to src in the first iteration.
-    int u = _minDistance(dist, sptSet);
+    int u = minDistance(dist, sptSet, _n);
+
+    // Mark the picked vertex as processed
+    sptSet.at(u) = true;
+
+    // Update dist value of the adjacent vertices of the picked vertex.
+    for (int v = 0; v < _n; ++v)
+
+      // Update dist[v] only if is not in sptSet, there is an edge from
+      // u to v, and total weight of path from src to  v through u is
+      // smaller than current value of dist[v]
+      if (!sptSet.at(v) && _adjMatrix.at(u).at(v) && dist.at(u) != INT_MAX &&
+          dist.at(u) + _adjMatrix.at(u).at(v) < dist.at(v))
+        dist.at(v) = dist.at(u) + _adjMatrix.at(u).at(v);
+  }
+
+  // print the constructed distance array (REMOVE)
+  std::cout << "Vertex   Distance from Source\n";
+  for (int i = 0; i < _n; ++i)
+    std::cout << i << '\t' << '\t' << dist.at(i) << '\n';
+
+  return dist.at(dst);
+}
+
+std::vector<int> Graph::_Path(int src, int dst) {
+  std::vector<int> dist(
+      _n); // The output array.  dist[i] will hold the shortest
+  // distance from src to i
+
+  std::vector<bool> sptSet(
+      _n); // sptSet[i] will be true if vertex i is included in shortest
+  // path tree or shortest distance from src to i is finalized
+
+  // Initialize all distances as INFINITE and stpSet[] as false
+  for (int i = 0; i < _n; ++i)
+    dist.at(i) = INT_MAX, sptSet.at(i) = false;
+
+  // Distance of source vertex from itself is always 0
+  dist.at(src) = 0;
+
+  // Find shortest path for all vertices
+  for (int count = 0; count < _n - 1; ++count) {
+    // Pick the minimum distance vertex from the set of vertices not
+    // yet processed. u is always equal to src in the first iteration.
+    int u = minDistance(dist, sptSet, _n);
 
     // Mark the picked vertex as processed
     sptSet.at(u) = true;
