@@ -4,7 +4,20 @@
 #include <cmath>
 #include <fstream>
 #include <iostream>
+#include <stdexcept>
 
+void printPath(std::vector<int> parent, int j) {
+
+  // Base Case : If j is source
+  if (parent.at(j) == -1)
+    return;
+
+  printPath(parent, parent[j]);
+
+  std::cout << "->" << j;
+}
+
+// function for dijkstra
 int minDistance(std::vector<int> dist, std::vector<bool> sptSet, int _n) {
   // Initialize min value
   int min = INT_MAX, min_index;
@@ -25,9 +38,11 @@ int Graph::_minDistance(int src, int dst) {
       _n); // sptSet[i] will be true if vertex i is included in shortest
   // path tree or shortest distance from src to i is finalized
 
+  std::vector<int> parent(_n); // Parent array to store shortest path tree
+
   // Initialize all distances as INFINITE and stpSet[] as false
   for (int i = 0; i < _n; ++i)
-    dist.at(i) = INT_MAX, sptSet.at(i) = false;
+    dist.at(i) = INT_MAX, sptSet.at(i) = false, parent.at(i) = -1;
 
   // Distance of source vertex from itself is always 0
   dist.at(src) = 0;
@@ -68,10 +83,12 @@ std::vector<int> Graph::_Path(int src, int dst) {
   std::vector<bool> sptSet(
       _n); // sptSet[i] will be true if vertex i is included in shortest
   // path tree or shortest distance from src to i is finalized
+  
+  std::vector<int> parent(_n); // Parent array to store shortest path tree
 
   // Initialize all distances as INFINITE and stpSet[] as false
   for (int i = 0; i < _n; ++i)
-    dist.at(i) = INT_MAX, sptSet.at(i) = false;
+    dist.at(i) = INT_MAX, sptSet.at(i) = false, parent.at(i) = -1;
 
   // Distance of source vertex from itself is always 0
   dist.at(src) = 0;
@@ -92,14 +109,19 @@ std::vector<int> Graph::_Path(int src, int dst) {
       // u to v, and total weight of path from src to  v through u is
       // smaller than current value of dist[v]
       if (!sptSet.at(v) && _adjMatrix.at(u).at(v) && dist.at(u) != INT_MAX &&
-          dist.at(u) + _adjMatrix.at(u).at(v) < dist.at(v))
+          dist.at(u) + _adjMatrix.at(u).at(v) < dist.at(v)) {
+        parent.at(v) = u;
         dist.at(v) = dist.at(u) + _adjMatrix.at(u).at(v);
+      }
   }
 
   // print the constructed distance array (REMOVE)
-  std::cout << "Vertex   Distance from Source\n";
-  for (int i = 0; i < _n; ++i)
-    std::cout << i << '\t' << '\t' << dist.at(i) << '\n';
+  std::cout << "Vertex\tDistance from Source\tPath\n";
+  for (int i = 0; i < _n; ++i) {
+    std::cout << i << '\t' << '\t' << dist.at(i) << '\t' << '\t';
+    printPath(parent, i);
+    std::cout << '\n';
+  }
 
   return dist.at(dst);
 }
@@ -108,8 +130,11 @@ Graph::Graph(const char *fName) {
   _n = 0;
   std::fstream data;
 
-  // setto la dimensione del database
+  // set database's dimension
   data.open(fName);
+  if (!data) {
+    throw std::runtime_error("Matrix file does not exist.\n");
+  }
   bool x;
   while (data >> x) {
     ++_n;
@@ -117,7 +142,7 @@ Graph::Graph(const char *fName) {
   data.close();
   _n = std::sqrt(_n);
 
-  //   importo la matrice di adiacenza e creo il grafo
+  // import adj matrix from file
   data.open(fName);
   for (int u = 0; u < _n; ++u) {
     std::vector<int> temp;
@@ -136,8 +161,11 @@ Graph::Graph(const char *fName) {
 Graph::Graph(const char *fName, const char *fCoordinates) {
   _n = 0;
   std::fstream data;
-  // setto la dimensione del database
+  // set database's dimension
   data.open(fCoordinates);
+  if (!data) {
+    throw std::runtime_error("Coordinates file does not exist.\n");
+  }
   bool x;
   double y;
   while (data >> y) {
@@ -146,7 +174,7 @@ Graph::Graph(const char *fName, const char *fCoordinates) {
   data.close();
   _n = _n / 2;
 
-  // importo le coordinate dei nodi
+  // import coordinates
   data.open(fCoordinates);
   for (int u = 0; u < 2; ++u) {
     std::vector<double> temp;
@@ -158,8 +186,11 @@ Graph::Graph(const char *fName, const char *fCoordinates) {
   }
   data.close();
 
-  // importo la matrice di adiacenza e creo il grafo
+  // import adj matrix from file
   data.open(fName);
+  if (!data) {
+    throw std::runtime_error("Matrix file does not exist.\n");
+  }
   for (int u = 0; u < _n; ++u) {
     std::vector<int> temp;
     for (int v = 0; v < _n; ++v) {
@@ -178,7 +209,9 @@ void Graph::addEdge(int u, int v, bool b) {
   }
 }
 
-void Graph::printMatrix() {
+void Graph::addVehicle(int type) { _vehicles.push_back(Vehicle(type)); }
+
+void Graph::printMatrix() noexcept {
   for (auto &row : _adjMatrix) {
     for (auto &it : row) {
       std::cout << it;
@@ -187,7 +220,7 @@ void Graph::printMatrix() {
   }
 }
 
-void Graph::print() {
+void Graph::print() noexcept {
   int i = 0;
   for (auto &row : _adjMatrix) {
     std::cout << i;
@@ -209,4 +242,4 @@ void Graph::print() {
 }
 
 // funzione da eliminare (REMOVE)
-void Graph::test(int x, int y) { std::cout << _streets.at(2).getNodes()[1]; }
+void Graph::test(int x, int y) { _dijkstra(x, y); }

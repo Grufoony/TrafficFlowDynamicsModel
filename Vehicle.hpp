@@ -2,18 +2,20 @@
 #define VEHICLE_HPP
 
 #include "VehicleType.hpp"
+#include <vector>
 
 class Vehicle {
 private:
-  static const int _maxNumVehicleType = 9;
-  static int _nVehicleType;
-  static VehicleType *_vehicleType[_maxNumVehicleType];
+  static std::vector<VehicleType> _vehicleType;
   int _index;
   int _position;
   int _timePenalty; // penalità di tempo da scontare
 public:
   Vehicle(int);
+
   static void addVehicleType(int, int);
+  static int getNVehicleType();
+
   void setTimePenalty(int);
   int getTimePenalty();
 };
