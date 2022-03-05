@@ -5,5 +5,5 @@ VehicleType::VehicleType(int src, int dst) {
   _trip[1] = dst;
 }
 
-int VehicleType::getOrigin() const { return _trip[0]; }
-int VehicleType::getDestination() const { return _trip[1]; }
+int VehicleType::getOrigin() const noexcept { return _trip[0]; }
+int VehicleType::getDestination() const noexcept { return _trip[1]; }

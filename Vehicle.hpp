@@ -14,8 +14,10 @@ public:
   Vehicle(int);
 
   static void addVehicleType(int, int);
+  static VehicleType getVehicleType(int);
   static int getNVehicleType();
 
+  void setPosition(int);
   void setTimePenalty(int);
   int getTimePenalty();
 };
