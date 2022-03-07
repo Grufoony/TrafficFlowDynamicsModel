@@ -12,6 +12,8 @@ public:
   VehicleType(int, int);
   int getOrigin() const noexcept;
   int getDestination() const noexcept;
+  void setTransMatrix(std::vector<std::vector<double>>);
+  std::vector<std::vector<double>> getTransMatrix();
 };
 
 #endif
