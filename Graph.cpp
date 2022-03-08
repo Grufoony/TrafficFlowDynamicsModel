@@ -1,20 +1,29 @@
 #include "Graph.hpp"
-
 #include <climits>
 #include <cmath>
 #include <fstream>
 #include <iostream>
 #include <stdexcept>
 
+// DEBUG
 void printPath(std::vector<int> parent, int j) {
 
   // Base Case : If j is source
   if (parent.at(j) == -1)
     return;
 
-  printPath(parent, parent[j]);
+  printPath(parent, parent.at(j));
 
   std::cout << "->" << j;
+}
+
+void sortPath(std::vector<int> parent, std::vector<int> &path, int j) {
+
+  // Base Case : If j is source
+  if (parent.at(j) != -1) {
+    sortPath(parent, path, parent.at(j));
+    path.push_back(parent.at(j));
+  }
 }
 
 // function for dijkstra
@@ -29,6 +38,7 @@ int minDistance(std::vector<int> dist, std::vector<bool> sptSet, int _n) {
   return min_index;
 }
 
+// using Dijkstra to calculate distance
 int Graph::_minDistance(int src, int dst) {
   std::vector<int> dist(
       _n); // The output array.  dist[i] will hold the shortest
@@ -38,11 +48,9 @@ int Graph::_minDistance(int src, int dst) {
       _n); // sptSet[i] will be true if vertex i is included in shortest
   // path tree or shortest distance from src to i is finalized
 
-  std::vector<int> parent(_n); // Parent array to store shortest path tree
-
   // Initialize all distances as INFINITE and stpSet[] as false
   for (int i = 0; i < _n; ++i)
-    dist.at(i) = INT_MAX, sptSet.at(i) = false, parent.at(i) = -1;
+    dist.at(i) = INT_MAX, sptSet.at(i) = false;
 
   // Distance of source vertex from itself is always 0
   dist.at(src) = 0;
@@ -67,14 +75,15 @@ int Graph::_minDistance(int src, int dst) {
         dist.at(v) = dist.at(u) + _adjMatrix.at(u).at(v);
   }
 
-  // print the constructed distance array (REMOVE)
-  std::cout << "Vertex   Distance from Source\n";
-  for (int i = 0; i < _n; ++i)
-    std::cout << i << '\t' << '\t' << dist.at(i) << '\n';
+  // print the constructed distance array DEBUG
+  // std::cout << "Vertex   Distance from Source\n";
+  // for (int i = 0; i < _n; ++i)
+  //   std::cout << i << '\t' << '\t' << dist.at(i) << '\n';
 
   return dist.at(dst);
 }
 
+// using Dijkstra to botain the shortest path
 std::vector<int> Graph::_Path(int src, int dst) {
   std::vector<int> dist(
       _n); // The output array.  dist[i] will hold the shortest
@@ -83,7 +92,7 @@ std::vector<int> Graph::_Path(int src, int dst) {
   std::vector<bool> sptSet(
       _n); // sptSet[i] will be true if vertex i is included in shortest
   // path tree or shortest distance from src to i is finalized
-  
+
   std::vector<int> parent(_n); // Parent array to store shortest path tree
 
   // Initialize all distances as INFINITE and stpSet[] as false
@@ -115,15 +124,23 @@ std::vector<int> Graph::_Path(int src, int dst) {
       }
   }
 
-  // print the constructed distance array (REMOVE)
-  std::cout << "Vertex\tDistance from Source\tPath\n";
-  for (int i = 0; i < _n; ++i) {
-    std::cout << i << '\t' << '\t' << dist.at(i) << '\t' << '\t';
-    printPath(parent, i);
-    std::cout << '\n';
-  }
+  std::vector<int> path;
+  // print the constructed distance array DEBUG
+  // std::cout << "Vertex\tDistance from Source\tPath\n";
+  // for (int i = 0; i < _n; ++i) {
+  //   std::cout << i << '\t' << '\t' << dist.at(i) << '\t' << '\t';
+  //   printPath(parent, i);
+  //   std::cout << '\n';
+  // }
+  // std::cout << '\n';
 
-  return dist.at(dst);
+  sortPath(parent, path, dst);
+
+  // for (auto &it : path) {
+  //   std::cout << it << '\n';
+  // }
+
+  return path;
 }
 
 Graph::Graph(const char *fName) {
@@ -211,6 +228,44 @@ void Graph::addEdge(int u, int v, bool b) {
 
 void Graph::addVehicle(int type) { _vehicles.push_back(Vehicle(type)); }
 
+void Graph::createTransMatrix() {
+  for (int index = 0; index < Vehicle::getNVehicleType(); ++index) {
+    auto vehicle = Vehicle::getVehicleType(index);
+    int dst = vehicle.getDestination();
+    int next;
+    std::vector<std::vector<double>> matrix;
+    for (int i = 0; i < _n; ++i) {
+
+      // std::cout << "ITERATION NUMBER: " << i << '\n'; //DEBUG
+
+      std::vector<double> temp;
+      auto path = _Path(i, dst);
+      if (path.size() > 1)
+        next = path.at(1);
+      else
+        next = -1;
+      for (int j = 0; j < _n; ++j) {
+
+        // std::cout << "SUBITERATION NUMBER: " << j << '\n'; // DEBUG
+
+        if (j == next)
+          temp.push_back(42.);
+        else
+          temp.push_back(0.);
+      }
+      matrix.push_back(temp);
+    }
+    for (auto it1 : matrix) {
+      for (auto it : it1)
+        std::cout << it << " ";
+      std::cout << '\n';
+    }
+    std::cout << "-------------------------------\n";
+
+    vehicle.setTransMatrix(matrix);
+  }
+}
+
 void Graph::printMatrix() noexcept {
   for (auto &row : _adjMatrix) {
     for (auto &it : row) {
@@ -242,4 +297,4 @@ void Graph::print() noexcept {
 }
 
 // funzione da eliminare (REMOVE)
-void Graph::test(int x, int y) { _dijkstra(x, y); }
+void Graph::test(int x, int y) { _Path(x, y); }

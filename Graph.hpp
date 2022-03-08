@@ -9,14 +9,12 @@ class Graph {
 private:
   std::vector<std::vector<int>> _adjMatrix;
   std::vector<std::vector<double>> _nodesCoordinates; // coordinates matrix
-  std::vector<std::vector<double>> _transMatrix;      // transition matrix
   std::vector<Street> _streets;                       // streets in the network
   std::vector<Vehicle> _vehicles;                     // vehicles in the network
   int _n;                                             // dimension
 
   int _minDistance(int, int); // algoritmo per la distanza minima tra due nodi
   std::vector<int> _Path(int, int);
-  // double _attractionModule(int);
 
 public:
   Graph(const char *);               // import from file (only matrix)
@@ -24,6 +22,7 @@ public:
 
   void addEdge(int, int, bool);
   void addVehicle(int);
+  void createTransMatrix();
 
   void printMatrix() noexcept;
   void print() noexcept;
