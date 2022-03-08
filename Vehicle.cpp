@@ -16,7 +16,7 @@ Vehicle::Vehicle(int type) {
 void Vehicle::addVehicleType(int src, int dst) {
   _vehicleType.push_back(VehicleType(src, dst));
 }
-VehicleType Vehicle::getVehicleType(int index) {
+VehicleType &Vehicle::getVehicleType(int index) {
   if (index < 0 || index > getNVehicleType() - 1)
     throw std::invalid_argument("Invalid getVehicleType index argument.\n");
   return _vehicleType.at(index);
