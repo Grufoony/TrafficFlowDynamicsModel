@@ -1,5 +1,4 @@
 #include "Vehicle.hpp"
-
 #include <stdexcept>
 
 std::vector<VehicleType> Vehicle::_vehicleType;
@@ -7,7 +6,7 @@ std::vector<VehicleType> Vehicle::_vehicleType;
 Vehicle::Vehicle(int type) {
   if (type < static_cast<int>(_vehicleType.size())) {
     _index = type;
-    _position = _vehicleType[_index].getOrigin();
+    _position = _vehicleType[_index].getSource();
   } else {
     throw std::runtime_error("Error in Vehicle: VehicleType does not exist.\n");
   }
