@@ -21,8 +21,8 @@ int main() {
   g.addVehicle(0);
   g.createTransMatrix();
 
-  std::cout << Vehicle::getVehicleType(0).getTransMatrix().size() << '\n';
-  for (auto it1 : Vehicle::getVehicleType(0).getTransMatrix()) {
+  std::cout << Vehicle::getVehicleType(0)->getTransMatrix().size() << '\n';
+  for (auto it1 : Vehicle::getVehicleType(0)->getTransMatrix()) {
     for (auto it : it1)
       std::cout << it << '\n';
   }

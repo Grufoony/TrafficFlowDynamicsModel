@@ -6,7 +6,7 @@
 
 class Vehicle {
 private:
-  static std::vector<VehicleType> _vehicleType;
+  static std::vector<VehicleType *> _vehicleType;
   int _index;
   int _position;
   int _timePenalty; // penalità di tempo da scontare
@@ -14,7 +14,7 @@ public:
   Vehicle(int);
 
   static void addVehicleType(int, int);
-  static VehicleType &getVehicleType(int);
+  static VehicleType *getVehicleType(int);
   static int getNVehicleType();
 
   void setPosition(int);

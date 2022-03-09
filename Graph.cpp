@@ -231,7 +231,7 @@ void Graph::addVehicle(int type) { _vehicles.push_back(Vehicle(type)); }
 void Graph::createTransMatrix() {
   for (int index = 0; index < Vehicle::getNVehicleType(); ++index) {
     auto vehicle = Vehicle::getVehicleType(index);
-    int dst = vehicle.getDestination();
+    int dst = vehicle->getDestination();
     int next;
     std::vector<std::vector<double>> matrix;
     for (int i = 0; i < _n; ++i) {
@@ -262,7 +262,7 @@ void Graph::createTransMatrix() {
     }
     std::cout << "-------------------------------\n";
 
-    vehicle.setTransMatrix(matrix);
+    vehicle->setTransMatrix(matrix);
   }
 }
 

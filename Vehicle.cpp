@@ -1,24 +1,24 @@
 #include "Vehicle.hpp"
 #include <stdexcept>
 
-std::vector<VehicleType> Vehicle::_vehicleType;
+std::vector<VehicleType *> Vehicle::_vehicleType;
 
 Vehicle::Vehicle(int type) {
   if (type < static_cast<int>(_vehicleType.size())) {
     _index = type;
-    _position = _vehicleType[_index].getSource();
+    _position = _vehicleType[_index]->getSource();
   } else {
     throw std::runtime_error("Error in Vehicle: VehicleType does not exist.\n");
   }
 }
 
 void Vehicle::addVehicleType(int src, int dst) {
-  _vehicleType.push_back(VehicleType(src, dst));
+  _vehicleType.push_back(new VehicleType(src, dst));
 }
-VehicleType &Vehicle::getVehicleType(int index) {
+VehicleType *Vehicle::getVehicleType(int index) {
   if (index < 0 || index > getNVehicleType() - 1)
     throw std::invalid_argument("Error in getVehicleType.\n");
-  return _vehicleType.at(index);
+  return _vehicleType[index];
 }
 int Vehicle::getNVehicleType() { return static_cast<int>(_vehicleType.size()); }
 
