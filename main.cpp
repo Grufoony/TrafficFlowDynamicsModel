@@ -27,5 +27,7 @@ int main() {
       std::cout << it << '\n';
   }
 
+  // g.print();
+
   return 0;
 }

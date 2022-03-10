@@ -12,6 +12,7 @@ private:
   int _timePenalty; // penalità di tempo da scontare
 public:
   Vehicle(int);
+  ~Vehicle();
 
   static void addVehicleType(int, int);
   static VehicleType *getVehicleType(int);

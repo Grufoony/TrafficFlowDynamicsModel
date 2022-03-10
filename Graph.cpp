@@ -219,6 +219,13 @@ Graph::Graph(const char *fName, const char *fCoordinates) {
   data.close();
 }
 
+Graph::~Graph() {
+  for (auto it : _vehicles) {
+    delete it;
+  }
+  _vehicles.clear();
+}
+
 void Graph::addEdge(int u, int v, bool b) {
   if (b) {
     _adjMatrix.at(u).at(v) = b;
@@ -226,7 +233,7 @@ void Graph::addEdge(int u, int v, bool b) {
   }
 }
 
-void Graph::addVehicle(int type) { _vehicles.push_back(Vehicle(type)); }
+void Graph::addVehicle(int type) { _vehicles.push_back(new Vehicle(type)); }
 
 void Graph::createTransMatrix() {
   for (int index = 0; index < Vehicle::getNVehicleType(); ++index) {
