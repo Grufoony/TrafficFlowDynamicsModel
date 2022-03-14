@@ -3,15 +3,13 @@
 
 class Street {
 private:
-  static constexpr double _lenght = 1.; // lunghezza della strada
-  static const int _capacity = 10;      // capacità massima di veicoli
-  static const int _vMax = 50;          // velocità massima per ogni strada
-  static const int _vMin = 7;           // velocità minima per ogni strada
-  int _nVehicles = 0;                   // veicoli presenti sulla strada
-  int _nodes[2];                        // nodi a cui è collegata
+  double _lenght;     // lenght of the street
+  int _capacity = 10; // maximum capacity of vehicles
+  int _nVehicles = 0; // number of vehicles on the street
+  int _nodes[2];      // nodes connections of the street
 
 public:
-  Street(int, int);
+  Street(int, int, double);
 
   int *getNodes();
   int getLenght() const noexcept;
