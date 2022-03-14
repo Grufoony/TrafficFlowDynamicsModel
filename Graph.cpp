@@ -152,7 +152,8 @@ Graph::Graph(const char *fName) {
   if (!data) {
     throw std::runtime_error("Matrix file does not exist.\n");
   }
-  bool x;
+  double x;
+  bool b;
   while (data >> x) {
     ++_n;
   }
@@ -162,12 +163,13 @@ Graph::Graph(const char *fName) {
   // import adj matrix from file
   data.open(fName);
   for (int u = 0; u < _n; ++u) {
-    std::vector<int> temp;
+    std::vector<bool> temp;
     for (int v = 0; v < _n; ++v) {
       data >> x;
-      temp.push_back(static_cast<int>(x));
-      if (x) {
-        _streets.push_back(Street(u, v));
+      b = x > 0;
+      temp.push_back(b);
+      if (b) {
+        _streets.push_back(new Street(u, v, x));
       }
     }
     _adjMatrix.push_back(temp);
@@ -183,9 +185,9 @@ Graph::Graph(const char *fName, const char *fCoordinates) {
   if (!data) {
     throw std::runtime_error("Coordinates file does not exist.\n");
   }
-  bool x;
-  double y;
-  while (data >> y) {
+  double x;
+  bool b;
+  while (data >> x) {
     ++_n;
   }
   data.close();
@@ -196,8 +198,8 @@ Graph::Graph(const char *fName, const char *fCoordinates) {
   for (int u = 0; u < 2; ++u) {
     std::vector<double> temp;
     for (int v = 0; v < _n; ++v) {
-      data >> y;
-      temp.push_back(y);
+      data >> x;
+      temp.push_back(x);
     }
     _nodesCoordinates.push_back(temp);
   }
@@ -209,10 +211,14 @@ Graph::Graph(const char *fName, const char *fCoordinates) {
     throw std::runtime_error("Matrix file does not exist.\n");
   }
   for (int u = 0; u < _n; ++u) {
-    std::vector<int> temp;
+    std::vector<bool> temp;
     for (int v = 0; v < _n; ++v) {
       data >> x;
-      temp.push_back(static_cast<int>(x));
+      b = x > 0;
+      temp.push_back(b);
+      if (b) {
+        _streets.push_back(new Street(u, v, x));
+      }
     }
     _adjMatrix.push_back(temp);
   }
@@ -220,10 +226,12 @@ Graph::Graph(const char *fName, const char *fCoordinates) {
 }
 
 Graph::~Graph() {
-  for (auto it : _vehicles) {
+  for (auto it : _vehicles)
     delete it;
-  }
+  for (auto it : _streets)
+    delete it;
   _vehicles.clear();
+  _streets.clear();
 }
 
 void Graph::addEdge(int u, int v, bool b) {
@@ -275,8 +283,8 @@ void Graph::createTransMatrix() {
 
 void Graph::printMatrix() noexcept {
   for (auto &row : _adjMatrix) {
-    for (auto &it : row) {
-      std::cout << it;
+    for (auto it : row) {
+      std::cout << it << '\t';
     }
     std::cout << '\n';
   }
@@ -292,7 +300,7 @@ void Graph::print() noexcept {
     }
     std::cout << "-->";
     int j = 0;
-    for (auto &it : row) {
+    for (auto it : row) {
       if (it) {
         std::cout << '\t' << j;
       }

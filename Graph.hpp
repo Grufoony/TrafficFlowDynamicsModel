@@ -7,9 +7,9 @@
 
 class Graph {
 private:
-  std::vector<std::vector<int>> _adjMatrix;
+  std::vector<std::vector<bool>> _adjMatrix;
   std::vector<std::vector<double>> _nodesCoordinates; // coordinates matrix
-  std::vector<Street> _streets;                       // streets in the network
+  std::vector<Street *> _streets;                     // streets in the network
   std::vector<Vehicle *> _vehicles;                   // vehicles in the network
   int _n;                                             // dimension
 
