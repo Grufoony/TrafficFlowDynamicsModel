@@ -87,7 +87,7 @@ std::vector<int> Graph::_nextStep(int src, int dst) {
   auto &row = _adjMatrix.at(src);
   auto min = _minDistance(src, dst);
   std::vector<int> _nextStep;
-  for (int i = 0; i < row.size(); ++i) {
+  for (int i = 0; i < static_cast<int>(row.size()); ++i) {
     if (row.at(i)) {
       // strade assunte tutte uguali
       if (_minDistance(i, dst) == (min - 1))
@@ -194,7 +194,6 @@ void Graph::createTransMatrix() {
   for (int index = 0; index < Vehicle::getNVehicleType(); ++index) {
     auto vehicle = Vehicle::getVehicleType(index);
     int dst = vehicle->getDestination();
-    int next;
     std::vector<std::vector<double>> matrix;
     // initialize matrix at 0
     for (int i = 0; i < _n; ++i) {
@@ -204,9 +203,10 @@ void Graph::createTransMatrix() {
       }
       matrix.push_back(temp);
     }
+
     for (int i = 0; i < _n; ++i) {
 
-      std::cout << "ITERATION NUMBER: " << i << '\n'; // DEBUG
+      // std::cout << "ITERATION NUMBER: " << i << '\n'; // DEBUG
 
       std::vector<double> temp;
       auto path = _nextStep(i, dst);
@@ -214,18 +214,6 @@ void Graph::createTransMatrix() {
         for (auto &it : path)
           matrix.at(i).at(it) = 42.;
       }
-      // else
-      //   next = -1;
-      // for (int j = 0; j < _n; ++j) {
-
-      //   std::cout << "SUBITERATION NUMBER: " << j << '\n'; // DEBUG
-
-      //   if (j == next)
-      //     temp.push_back(42.);
-      //   else
-      //     temp.push_back(0.);
-      // }
-      // matrix.push_back(temp);
     }
     std::cout << "-------------------------------\n";
     for (auto it1 : matrix) {
@@ -270,4 +258,8 @@ void Graph::print() noexcept {
 }
 
 // funzione da eliminare (REMOVE)
-void Graph::test(int x, int y) { _Path(x, y); }
+void Graph::test(int x, int y) {
+  x = y;
+  y = x;
+  return;
+}

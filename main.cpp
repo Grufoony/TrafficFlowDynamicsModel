@@ -8,6 +8,7 @@ int main() {
 
   auto g = Graph("matrix.dat");
   g.addVehicle(0);
+  std::cout << "Trip from 0 to 3\n";
   g.print();
   g.createTransMatrix();
 
