@@ -17,6 +17,20 @@ int minDistance(std::vector<int> dist, std::vector<bool> sptSet, int _n) {
   return min_index;
 }
 
+void normalizeVec(std::vector<double> &vec) {
+  double sum = 0.;
+  for (auto it : vec)
+    sum += it;
+  if (static_cast<int>(sum) == 0)
+    return;
+  for (auto &it : vec)
+    it = it / sum;
+}
+void normalizeMat(std::vector<std::vector<double>> &mat) {
+  for (auto &it : mat)
+    normalizeVec(it);
+}
+
 // using Dijkstra to calculate distance
 int Graph::_minDistance(int src, int dst) {
   std::vector<int> dist(
@@ -194,7 +208,7 @@ void Graph::createTransMatrix() {
           matrix.at(i).at(it) = 42.;
       }
     }
-
+    normalizeMat(matrix);
     vehicle->setTransMatrix(matrix);
   }
 }

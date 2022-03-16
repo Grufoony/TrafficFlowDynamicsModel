@@ -12,6 +12,7 @@ int main() {
   std::cout << "Trip from 0 to 3\n";
   g.print();
   g.createTransMatrix();
+  std::cout << "---------------------------------------------------\n";
   for (auto temp : Vehicle::getVehicleType(0)->getTransMatrix()) {
     for (auto it : temp) {
       std::cout << it << '\t';
