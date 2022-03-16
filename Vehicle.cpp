@@ -11,12 +11,6 @@ Vehicle::Vehicle(int type) {
     throw std::runtime_error("Error in Vehicle: VehicleType does not exist.\n");
   }
 }
-Vehicle::~Vehicle() {
-  // for (auto it : _vehicleType) {
-  //   delete it;
-  // }
-  // _vehicleType.clear();
-}
 
 void Vehicle::addVehicleType(int src, int dst) {
   _vehicleType.push_back(std::make_shared<VehicleType>(VehicleType(src, dst)));

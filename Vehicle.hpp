@@ -13,7 +13,7 @@ private:
   int _timePenalty; // penalità di tempo da scontare
 public:
   Vehicle(int);
-  ~Vehicle();
+  ~Vehicle() = default;
 
   static void addVehicleType(int, int);
   static std::shared_ptr<VehicleType> getVehicleType(int);

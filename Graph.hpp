@@ -15,12 +15,13 @@ private:
   int _n;                                             // dimension
 
   int _minDistance(int, int); // algoritmo per la distanza minima tra due nodi
+  // std::vector<int> _nextStep(int, int);
   std::vector<int> _Path(int, int);
 
 public:
   Graph(const char *);               // import from file (only matrix)
   Graph(const char *, const char *); // import from file (matrix + coordinates)
-  ~Graph();
+  ~Graph() = default;
 
   void addEdge(int, int, bool);
   void addVehicle(int);

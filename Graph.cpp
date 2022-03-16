@@ -83,6 +83,19 @@ int Graph::_minDistance(int src, int dst) {
   return dist.at(dst);
 }
 
+// std::vector<int> Graph::_nextStep(int src, int dst) {
+//   auto& row = _adjMatrix.at(src);
+//   auto min = _minDistance(src, dst);
+//   std::vector<int> _nextStep;
+//   for(int i =0; i < row.size(); ++i) {
+//     if(row.at(i)) {
+//       // strade assunte tutte uguali
+//       if(_minDistance(i, dst) == (min-1)) _nextStep.push_back(i);
+//     }
+//   }
+//   return _nextStep;
+// }
+
 // using Dijkstra to botain the shortest path
 std::vector<int> Graph::_Path(int src, int dst) {
   std::vector<int> dist(
@@ -126,19 +139,21 @@ std::vector<int> Graph::_Path(int src, int dst) {
 
   std::vector<int> path;
   // print the constructed distance array DEBUG
-  // std::cout << "Vertex\tDistance from Source\tPath\n";
-  // for (int i = 0; i < _n; ++i) {
-  //   std::cout << i << '\t' << '\t' << dist.at(i) << '\t' << '\t';
-  //   printPath(parent, i);
-  //   std::cout << '\n';
-  // }
-  // std::cout << '\n';
+  std::cout << "Vertex\tDistance from Source\tPath\n";
+  for (int i = 0; i < _n; ++i) {
+    std::cout << i << '\t' << '\t' << dist.at(i) << '\t' << '\t';
+    printPath(parent, i);
+    std::cout << '\n';
+  }
+  std::cout << '\n';
 
   sortPath(parent, path, dst);
 
-  // for (auto &it : path) {
-  //   std::cout << it << '\n';
-  // }
+  std::cout << "PATH:\t";
+  for (auto &it : path) {
+    std::cout << it << '\t';
+  }
+  std::cout << '\n';
 
   return path;
 }
@@ -225,15 +240,6 @@ Graph::Graph(const char *fName, const char *fCoordinates) {
   data.close();
 }
 
-Graph::~Graph() {
-  // for (auto it : _vehicles)
-  //   delete it;
-  // for (auto it : _streets)
-  //   delete it;
-  // _vehicles.clear();
-  // _streets.clear();
-}
-
 void Graph::addEdge(int u, int v, bool b) {
   if (b) {
     _adjMatrix.at(u).at(v) = b;
@@ -253,17 +259,19 @@ void Graph::createTransMatrix() {
     std::vector<std::vector<double>> matrix;
     for (int i = 0; i < _n; ++i) {
 
-      // std::cout << "ITERATION NUMBER: " << i << '\n'; //DEBUG
+      std::cout << "ITERATION NUMBER: " << i << '\n'; // DEBUG
 
       std::vector<double> temp;
       auto path = _Path(i, dst);
       if (path.size() > 1)
         next = path.at(1);
+      else if (_adjMatrix.at(i).at(dst))
+        next = dst;
       else
         next = -1;
       for (int j = 0; j < _n; ++j) {
 
-        // std::cout << "SUBITERATION NUMBER: " << j << '\n'; // DEBUG
+        std::cout << "SUBITERATION NUMBER: " << j << '\n'; // DEBUG
 
         if (j == next)
           temp.push_back(42.);
@@ -272,9 +280,10 @@ void Graph::createTransMatrix() {
       }
       matrix.push_back(temp);
     }
+    std::cout << "-------------------------------\n";
     for (auto it1 : matrix) {
       for (auto it : it1)
-        std::cout << it << " ";
+        std::cout << it << '\t';
       std::cout << '\n';
     }
     std::cout << "-------------------------------\n";
