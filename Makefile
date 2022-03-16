@@ -1,10 +1,10 @@
 .PHONY: all debug windows
 all:
 	clear
-	g++ main.cpp Graph.cpp Street.cpp Vehicle.cpp VehicleType.cpp -o test.out
+	g++ -O3 main.cpp Graph.cpp Street.cpp Vehicle.cpp VehicleType.cpp -o test.out
 windows:
 	clear
-	x86_64-w64-mingw32-g++ main.cpp Graph.cpp Street.cpp Vehicle.cpp VehicleType.cpp -o test.exe
+	x86_64-w64-mingw32-g++ -O3 main.cpp Graph.cpp Street.cpp Vehicle.cpp VehicleType.cpp -o test.exe
 debug:
 	clang-format -i main.cpp
 	clang-format -i Vehicle.cpp
