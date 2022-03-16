@@ -6,6 +6,7 @@
 
 int main() {
   auto start = std::chrono::high_resolution_clock::now();
+
   Vehicle::addVehicleType(0, 3);
   // Vehicle::addVehicleType(5, 3);
 

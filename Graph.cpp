@@ -6,7 +6,8 @@
 #include <stdexcept>
 
 // function for dijkstra
-int minDistance(std::vector<int> dist, std::vector<bool> sptSet, int _n) {
+int minDistance(std::vector<int> const &dist, std::vector<bool> const &sptSet,
+                int const _n) {
   // Initialize min value
   int min = INT_MAX, min_index;
 
@@ -32,7 +33,7 @@ void normalizeMat(std::vector<std::vector<double>> &mat) {
 }
 
 // using Dijkstra to calculate distance
-int Graph::_minDistance(int src, int dst) {
+int Graph::_minDistance(int src, int dst) const {
   std::vector<int> dist(
       _n); // The output array.  dist[i] will hold the shortest
   // distance from src to i
@@ -78,7 +79,7 @@ int Graph::_minDistance(int src, int dst) {
 
 std::vector<int> Graph::_nextStep(int src, int dst) {
   auto const &row = _adjMatrix.at(src);
-  auto min = _minDistance(src, dst);
+  auto const min = _minDistance(src, dst);
   std::vector<int> _nextStep;
   for (int i = 0; i < static_cast<int>(row.size()); ++i) {
     if (row.at(i)) {
@@ -185,8 +186,8 @@ void Graph::addVehicle(int type) {
 
 void Graph::createTransMatrix() {
   for (int index = 0; index < Vehicle::getNVehicleType(); ++index) {
-    auto vehicle = Vehicle::getVehicleType(index);
-    int dst = vehicle->getDestination();
+    auto const vehicle = Vehicle::getVehicleType(index);
+    int const dst = vehicle->getDestination();
     std::vector<std::vector<double>> matrix;
     // initialize matrix at 0
     for (int i = 0; i < _n; ++i) {
@@ -214,8 +215,8 @@ void Graph::createTransMatrix() {
 }
 
 void Graph::printMatrix() const noexcept {
-  for (auto &row : _adjMatrix) {
-    for (auto it : row) {
+  for (auto const &row : _adjMatrix) {
+    for (auto const it : row) {
       std::cout << it << '\t';
     }
     std::cout << '\n';
@@ -224,7 +225,7 @@ void Graph::printMatrix() const noexcept {
 
 void Graph::print() const noexcept {
   int i = 0;
-  for (auto &row : _adjMatrix) {
+  for (auto const &row : _adjMatrix) {
     std::cout << i;
     if (!(_nodesCoordinates.empty())) {
       std::cout << " (" << _nodesCoordinates.at(0).at(i) << ','
@@ -232,7 +233,7 @@ void Graph::print() const noexcept {
     }
     std::cout << "-->";
     int j = 0;
-    for (auto it : row) {
+    for (auto const it : row) {
       if (it) {
         std::cout << '\t' << j;
       }

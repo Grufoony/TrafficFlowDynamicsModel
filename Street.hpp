@@ -10,11 +10,12 @@ private:
 
 public:
   Street(int, int, double);
+  ~Street() = default;
 
-  int *getNodes();
-  int getLenght() const noexcept;
+  int const *getNodes() const noexcept;
+  double getLenght() const noexcept;
   int getCapacity() const noexcept;
-  int getNVehicles();
+  int getNVehicles() const noexcept;
   double getVelocity();
   void addVehicle();
   void remVehicle();

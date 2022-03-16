@@ -15,10 +15,10 @@ Street::Street(int n_1, int n_2, double l) {
   _capacity = static_cast<int>(_lenght / AVG_LENGHT);
 }
 
-int *Street::getNodes() { return _nodes; }
-int Street::getLenght() const noexcept { return _lenght; }
+int const *Street::getNodes() const noexcept { return _nodes; }
+double Street::getLenght() const noexcept { return _lenght; }
 int Street::getCapacity() const noexcept { return _capacity; }
-int Street::getNVehicles() { return _nVehicles; }
+int Street::getNVehicles() const noexcept { return _nVehicles; }
 double Street::getVelocity() {
   auto v = V_MAX - _nVehicles / _lenght;
   if (v < V_MIN) {

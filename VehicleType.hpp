@@ -10,6 +10,8 @@ private:
 
 public:
   VehicleType(int, int);
+  ~VehicleType() = default;
+
   int getSource() const noexcept;
   int getDestination() const noexcept;
   void setTransMatrix(std::vector<std::vector<double>> &);
