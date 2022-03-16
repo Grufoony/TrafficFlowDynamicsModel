@@ -215,13 +215,6 @@ void Graph::createTransMatrix() {
           matrix.at(i).at(it) = 42.;
       }
     }
-    std::cout << "-------------------------------\n";
-    for (auto it1 : matrix) {
-      for (auto it : it1)
-        std::cout << it << '\t';
-      std::cout << '\n';
-    }
-    std::cout << "-------------------------------\n";
 
     vehicle->setTransMatrix(matrix);
   }
