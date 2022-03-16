@@ -1,4 +1,6 @@
 *.json
+*.dll
+*.exe
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
