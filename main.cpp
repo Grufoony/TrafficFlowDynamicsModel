@@ -1,9 +1,11 @@
 #include "Graph.hpp"
 #include "Vehicle.hpp"
 
+#include <chrono>
 #include <iostream>
 
 int main() {
+  auto start = std::chrono::high_resolution_clock::now();
   Vehicle::addVehicleType(0, 3);
   // Vehicle::addVehicleType(5, 3);
 
@@ -20,5 +22,11 @@ int main() {
     std::cout << '\n';
   }
 
+  auto stop = std::chrono::high_resolution_clock::now();
+  auto duration =
+      std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+  std::cout << "--------------------------------------" << '\n';
+  std::cout << "Execution time: " << duration.count() << " ms" << '\n';
+  std::cout << "--------------------------------------" << '\n';
   return 0;
 }
