@@ -199,7 +199,7 @@ void Graph::createTransMatrix() {
   }
 }
 
-void Graph::printMatrix() noexcept {
+void Graph::printMatrix() const noexcept {
   for (auto &row : _adjMatrix) {
     for (auto it : row) {
       std::cout << it << '\t';
@@ -208,7 +208,7 @@ void Graph::printMatrix() noexcept {
   }
 }
 
-void Graph::print() noexcept {
+void Graph::print() const noexcept {
   int i = 0;
   for (auto &row : _adjMatrix) {
     std::cout << i;
@@ -229,7 +229,7 @@ void Graph::print() noexcept {
   }
 }
 
-// funzione da eliminare (REMOVE)
+// funzione da eliminare (DEBUG)
 void Graph::test(int x, int y) {
   x = y;
   y = x;

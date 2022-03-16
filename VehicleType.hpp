@@ -13,7 +13,7 @@ public:
   int getSource() const noexcept;
   int getDestination() const noexcept;
   void setTransMatrix(std::vector<std::vector<double>> &);
-  std::vector<std::vector<double>> &getTransMatrix();
+  std::vector<std::vector<double>> const &getTransMatrix() const;
 };
 
 #endif

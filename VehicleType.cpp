@@ -21,7 +21,7 @@ void VehicleType::setTransMatrix(std::vector<std::vector<double>> &matrix) {
     _transMatrix.push_back(temp);
   }
 }
-std::vector<std::vector<double>> &VehicleType::getTransMatrix() {
+std::vector<std::vector<double>> const &VehicleType::getTransMatrix() const {
   if (_transMatrix.size() == 0)
     throw std::runtime_error(
         "Error in getTransMatrix: _transMatrix has dimension 0.\n");

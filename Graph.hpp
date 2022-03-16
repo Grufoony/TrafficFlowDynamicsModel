@@ -26,8 +26,8 @@ public:
   void addVehicle(int);
   void createTransMatrix();
 
-  void printMatrix() noexcept;
-  void print() noexcept;
+  void printMatrix() const noexcept;
+  void print() const noexcept;
 
   // funzione da eliminare che verrà usata per accedere alle private (REMOVE)
   void test(int, int);
