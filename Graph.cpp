@@ -83,79 +83,18 @@ int Graph::_minDistance(int src, int dst) {
   return dist.at(dst);
 }
 
-// std::vector<int> Graph::_nextStep(int src, int dst) {
-//   auto& row = _adjMatrix.at(src);
-//   auto min = _minDistance(src, dst);
-//   std::vector<int> _nextStep;
-//   for(int i =0; i < row.size(); ++i) {
-//     if(row.at(i)) {
-//       // strade assunte tutte uguali
-//       if(_minDistance(i, dst) == (min-1)) _nextStep.push_back(i);
-//     }
-//   }
-//   return _nextStep;
-// }
-
-// using Dijkstra to botain the shortest path
-std::vector<int> Graph::_Path(int src, int dst) {
-  std::vector<int> dist(
-      _n); // The output array.  dist[i] will hold the shortest
-  // distance from src to i
-
-  std::vector<bool> sptSet(
-      _n); // sptSet[i] will be true if vertex i is included in shortest
-  // path tree or shortest distance from src to i is finalized
-
-  std::vector<int> parent(_n); // Parent array to store shortest path tree
-
-  // Initialize all distances as INFINITE and stpSet[] as false
-  for (int i = 0; i < _n; ++i)
-    dist.at(i) = INT_MAX, sptSet.at(i) = false, parent.at(i) = -1;
-
-  // Distance of source vertex from itself is always 0
-  dist.at(src) = 0;
-
-  // Find shortest path for all vertices
-  for (int count = 0; count < _n - 1; ++count) {
-    // Pick the minimum distance vertex from the set of vertices not
-    // yet processed. u is always equal to src in the first iteration.
-    int u = minDistance(dist, sptSet, _n);
-
-    // Mark the picked vertex as processed
-    sptSet.at(u) = true;
-
-    // Update dist value of the adjacent vertices of the picked vertex.
-    for (int v = 0; v < _n; ++v)
-
-      // Update dist[v] only if is not in sptSet, there is an edge from
-      // u to v, and total weight of path from src to  v through u is
-      // smaller than current value of dist[v]
-      if (!sptSet.at(v) && _adjMatrix.at(u).at(v) && dist.at(u) != INT_MAX &&
-          dist.at(u) + _adjMatrix.at(u).at(v) < dist.at(v)) {
-        parent.at(v) = u;
-        dist.at(v) = dist.at(u) + _adjMatrix.at(u).at(v);
-      }
+std::vector<int> Graph::_nextStep(int src, int dst) {
+  auto &row = _adjMatrix.at(src);
+  auto min = _minDistance(src, dst);
+  std::vector<int> _nextStep;
+  for (int i = 0; i < row.size(); ++i) {
+    if (row.at(i)) {
+      // strade assunte tutte uguali
+      if (_minDistance(i, dst) == (min - 1))
+        _nextStep.push_back(i);
+    }
   }
-
-  std::vector<int> path;
-  // print the constructed distance array DEBUG
-  std::cout << "Vertex\tDistance from Source\tPath\n";
-  for (int i = 0; i < _n; ++i) {
-    std::cout << i << '\t' << '\t' << dist.at(i) << '\t' << '\t';
-    printPath(parent, i);
-    std::cout << '\n';
-  }
-  std::cout << '\n';
-
-  sortPath(parent, path, dst);
-
-  std::cout << "PATH:\t";
-  for (auto &it : path) {
-    std::cout << it << '\t';
-  }
-  std::cout << '\n';
-
-  return path;
+  return _nextStep;
 }
 
 Graph::Graph(const char *fName) {
@@ -257,28 +196,36 @@ void Graph::createTransMatrix() {
     int dst = vehicle->getDestination();
     int next;
     std::vector<std::vector<double>> matrix;
+    // initialize matrix at 0
+    for (int i = 0; i < _n; ++i) {
+      std::vector<double> temp;
+      for (int j = 0; j < _n; ++j) {
+        temp.push_back(0.);
+      }
+      matrix.push_back(temp);
+    }
     for (int i = 0; i < _n; ++i) {
 
       std::cout << "ITERATION NUMBER: " << i << '\n'; // DEBUG
 
       std::vector<double> temp;
-      auto path = _Path(i, dst);
-      if (path.size() > 1)
-        next = path.at(1);
-      else if (_adjMatrix.at(i).at(dst))
-        next = dst;
-      else
-        next = -1;
-      for (int j = 0; j < _n; ++j) {
-
-        std::cout << "SUBITERATION NUMBER: " << j << '\n'; // DEBUG
-
-        if (j == next)
-          temp.push_back(42.);
-        else
-          temp.push_back(0.);
+      auto path = _nextStep(i, dst);
+      if (path.size() > 0) {
+        for (auto &it : path)
+          matrix.at(i).at(it) = 42.;
       }
-      matrix.push_back(temp);
+      // else
+      //   next = -1;
+      // for (int j = 0; j < _n; ++j) {
+
+      //   std::cout << "SUBITERATION NUMBER: " << j << '\n'; // DEBUG
+
+      //   if (j == next)
+      //     temp.push_back(42.);
+      //   else
+      //     temp.push_back(0.);
+      // }
+      // matrix.push_back(temp);
     }
     std::cout << "-------------------------------\n";
     for (auto it1 : matrix) {

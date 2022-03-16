@@ -15,8 +15,7 @@ private:
   int _n;                                             // dimension
 
   int _minDistance(int, int); // algoritmo per la distanza minima tra due nodi
-  // std::vector<int> _nextStep(int, int);
-  std::vector<int> _Path(int, int);
+  std::vector<int> _nextStep(int, int);
 
 public:
   Graph(const char *);               // import from file (only matrix)
