@@ -2,11 +2,12 @@
 #define VEHICLE_HPP
 
 #include "VehicleType.hpp"
+#include <memory>
 #include <vector>
 
 class Vehicle {
 private:
-  static std::vector<VehicleType *> _vehicleType;
+  static std::vector<std::shared_ptr<VehicleType>> _vehicleType;
   int _index;
   int _position;
   int _timePenalty; // penalità di tempo da scontare
@@ -15,7 +16,7 @@ public:
   ~Vehicle();
 
   static void addVehicleType(int, int);
-  static VehicleType *getVehicleType(int);
+  static std::shared_ptr<VehicleType> getVehicleType(int);
   static int getNVehicleType();
 
   void setPosition(int);

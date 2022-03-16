@@ -1,7 +1,7 @@
 #include "Vehicle.hpp"
 #include <stdexcept>
 
-std::vector<VehicleType *> Vehicle::_vehicleType;
+std::vector<std::shared_ptr<VehicleType>> Vehicle::_vehicleType;
 
 Vehicle::Vehicle(int type) {
   if (type < static_cast<int>(_vehicleType.size())) {
@@ -12,19 +12,19 @@ Vehicle::Vehicle(int type) {
   }
 }
 Vehicle::~Vehicle() {
-  for (auto it : _vehicleType) {
-    delete it;
-  }
-  _vehicleType.clear();
+  // for (auto it : _vehicleType) {
+  //   delete it;
+  // }
+  // _vehicleType.clear();
 }
 
 void Vehicle::addVehicleType(int src, int dst) {
-  _vehicleType.push_back(new VehicleType(src, dst));
+  _vehicleType.push_back(std::make_shared<VehicleType>(VehicleType(src, dst)));
 }
-VehicleType *Vehicle::getVehicleType(int index) {
+std::shared_ptr<VehicleType> Vehicle::getVehicleType(int index) {
   if (index < 0 || index > getNVehicleType() - 1)
     throw std::invalid_argument("Error in getVehicleType.\n");
-  return _vehicleType[index];
+  return _vehicleType.at(index);
 }
 int Vehicle::getNVehicleType() { return static_cast<int>(_vehicleType.size()); }
 

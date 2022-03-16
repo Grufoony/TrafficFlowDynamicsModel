@@ -169,7 +169,7 @@ Graph::Graph(const char *fName) {
       b = x > 0;
       temp.push_back(b);
       if (b) {
-        _streets.push_back(new Street(u, v, x));
+        _streets.push_back(std::make_shared<Street>(Street(u, v, x)));
       }
     }
     _adjMatrix.push_back(temp);
@@ -217,7 +217,7 @@ Graph::Graph(const char *fName, const char *fCoordinates) {
       b = x > 0;
       temp.push_back(b);
       if (b) {
-        _streets.push_back(new Street(u, v, x));
+        _streets.push_back(std::make_shared<Street>(Street(u, v, x)));
       }
     }
     _adjMatrix.push_back(temp);
@@ -226,12 +226,12 @@ Graph::Graph(const char *fName, const char *fCoordinates) {
 }
 
 Graph::~Graph() {
-  for (auto it : _vehicles)
-    delete it;
-  for (auto it : _streets)
-    delete it;
-  _vehicles.clear();
-  _streets.clear();
+  // for (auto it : _vehicles)
+  //   delete it;
+  // for (auto it : _streets)
+  //   delete it;
+  // _vehicles.clear();
+  // _streets.clear();
 }
 
 void Graph::addEdge(int u, int v, bool b) {
@@ -241,7 +241,9 @@ void Graph::addEdge(int u, int v, bool b) {
   }
 }
 
-void Graph::addVehicle(int type) { _vehicles.push_back(new Vehicle(type)); }
+void Graph::addVehicle(int type) {
+  _vehicles.push_back(std::make_shared<Vehicle>(Vehicle(type)));
+}
 
 void Graph::createTransMatrix() {
   for (int index = 0; index < Vehicle::getNVehicleType(); ++index) {

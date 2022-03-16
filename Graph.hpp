@@ -3,14 +3,15 @@
 
 #include "Street.hpp"
 #include "Vehicle.hpp"
+#include <memory>
 #include <vector>
 
 class Graph {
 private:
   std::vector<std::vector<bool>> _adjMatrix;
   std::vector<std::vector<double>> _nodesCoordinates; // coordinates matrix
-  std::vector<Street *> _streets;                     // streets in the network
-  std::vector<Vehicle *> _vehicles;                   // vehicles in the network
+  std::vector<std::shared_ptr<Street>> _streets;      // streets in the network
+  std::vector<std::shared_ptr<Vehicle>> _vehicles;    // vehicles in the network
   int _n;                                             // dimension
 
   int _minDistance(int, int); // algoritmo per la distanza minima tra due nodi
