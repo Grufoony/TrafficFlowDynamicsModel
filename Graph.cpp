@@ -5,27 +5,6 @@
 #include <iostream>
 #include <stdexcept>
 
-// DEBUG
-void printPath(std::vector<int> parent, int j) {
-
-  // Base Case : If j is source
-  if (parent.at(j) == -1)
-    return;
-
-  printPath(parent, parent.at(j));
-
-  std::cout << "->" << j;
-}
-
-void sortPath(std::vector<int> parent, std::vector<int> &path, int j) {
-
-  // Base Case : If j is source
-  if (parent.at(j) != -1) {
-    sortPath(parent, path, parent.at(j));
-    path.push_back(parent.at(j));
-  }
-}
-
 // function for dijkstra
 int minDistance(std::vector<int> dist, std::vector<bool> sptSet, int _n) {
   // Initialize min value
@@ -84,7 +63,7 @@ int Graph::_minDistance(int src, int dst) {
 }
 
 std::vector<int> Graph::_nextStep(int src, int dst) {
-  auto &row = _adjMatrix.at(src);
+  auto const &row = _adjMatrix.at(src);
   auto min = _minDistance(src, dst);
   std::vector<int> _nextStep;
   for (int i = 0; i < static_cast<int>(row.size()); ++i) {
