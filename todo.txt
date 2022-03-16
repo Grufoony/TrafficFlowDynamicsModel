@@ -1,0 +1,1 @@
+fare un overload () in modo da ottenere il bool della matrice di adiacenza e mettere in essa non dei bool ma le distanze double in modo che valga per ogni network.
