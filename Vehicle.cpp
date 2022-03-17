@@ -15,7 +15,7 @@ Vehicle::Vehicle(int type) {
 void Vehicle::addVehicleType(int src, int dst) {
   _vehicleType.push_back(std::make_shared<VehicleType>(VehicleType(src, dst)));
 }
-std::shared_ptr<VehicleType> Vehicle::getVehicleType(int index) {
+std::shared_ptr<VehicleType> Vehicle::getVehicleType(int const index) {
   if (index < 0 || index > getNVehicleType() - 1)
     throw std::invalid_argument("Error in getVehicleType.\n");
   return _vehicleType.at(index);
