@@ -5,7 +5,6 @@
 #include <iostream>
 
 void printExeTime(std::chrono::high_resolution_clock::duration interval) {
-  using date::operator<<;
   auto duration =
       std::chrono::duration_cast<std::chrono::microseconds>(interval);
   std::cout << "--------------------------------------" << '\n';
