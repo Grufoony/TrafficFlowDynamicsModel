@@ -3,6 +3,7 @@
 #include <cmath>
 #include <fstream>
 #include <iostream>
+#include <limits>
 #include <stdexcept>
 
 // function for dijkstra
@@ -82,9 +83,9 @@ std::vector<int> Graph::_nextStep(int const src, int const dst) {
   auto const min = _minDistance(src, dst);
   std::vector<int> _nextStep;
   for (int i = 0; i < static_cast<int>(row.size()); ++i) {
-    if (row.at(i)) {
-      // strade assunte tutte uguali
-      if (_minDistance(i, dst) == (min - 1))
+    auto lenght = row.at(i);
+    if (lenght > std::numeric_limits<double>::epsilon()) {
+      if (_minDistance(i, dst) == (min - lenght))
         _nextStep.push_back(i);
     }
   }
@@ -111,11 +112,11 @@ Graph::Graph(const char *fName) {
   // import adj matrix from file
   data.open(fName);
   for (int u = 0; u < _n; ++u) {
-    std::vector<bool> temp;
+    std::vector<double> temp;
     for (int v = 0; v < _n; ++v) {
       data >> x;
       b = x > 0;
-      temp.push_back(b);
+      temp.push_back(x);
       if (b) {
         _streets.push_back(std::make_shared<Street>(Street(u, v, x)));
       }
@@ -159,11 +160,11 @@ Graph::Graph(const char *fName, const char *fCoordinates) {
     throw std::runtime_error("Matrix file does not exist.\n");
   }
   for (int u = 0; u < _n; ++u) {
-    std::vector<bool> temp;
+    std::vector<double> temp;
     for (int v = 0; v < _n; ++v) {
       data >> x;
       b = x > 0;
-      temp.push_back(b);
+      temp.push_back(x);
       if (b) {
         _streets.push_back(std::make_shared<Street>(Street(u, v, x)));
       }
@@ -171,13 +172,6 @@ Graph::Graph(const char *fName, const char *fCoordinates) {
     _adjMatrix.push_back(temp);
   }
   data.close();
-}
-
-void Graph::addEdge(int u, int v, bool b) {
-  if (b) {
-    _adjMatrix.at(u).at(v) = b;
-    _adjMatrix.at(v).at(u) = b;
-  }
 }
 
 void Graph::addVehicle(int type) {
@@ -234,7 +228,7 @@ void Graph::print() const noexcept {
     std::cout << "-->";
     int j = 0;
     for (auto const it : row) {
-      if (it) {
+      if (it > std::numeric_limits<double>::epsilon()) {
         std::cout << '\t' << j;
       }
       ++j;
