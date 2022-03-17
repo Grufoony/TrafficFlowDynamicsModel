@@ -12,26 +12,41 @@ void printExeTime(std::chrono::high_resolution_clock::duration interval) {
   std::cout << "--------------------------------------" << '\n';
 }
 
-int main() {
+int main(int argc, char **argv) {
   typedef std::chrono::high_resolution_clock Clock;
   auto start = Clock::now();
+  // clock has started
 
-  Vehicle::addVehicleType(0, 3);
-  // Vehicle::addVehicleType(5, 3);
+  switch (argc) {
+  case 2:
+    Vehicle::addVehicleType(0, 3);
+    break;
 
-  auto g = Graph("matrix.dat");
-  // g.addVehicle(0);
-  std::cout << "Trip from 0 to 3\n";
+  case 3:
+    Vehicle::addVehicleType(argv[2]);
+    break;
+
+  default:
+    return EXIT_FAILURE;
+    break;
+  }
+  auto g = Graph(argv[1]);
   g.print();
   g.createTransMatrix();
-  std::cout << "---------------------------------------------------\n";
-  for (auto temp : Vehicle::getVehicleType(0)->getTransMatrix()) {
-    for (auto it : temp) {
-      std::cout << it << '\t';
+  for (int i = 0; i < Vehicle::getNVehicleType(); ++i) {
+    std::cout << "-------------------------------------------------------------"
+                 "--------";
+    std::cout << "From " << Vehicle::getVehicleType(i)->getSource() << " to "
+              << Vehicle::getVehicleType(i)->getDestination() << '\n';
+    for (auto temp : Vehicle::getVehicleType(i)->getTransMatrix()) {
+      for (auto it : temp) {
+        std::cout << it << '\t';
+      }
+      std::cout << '\n';
     }
-    std::cout << '\n';
   }
 
+  // ending clock adn terminate
   auto stop = Clock::now();
   printExeTime(stop - start);
   return 0;

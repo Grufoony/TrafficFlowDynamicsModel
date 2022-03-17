@@ -1,4 +1,5 @@
 #include "Vehicle.hpp"
+#include <fstream>
 #include <stdexcept>
 
 std::vector<std::shared_ptr<VehicleType>> Vehicle::_vehicleType;
@@ -14,6 +15,30 @@ Vehicle::Vehicle(int type) {
 
 void Vehicle::addVehicleType(int src, int dst) {
   _vehicleType.push_back(std::make_shared<VehicleType>(VehicleType(src, dst)));
+}
+void Vehicle::addVehicleType(const char *fName) {
+  std::fstream data;
+  data.open(fName);
+  int src, dst, n = 0;
+  if (!data) {
+    throw std::runtime_error("VehicleType file does not exist.\n");
+  }
+  while (data >> src) {
+    ++n;
+  }
+  data.close();
+  n = n / 2;
+  data.open(fName);
+  if (n > 0) {
+    for (int i = 0; i < n; ++i) {
+      data >> src >> dst;
+      _vehicleType.push_back(
+          std::make_shared<VehicleType>(VehicleType(src, dst)));
+    }
+  } else {
+    throw std::runtime_error("VehicleType file is empty.\n");
+  }
+  data.close();
 }
 std::shared_ptr<VehicleType> Vehicle::getVehicleType(int const index) {
   if (index < 0 || index > getNVehicleType() - 1)

@@ -16,6 +16,7 @@ public:
   ~Vehicle() = default;
 
   static void addVehicleType(int, int);
+  static void addVehicleType(const char *);
   static std::shared_ptr<VehicleType> getVehicleType(int const);
   static int getNVehicleType();
 

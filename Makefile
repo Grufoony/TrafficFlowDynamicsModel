@@ -17,4 +17,4 @@ debug:
 	clang-format -i Graph.hpp
 	clear
 	g++ main.cpp Graph.cpp Street.cpp Vehicle.cpp VehicleType.cpp -o test.out -Wall -Wextra -fsanitize=address
-	./test.out
+	./test.out matrix.dat vehicletype.dat

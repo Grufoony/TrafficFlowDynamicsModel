@@ -26,13 +26,14 @@ public:
   Graph(const char *, const char *); // import from file (matrix + coordinates)
   ~Graph() = default;
 
-  void addVehicle(int);
-  void createTransMatrix();
+  void addVehicle(int);     // add a vehicle of a type in _vehicles
+  void createTransMatrix(); // create all the transition matrices for all
+                            // vehicle types
 
-  void printMatrix() const noexcept;
-  void print() const noexcept;
+  void printMatrix() const noexcept; // print adjency matrix on terminal
+  void print() const noexcept;       // print network on terminal
 
-  // funzione da eliminare che verrà usata per accedere alle private (REMOVE)
+  // funzione da eliminare che verrà usata per accedere alle private (DEBUG)
   void test(int, int);
 };
 
