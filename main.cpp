@@ -4,8 +4,18 @@
 #include <chrono>
 #include <iostream>
 
+void printExeTime(std::chrono::high_resolution_clock::duration interval) {
+  using date::operator<<;
+  auto duration =
+      std::chrono::duration_cast<std::chrono::microseconds>(interval);
+  std::cout << "--------------------------------------" << '\n';
+  std::cout << "Execution time: " << duration.count() << " ms" << '\n';
+  std::cout << "--------------------------------------" << '\n';
+}
+
 int main() {
-  auto start = std::chrono::high_resolution_clock::now();
+  typedef std::chrono::high_resolution_clock Clock;
+  auto start = Clock::now();
 
   Vehicle::addVehicleType(0, 3);
   // Vehicle::addVehicleType(5, 3);
@@ -23,11 +33,7 @@ int main() {
     std::cout << '\n';
   }
 
-  auto stop = std::chrono::high_resolution_clock::now();
-  auto duration =
-      std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
-  std::cout << "--------------------------------------" << '\n';
-  std::cout << "Execution time: " << duration.count() << " ms" << '\n';
-  std::cout << "--------------------------------------" << '\n';
+  auto stop = Clock::now();
+  printExeTime(stop - start);
   return 0;
 }
