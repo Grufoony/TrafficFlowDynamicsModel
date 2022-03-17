@@ -14,10 +14,12 @@ private:
   std::vector<std::shared_ptr<Vehicle>> _vehicles;    // vehicles in the network
   int _n;                                             // dimension
 
-  int _minDistance(int,
-                   int) const; // algoritmo per la distanza minima tra due nodi
+  int _minDistance(
+      int const,
+      int const) const; // algoritmo per la distanza minima tra due nodi
   std::vector<int>
-  _nextStep(int, int); // next step for the destination (min. distance)
+  _nextStep(int const,
+            int const); // next step for the destination (min. distance)
 
 public:
   Graph(const char *);               // import from file (only matrix)

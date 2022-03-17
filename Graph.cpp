@@ -9,7 +9,7 @@
 int minDistance(std::vector<int> const &dist, std::vector<bool> const &sptSet,
                 int const _n) {
   // Initialize min value
-  int min = INT_MAX, min_index;
+  int min = INT_MAX, min_index = -1;
 
   for (int v = 0; v < _n; v++)
     if (sptSet.at(v) == false && dist.at(v) <= min)
@@ -33,7 +33,7 @@ void normalizeMat(std::vector<std::vector<double>> &mat) {
 }
 
 // using Dijkstra to calculate distance
-int Graph::_minDistance(int src, int dst) const {
+int Graph::_minDistance(int const src, int const dst) const {
   std::vector<int> dist(
       _n); // The output array.  dist[i] will hold the shortest
   // distance from src to i
@@ -77,7 +77,7 @@ int Graph::_minDistance(int src, int dst) const {
   return dist.at(dst);
 }
 
-std::vector<int> Graph::_nextStep(int src, int dst) {
+std::vector<int> Graph::_nextStep(int const src, int const dst) {
   auto const &row = _adjMatrix.at(src);
   auto const min = _minDistance(src, dst);
   std::vector<int> _nextStep;
