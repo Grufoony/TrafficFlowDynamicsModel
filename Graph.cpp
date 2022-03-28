@@ -1,5 +1,4 @@
 #include "Graph.hpp"
-#include <climits>
 #include <cmath>
 #include <fstream>
 #include <iostream>
@@ -11,10 +10,10 @@
 int minDistance(std::vector<int> const &dist, std::vector<bool> const &sptSet,
                 int const _n) {
   // Initialize min value
-  int min = INT_MAX, min_index = -1;
+  int min = std::numeric_limits<int>::max(), min_index = -1;
 
-  for (int v = 0; v < _n; v++)
-    if (sptSet.at(v) == false && dist.at(v) <= min)
+  for (int v = 0; v < _n; ++v)
+    if (!sptSet.at(v) && dist.at(v) <= min)
       min = dist.at(v), min_index = v;
 
   return min_index;
@@ -36,17 +35,16 @@ void normalizeMat(std::vector<std::vector<double>> &mat) {
 
 // using Dijkstra to calculate distance
 int Graph::_minDistance(int const src, int const dst) const {
-  std::vector<int> dist(
-      _n); // The output array.  dist[i] will hold the shortest
+  std::vector<int> dist; // The output array.  dist[i] will hold the shortest
   // distance from src to i
 
-  std::vector<bool> sptSet(
-      _n); // sptSet[i] will be true if vertex i is included in shortest
+  std::vector<bool>
+      sptSet; // sptSet[i] will be true if vertex i is included in shortest
   // path tree or shortest distance from src to i is finalized
 
   // Initialize all distances as INFINITE and stpSet[] as false
   for (int i = 0; i < _n; ++i)
-    dist.at(i) = INT_MAX, sptSet.at(i) = false;
+    dist.push_back(std::numeric_limits<int>::max()), sptSet.push_back(false);
 
   // Distance of source vertex from itself is always 0
   dist.at(src) = 0;
@@ -66,7 +64,8 @@ int Graph::_minDistance(int const src, int const dst) const {
       // Update dist[v] only if is not in sptSet, there is an edge from
       // u to v, and total weight of path from src to  v through u is
       // smaller than current value of dist[v]
-      if (!sptSet.at(v) && _adjMatrix.at(u).at(v) && dist.at(u) != INT_MAX &&
+      if (!sptSet.at(v) && _adjMatrix.at(u).at(v) &&
+          dist.at(u) != std::numeric_limits<int>::max() &&
           dist.at(u) + _adjMatrix.at(u).at(v) < dist.at(v))
         dist.at(v) = dist.at(u) + _adjMatrix.at(u).at(v);
   }
