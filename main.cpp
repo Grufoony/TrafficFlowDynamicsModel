@@ -20,6 +20,7 @@ int main(int argc, char **argv) {
   switch (argc) {
   case 2:
     Vehicle::addVehicleType(0, 8);
+    Vehicle::addVehicleType(5, 2);
     break;
 
   case 3:
@@ -47,6 +48,7 @@ int main(int argc, char **argv) {
   //   }
   // }
   g.addVehicle(0);
+  g.addVehicle(1);
   g.test();
   for (int i = 0; i < 4; ++i) {
     g.evolve(1);
@@ -60,3 +62,44 @@ int main(int argc, char **argv) {
   printExeTime(stop - start);
   return 0;
 }
+
+// dikjstra algorithm
+// int Graph::dijkstra(int const src, int const dst) {
+//   std::vector<int> dist;
+//   std::vector<int> prev;
+//   std::vector<bool> visited;
+//   for (int i = 0; i < _n; ++i) {
+//     dist.push_back(std::numeric_limits<int>::max());
+//     prev.push_back(-1);
+//     visited.push_back(false);
+//   }
+//   dist.at(src) = 0;
+//   prev.at(src) = src;
+//   visited.at(src) = true;
+//   for (int i = 0; i < _n - 1; ++i) {
+//     int u = minDist(dist, visited);
+//     visited.at(u) = true;
+//     for (int v = 0; v < _n; ++v) {
+//       if (!visited.at(v) && _adjMatrix.at(u).at(v) > 0) {
+//         if (dist.at(u) + _adjMatrix.at(u).at(v) < dist.at(v)) {
+//           dist.at(v) = dist.at(u) + _adjMatrix.at(u).at(v);
+//           prev.at(v) = u;
+//         }
+//       }
+//     }
+//   }
+//   return dist.at(dst);
+// }
+
+// minDist
+// int minDist(std::vector<int> const &dist, std::vector<bool> const &visited) {
+//   int min = std::numeric_limits<int>::max();
+//   int min_index = -1;
+//   for (int i = 0; i < dist.size(); ++i) {
+//     if (!visited.at(i) && dist.at(i) < min) {
+//       min = dist.at(i);
+//       min_index = i;
+//     }
+//   }
+//   return min_index;
+// }

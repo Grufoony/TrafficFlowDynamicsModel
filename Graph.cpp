@@ -270,4 +270,9 @@ void Graph::print() const noexcept {
 }
 
 // funzione da eliminare (DEBUG)
-void Graph::test() { std::cout << _vehicles.at(0)->getPosition() << '\n'; }
+void Graph::test() {
+  std::cout << '\n';
+  std::cout << _vehicles.at(0)->getPosition() << '\n';
+  std::cout << _vehicles.at(1)->getPosition() << '\n';
+  std::cout << '\n';
+}
