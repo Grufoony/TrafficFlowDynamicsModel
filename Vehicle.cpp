@@ -55,9 +55,7 @@ void Vehicle::setPosition(int pos) {
     throw std::invalid_argument("Error in setPosition.\n");
   _position = pos;
 }
-int Vehicle::getPosition() const {
-  return _position;
-}
+int Vehicle::getPosition() const { return _position; }
 void Vehicle::setTimePenalty(int time) {
   if (time < 0)
     throw std::invalid_argument("Error in setTimePenalty.\n");
