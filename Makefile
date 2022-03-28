@@ -1,5 +1,8 @@
-.PHONY: all debug windows
-all:
+.PHONY: run wsl debug windows
+run:
+	clear
+	./test.out matrix.dat
+wsl:
 	clear
 	g++ -O3 main.cpp Graph.cpp Street.cpp Vehicle.cpp VehicleType.cpp -o test.out
 windows:
@@ -17,4 +20,3 @@ debug:
 	clang-format -i Graph.hpp
 	clear
 	g++ main.cpp Graph.cpp Street.cpp Vehicle.cpp VehicleType.cpp -o test.out -Wall -Wextra -fsanitize=address
-	./test.out matrix.dat vehicletype.dat

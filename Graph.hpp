@@ -20,6 +20,7 @@ private:
   std::vector<int>
   _nextStep(int const,
             int const); // next step for the destination (min. distance)
+  void _evolve();       // evolve the vehicle's position
 
 public:
   Graph(const char *);               // import from file (only matrix)
@@ -29,12 +30,13 @@ public:
   void addVehicle(int);     // add a vehicle of a type in _vehicles
   void createTransMatrix(); // create all the transition matrices for all
                             // vehicle types
+  void evolve(int const);   // evolve the vehicles' position
 
   void printMatrix() const noexcept; // print adjency matrix on terminal
   void print() const noexcept;       // print network on terminal
 
   // funzione da eliminare che verrà usata per accedere alle private (DEBUG)
-  void test(int, int);
+  void test();
 };
 
 #endif

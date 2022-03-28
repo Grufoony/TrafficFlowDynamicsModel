@@ -19,7 +19,7 @@ int main(int argc, char **argv) {
 
   switch (argc) {
   case 2:
-    Vehicle::addVehicleType(0, 3);
+    Vehicle::addVehicleType(0, 8);
     break;
 
   case 3:
@@ -31,22 +31,31 @@ int main(int argc, char **argv) {
     break;
   }
   auto g = Graph(argv[1]);
-  g.print();
   g.createTransMatrix();
-  for (int i = 0; i < Vehicle::getNVehicleType(); ++i) {
-    std::cout << "-------------------------------------------------------------"
-                 "--------";
-    std::cout << "From " << Vehicle::getVehicleType(i)->getSource() << " to "
-              << Vehicle::getVehicleType(i)->getDestination() << '\n';
-    for (auto temp : Vehicle::getVehicleType(i)->getTransMatrix()) {
-      for (auto it : temp) {
-        std::cout << it << '\t';
-      }
-      std::cout << '\n';
-    }
+  // g.print();
+  // for (int i = 0; i < Vehicle::getNVehicleType(); ++i) {
+  //   std::cout <<
+  //   "-------------------------------------------------------------"
+  //                "--------";
+  //   std::cout << "From " << Vehicle::getVehicleType(i)->getSource() << " to "
+  //             << Vehicle::getVehicleType(i)->getDestination() << '\n';
+  //   for (auto temp : Vehicle::getVehicleType(i)->getTransMatrix()) {
+  //     for (auto it : temp) {
+  //       std::cout << it << '\t';
+  //     }
+  //     std::cout << '\n';
+  //   }
+  // }
+  g.addVehicle(0);
+  g.test();
+  for (int i = 0; i < 4; ++i) {
+    g.evolve(1);
+    g.test();
   }
+  // g.evolve(1);
+  // g.test();
 
-  // ending clock adn terminate
+  // ending clock and terminate
   auto stop = Clock::now();
   printExeTime(stop - start);
   return 0;

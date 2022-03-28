@@ -4,6 +4,7 @@
 #include <fstream>
 #include <iostream>
 #include <limits>
+#include <random>
 #include <stdexcept>
 
 // function for dijkstra
@@ -90,6 +91,30 @@ std::vector<int> Graph::_nextStep(int const src, int const dst) {
     }
   }
   return _nextStep;
+}
+
+void Graph::_evolve() {
+  // random initializations
+  std::random_device dev;
+  std::mt19937 rng(dev());
+  std::uniform_real_distribution<> dist(0., 1.);
+  for (auto const &vehicle : _vehicles) {
+    auto const &trans_vec = vehicle->getVehicleType()->getTransMatrix().at(
+        vehicle->getPosition()); // obtain the line with trans probabilities
+    auto threshold = 0.;
+    auto const p = dist(rng);
+    for (int i = 0; i < _n; ++i) {
+      auto prob = trans_vec.at(i);
+      // std::cout << trans_vec.size() << '\n';
+      if (prob > std::numeric_limits<double>::epsilon()) {
+        threshold += prob;
+        if (p < threshold) {
+          vehicle->setPosition(i);
+          break;
+        }
+      }
+    }
+  }
 }
 
 Graph::Graph(const char *fName) {
@@ -208,6 +233,12 @@ void Graph::createTransMatrix() {
   }
 }
 
+void Graph::evolve(int const time) {
+  for (int dt = 0; dt < time; ++dt) {
+    _evolve();
+  }
+}
+
 void Graph::printMatrix() const noexcept {
   for (auto const &row : _adjMatrix) {
     for (auto const it : row) {
@@ -239,8 +270,4 @@ void Graph::print() const noexcept {
 }
 
 // funzione da eliminare (DEBUG)
-void Graph::test(int x, int y) {
-  x = y;
-  y = x;
-  return;
-}
+void Graph::test() { std::cout << _vehicles.at(0)->getPosition() << '\n'; }
