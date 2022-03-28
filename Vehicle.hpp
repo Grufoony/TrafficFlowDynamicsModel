@@ -19,8 +19,10 @@ public:
   static void addVehicleType(const char *);
   static std::shared_ptr<VehicleType> getVehicleType(int const);
   static int getNVehicleType();
-
+  
+  std::shared_ptr<VehicleType> getVehicleType() const;
   void setPosition(int);
+  int getPosition() const;
   void setTimePenalty(int);
   int getTimePenalty();
 };

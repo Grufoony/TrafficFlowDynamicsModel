@@ -45,12 +45,18 @@ std::shared_ptr<VehicleType> Vehicle::getVehicleType(int const index) {
     throw std::invalid_argument("Error in getVehicleType.\n");
   return _vehicleType.at(index);
 }
+std::shared_ptr<VehicleType> Vehicle::getVehicleType() const {
+  return _vehicleType.at(_index);
+}
 int Vehicle::getNVehicleType() { return static_cast<int>(_vehicleType.size()); }
 
 void Vehicle::setPosition(int pos) {
   if (pos < 0)
     throw std::invalid_argument("Error in setPosition.\n");
   _position = pos;
+}
+int Vehicle::getPosition() const {
+  return _position;
 }
 void Vehicle::setTimePenalty(int time) {
   if (time < 0)
