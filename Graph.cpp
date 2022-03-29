@@ -7,6 +7,8 @@
 #include <random>
 #include <stdexcept>
 
+double constexpr NORM = 273.15e-6;
+
 // function for dijkstra
 int minDistance(std::vector<int> const &dist, std::vector<bool> const &sptSet,
                 int const _n) {
@@ -107,7 +109,6 @@ void Graph::_evolve() {
     auto const p = dist(rng);
     for (int i = 0; i < _n; ++i) {
       auto prob = trans_vec.at(i);
-      // std::cout << trans_vec.size() << '\n';
       if (prob > std::numeric_limits<double>::epsilon() &&
           vehicle->getPosition() != vehicle->getDestination()) {
         threshold += prob;
@@ -214,8 +215,7 @@ void Graph::setTemperature(double const temperature) {
 
 void Graph::createTransMatrix() {
   // function for noise using a kelvin-like temperature normalization
-  auto const noise = std::tanh(_temperature * 273.15e-6);
-  std::cout << noise << '\n';
+  auto const noise = std::tanh(_temperature * NORM);
 
   for (int index = 0; index < Vehicle::getNVehicleType(); ++index) {
     auto const vehicle = Vehicle::getVehicleType(index);
@@ -265,24 +265,33 @@ void Graph::printMatrix() const noexcept {
   }
 }
 
-void Graph::print() const noexcept {
-  int i = 0;
-  for (auto const &row : _adjMatrix) {
-    std::cout << i;
-    if (!(_nodesCoordinates.empty())) {
-      std::cout << " (" << _nodesCoordinates.at(0).at(i) << ','
-                << _nodesCoordinates.at(1).at(i) << ") ";
-    }
-    std::cout << "-->";
-    int j = 0;
-    for (auto const it : row) {
-      if (it > std::numeric_limits<double>::epsilon()) {
-        std::cout << '\t' << j;
+void Graph::print(bool const printGraph) const noexcept {
+  std::cout << "NETWORK INFORMATIONS\n";
+  std::cout << "Nodes: " << _n << '\n';
+  std::cout << "Temperature: " << _temperature << 'K' << '\n';
+  std::cout << "Noise level: " << std::tanh(_temperature * NORM) * 1e2 << '%'
+            << '\n';
+  std::cout << "Vehicles: " << _vehicles.size() << '\n';
+  std::cout << "Streets: " << _streets.size() << '\n';
+  if (printGraph) {
+    int i = 0;
+    for (auto const &row : _adjMatrix) {
+      std::cout << i;
+      if (!(_nodesCoordinates.empty())) {
+        std::cout << " (" << _nodesCoordinates.at(0).at(i) << ','
+                  << _nodesCoordinates.at(1).at(i) << ") ";
       }
-      ++j;
+      std::cout << "-->";
+      int j = 0;
+      for (auto const it : row) {
+        if (it > std::numeric_limits<double>::epsilon()) {
+          std::cout << '\t' << j;
+        }
+        ++j;
+      }
+      std::cout << '\n';
+      ++i;
     }
-    std::cout << '\n';
-    ++i;
   }
 }
 

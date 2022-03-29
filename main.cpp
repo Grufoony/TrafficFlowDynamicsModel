@@ -36,7 +36,7 @@ int main(int argc, char **argv) {
   auto g = Graph(argv[1]);
   g.setTemperature(300);
   g.createTransMatrix();
-  // g.print();
+  g.print(true);
   for (int i = 0; i < Vehicle::getNVehicleType(); ++i) {
     std::cout << "-------------------------------------------------------------"
                  "--------";
@@ -65,6 +65,6 @@ int main(int argc, char **argv) {
   return 0;
 }
 
-//TODO:
+// TODO:
 // - add streets to the evolve function
 // - implement time penalty for the vehicles

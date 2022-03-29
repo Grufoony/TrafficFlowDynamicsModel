@@ -34,8 +34,8 @@ public:
                             // vehicle types
   void evolve(int const);   // evolve the vehicles' position
 
-  void printMatrix() const noexcept; // print adjency matrix on terminal
-  void print() const noexcept;       // print network on terminal
+  void printMatrix() const noexcept;     // print adjency matrix on terminal
+  void print(bool const) const noexcept; // print network on terminal
 
   // funzione da eliminare che verrà usata per accedere alle private (DEBUG)
   void test();
