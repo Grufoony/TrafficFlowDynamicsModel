@@ -213,8 +213,9 @@ void Graph::setTemperature(double const temperature) {
 }
 
 void Graph::createTransMatrix() {
-  // function for noise
-  auto const noise = std::atan(_temperature);
+  // function for noise using a kelvin-like temperature normalization
+  auto const noise = std::tanh(_temperature * 273.15e-6);
+  std::cout << noise << '\n';
 
   for (int index = 0; index < Vehicle::getNVehicleType(); ++index) {
     auto const vehicle = Vehicle::getVehicleType(index);
@@ -228,22 +229,19 @@ void Graph::createTransMatrix() {
       }
       matrix.push_back(temp);
     }
-
+    // setting to 1 the probabilities of correct movements
     for (int i = 0; i < _n; ++i) {
-
-      // std::cout << "ITERATION NUMBER: " << i << '\n'; // DEBUG
-
       auto path = _nextStep(i, dst);
       if (path.size() > 0) {
         for (auto &it : path)
-          matrix.at(i).at(it) = 42.;
+          matrix.at(i).at(it) = 1.;
       }
     }
-    normalizeMat(matrix);
     for (int i = 0; i < _n; ++i) {
       for (int j = 0; j < _n; ++j) {
-        if (_adjMatrix.at(i).at(j) > std::numeric_limits<double>::epsilon()) {
-          matrix.at(i).at(j) += noise;
+        if (_adjMatrix.at(i).at(j) > std::numeric_limits<double>::epsilon() &&
+            matrix.at(i).at(j) < 0.1) {
+          matrix.at(i).at(j) = noise;
         }
       }
     }
