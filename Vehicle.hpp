@@ -23,6 +23,7 @@ public:
   std::shared_ptr<VehicleType> getVehicleType() const;
   void setPosition(int);
   int getPosition() const;
+  int getDestination() const;
   void setTimePenalty(int);
   int getTimePenalty();
 };

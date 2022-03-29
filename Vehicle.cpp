@@ -61,4 +61,7 @@ void Vehicle::setTimePenalty(int time) {
     throw std::invalid_argument("Error in setTimePenalty.\n");
   _timePenalty = time;
 }
+int Vehicle::getDestination() const {
+  return getVehicleType()->getDestination();
+}
 int Vehicle::getTimePenalty() { return _timePenalty; }

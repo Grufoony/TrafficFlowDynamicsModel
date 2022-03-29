@@ -13,6 +13,7 @@ private:
   std::vector<std::shared_ptr<Street>> _streets;      // streets in the network
   std::vector<std::shared_ptr<Vehicle>> _vehicles;    // vehicles in the network
   int _n;                                             // dimension
+  double _temperature = 0.; // temperature of the network
 
   int _minDistance(
       int const,
@@ -27,7 +28,8 @@ public:
   Graph(const char *, const char *); // import from file (matrix + coordinates)
   ~Graph() = default;
 
-  void addVehicle(int);     // add a vehicle of a type in _vehicles
+  void addVehicle(int);              // add a vehicle of a type in _vehicles
+  void setTemperature(double const); // set the temperature of the network
   void createTransMatrix(); // create all the transition matrices for all
                             // vehicle types
   void evolve(int const);   // evolve the vehicles' position

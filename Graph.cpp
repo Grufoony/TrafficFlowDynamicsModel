@@ -1,6 +1,7 @@
 #include "Graph.hpp"
 #include <cmath>
 #include <fstream>
+#include <iomanip>
 #include <iostream>
 #include <limits>
 #include <random>
@@ -107,7 +108,8 @@ void Graph::_evolve() {
       // std::cout << trans_vec.size() << '\n';
       if (prob > std::numeric_limits<double>::epsilon()) {
         threshold += prob;
-        if (p < threshold) {
+        if (p < threshold &&
+            vehicle->getPosition() != vehicle->getDestination()) {
           vehicle->setPosition(i);
           break;
         }
@@ -202,7 +204,16 @@ void Graph::addVehicle(int type) {
   _vehicles.push_back(std::make_shared<Vehicle>(Vehicle(type)));
 }
 
+void Graph::setTemperature(double const temperature) {
+  if (temperature < 0)
+    throw std::runtime_error("Temperature must be positive.\n");
+  _temperature = temperature;
+}
+
 void Graph::createTransMatrix() {
+  // function for noise
+  auto const noise = std::atan(_temperature);
+
   for (int index = 0; index < Vehicle::getNVehicleType(); ++index) {
     auto const vehicle = Vehicle::getVehicleType(index);
     int const dst = vehicle->getDestination();
@@ -220,11 +231,18 @@ void Graph::createTransMatrix() {
 
       // std::cout << "ITERATION NUMBER: " << i << '\n'; // DEBUG
 
-      std::vector<double> temp;
       auto path = _nextStep(i, dst);
       if (path.size() > 0) {
         for (auto &it : path)
           matrix.at(i).at(it) = 42.;
+      }
+    }
+    normalizeMat(matrix);
+    for (int i = 0; i < _n; ++i) {
+      for (int j = 0; j < _n; ++j) {
+        if (_adjMatrix.at(i).at(j) > std::numeric_limits<double>::epsilon()) {
+          matrix.at(i).at(j) += noise;
+        }
       }
     }
     normalizeMat(matrix);
@@ -241,7 +259,7 @@ void Graph::evolve(int const time) {
 void Graph::printMatrix() const noexcept {
   for (auto const &row : _adjMatrix) {
     for (auto const it : row) {
-      std::cout << it << '\t';
+      std::cout << std::setprecision(2) << it << '\t';
     }
     std::cout << '\n';
   }
@@ -272,6 +290,5 @@ void Graph::print() const noexcept {
 void Graph::test() {
   std::cout << '\n';
   std::cout << _vehicles.at(0)->getPosition() << '\n';
-  std::cout << _vehicles.at(1)->getPosition() << '\n';
-  std::cout << '\n';
+  // std::cout << _vehicles.at(1)->getPosition() << '\n';
 }
