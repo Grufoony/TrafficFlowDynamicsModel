@@ -7,7 +7,7 @@
 #include <random>
 #include <stdexcept>
 
-double constexpr NORM = 273.15e-6;
+double constexpr TEMP_NORM = 273.15e-6;
 
 // function for dijkstra
 int minDistance(std::vector<int> const &dist, std::vector<bool> const &sptSet,
@@ -238,7 +238,7 @@ void Graph::setTemperature(double const temperature) {
 
 void Graph::createTransMatrix() {
   // function for noise using a kelvin-like temperature normalization
-  auto const noise = std::tanh(_temperature * NORM);
+  auto const noise = std::tanh(_temperature * TEMP_NORM);
 
   for (int index = 0; index < Vehicle::getNVehicleType(); ++index) {
     auto const vehicle = Vehicle::getVehicleType(index);
@@ -260,6 +260,7 @@ void Graph::createTransMatrix() {
           matrix.at(i).at(it) = 1.;
       }
     }
+    // setting noise
     for (int i = 0; i < _n; ++i) {
       for (int j = 0; j < _n; ++j) {
         if (_adjMatrix.at(i).at(j) > std::numeric_limits<double>::epsilon() &&
@@ -293,7 +294,7 @@ void Graph::print(bool const printGraph) const noexcept {
   std::cout << "NETWORK INFORMATIONS\n";
   std::cout << "Nodes: " << _n << '\n';
   std::cout << "Temperature: " << _temperature << 'K' << '\n';
-  std::cout << "Noise level: " << std::tanh(_temperature * NORM) * 1e2 << '%'
+  std::cout << "Noise level: " << std::tanh(_temperature * TEMP_NORM) * 1e2 << '%'
             << '\n';
   std::cout << "Vehicles: " << _vehicles.size() << '\n';
   std::cout << "Streets: " << _streets.size() << '\n';

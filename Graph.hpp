@@ -38,7 +38,8 @@ public:
 
   void printMatrix() const noexcept;     // print adjency matrix on terminal
   void print(bool const) const noexcept; // print network on terminal
-  void printStreets() const noexcept;    // print streets on terminal
+  void printStreets() const
+      noexcept; // print streets on terminal with nodes and number of vehicles
 
   // funzione da eliminare che verrà usata per accedere alle private (DEBUG)
   void test();
