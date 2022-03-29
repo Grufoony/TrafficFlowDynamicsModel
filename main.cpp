@@ -68,5 +68,4 @@ int main(int argc, char **argv) {
 }
 
 // TODO:
-// - add streets to the evolve function
 // - implement time penalty for the vehicles
