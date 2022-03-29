@@ -10,6 +10,7 @@ private:
   static std::vector<std::shared_ptr<VehicleType>> _vehicleType;
   int _index;
   int _position;
+  int _street = -1;
   int _timePenalty; // penalità di tempo da scontare
 public:
   Vehicle(int);
@@ -23,6 +24,8 @@ public:
   std::shared_ptr<VehicleType> getVehicleType() const;
   void setPosition(int);
   int getPosition() const;
+  void setStreet(int);
+  int getStreet() const;
   int getDestination() const;
   void setTimePenalty(int);
   int getTimePenalty();

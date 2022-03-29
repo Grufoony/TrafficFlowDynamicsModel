@@ -9,13 +9,14 @@ double constexpr V_MIN = 7.;  // min velocity for each street
 Street::Street(int n_1, int n_2, double l) {
   if (!(l > 0))
     throw std::invalid_argument("Error in Street.\n");
-  _nodes[0] = n_1;
-  _nodes[1] = n_2;
+  _src = n_1;
+  _dst = n_2;
   _lenght = l;
   _capacity = static_cast<int>(_lenght / AVG_LENGHT);
 }
 
-int const *Street::getNodes() const noexcept { return _nodes; }
+int Street::getOrigin() const noexcept { return _src; }
+int Street::getDestination() const noexcept { return _dst; }
 double Street::getLenght() const noexcept { return _lenght; }
 int Street::getCapacity() const noexcept { return _capacity; }
 int Street::getNVehicles() const noexcept { return _nVehicles; }

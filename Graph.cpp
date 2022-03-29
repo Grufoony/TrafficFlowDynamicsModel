@@ -113,12 +113,35 @@ void Graph::_evolve() {
           vehicle->getPosition() != vehicle->getDestination()) {
         threshold += prob;
         if (p < threshold) {
+          // street update
+          if (vehicle->getStreet() != -1) {
+            _streets.at(vehicle->getStreet())->remVehicle();
+          }
+          int streetIndex = _findStreet(vehicle->getPosition(), i);
+          vehicle->setStreet(streetIndex);
+          _streets.at(streetIndex)->addVehicle();
           vehicle->setPosition(i);
           break;
         }
       }
+      if (vehicle->getPosition() ==
+              vehicle->getVehicleType()->getDestination() &&
+          vehicle->getStreet() != -1) {
+        _streets.at(vehicle->getStreet())->remVehicle();
+        vehicle->setStreet(-1);
+      }
     }
   }
+}
+
+int Graph::_findStreet(int const src, int const dst) {
+  int i = 0;
+  for (auto const &street : _streets) {
+    if (street->getOrigin() == src && street->getDestination() == dst)
+      return i;
+    ++i;
+  }
+  throw std::runtime_error("Street not found");
 }
 
 Graph::Graph(const char *fName) {
@@ -266,6 +289,7 @@ void Graph::printMatrix() const noexcept {
 }
 
 void Graph::print(bool const printGraph) const noexcept {
+  std::cout << "-------------------------" << '\n';
   std::cout << "NETWORK INFORMATIONS\n";
   std::cout << "Nodes: " << _n << '\n';
   std::cout << "Temperature: " << _temperature << 'K' << '\n';
@@ -293,11 +317,20 @@ void Graph::print(bool const printGraph) const noexcept {
       ++i;
     }
   }
+  std::cout << "-------------------------" << '\n';
+}
+
+void Graph::printStreets() const noexcept {
+  int i = 0;
+  for (auto const &street : _streets) {
+    if (street->getNVehicles() > 0) {
+      std::cout << i << '(' << street->getOrigin() << ','
+                << street->getDestination() << ')' << ": "
+                << street->getNVehicles() << '\n';
+    }
+    ++i;
+  }
 }
 
 // funzione da eliminare (DEBUG)
-void Graph::test() {
-  std::cout << '\n';
-  std::cout << _vehicles.at(0)->getPosition() << '\n';
-  // std::cout << _vehicles.at(1)->getPosition() << '\n';
-}
+void Graph::test() { return; }

@@ -7,7 +7,7 @@ std::vector<std::shared_ptr<VehicleType>> Vehicle::_vehicleType;
 Vehicle::Vehicle(int type) {
   if (type < static_cast<int>(_vehicleType.size())) {
     _index = type;
-    _position = _vehicleType[_index]->getSource();
+    _position = getVehicleType()->getSource();
   } else {
     throw std::runtime_error("Error in Vehicle: VehicleType does not exist.\n");
   }
@@ -56,6 +56,8 @@ void Vehicle::setPosition(int pos) {
   _position = pos;
 }
 int Vehicle::getPosition() const { return _position; }
+void Vehicle::setStreet(int street) { _street = street; }
+int Vehicle::getStreet() const { return _street; }
 void Vehicle::setTimePenalty(int time) {
   if (time < 0)
     throw std::invalid_argument("Error in setTimePenalty.\n");

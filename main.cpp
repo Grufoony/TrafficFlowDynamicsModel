@@ -22,7 +22,7 @@ int main(int argc, char **argv) {
   switch (argc) {
   case 2:
     Vehicle::addVehicleType(0, 8);
-    // Vehicle::addVehicleType(5, 2);
+    Vehicle::addVehicleType(5, 2);
     break;
 
   case 3:
@@ -34,28 +34,30 @@ int main(int argc, char **argv) {
     break;
   }
   auto g = Graph(argv[1]);
-  g.setTemperature(300);
+  g.setTemperature(3000);
   g.createTransMatrix();
-  g.print(true);
-  for (int i = 0; i < Vehicle::getNVehicleType(); ++i) {
-    std::cout << "-------------------------------------------------------------"
-                 "--------";
-    std::cout << "From " << Vehicle::getVehicleType(i)->getSource() << " to "
-              << Vehicle::getVehicleType(i)->getDestination() << '\n';
-    for (auto temp : Vehicle::getVehicleType(i)->getTransMatrix()) {
-      for (auto it : temp) {
-        std::cout << std::setprecision(2) << it << '\t';
-      }
-      std::cout << '\n';
-    }
-  }
-  // g.addVehicle(0);
-  // // g.addVehicle(1);
-  // g.test();
-  // for (int i = 0; i < 10; ++i) {
-  //   g.evolve(1);
-  //   g.test();
+  // for (int i = 0; i < Vehicle::getNVehicleType(); ++i) {
+  //   std::cout <<
+  //   "-------------------------------------------------------------"
+  //                "--------";
+  //   std::cout << "From " << Vehicle::getVehicleType(i)->getSource() << " to "
+  //             << Vehicle::getVehicleType(i)->getDestination() << '\n';
+  //   for (auto temp : Vehicle::getVehicleType(i)->getTransMatrix()) {
+  //     for (auto it : temp) {
+  //       std::cout << std::setprecision(2) << it << '\t';
+  //     }
+  //     std::cout << '\n';
+  //   }
   // }
+  g.addVehicle(0);
+  g.addVehicle(0);
+  g.addVehicle(1);
+  g.print(false);
+  for (int t = 0; t < 50; ++t) {
+    std::cout << "Time: " << t << '\n';
+    g.evolve(1);
+    g.printStreets();
+  }
   // g.evolve(1);
   // g.test();
 
