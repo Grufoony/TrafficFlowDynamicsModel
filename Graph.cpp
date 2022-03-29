@@ -29,6 +29,7 @@ void normalizeVec(std::vector<double> &vec) {
   for (auto &it : vec)
     it = it / sum;
 }
+
 void normalizeMat(std::vector<std::vector<double>> &mat) {
   for (auto &it : mat)
     normalizeVec(it);
@@ -98,6 +99,7 @@ void Graph::_evolve() {
   std::random_device dev;
   std::mt19937 rng(dev());
   std::uniform_real_distribution<> dist(0., 1.);
+  // cicling through all the vehicles
   for (auto const &vehicle : _vehicles) {
     auto const &trans_vec = vehicle->getVehicleType()->getTransMatrix().at(
         vehicle->getPosition()); // obtain the line with trans probabilities
@@ -106,10 +108,10 @@ void Graph::_evolve() {
     for (int i = 0; i < _n; ++i) {
       auto prob = trans_vec.at(i);
       // std::cout << trans_vec.size() << '\n';
-      if (prob > std::numeric_limits<double>::epsilon()) {
+      if (prob > std::numeric_limits<double>::epsilon() &&
+          vehicle->getPosition() != vehicle->getDestination()) {
         threshold += prob;
-        if (p < threshold &&
-            vehicle->getPosition() != vehicle->getDestination()) {
+        if (p < threshold) {
           vehicle->setPosition(i);
           break;
         }
