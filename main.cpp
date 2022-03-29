@@ -64,3 +64,7 @@ int main(int argc, char **argv) {
   printExeTime(stop - start);
   return 0;
 }
+
+//TODO:
+// - add streets to the evolve function
+// - implement time penalty for the vehicles
