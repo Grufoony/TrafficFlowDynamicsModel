@@ -136,6 +136,14 @@ void Graph::_evolve() {
       }
     }
   }
+  // erase vehicles that have reached their destination
+  _vehicles.erase(std::remove_if(_vehicles.begin(), _vehicles.end(),
+                                 [](std::shared_ptr<Vehicle> const &vehicle) {
+                                   return vehicle->getPosition() ==
+                                              vehicle->getDestination() &&
+                                          vehicle->getStreet() == -1;
+                                 }),
+                  _vehicles.end());
 }
 
 int Graph::_findStreet(int const src, int const dst) {
