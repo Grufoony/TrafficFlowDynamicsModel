@@ -233,6 +233,16 @@ void Graph::addVehicle(int type) {
   _vehicles.push_back(std::make_shared<Vehicle>(Vehicle(type)));
 }
 
+void Graph::addRndmVehicles(int nVehicles) {
+  std::random_device dev;
+  std::mt19937 rng(dev());
+  std::uniform_int_distribution<> dist(0, Vehicle::getNVehicleType() - 1);
+  for (int i = 0; i < nVehicles; ++i) {
+    int index = dist(rng);
+    this->addVehicle(index);
+  }
+}
+
 void Graph::setTemperature(double const temperature) {
   if (temperature < 0)
     throw std::runtime_error("Temperature must be positive.\n");
