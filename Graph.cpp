@@ -360,7 +360,7 @@ void Graph::printStreets() const noexcept {
 void Graph::fprint(const bool printGraph) const noexcept {
   std::ofstream fOut;
   fOut.open("network_info.txt");
-  auto rdbufBackup = std::cout.rdbuf();
+  auto const rdbufBackup = std::cout.rdbuf();
   std::cout.rdbuf(fOut.rdbuf());
   this->print(printGraph);
   std::cout.rdbuf(rdbufBackup);

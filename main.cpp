@@ -2,6 +2,7 @@
 #include "Vehicle.hpp"
 
 #include <chrono>
+#include <fstream>
 #include <iomanip>
 #include <iostream>
 #include <random>
@@ -36,6 +37,8 @@ int main(int argc, char **argv) {
   // clock has started
 
   auto g = Graph(argv[1]);
+  std::ofstream fOut;
+  auto const rdbufBackup = std::cout.rdbuf();
 
   switch (argc) {
   case 2:
@@ -58,20 +61,39 @@ int main(int argc, char **argv) {
     g.addRndmVehicles(std::stoi(argv[4]));
     break;
 
+  case 6:
+    Vehicle::addVehicleType(argv[2]);
+    g.setTemperature(std::stod(argv[3]));
+    g.addRndmVehicles(std::stoi(argv[4]));
+    g.createTransMatrix();
+    g.fprint(true);
+    fOut.open("network_evolution.txt");
+    std::cout.rdbuf(fOut.rdbuf());
+    for (int t = 0; t < std::stoi(argv[5]); ++t) {
+      std::cout << "Time: " << t << '\n';
+      g.evolve(1);
+      g.printStreets();
+      std::cout << '\n';
+    }
+    std::cout.rdbuf(rdbufBackup);
+    break;
+
   default:
+    fOut.close();
     return EXIT_FAILURE;
     break;
   }
 
+  fOut.close();
+
   // g.setTemperature(3000);
-  g.createTransMatrix();
-  g.print(false);
-  g.fprint(true);
-  for (int t = 0; t < 50; ++t) {
-    std::cout << "Time: " << t << '\n';
-    g.evolve(1);
-    g.printStreets();
-  }
+  // g.createTransMatrix();
+  // g.fprint(true);
+  // for (int t = 0; t < 1e3; ++t) {
+  //   std::cout << "Time: " << t << '\n';
+  //   g.evolve(1);
+  //   g.printStreets();
+  // }
   // g.evolve(1);
   // g.test();
 
