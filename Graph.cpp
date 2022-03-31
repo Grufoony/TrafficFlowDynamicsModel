@@ -290,7 +290,7 @@ void Graph::createTransMatrix() {
 
 void Graph::evolve(int const time) {
   for (int dt = 0; dt < time; ++dt) {
-    _evolve();
+    this->_evolve();
   }
 }
 
