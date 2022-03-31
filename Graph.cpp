@@ -109,8 +109,10 @@ void Graph::_evolve() {
     auto const p = dist(rng);
     for (int i = 0; i < _n; ++i) {
       auto prob = trans_vec.at(i);
+      auto timePenalty = vehicle->getTimePenalty();
       if (prob > std::numeric_limits<double>::epsilon() &&
-          vehicle->getPosition() != vehicle->getDestination()) {
+          vehicle->getPosition() != vehicle->getDestination() &&
+          timePenalty == 0) {
         threshold += prob;
         if (p < threshold) {
           // street update
@@ -123,6 +125,8 @@ void Graph::_evolve() {
           vehicle->setPosition(i);
           break;
         }
+      } else if (timePenalty != 0) {
+        vehicle->setTimePenalty(timePenalty - 1);
       }
       if (vehicle->getPosition() ==
               vehicle->getVehicleType()->getDestination() &&
@@ -294,8 +298,8 @@ void Graph::print(bool const printGraph) const noexcept {
   std::cout << "NETWORK INFORMATIONS\n";
   std::cout << "Nodes: " << _n << '\n';
   std::cout << "Temperature: " << _temperature << 'K' << '\n';
-  std::cout << "Noise level: " << std::tanh(_temperature * TEMP_NORM) * 1e2 << '%'
-            << '\n';
+  std::cout << "Noise level: " << std::tanh(_temperature * TEMP_NORM) * 1e2
+            << '%' << '\n';
   std::cout << "Vehicles: " << _vehicles.size() << '\n';
   std::cout << "Streets: " << _streets.size() << '\n';
   if (printGraph) {

@@ -11,7 +11,7 @@ private:
   int _index;
   int _position;
   int _street = -1;
-  int _timePenalty; // penalità di tempo da scontare
+  int _timePenalty = 0; // penalità di tempo da scontare
 public:
   Vehicle(int);
   ~Vehicle() = default;
