@@ -128,8 +128,7 @@ void Graph::_evolve() {
       } else if (timePenalty != 0) {
         vehicle->setTimePenalty(timePenalty - 1);
       }
-      if (vehicle->getPosition() ==
-              vehicle->getVehicleType()->getDestination() &&
+      if (vehicle->getPosition() == vehicle->getDestination() &&
           vehicle->getStreet() != -1) {
         _streets.at(vehicle->getStreet())->remVehicle();
         vehicle->setStreet(-1);
