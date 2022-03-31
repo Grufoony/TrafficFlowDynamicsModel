@@ -312,6 +312,7 @@ void Graph::print(bool const printGraph) const noexcept {
   std::cout << "Vehicles: " << _vehicles.size() << '\n';
   std::cout << "Streets: " << _streets.size() << '\n';
   if (printGraph) {
+    std::cout << "Input graph:\n";
     int i = 0;
     for (auto const &row : _adjMatrix) {
       std::cout << i;
@@ -344,6 +345,16 @@ void Graph::printStreets() const noexcept {
     }
     ++i;
   }
+}
+
+void Graph::fprint(const bool printGraph) const noexcept {
+  std::ofstream fOut;
+  fOut.open("network_info.txt");
+  auto rdbufBackup = std::cout.rdbuf();
+  std::cout.rdbuf(fOut.rdbuf());
+  this->print(printGraph);
+  std::cout.rdbuf(rdbufBackup);
+  fOut.close();
 }
 
 // funzione da eliminare (DEBUG)

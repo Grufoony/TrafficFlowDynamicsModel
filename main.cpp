@@ -4,20 +4,38 @@
 #include <chrono>
 #include <iomanip>
 #include <iostream>
+#include <random>
 
 void printExeTime(std::chrono::high_resolution_clock::duration interval) {
   auto duration =
-      std::chrono::duration_cast<std::chrono::microseconds>(interval);
+      std::chrono::duration_cast<std::chrono::milliseconds>(interval);
   std::cout << "-------------------------" << '\n';
   std::cout << '|' << "Execution time: " << duration.count()
             << std::setprecision(4) << " ms" << '|' << '\n';
   std::cout << "-------------------------" << '\n';
 }
 
+void printTransMatrices() {
+  for (int i = 0; i < Vehicle::getNVehicleType(); ++i) {
+    std::cout << "-------------------------------------------------------------"
+                 "--------";
+    std::cout << "From " << Vehicle::getVehicleType(i)->getSource() << " to "
+              << Vehicle::getVehicleType(i)->getDestination() << '\n';
+    for (auto temp : Vehicle::getVehicleType(i)->getTransMatrix()) {
+      for (auto it : temp) {
+        std::cout << std::setprecision(2) << it << '\t';
+      }
+      std::cout << '\n';
+    }
+  }
+}
+
 int main(int argc, char **argv) {
   typedef std::chrono::high_resolution_clock Clock;
   auto start = Clock::now();
   // clock has started
+
+  auto g = Graph(argv[1]);
 
   switch (argc) {
   case 2:
@@ -29,30 +47,26 @@ int main(int argc, char **argv) {
     Vehicle::addVehicleType(argv[2]);
     break;
 
+  case 4:
+    Vehicle::addVehicleType(argv[2]);
+    g.addRndmVehicles(std::stoi(argv[3]));
+    break;
+
+  case 5:
+    Vehicle::addVehicleType(argv[2]);
+    g.setTemperature(std::stod(argv[3]));
+    g.addRndmVehicles(std::stoi(argv[4]));
+    break;
+
   default:
     return EXIT_FAILURE;
     break;
   }
-  auto g = Graph(argv[1]);
-  g.setTemperature(3000);
+
+  // g.setTemperature(3000);
   g.createTransMatrix();
-  // for (int i = 0; i < Vehicle::getNVehicleType(); ++i) {
-  //   std::cout <<
-  //   "-------------------------------------------------------------"
-  //                "--------";
-  //   std::cout << "From " << Vehicle::getVehicleType(i)->getSource() << " to "
-  //             << Vehicle::getVehicleType(i)->getDestination() << '\n';
-  //   for (auto temp : Vehicle::getVehicleType(i)->getTransMatrix()) {
-  //     for (auto it : temp) {
-  //       std::cout << std::setprecision(2) << it << '\t';
-  //     }
-  //     std::cout << '\n';
-  //   }
-  // }
-  g.addVehicle(0);
-  g.addVehicle(0);
-  g.addVehicle(1);
   g.print(false);
+  g.fprint(true);
   for (int t = 0; t < 50; ++t) {
     std::cout << "Time: " << t << '\n';
     g.evolve(1);
