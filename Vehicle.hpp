@@ -22,6 +22,7 @@ public:
   static int getNVehicleType();
 
   std::shared_ptr<VehicleType> getVehicleType() const;
+  int getType() const; // return the index of the vehicle type in _vehicleType
   void setPosition(int);
   int getPosition() const;
   void setStreet(int);

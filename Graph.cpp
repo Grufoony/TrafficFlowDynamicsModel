@@ -1,4 +1,5 @@
 #include "Graph.hpp"
+#include <algorithm>
 #include <cmath>
 #include <fstream>
 #include <iomanip>
@@ -310,6 +311,15 @@ void Graph::print(bool const printGraph) const noexcept {
   std::cout << "Noise level: " << std::tanh(_temperature * TEMP_NORM) * 1e2
             << '%' << '\n';
   std::cout << "Vehicles: " << _vehicles.size() << '\n';
+  for (int type = 0; type < static_cast<int>(Vehicle::getNVehicleType());
+       ++type) {
+    int nVehicles =
+        std::count_if(_vehicles.begin(), _vehicles.end(),
+                      [type](std::shared_ptr<Vehicle> const &vehicle) {
+                        return vehicle->getType() == type;
+                      });
+    std::cout << '\t' << "Type " << type << ": " << nVehicles << '\n';
+  }
   std::cout << "Streets: " << _streets.size() << '\n';
   if (printGraph) {
     std::cout << "Input graph:\n";

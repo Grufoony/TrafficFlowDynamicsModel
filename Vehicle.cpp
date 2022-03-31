@@ -48,6 +48,7 @@ std::shared_ptr<VehicleType> Vehicle::getVehicleType(int const index) {
 std::shared_ptr<VehicleType> Vehicle::getVehicleType() const {
   return _vehicleType.at(_index);
 }
+int Vehicle::getType() const { return _index; }
 int Vehicle::getNVehicleType() { return static_cast<int>(_vehicleType.size()); }
 
 void Vehicle::setPosition(int pos) {
