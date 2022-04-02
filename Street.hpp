@@ -16,7 +16,8 @@ public:
   int getOrigin() const noexcept;
   int getDestination() const noexcept;
   double getLenght() const noexcept;
-  int getCapacity() const noexcept;
+  bool isFull() const noexcept;
+  // int getCapacity() const noexcept;
   int getNVehicles() const noexcept;
   double getVelocity();
   void addVehicle();

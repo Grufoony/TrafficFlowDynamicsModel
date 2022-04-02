@@ -18,10 +18,11 @@ Street::Street(int n_1, int n_2, double l) {
 int Street::getOrigin() const noexcept { return _src; }
 int Street::getDestination() const noexcept { return _dst; }
 double Street::getLenght() const noexcept { return _lenght; }
-int Street::getCapacity() const noexcept { return _capacity; }
+bool Street::isFull() const noexcept { return _nVehicles == _capacity; }
+// int Street::getCapacity() const noexcept { return _capacity; }
 int Street::getNVehicles() const noexcept { return _nVehicles; }
 double Street::getVelocity() {
-  auto v = V_MAX - _nVehicles / _lenght;
+  auto v = V_MAX - _nVehicles * AVG_LENGHT / _lenght;
   if (v < V_MIN) {
     return V_MIN;
   } else {
