@@ -12,6 +12,8 @@ private:
   int _position;
   int _street = -1;
   int _timePenalty = 0; // penalità di tempo da scontare
+  double _velocity;
+
 public:
   Vehicle(int);
   ~Vehicle() = default;
@@ -21,15 +23,15 @@ public:
   static std::shared_ptr<VehicleType> getVehicleType(int const);
   static int getNVehicleType();
 
-  std::shared_ptr<VehicleType> getVehicleType() const;
-  int getType() const; // return the index of the vehicle type in _vehicleType
+  std::shared_ptr<VehicleType> getVehicleType() const noexcept;
+  int getType() const noexcept; // return the index of the vehicle type in _vehicleType
   void setPosition(int);
   int getPosition() const;
   void setStreet(int);
   int getStreet() const;
   int getDestination() const;
   void setTimePenalty(int);
-  int getTimePenalty();
+  int getTimePenalty() const;
 };
 
 #endif
