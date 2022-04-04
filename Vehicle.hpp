@@ -24,7 +24,8 @@ public:
   static int getNVehicleType();
 
   std::shared_ptr<VehicleType> getVehicleType() const noexcept;
-  int getType() const noexcept; // return the index of the vehicle type in _vehicleType
+  int getType()
+      const noexcept; // return the index of the vehicle type in _vehicleType
   void setPosition(int);
   int getPosition() const;
   void setStreet(int);

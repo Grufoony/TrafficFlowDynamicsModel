@@ -45,7 +45,7 @@ std::shared_ptr<VehicleType> Vehicle::getVehicleType(int const index) {
     throw std::invalid_argument("Error in getVehicleType.\n");
   return _vehicleType.at(index);
 }
-std::shared_ptr<VehicleType> Vehicle::getVehicleType() const noexcept{
+std::shared_ptr<VehicleType> Vehicle::getVehicleType() const noexcept {
   return _vehicleType.at(_index);
 }
 int Vehicle::getType() const noexcept { return _index; }
