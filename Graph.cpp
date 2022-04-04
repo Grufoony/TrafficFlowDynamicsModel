@@ -111,29 +111,30 @@ void Graph::_evolve() {
     for (int i = 0; i < _n; ++i) {
       auto prob = trans_vec.at(i);
       auto timePenalty = vehicle->getTimePenalty();
-      if (prob > std::numeric_limits<double>::epsilon() &&
-          vehicle->getPosition() != vehicle->getDestination() &&
-          timePenalty == 0) {
-        threshold += prob;
-        if (p < threshold) {
-          // street update
+      if (timePenalty > 0) { // check if the vehicle can move
+        vehicle->setTimePenalty(timePenalty - 1);
+      } else {
+        if (vehicle->getPosition() == vehicle->getDestination()) { // check if the vehicle is at the destination
           if (vehicle->getStreet() != -1) {
             _streets.at(vehicle->getStreet())->remVehicle();
+            vehicle->setStreet(-1);
           }
-          int streetIndex = _findStreet(vehicle->getPosition(), i);
-          vehicle->setStreet(streetIndex);
-          _streets.at(streetIndex)->addVehicle();
-          vehicle->setPosition(i);
-          break;
+        } else if (prob > std::numeric_limits<double>::epsilon()) {
+          threshold += prob;
+          if (p < threshold) {
+            // street update
+            int streetIndex = _findStreet(vehicle->getPosition(), i);
+            if (!(_streets.at(streetIndex)->isFull())) {
+              if (vehicle->getStreet() != -1) {
+                _streets.at(vehicle->getStreet())->remVehicle();
+              }
+              vehicle->setStreet(streetIndex);
+              _streets.at(streetIndex)->addVehicle();
+              vehicle->setPosition(i);
+              break;
+            }
+          }
         }
-      } else if (timePenalty != 0) {
-        vehicle->setTimePenalty(timePenalty - 1);
-      }
-      // set street to -1 if the vehicle is in the destination
-      if (vehicle->getPosition() == vehicle->getDestination() &&
-          vehicle->getStreet() != -1) {
-        _streets.at(vehicle->getStreet())->remVehicle();
-        vehicle->setStreet(-1);
       }
     }
   }

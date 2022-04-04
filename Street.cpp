@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-double constexpr AVG_LENGHT = 4.;
+double constexpr AVG_LENGHT = 0.5;
 double constexpr V_MAX = 50.; // max velocity for each street
 double constexpr V_MIN = 7.;  // min velocity for each street
 
@@ -18,7 +18,7 @@ Street::Street(int n_1, int n_2, double l) {
 int Street::getOrigin() const noexcept { return _src; }
 int Street::getDestination() const noexcept { return _dst; }
 double Street::getLenght() const noexcept { return _lenght; }
-bool Street::isFull() const noexcept { return _nVehicles == _capacity; }
+bool Street::isFull() const noexcept { return (_nVehicles == _capacity); }
 // int Street::getCapacity() const noexcept { return _capacity; }
 int Street::getNVehicles() const noexcept { return _nVehicles; }
 double Street::getVelocity() {
