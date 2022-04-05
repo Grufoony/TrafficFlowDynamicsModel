@@ -6,6 +6,7 @@
 #include <iomanip>
 #include <iostream>
 #include <random>
+#include <string>
 
 void printExeTime(std::chrono::high_resolution_clock::duration interval) {
   auto duration =
@@ -32,6 +33,9 @@ void printTransMatrices() {
 }
 
 int main(int argc, char **argv) {
+  std::string const OUT_FORMAT = ".dat";
+  std::string const OUT_FOLDER = "./data/";
+
   typedef std::chrono::high_resolution_clock Clock;
   auto start = Clock::now();
   // clock has started
@@ -67,13 +71,21 @@ int main(int argc, char **argv) {
     g.addRndmVehicles(std::stoi(argv[4]));
     g.createTransMatrix();
     g.fprint(true);
-    fOut.open("network_evolution.txt");
-    std::cout.rdbuf(fOut.rdbuf());
+    // fOut.open("network_evolution.txt");
+    // std::cout.rdbuf(fOut.rdbuf());
+    // for (int t = 0; t < std::stoi(argv[5]); ++t) {
+    //   std::cout << "Time: " << t << '\n';
+    //   g.evolve(1);
+    //   g.printStreets();
+    //   std::cout << '\n';
+    // }
     for (int t = 0; t < std::stoi(argv[5]); ++t) {
-      std::cout << "Time: " << t << '\n';
+      auto out = OUT_FOLDER + std::to_string(t) + OUT_FORMAT;
+      fOut.open(out);
+      std::cout.rdbuf(fOut.rdbuf());
       g.evolve(1);
-      g.printStreets();
-      std::cout << '\n';
+      g.test();
+      fOut.close();
     }
     std::cout.rdbuf(rdbufBackup);
     break;
@@ -84,7 +96,7 @@ int main(int argc, char **argv) {
     break;
   }
 
-  fOut.close();
+  // fOut.close();
 
   // g.setTemperature(3000);
   // g.createTransMatrix();

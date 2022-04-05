@@ -388,4 +388,10 @@ void Graph::fprint(const bool printGraph) const noexcept {
 }
 
 // funzione da eliminare (DEBUG)
-void Graph::test() { return; }
+void Graph::test() {
+  for (auto const &street : _streets) {
+    std::cout << street->getOrigin() << '\t' << street->getDestination() << '\t'
+              << street->getNVehicles() << '\t' << std::setprecision(3)
+              << street->getVelocity() << '\n';
+  }
+}
