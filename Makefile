@@ -1,4 +1,4 @@
-.PHONY: run wsl debug windows
+.PHONY: run wsl debug windows visual
 run:
 	clear
 	./test.out matrix.dat vehicletype.dat 0 100 50
@@ -20,3 +20,5 @@ debug:
 	clang-format -i Graph.hpp
 	clear
 	g++ main.cpp Graph.cpp Street.cpp Vehicle.cpp VehicleType.cpp -o test.out -Wall -Wextra -fsanitize=address
+visual:
+	python3 visual.py
