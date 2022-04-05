@@ -1,7 +1,7 @@
 .PHONY: run wsl debug windows visual
 run:
 	clear
-	./test.out matrix.dat vehicletype.dat 0 100 50
+	./test.out matrix.dat vehicletype.dat 0 10 50
 wsl:
 	clear
 	g++ -O3 main.cpp Graph.cpp Street.cpp Vehicle.cpp VehicleType.cpp -o test.out
@@ -21,4 +21,5 @@ debug:
 	clear
 	g++ main.cpp Graph.cpp Street.cpp Vehicle.cpp VehicleType.cpp -o test.out -Wall -Wextra -fsanitize=address
 visual:
+	clear
 	python3 visual.py

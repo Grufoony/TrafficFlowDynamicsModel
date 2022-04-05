@@ -108,16 +108,16 @@ void Graph::_evolve() {
         vehicle->getPosition()); // obtain the line with trans probabilities
     auto threshold = 0.;
     auto const p = dist(rng);
-    for (int i = 0; i < _n; ++i) {
-      auto prob = trans_vec.at(i);
-      auto timePenalty = vehicle->getTimePenalty();
-      if (timePenalty > 0) { // check if the vehicle can move
-        vehicle->setTimePenalty(timePenalty - 1);
-      } else {
+    auto timePenalty = vehicle->getTimePenalty();
+    if (timePenalty > 0) { // check if the vehicle can move
+      vehicle->setTimePenalty(timePenalty - 1);
+    } else {
+      for (int i = 0; i < _n; ++i) {
+        auto prob = trans_vec.at(i);
         if (vehicle->getPosition() ==
             vehicle->getDestination()) { // check if the vehicle is at the
                                          // destination
-          if (vehicle->getStreet() != -1) {
+          if (!(vehicle->getStreet() < 0)) {
             _streets.at(vehicle->getStreet())->remVehicle();
             vehicle->setStreet(-1);
           }
@@ -125,26 +125,25 @@ void Graph::_evolve() {
           threshold += prob;
           if (p < threshold) {
             // street update
-            int streetIndex = _findStreet(vehicle->getPosition(), i);
-            if (!(_streets.at(streetIndex)->isFull())) {
-              if (vehicle->getStreet() != -1) {
+            int streetIndex =
+                _findStreet(vehicle->getPosition(), i); // nex street index
+            if (!(_streets.at(streetIndex)
+                      ->isFull())) { // check if i can move on (street not full)
+              if (!(vehicle->getStreet() <
+                    0)) { // check if the vehicle is on a street
                 _streets.at(vehicle->getStreet())->remVehicle();
               }
               vehicle->setStreet(streetIndex);
+              vehicle->setVelocity(_streets.at(streetIndex)->getVelocity());
               _streets.at(streetIndex)->addVehicle();
+              vehicle->setTimePenalty(
+                  static_cast<int>(_streets.at(streetIndex)->getLenght() /
+                                   vehicle->getVelocity()));
               vehicle->setPosition(i);
               break;
             }
           }
         }
-      }
-    }
-    // velocity update based on street
-    if (!(vehicle->getStreet() < 0)) {
-      if (std::abs(vehicle->getVelocity() -
-                   _streets.at(vehicle->getStreet())->getVelocity()) >
-          std::numeric_limits<double>::epsilon()) {
-        vehicle->setVelocity(_streets.at(vehicle->getStreet())->getVelocity());
       }
     }
   }
