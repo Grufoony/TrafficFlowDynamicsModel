@@ -68,3 +68,9 @@ int Vehicle::getDestination() const {
   return getVehicleType()->getDestination();
 }
 int Vehicle::getTimePenalty() const { return _timePenalty; }
+void Vehicle::setVelocity(double vel) {
+  if (vel < 0)
+    throw std::invalid_argument("Error in setVelocity.\n");
+  _velocity = vel;
+}
+double Vehicle::getVelocity() const { return _velocity; }
