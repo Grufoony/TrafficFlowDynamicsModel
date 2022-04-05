@@ -114,7 +114,9 @@ void Graph::_evolve() {
       if (timePenalty > 0) { // check if the vehicle can move
         vehicle->setTimePenalty(timePenalty - 1);
       } else {
-        if (vehicle->getPosition() == vehicle->getDestination()) { // check if the vehicle is at the destination
+        if (vehicle->getPosition() ==
+            vehicle->getDestination()) { // check if the vehicle is at the
+                                         // destination
           if (vehicle->getStreet() != -1) {
             _streets.at(vehicle->getStreet())->remVehicle();
             vehicle->setStreet(-1);
@@ -135,6 +137,14 @@ void Graph::_evolve() {
             }
           }
         }
+      }
+    }
+    // velocity update based on street
+    if (!(vehicle->getStreet() < 0)) {
+      if (std::abs(vehicle->getVelocity() -
+                   _streets.at(vehicle->getStreet())->getVelocity()) >
+          std::numeric_limits<double>::epsilon()) {
+        vehicle->setVelocity(_streets.at(vehicle->getStreet())->getVelocity());
       }
     }
   }
@@ -361,7 +371,8 @@ void Graph::printStreets() const noexcept {
     if (street->getNVehicles() > 0) {
       std::cout << i << '(' << street->getOrigin() << ','
                 << street->getDestination() << ')' << ": "
-                << street->getNVehicles() << '\n';
+                << street->getNVehicles() << '\t' << std::setprecision(3)
+                << street->getVelocity() << '\n';
     }
     ++i;
   }

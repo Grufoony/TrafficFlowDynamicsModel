@@ -1,10 +1,11 @@
 #include "Street.hpp"
 
+#include <limits>
 #include <stdexcept>
 
-double constexpr AVG_LENGHT = 0.5;
-double constexpr V_MAX = 50.; // max velocity for each street
-double constexpr V_MIN = 7.;  // min velocity for each street
+double constexpr AVG_LENGHT =
+    1e-1;                     // if < 0 then there's no limit on the capacity
+double constexpr V_MAX = 40.; // max velocity for each street
 
 Street::Street(int n_1, int n_2, double l) {
   if (!(l > 0))
@@ -12,22 +13,20 @@ Street::Street(int n_1, int n_2, double l) {
   _src = n_1;
   _dst = n_2;
   _lenght = l;
-  _capacity = static_cast<int>(_lenght / AVG_LENGHT);
+  if (AVG_LENGHT < 0) {
+    _maxCapacity = std::numeric_limits<int>::max();
+  } else {
+    _maxCapacity = static_cast<int>(_lenght / AVG_LENGHT);
+  }
 }
 
 int Street::getOrigin() const noexcept { return _src; }
 int Street::getDestination() const noexcept { return _dst; }
 double Street::getLenght() const noexcept { return _lenght; }
-bool Street::isFull() const noexcept { return (_nVehicles == _capacity); }
-// int Street::getCapacity() const noexcept { return _capacity; }
+bool Street::isFull() const noexcept { return (_nVehicles == _maxCapacity); }
 int Street::getNVehicles() const noexcept { return _nVehicles; }
-double Street::getVelocity() {
-  auto v = V_MAX - _nVehicles * AVG_LENGHT / _lenght;
-  if (v < V_MIN) {
-    return V_MIN;
-  } else {
-    return v;
-  }
+double Street::getVelocity() const noexcept { // linear decay
+  return (V_MAX * (1 - 75e-2 * (_nVehicles / _maxCapacity)));
 }
 void Street::addVehicle() { ++_nVehicles; }
 void Street::remVehicle() { --_nVehicles; }
