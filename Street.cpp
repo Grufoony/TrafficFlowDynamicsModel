@@ -5,7 +5,7 @@
 
 double constexpr AVG_LENGHT =
     1e-1;                      // if < 0 then there's no limit on the capacity
-double constexpr V_MAX = 4e-1; // max velocity for each street
+double constexpr V_MAX = 7e-1; // max velocity for each street
 
 Street::Street(int n_1, int n_2, double l) {
   if (!(l > 0))

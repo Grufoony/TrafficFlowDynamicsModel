@@ -3,6 +3,11 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import os
 from tqdm import tqdm
+import glob
+from PIL import Image
+
+for i in tqdm(os.listdir('./img')):
+    os.remove('./img/'+i)
 
 for fName in tqdm(os.listdir('./data')):
 
@@ -34,3 +39,16 @@ for fName in tqdm(os.listdir('./data')):
                     edge_cmap=cmap)
 
     plt.savefig('img/' + fName.split('.')[0] + '.png')
+    plt.close()
+
+frames = []
+imgs = glob.glob("./img/*.png")
+for i in imgs:
+    new_frame = Image.open(i)
+    frames.append(new_frame)
+ 
+# Save into a GIF file that loops forever
+frames[0].save('evolution.gif', format='GIF',
+               append_images=frames[1:],
+               save_all=True,
+               duration=300, loop=0)
