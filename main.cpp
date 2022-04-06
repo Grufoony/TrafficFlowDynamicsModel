@@ -83,6 +83,8 @@ int main(int argc, char **argv) {
       auto out = OUT_FOLDER + std::to_string(t) + OUT_FORMAT;
       fOut.open(out);
       std::cout.rdbuf(fOut.rdbuf());
+      std::cout << "source" << '\t' << "target" << '\t' << "load" << '\t' << "x"
+                << '\n';
       g.evolve(1);
       g.test();
       fOut.close();
