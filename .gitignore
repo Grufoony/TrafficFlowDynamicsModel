@@ -2,7 +2,6 @@
 *.dll
 *.exe
 *.txt
-*.png
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
