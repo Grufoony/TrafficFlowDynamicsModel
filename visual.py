@@ -58,7 +58,7 @@ for fName in tqdm(os.listdir('./data')):
 
 #save into a gif
 frames = []
-for i in range(len([name for name in os.listdir('./img')])):
+for i in tqdm(range(len([name for name in os.listdir('./img')]))):
     new_frame = Image.open('./img/'+str(i)+'.png')
     frames.append(new_frame)
  
