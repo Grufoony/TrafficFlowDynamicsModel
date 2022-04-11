@@ -7,6 +7,7 @@
 #include <limits>
 #include <random>
 #include <stdexcept>
+#include <string>
 
 double constexpr TEMP_NORM = 273.15e-6;
 
@@ -155,6 +156,7 @@ void Graph::_evolve() {
                                           vehicle->getStreet() == -1;
                                  }),
                   _vehicles.end());
+  ++_time;
 }
 
 int Graph::_findStreet(int const src, int const dst) {
@@ -307,10 +309,10 @@ void Graph::createTransMatrix() {
   }
 }
 
-void Graph::evolve(int const time) {
-  for (int dt = 0; dt < time; ++dt) {
-    this->_evolve();
-  }
+void Graph::evolve(int const nVehicles) {
+  if (nVehicles > 0)
+    this->addRndmVehicles(nVehicles);
+  this->_evolve();
 }
 
 void Graph::printMatrix() const noexcept {
@@ -383,6 +385,26 @@ void Graph::fprint(const bool printGraph) const noexcept {
   auto const rdbufBackup = std::cout.rdbuf();
   std::cout.rdbuf(fOut.rdbuf());
   this->print(printGraph);
+  std::cout.rdbuf(rdbufBackup);
+  fOut.close();
+}
+
+void Graph::fprintVelocityDistribution(int const nBins) const noexcept {
+  std::ofstream fOut;
+  auto out = "./data/" + std::to_string(_time - 1) + ".dat";
+  fOut.open(out);
+  auto const rdbufBackup = std::cout.rdbuf();
+  std::cout.rdbuf(fOut.rdbuf());
+  int n;
+  for (int i = 0; i < nBins; ++i) {
+    n = std::count_if(_streets.begin(), _streets.end(),
+                      [i, nBins](std::shared_ptr<Street> const &street) {
+                        return street->getNormVelocity() >= i * (1. / nBins) &&
+                               street->getNormVelocity() <
+                                   (i + 1) * (1. / nBins);
+                      });
+    std::cout << i * (1. / nBins) << '\t' << n << '\n';
+  }
   std::cout.rdbuf(rdbufBackup);
   fOut.close();
 }

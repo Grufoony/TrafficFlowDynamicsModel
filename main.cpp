@@ -34,7 +34,7 @@ void printTransMatrices() {
 
 int main(int argc, char **argv) {
   std::string const OUT_FORMAT = ".dat";
-  std::string const OUT_FOLDER = "./data/";
+  std::string const OUT_FOLDER = "./img/data/";
 
   typedef std::chrono::high_resolution_clock Clock;
   auto start = Clock::now();
@@ -43,6 +43,7 @@ int main(int argc, char **argv) {
   auto g = Graph(argv[1]);
   std::ofstream fOut;
   auto const rdbufBackup = std::cout.rdbuf();
+  int dVehicle;
 
   switch (argc) {
   case 2:
@@ -68,24 +69,20 @@ int main(int argc, char **argv) {
   case 6:
     Vehicle::addVehicleType(argv[2]);
     g.setTemperature(std::stod(argv[3]));
-    g.addRndmVehicles(std::stoi(argv[4]));
+    dVehicle = std::stoi(argv[4]) * 5 / std::stoi(argv[5]);
     g.createTransMatrix();
     g.fprint(true);
-    // fOut.open("network_evolution.txt");
-    // std::cout.rdbuf(fOut.rdbuf());
-    // for (int t = 0; t < std::stoi(argv[5]); ++t) {
-    //   std::cout << "Time: " << t << '\n';
-    //   g.evolve(1);
-    //   g.printStreets();
-    //   std::cout << '\n';
-    // }
     for (int t = 0; t < std::stoi(argv[5]); ++t) {
       auto out = OUT_FOLDER + std::to_string(t) + OUT_FORMAT;
       fOut.open(out);
       std::cout.rdbuf(fOut.rdbuf());
       std::cout << "source" << '\t' << "target" << '\t' << "load" << '\t' << "x"
                 << '\n';
-      g.evolve(1);
+      if (t % 5 == 0)
+        g.evolve(dVehicle);
+      else
+        g.evolve(0);
+      g.fprintVelocityDistribution(100);
       g.test();
       fOut.close();
     }

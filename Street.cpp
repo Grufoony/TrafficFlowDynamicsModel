@@ -4,7 +4,7 @@
 #include <stdexcept>
 
 double constexpr AVG_LENGHT =
-    1e-1;                      // if < 0 then there's no limit on the capacity
+    5e-2;                      // if < 0 then there's no limit on the capacity
 double constexpr V_MAX = 7e-1; // max velocity for each street
 
 Street::Street(int n_1, int n_2, double l) {
@@ -26,10 +26,11 @@ double Street::getLenght() const noexcept { return _lenght; }
 bool Street::isFull() const noexcept { return (_nVehicles == _maxCapacity); }
 int Street::getNVehicles() const noexcept { return _nVehicles; }
 double Street::getVelocity() const noexcept { // linear decay
-  // double test = _nVehicles / _maxCapacity;
   return (V_MAX * (1 - (75e-2 * (static_cast<double>(_nVehicles) /
                                  static_cast<double>(_maxCapacity)))));
-  // return test;
+}
+double Street::getNormVelocity() const noexcept {
+  return (this->getVelocity() / V_MAX);
 }
 void Street::addVehicle() { ++_nVehicles; }
 void Street::remVehicle() { --_nVehicles; }

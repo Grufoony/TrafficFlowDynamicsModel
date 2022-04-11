@@ -19,6 +19,7 @@ public:
   bool isFull() const noexcept;
   int getNVehicles() const noexcept;
   double getVelocity() const noexcept;
+  double getNormVelocity() const noexcept;
   void addVehicle();
   void remVehicle();
 };

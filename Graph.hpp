@@ -14,6 +14,7 @@ private:
   std::vector<std::shared_ptr<Vehicle>> _vehicles;    // vehicles in the network
   int _n;                                             // dimension
   double _temperature = 0.; // temperature of the network
+  int _time = 0;            // time of the simulation
 
   int _minDistance(
       int const,
@@ -43,6 +44,8 @@ public:
       noexcept; // print streets on terminal with nodes and number of vehicles
 
   void fprint(bool const) const noexcept; // print network info on file
+  void
+  fprintVelocityDistribution(int const) const noexcept; // print streets on file
 
   // funzione da eliminare che verrà usata per accedere alle private (DEBUG)
   void test();

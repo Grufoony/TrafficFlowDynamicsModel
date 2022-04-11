@@ -1,21 +1,23 @@
 import networkx as nx
+import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 import os
 from tqdm import tqdm
-import glob
 from PIL import Image
 from PIL import ImageDraw
 
 # clear the img folder
-for i in tqdm(os.listdir('./img')):
-    os.remove('./img/'+i)
+for i in tqdm(range(len([name for name in os.listdir('./img')])-1)):
+    path = './img/'+str(i)+'.png'
+    if(os.path.exists(path)): 
+        os.remove('./img/'+str(i)+'.png')
 
 # create new imgs
-for fName in tqdm(os.listdir('./data')):
+for fName in tqdm(os.listdir('./img/data')):
 
     graph = nx.DiGraph()
-    edge_df = pd.read_csv('./data/'+fName, sep='\t')
+    edge_df = pd.read_csv('./img/data/'+fName, sep='\t')
 
     #edge list from dataframe
     edge_list = zip(edge_df['source'], edge_df['target'])
@@ -28,7 +30,7 @@ for fName in tqdm(os.listdir('./data')):
     cmap = plt.cm.get_cmap('RdYlGn').reversed()
 
     graph.add_edges_from(edge_list)
-    pos=nx.spring_layout(graph, seed=69)
+    pos=nx.kamada_kawai_layout(graph, dist=None, pos=None, weight='weight', scale=1, center=None, dim=2)
     fig, ax = plt.subplots()
     nx.draw_networkx_nodes(graph, pos, ax=ax)
     nx.draw_networkx_labels(graph, pos, ax=ax)
@@ -40,12 +42,12 @@ for fName in tqdm(os.listdir('./data')):
 
     nx.draw_networkx_edges(graph, pos, ax=ax, edgelist=curved_edges, connectionstyle=f'arc3, rad = {0.1}',edge_color=temp,
                     edge_cmap=cmap)
-
+    limits = plt.axis("off")
     plt.savefig('temp.png')
     plt.close()
 
     img = Image.open('temp.png')
- 
+
     # Call draw Method to add 2D graphics in an image
     I1 = ImageDraw.Draw(img)
     
@@ -58,12 +60,12 @@ for fName in tqdm(os.listdir('./data')):
 
 #save into a gif
 frames = []
-for i in tqdm(range(len([name for name in os.listdir('./img')]))):
+for i in tqdm(range(len([name for name in os.listdir('./img')])-1)):
     new_frame = Image.open('./img/'+str(i)+'.png')
     frames.append(new_frame)
- 
+
 # Save into a GIF file that loops forever
 frames[0].save('evolution.gif', format='GIF',
-               append_images=frames[1:],
-               save_all=True,
-               duration=300, loop=0)
+            append_images=frames[1:],
+            save_all=True,
+            duration=300, loop=0)
