@@ -2,9 +2,9 @@
 *.dll
 *.exe
 *.txt
-.vscode/*
-data/*
-img/*
+/.vscode/*
+/data/*
+/img/*
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
