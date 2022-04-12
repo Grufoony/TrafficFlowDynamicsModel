@@ -13,6 +13,8 @@ Street::Street(int n_1, int n_2, double l) {
   _src = n_1;
   _dst = n_2;
   _lenght = l;
+  _nVehicles = 0;
+  _nLanes = 1;
   if (AVG_LENGHT < 0) {
     _maxCapacity = std::numeric_limits<int>::max();
   } else {
@@ -23,11 +25,18 @@ Street::Street(int n_1, int n_2, double l) {
 int Street::getOrigin() const noexcept { return _src; }
 int Street::getDestination() const noexcept { return _dst; }
 double Street::getLenght() const noexcept { return _lenght; }
-bool Street::isFull() const noexcept { return (_nVehicles == _maxCapacity); }
+bool Street::isFull() const noexcept {
+  return (_nVehicles == (_nLanes * _maxCapacity));
+}
+void Street::setNLanes(int n) noexcept {
+  if (n > 0)
+    _nLanes = n;
+}
 int Street::getNVehicles() const noexcept { return _nVehicles; }
 double Street::getVelocity() const noexcept { // linear decay
-  return (V_MAX * (1 - (75e-2 * (static_cast<double>(_nVehicles) /
-                                 static_cast<double>(_maxCapacity)))));
+  return (V_MAX *
+          (1 - (75e-2 * (static_cast<double>(_nVehicles) /
+                         static_cast<double>((_nLanes * _maxCapacity))))));
 }
 double Street::getNormVelocity() const noexcept {
   return (this->getVelocity() / V_MAX);
