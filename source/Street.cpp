@@ -4,8 +4,7 @@
 #include <stdexcept>
 
 double constexpr AVG_LENGHT =
-    5e-2;                      // if < 0 then there's no limit on the capacity
-double constexpr V_MAX = 7e-1; // max velocity for each street
+    2.75e-2;                   // if < 0 then there's no limit on the capacity
 
 Street::Street(int n_1, int n_2, double l) {
   if (!(l > 0))
@@ -15,6 +14,7 @@ Street::Street(int n_1, int n_2, double l) {
   _lenght = l;
   _nVehicles = 0;
   _nLanes = 1;
+  _vMax = 1.39;
   if (AVG_LENGHT < 0) {
     _maxCapacity = std::numeric_limits<int>::max();
   } else {

@@ -9,6 +9,7 @@ private:
   int _src;         // source node
   int _dst;         // destination node
   int _nLanes;      // number of lanes
+  double _vMax; // max velocity for that street
 
 public:
   Street(int, int, double);

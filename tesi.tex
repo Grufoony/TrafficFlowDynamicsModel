@@ -67,10 +67,7 @@ Gregorio Berselli}}}
 \vspace{40mm}
 
 \begin{center}
-%
-% INSERIRE L'ANNO ACCADEMICO
-%
-Anno Accademico \textcolor{red}{2021/2022}
+Anno Accademico \textcolor{black}{2021/2022}
 \end{center}
 
 \end{titlepage}
@@ -120,6 +117,27 @@ Anno Accademico \textcolor{red}{2021/2022}
             ybar interval,
             mark=no,
             line width = 1.25pt
+        ] file {./data/120.dat};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{\emph{Prova.}}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[ybar interval,
+            area style,
+            ymin=0,
+            xmin=0.24,
+            xmax=0.95,
+            width = \textwidth,
+            height = 0.75\textwidth,
+            xlabel = {Velocità},
+            ylabel = {Numero di veicoli},]
+        \addplot+[
+            ybar interval,
+            mark=no,
+            line width = 1.25pt
         ] file {./data/190.dat};
         \end{axis}
     \end{tikzpicture}
@@ -133,6 +151,68 @@ Anno Accademico \textcolor{red}{2021/2022}
 \chapter{Costruzione del modello}
 
 \chapter{Implementazione}
+Il modello descritto in precedentza è stato implementato tramite un software scritto in C++.
+\section{Classi}
+Sfruttando la programmazione a oggetti su cui è basato il linguaggio C++ si è diviso il modello in varie classi.
+\subsection{VehicleType}
+La classe a livello inferiore è \emph{VehicleType} che, come suggerisce il nome, definisce una tipologia di veicolo.
+In questo modello ogni veicolo è caratterizzato dai parametri di input nodo sorgente e nodo destinazione.
+Tuttavia, per muoversi sul network, ogni tipologia di veicolo necessita anche di una matrice di transizione contenente le probabilità di effettuare o meno un passo in una specifica dimensione.
+Questa matrice viene solo dichiarata come parametro della classe e viene impostata dopo la definizione del network.
+\subsection{Vehicle}
+Dopo aver definito le tipologie di veicoli è necessario definire anche i veicoli stessi.
+La classe \emph{Vehicle} rappresenta dunque gli agenti che andranno a muoversi sul network stradale.
+Un vettore statico di \emph{VehicleType} permette ad ogni veicolo di avere una tipologia definita, tramite un parametro indiciale che determina la posizione nel vettore.
+Ogni agente ha inoltre due coordinate che ne definiscono la posizione: nodo attuale e strada attuale.
+Per permetterne il movimento nel tempo sono presenti altri due parametri, non necessari in input, rappresentanti la velocità del veicolo, dettata dalla strada sulla quale si trova, e la penalità di tempo che questo deve scontare, dipendente sia dalla velocità del veicolo stesso sia alla densità di veicoli presente sulla strada in cui si trova.
+\subsection{Street}
+Una volta definiti i veicoli è necessario definire le proprietà dei collegamenti tra i vari nodi (incroci) della rete.
+Ogni istanza della classe \emph{Street} rappresenta dunque un collegamento tra due nodi.
+I parametri da fornire come input per distinguere una strada in maniera univoca sono dunque l'indice del nodo sorgente e l'indice del nodo destinazione.
+Si presti ora attenzione al fatto che ogni strada abbia una direzione: considerando due nodi generici $i$ e $j$, la strada che connette $i\to j$ sarà differente dalla strada che connette $j \to i$.
+Questa distinzione permette sia una gestione delle densità di veicoli più efficiente e coerente con la realtà, non avendo interferenza tra le corsie, sia l'inserimento di strade a senso unico nella rete.\\
+Nella classe \emph{Street} viene poi definita una costante fondamentale del modello, ossia la lunghezza media dei veicoli.
+Altri parametri della strada sono la sua lunghezza, il numero $n$ di veicoli su di essa, la velocità massima consentita ,il numero di corsie (direzionate come la strada stessa) e la capacità massima $n_{max}$ di veicoli presenti contemporaneamente.
+Si noti come mentre un veicolo conosce esattamente la strada in cui si trova ciò non sia vero per la strada in quanto quest'ultima possiede informazione solamente sul numero totale di veicoli presenti.
+La velocità effettiva mantenibile su una strada, essendo un valore altamente dinamico, non viene considerato come parametro (quindi immagazzinato in memoria) ma viene calcolato tramite una funzione quando necessario.
+In particolare, l'andamento della velocità su una strada segue la funzione
+\begin{equation}
+    v(n)=v_{max}\left(1-0.75\frac{n}{n_{max}}\right)
+    \label{equation:velocity}
+\end{equation}
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            ymin=0,
+            xmin=0,
+            xmax=1,
+            width = 0.7\textwidth,
+            height = 0.5\textwidth,
+            xlabel = {Densità ($\frac{n}{n_{max}}$)},
+            ylabel = {Velocità},]
+            \addplot[
+                domain = 0:1,
+                smooth,
+                color = blue,
+                line width = 1.5pt,] {1-0.75*x};
+        \end{axis}
+    \end{tikzpicture}
+    \caption[Velocità nel modello]{\emph{Ipotesi dell'andamento della velocità in funzione della densità.}}
+    \label{figure:velocity}
+\end{figure}
+Come visibile in Fig. \ref{figure:velocity} anche una volta raggiunta la densità massima i veicoli non si fermano ma si immettono sulla strada, quando si libera sufficiente spazio, con una velocità minima pari al $25\%$ della velocità massima.
+\subsection{Graph}
+Ultima classe definita, che comprende tutte le precedenti, è la classe \emph{Graph}, la quale costruisce effettivamente il network stradale.
+Parametro di input necessario per creare un'istanza è infatti la matrice di adiacenza, che definisce le connessioni tra i nodi.
+Tramite essa viene poi generato un vettore di puntatori a \emph{Street} che genera le connessioni tra i nodi come strade.
+Il movimento degli agenti sul network è determinato dalla matrice di transizione assegnata alle varie tipologie di veicoli.
+Questa viene generata tramite l'utilizzo del famoso algoritmo Dijkstra (citation needed) e si basa quindi sulla ricerca del path ideale (a lunghezza inferiore) dalla posizione dell'agente alla destinazione definita dal suo \emph{VehicleType}.
+Si è poi deciso di introdurre un parametro di temperatura alla classe
+
+\section{Esecuzione}
+
+\section{Performance}
 
 \chapter{Risultati}
 

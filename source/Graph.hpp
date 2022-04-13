@@ -36,7 +36,7 @@ public:
   void setTemperature(double const); // set the temperature of the network
   void createTransMatrix(); // create all the transition matrices for all
                             // vehicle types
-  void evolve(int const);   // evolve the vehicles' position
+  void evolve(int const);   // evolve the vehicles' position inserting nVehicles
 
   void printMatrix() const noexcept;     // print adjency matrix on terminal
   void print(bool const) const noexcept; // print network info on terminal
