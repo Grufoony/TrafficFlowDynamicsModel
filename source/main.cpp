@@ -69,7 +69,7 @@ int main(int argc, char **argv) {
   case 6:
     Vehicle::addVehicleType(argv[2]);
     g.setTemperature(std::stod(argv[3]));
-    dVehicle = std::stoi(argv[4]) * 5 / std::stoi(argv[5]);
+    dVehicle = std::stoi(argv[4]) / std::stoi(argv[5]);
     g.createTransMatrix();
     g.fprint(true);
     for (int t = 0; t < std::stoi(argv[5]); ++t) {
@@ -81,7 +81,7 @@ int main(int argc, char **argv) {
       if (t % 5 == 0)
         g.evolve(dVehicle);
       else
-        g.evolve(0);
+        g.evolve(dVehicle);
       g.fprintVelocityDistribution(20);
       g.test();
       fOut.close();

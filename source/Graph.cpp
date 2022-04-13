@@ -75,12 +75,6 @@ int Graph::_minDistance(int const src, int const dst) const {
           dist.at(u) + _adjMatrix.at(u).at(v) < dist.at(v))
         dist.at(v) = dist.at(u) + _adjMatrix.at(u).at(v);
   }
-
-  // print the constructed distance array DEBUG
-  // std::cout << "Vertex   Distance from Source\n";
-  // for (int i = 0; i < _n; ++i)
-  //   std::cout << i << '\t' << '\t' << dist.at(i) << '\n';
-
   return dist.at(dst);
 }
 
@@ -397,12 +391,18 @@ void Graph::fprintVelocityDistribution(int const nBins) const noexcept {
   std::cout.rdbuf(fOut.rdbuf());
   int n;
   for (int i = 0; i < nBins; ++i) {
-    n = std::count_if(_streets.begin(), _streets.end(),
-                      [i, nBins](std::shared_ptr<Street> const &street) {
-                        return street->getNormVelocity() >= i * (1. / nBins) &&
-                               street->getNormVelocity() <
-                                   (i + 1) * (1. / nBins);
-                      });
+    // get n vehicles based on velocity
+    n = std::count_if(
+        _vehicles.begin(), _vehicles.end(),
+        [i, nBins, this](std::shared_ptr<Vehicle> const &vehicle) {
+          auto index = vehicle->getStreet();
+          if (index < 0)
+            return false;
+          return (vehicle->getVelocity() / _streets.at(index)->getVMax()) >=
+                     i * (1. / nBins) &&
+                 (vehicle->getVelocity() / _streets.at(index)->getVMax()) <
+                     (i + 1) * (1. / nBins);
+        });
     std::cout << i * (1. / nBins) << '\t'
               << n / static_cast<double>(_vehicles.size()) << '\n';
   }
