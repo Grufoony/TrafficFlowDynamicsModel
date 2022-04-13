@@ -404,7 +404,8 @@ void Graph::fprintVelocityDistribution(int const nBins) const noexcept {
                      (i + 1) * (1. / nBins);
         });
     std::cout << i * (1. / nBins) << '\t'
-              << n / static_cast<double>(_vehicles.size()) << '\n';
+              << static_cast<double>(n) / static_cast<double>(_vehicles.size())
+              << '\n';
   }
   std::cout.rdbuf(rdbufBackup);
   fOut.close();

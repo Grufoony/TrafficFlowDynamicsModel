@@ -82,7 +82,7 @@ int main(int argc, char **argv) {
         g.evolve(dVehicle);
       else
         g.evolve(dVehicle);
-      g.fprintVelocityDistribution(20);
+      g.fprintVelocityDistribution(50);
       g.test();
       fOut.close();
     }
