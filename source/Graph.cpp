@@ -308,6 +308,7 @@ void Graph::evolve(int const nVehicles) {
     this->addRndmVehicles(nVehicles);
   this->_evolve();
 }
+void Graph::evolve() { this->_evolve(); }
 
 void Graph::printMatrix() const noexcept {
   for (auto const &row : _adjMatrix) {
@@ -383,7 +384,7 @@ void Graph::fprint(const bool printGraph) const noexcept {
   fOut.close();
 }
 
-void Graph::fprintVelocityDistribution(int const nBins) const noexcept {
+void Graph::fprintDistribution(int const nBins) const noexcept {
   std::ofstream fOut;
   auto out = "./data/" + std::to_string(_time - 1) + ".dat";
   fOut.open(out);
@@ -391,22 +392,32 @@ void Graph::fprintVelocityDistribution(int const nBins) const noexcept {
   std::cout.rdbuf(fOut.rdbuf());
   int n;
   for (int i = 0; i < nBins; ++i) {
-    // get n vehicles based on velocity
     n = std::count_if(
-        _vehicles.begin(), _vehicles.end(),
-        [i, nBins, this](std::shared_ptr<Vehicle> const &vehicle) {
-          auto index = vehicle->getStreet();
-          if (index < 0)
-            return false;
-          return (vehicle->getVelocity() / _streets.at(index)->getVMax()) >=
-                     i * (1. / nBins) &&
-                 (vehicle->getVelocity() / _streets.at(index)->getVMax()) <
-                     (i + 1) * (1. / nBins);
+        _streets.begin(), _streets.end(),
+        [i, nBins](std::shared_ptr<Street> const &street) {
+          return street->getVehicleDensity() >= i * (1. / nBins) &&
+                 street->getVehicleDensity() < (i + 1) * (1. / nBins);
         });
-    std::cout << i * (1. / nBins) << '\t'
-              << static_cast<double>(n) / static_cast<double>(_vehicles.size())
-              << '\n';
+    std::cout << i * (1. / nBins) << '\t' << static_cast<double>(n) << '\n';
   }
+  // for (int i = 0; i < nBins; ++i) {
+  //   // get n vehicles based on velocity
+  //   n = std::count_if(
+  //       _vehicles.begin(), _vehicles.end(),
+  //       [i, nBins, this](std::shared_ptr<Vehicle> const &vehicle) {
+  //         auto index = vehicle->getStreet();
+  //         if (index < 0)
+  //           return false;
+  //         return (vehicle->getVelocity() / _streets.at(index)->getVMax()) >=
+  //                    i * (1. / nBins) &&
+  //                (vehicle->getVelocity() / _streets.at(index)->getVMax()) <
+  //                    (i + 1) * (1. / nBins);
+  //       });
+  //   std::cout << i * (1. / nBins) << '\t'
+  //             << static_cast<double>(n) /
+  //             static_cast<double>(_vehicles.size())
+  //             << '\n';
+  // }
   std::cout.rdbuf(rdbufBackup);
   fOut.close();
 }
@@ -418,4 +429,8 @@ void Graph::test() {
               << street->getNVehicles() << '\t' << std::setprecision(3)
               << street->getVelocity() << '\n';
   }
+  for (auto const &street : _streets) {
+    std::cout << street->getVehicleDensity() << '\t';
+  }
+  std::cout << '\n';
 }

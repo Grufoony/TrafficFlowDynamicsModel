@@ -36,6 +36,7 @@ public:
   void setTemperature(double const); // set the temperature of the network
   void createTransMatrix(); // create all the transition matrices for all
                             // vehicle types
+  void evolve();            // evolve the network
   void evolve(int const);   // evolve the vehicles' position inserting nVehicles
 
   void printMatrix() const noexcept;     // print adjency matrix on terminal
@@ -44,8 +45,7 @@ public:
       noexcept; // print streets on terminal with nodes and number of vehicles
 
   void fprint(bool const) const noexcept; // print network info on file
-  void
-  fprintVelocityDistribution(int const) const noexcept; // print streets on file
+  void fprintDistribution(int const) const noexcept; // print streets on file
 
   // funzione da eliminare che verrà usata per accedere alle private (DEBUG)
   void test();

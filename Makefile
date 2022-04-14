@@ -1,7 +1,7 @@
 .PHONY: run wsl debug windows visual
 run:
 	clear
-	./test.out matrix.dat vehicletype.dat 10000 450 200
+	./test.out matrix.dat vehicletype.dat 10000 300 500
 wsl:
 	clear
 	g++ -O3 main.cpp Graph.cpp Street.cpp Vehicle.cpp VehicleType.cpp -o test.out

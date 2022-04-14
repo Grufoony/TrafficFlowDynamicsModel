@@ -44,8 +44,9 @@ double Street::getVelocity() const noexcept { // linear decay
                          static_cast<double>((_nLanes * _maxCapacity))))));
 }
 double Street::getVMax() const noexcept { return _vMax; }
-double Street::getNormVelocity() const noexcept {
-  return (this->getVelocity() / _vMax);
+double Street::getVehicleDensity() const noexcept {
+  return (static_cast<double>(_nVehicles) /
+          static_cast<double>((_nLanes * _maxCapacity)));
 }
 void Street::addVehicle() { ++_nVehicles; }
 void Street::remVehicle() { --_nVehicles; }
