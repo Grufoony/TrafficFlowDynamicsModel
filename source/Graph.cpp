@@ -391,14 +391,14 @@ void Graph::fprintDistribution(int const nBins) const noexcept {
   auto const rdbufBackup = std::cout.rdbuf();
   std::cout.rdbuf(fOut.rdbuf());
   int n;
-  for (int i = 0; i < nBins; ++i) {
+  for (int i = 0; i < nBins + 1; ++i) {
     n = std::count_if(
         _streets.begin(), _streets.end(),
         [i, nBins](std::shared_ptr<Street> const &street) {
           return street->getVehicleDensity() >= i * (1. / nBins) &&
                  street->getVehicleDensity() < (i + 1) * (1. / nBins);
         });
-    std::cout << i * (1. / nBins) << '\t' << static_cast<double>(n) << '\n';
+    std::cout << std::setprecision(3) << i * (1. / nBins) << '\t' << n << '\n';
   }
   // for (int i = 0; i < nBins; ++i) {
   //   // get n vehicles based on velocity
@@ -429,8 +429,16 @@ void Graph::test() {
               << street->getNVehicles() << '\t' << std::setprecision(3)
               << street->getVelocity() << '\n';
   }
-  for (auto const &street : _streets) {
-    std::cout << street->getVehicleDensity() << '\t';
-  }
-  std::cout << '\n';
+  // int const nBins = 33;
+  // int n;
+  // for (int i = 0; i < nBins; ++i) {
+  //   n = std::count_if(
+  //       _streets.begin(), _streets.end(),
+  //       [i, nBins](std::shared_ptr<Street> const &street) {
+  //         return street->getVehicleDensity() >= i * (1. / nBins) &&
+  //                street->getVehicleDensity() < (i + 1) * (1. / nBins);
+  //       });
+  //   std::cout << i * (1. / nBins) << '\t' << n << '\n';
+  // }
+  // std::cout << '\n';
 }

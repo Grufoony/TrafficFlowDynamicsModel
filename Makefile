@@ -1,10 +1,10 @@
 .PHONY: run wsl debug windows visual
 run:
 	clear
-	./test.out matrix.dat vehicletype.dat 10000 300 500
+	./test.out matrix.dat vehicletype.dat 5000 400 10001
 wsl:
 	clear
-	g++ -O3 main.cpp Graph.cpp Street.cpp Vehicle.cpp VehicleType.cpp -o test.out
+	g++ -O3 ./source/main.cpp ./source/Graph.cpp ./source/Street.cpp ./source/Vehicle.cpp ./source/VehicleType.cpp -o test.out
 windows:
 	clear
 	x86_64-w64-mingw32-g++ -O3 main.cpp Graph.cpp Street.cpp Vehicle.cpp VehicleType.cpp -o test.exe
@@ -19,7 +19,7 @@ debug:
 	clang-format -i ./source/Graph.cpp
 	clang-format -i ./source/Graph.hpp
 	clear
-	g++ ./source/main.cpp ./source/Graph.cpp ./source/Street.cpp ./source/Vehicle.cpp ./source/VehicleType.cpp -o test.out -Wall -Wextra -fsanitize=address
+	g++ -O3 ./source/main.cpp ./source/Graph.cpp ./source/Street.cpp ./source/Vehicle.cpp ./source/VehicleType.cpp -o test.out -Wall -Wextra -fsanitize=address
 visual:
 	clear
 	python3 visual.py

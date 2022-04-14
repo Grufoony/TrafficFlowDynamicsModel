@@ -8,7 +8,7 @@ private:
   int _nVehicles;   // number of vehicles on the street
   int _src;         // source node
   int _dst;         // destination node
-  int _nLanes = 1;  // number of lanes
+  int _nLanes;      // number of lanes
   double _vMax;     // max velocity for that street
 
 public:

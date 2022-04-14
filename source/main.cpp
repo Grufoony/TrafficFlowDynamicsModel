@@ -76,21 +76,24 @@ int main(int argc, char **argv) {
     // g.evolve(100);
     // g.test();
     for (int t = 0; t < std::stoi(argv[5]); ++t) {
+      std::cout << t << '/' << std::stoi(argv[5]) << '\r';
+      std::cout.flush();
       auto out = OUT_FOLDER + std::to_string(t) + OUT_FORMAT;
       fOut.open(out);
       std::cout.rdbuf(fOut.rdbuf());
       std::cout << "source" << '\t' << "target" << '\t' << "load" << '\t' << "x"
                 << '\n';
-      if (t < 50) {
+      if (t < 25) {
         g.evolve(dVehicle);
       } else {
         g.evolve();
       }
-      g.fprintDistribution(33);
-      g.test();
+      if (t % 500 == 0)
+        g.fprintDistribution(15);
+      // g.test();
       fOut.close();
+      std::cout.rdbuf(rdbufBackup);
     }
-    std::cout.rdbuf(rdbufBackup);
     break;
 
   default:
@@ -117,6 +120,3 @@ int main(int argc, char **argv) {
   printExeTime(stop - start);
   return 0;
 }
-
-// TODO:
-// - implement time penalty for the vehicles
