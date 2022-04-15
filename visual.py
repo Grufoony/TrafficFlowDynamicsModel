@@ -31,8 +31,8 @@ for fName in tqdm(os.listdir('./img/data')):
     graph.add_edges_from(edge_list)
     pos=nx.kamada_kawai_layout(graph, dist=None, pos=None, weight='weight', scale=1, center=None, dim=2)
     fig, ax = plt.subplots()
-    nx.draw_networkx_nodes(graph, pos, ax=ax)
-    nx.draw_networkx_labels(graph, pos, ax=ax)
+    nx.draw_networkx_nodes(graph, pos, ax=ax, node_size=50)
+    nx.draw_networkx_labels(graph, pos, ax=ax, font_size=5)
     curved_edges = [edge for edge in graph.edges() if reversed(edge) in graph.edges()]
     temp = []
     # reorder dataframe based on graph_edges

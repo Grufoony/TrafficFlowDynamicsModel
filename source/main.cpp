@@ -88,23 +88,22 @@ int main(int argc, char **argv) {
     // g.test();
     for (int t = 0; t < std::stoi(argv[5]); ++t) {
       printLoadingBar(t, std::stoi(argv[5]));
-      // std::cout << t << '/' << std::stoi(argv[5]) << '\r';
-      // std::cout.flush();
-      auto out = OUT_FOLDER + std::to_string(t) + OUT_FORMAT;
-      fOut.open(out);
-      std::cout.rdbuf(fOut.rdbuf());
-      std::cout << "source" << '\t' << "target" << '\t' << "load" << '\t' << "x"
-                << '\n';
       if (t < 25) {
         g.evolve(dVehicle);
       } else {
         g.evolve();
       }
-      if (t % 250 == 0)
+      if (t % 250 == 0) {
+        auto out = OUT_FOLDER + std::to_string(t) + OUT_FORMAT;
+        fOut.open(out);
+        std::cout.rdbuf(fOut.rdbuf());
+        std::cout << "source" << '\t' << "target" << '\t' << "load" << '\t'
+                  << "x" << '\n';
         g.fprintDistribution(15);
-      // g.test();
-      fOut.close();
-      std::cout.rdbuf(rdbufBackup);
+        g.test();
+        fOut.close();
+        std::cout.rdbuf(rdbufBackup);
+      }
     }
     break;
 
