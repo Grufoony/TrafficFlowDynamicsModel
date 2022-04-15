@@ -17,10 +17,10 @@ void printExeTime(std::chrono::high_resolution_clock::duration interval) {
         std::chrono::duration_cast<std::chrono::seconds>(interval).count();
     unit = " s";
   }
-  std::cout << "-------------------------" << '\n';
-  std::cout << '|' << "Execution time: " << duration << std::setprecision(4)
-            << unit << '|' << '\n';
-  std::cout << "-------------------------" << '\n';
+  std::cout << "┌─────────────────────────┐" << '\n';
+  std::cout << "│ " << std::setw(10) << "Execution time: " << duration
+            << std::setprecision(4) << unit << " │" << '\n';
+  std::cout << "└─────────────────────────┘" << '\n';
 }
 
 void printTransMatrices() {
@@ -36,6 +36,12 @@ void printTransMatrices() {
       std::cout << '\n';
     }
   }
+}
+
+void printLoadingBar(int const i, int const n) {
+  std::cout << "Loading: " << std::setprecision(3) << std::fixed
+            << (i * 100. / n) << "%" << '\r';
+  std::cout.flush();
 }
 
 int main(int argc, char **argv) {
@@ -81,8 +87,9 @@ int main(int argc, char **argv) {
     // g.evolve(100);
     // g.test();
     for (int t = 0; t < std::stoi(argv[5]); ++t) {
-      std::cout << t << '/' << std::stoi(argv[5]) << '\r';
-      std::cout.flush();
+      printLoadingBar(t, std::stoi(argv[5]));
+      // std::cout << t << '/' << std::stoi(argv[5]) << '\r';
+      // std::cout.flush();
       auto out = OUT_FOLDER + std::to_string(t) + OUT_FORMAT;
       fOut.open(out);
       std::cout.rdbuf(fOut.rdbuf());
