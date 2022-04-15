@@ -142,6 +142,7 @@ void Graph::_evolve() {
       }
     }
   }
+  int nVehicles_old = static_cast<int>(_vehicles.size());
   // erase vehicles that have reached their destination
   _vehicles.erase(std::remove_if(_vehicles.begin(), _vehicles.end(),
                                  [](std::shared_ptr<Vehicle> const &vehicle) {
@@ -151,6 +152,9 @@ void Graph::_evolve() {
                                  }),
                   _vehicles.end());
   ++_time;
+  int dVehicles = nVehicles_old - static_cast<int>(_vehicles.size());
+  // add new vehicles
+  this->addRndmVehicles(dVehicles);
 }
 
 int Graph::_findStreet(int const src, int const dst) {
@@ -245,11 +249,19 @@ Graph::Graph(const char *fName, const char *fCoordinates) {
   data.close();
 }
 
-void Graph::addVehicle(int type) {
+void Graph::addVehicle(int type) noexcept{
+  if (type < 0 || !(type < Vehicle::getNVehicleType())) {
+    std::cerr << "WARNING: trying to add a vehicle with an invalid type."
+              << '\n';
+  }
   _vehicles.push_back(std::make_shared<Vehicle>(Vehicle(type)));
 }
 
-void Graph::addRndmVehicles(int nVehicles) {
+void Graph::addRndmVehicles(int nVehicles) noexcept{
+  if (nVehicles < 0) {
+    std::cerr << "WARNING: trying to add " << nVehicles << " vehicles." << '\n';
+    return;
+  }
   std::random_device dev;
   std::mt19937 rng(dev());
   std::uniform_int_distribution<> dist(0, Vehicle::getNVehicleType() - 1);
@@ -400,24 +412,7 @@ void Graph::fprintDistribution(int const nBins) const noexcept {
         });
     std::cout << std::setprecision(3) << i * (1. / nBins) << '\t' << n << '\n';
   }
-  // for (int i = 0; i < nBins; ++i) {
-  //   // get n vehicles based on velocity
-  //   n = std::count_if(
-  //       _vehicles.begin(), _vehicles.end(),
-  //       [i, nBins, this](std::shared_ptr<Vehicle> const &vehicle) {
-  //         auto index = vehicle->getStreet();
-  //         if (index < 0)
-  //           return false;
-  //         return (vehicle->getVelocity() / _streets.at(index)->getVMax()) >=
-  //                    i * (1. / nBins) &&
-  //                (vehicle->getVelocity() / _streets.at(index)->getVMax()) <
-  //                    (i + 1) * (1. / nBins);
-  //       });
-  //   std::cout << i * (1. / nBins) << '\t'
-  //             << static_cast<double>(n) /
-  //             static_cast<double>(_vehicles.size())
-  //             << '\n';
-  // }
+  std::cout << (nBins + 1.) * (1. / nBins);
   std::cout.rdbuf(rdbufBackup);
   fOut.close();
 }

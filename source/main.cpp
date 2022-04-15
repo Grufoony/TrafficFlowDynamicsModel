@@ -10,10 +10,16 @@
 
 void printExeTime(std::chrono::high_resolution_clock::duration interval) {
   auto duration =
-      std::chrono::duration_cast<std::chrono::milliseconds>(interval);
+      std::chrono::duration_cast<std::chrono::milliseconds>(interval).count();
+  std::string unit = " ms";
+  if (duration > 1e4) {
+    duration =
+        std::chrono::duration_cast<std::chrono::seconds>(interval).count();
+    unit = " s";
+  }
   std::cout << "-------------------------" << '\n';
-  std::cout << '|' << "Execution time: " << duration.count()
-            << std::setprecision(4) << " ms" << '|' << '\n';
+  std::cout << '|' << "Execution time: " << duration << std::setprecision(4)
+            << unit << '|' << '\n';
   std::cout << "-------------------------" << '\n';
 }
 
@@ -72,7 +78,6 @@ int main(int argc, char **argv) {
     dVehicle = std::stoi(argv[4]);
     g.createTransMatrix();
     g.fprint(true);
-
     // g.evolve(100);
     // g.test();
     for (int t = 0; t < std::stoi(argv[5]); ++t) {
@@ -88,7 +93,7 @@ int main(int argc, char **argv) {
       } else {
         g.evolve();
       }
-      if (t % 500 == 0)
+      if (t % 250 == 0)
         g.fprintDistribution(15);
       // g.test();
       fOut.close();

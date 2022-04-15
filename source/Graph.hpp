@@ -31,8 +31,8 @@ public:
   Graph(const char *, const char *); // import from file (matrix + coordinates)
   ~Graph() = default;
 
-  void addVehicle(int);              // add a vehicle of a type in _vehicles
-  void addRndmVehicles(int);         // add vehicles of random type in _vehicles
+  void addVehicle(int) noexcept;              // add a vehicle of a type in _vehicles
+  void addRndmVehicles(int) noexcept;         // add vehicles of random type in _vehicles
   void setTemperature(double const); // set the temperature of the network
   void createTransMatrix(); // create all the transition matrices for all
                             // vehicle types
