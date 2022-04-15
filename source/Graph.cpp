@@ -249,19 +249,16 @@ Graph::Graph(const char *fName, const char *fCoordinates) {
   data.close();
 }
 
-void Graph::addVehicle(int type) noexcept{
-  if (type < 0 || !(type < Vehicle::getNVehicleType())) {
-    std::cerr << "WARNING: trying to add a vehicle with an invalid type."
-              << '\n';
-  }
+void Graph::addVehicle(int type) {
+  if (type < 0 || !(type < Vehicle::getNVehicleType()))
+    throw std::runtime_error("Invalid vehicle type.\n");
   _vehicles.push_back(std::make_shared<Vehicle>(Vehicle(type)));
 }
 
-void Graph::addRndmVehicles(int nVehicles) noexcept{
-  if (nVehicles < 0) {
-    std::cerr << "WARNING: trying to add " << nVehicles << " vehicles." << '\n';
-    return;
-  }
+void Graph::addRndmVehicles(int nVehicles) {
+  if (nVehicles < 0)
+    throw std::invalid_argument(
+        "Number of vehicles randomly added must be positive.");
   std::random_device dev;
   std::mt19937 rng(dev());
   std::uniform_int_distribution<> dist(0, Vehicle::getNVehicleType() - 1);
@@ -273,7 +270,7 @@ void Graph::addRndmVehicles(int nVehicles) noexcept{
 
 void Graph::setTemperature(double const temperature) {
   if (temperature < 0)
-    throw std::runtime_error("Temperature must be positive.\n");
+    throw std::invalid_argument("Temperature must be positive.\n");
   _temperature = temperature;
 }
 
