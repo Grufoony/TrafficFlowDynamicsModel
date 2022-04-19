@@ -83,24 +83,8 @@ Anno Accademico \textcolor{black}{2021/2022}
 \chapter*{Introduzione}
 \addcontentsline{toc}{chapter}{Introduzione}
 
-\begin{figure}[H]
-\centering
-\begin{tikzpicture}
-\begin{axis}[ybar interval,
-area style,
-width = \textwidth,
-height = 0.75\textwidth,
-xlabel = {Densità di veicoli},
-ylabel = {Numero di strade},]
-\addplot+[
-ybar interval,
-mark=no,
-line width = 1.25pt
-] file {./data/24750.dat};
-\end{axis}
-\end{tikzpicture}
-\caption{\emph{Prova.}}
-\end{figure}
+Negli ultimi decenni si è assistito ad una forte crescita delle principali città in tutto il mondo.
+Una maggior popolazione risiedente in città implica una maggior richiesta di mobilità da parte dei suoi residenti: per questo, nell'ultima decade, sono nate molte società di sharing che, causa mancanza di coordinazione tra di esse, hanno contribuito all'aumento del traffico di veicoli \cite{Kondor2022}.
 
 \section*{Random Walk su network}
 
@@ -169,7 +153,7 @@ Parametro di input necessario per creare un'istanza è la matrice di adiacenza, 
 Tramite essa viene poi generato un vettore di puntatori a \emph{Street} che genera le connessioni tra i nodi come strade.\\
 Il movimento degli agenti sul network è determinato dalla matrice di transizione assegnata alle varie tipologie di veicoli.
 Questa viene generata tramite l'utilizzo del famoso algoritmo Dijkstra \cite{dijkstra} e si basa sulla ricerca del \emph{best path}, il percorso a costo (lunghezza) inferiore, dalla posizione dell'agente alla destinazione definita dal suo \emph{VehicleType}.
-Si è poi deciso di introdurre un parametro di temperatura al network per poter permettere ai veicoli di seguire un percorso differente rispetto al best path fornito dall'algoritmo Dijkstra.
+Si è poi deciso di introdurre un parametro di temperatura statistica al network per poter permettere ai veicoli di seguire un percorso differente rispetto al best path fornito dall'algoritmo Dijkstra.
 L'algoritmo di evoluzione, infatti, assegna peso 1 ai best path e un peso $\pi$ variabile tra 0 e 1 ai percorsi più lunghi.
 Quest'ultimo peso varia in base alla temperatura del sistema secondo la funzione
 \begin{equation}
@@ -194,7 +178,7 @@ dove $k$ è un parametro di controllo del modello.
                 line width = 1.5pt,] {tanh(x)};
         \end{axis}
     \end{tikzpicture}
-    \caption[Temperatura nel modello]{\emph{Probabilità di errore in funzione della temperatura.}}
+    \caption[Temperatura statistica nel modello]{\emph{Probabilità di errore in funzione della temperatura.}}
     \label{figure:temperature}
 \end{figure}
 Si procede poi alla normalizzazione a 1 di ogni vettore riga della matrice in modo tale da poter ottenere la probabilità di transizione.
@@ -221,6 +205,25 @@ in cui:
 
 
 \chapter{Risultati}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+    \begin{axis}[ybar interval,
+    area style,
+    width = \textwidth,
+    height = 0.75\textwidth,
+    xlabel = {Densità di veicoli},
+    ylabel = {Numero di strade},]
+    \addplot+[
+    ybar interval,
+    mark=no,
+    line width = 1.25pt
+    ] file {./data/24750.dat};
+    \end{axis}
+    \end{tikzpicture}
+    \caption{\emph{Prova.}}
+    \end{figure}
 
 \printbibliography
 \end{document}
