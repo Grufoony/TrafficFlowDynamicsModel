@@ -268,6 +268,22 @@ void Graph::addRndmVehicles(int nVehicles) {
   }
 }
 
+void Graph::addVehiclesUniformly(int n) {
+  if (n < 0)
+    throw std::invalid_argument(
+        "Number of vehicles uniformly added must be positive.");
+  // TODO: add vehicles uniformly on _streets
+}
+
+void Graph::loadVehicles(const char *fName) {
+  std::fstream data;
+  data.open(fName);
+  if (!data) {
+    throw std::runtime_error("Vehicles file does not exist.\n");
+  }
+  // TODO: add vehicles on _streets from file
+}
+
 void Graph::setTemperature(double const temperature) {
   if (temperature < 0)
     throw std::invalid_argument("Temperature must be positive.\n");
@@ -410,6 +426,16 @@ void Graph::fprintDistribution(int const nBins) const noexcept {
     std::cout << std::setprecision(3) << i * (1. / nBins) << '\t' << n << '\n';
   }
   std::cout << (nBins + 1.) * (1. / nBins);
+  std::cout.rdbuf(rdbufBackup);
+  fOut.close();
+}
+
+void Graph::save(const char *fileName) const noexcept {
+  std::ofstream fOut;
+  fOut.open(fileName);
+  auto const rdbufBackup = std::cout.rdbuf();
+  std::cout.rdbuf(fOut.rdbuf());
+  // TODO: save network state on file
   std::cout.rdbuf(rdbufBackup);
   fOut.close();
 }

@@ -33,6 +33,8 @@ public:
 
   void addVehicle(int);              // add a vehicle of a type in _vehicles
   void addRndmVehicles(int);         // add vehicles of random type in _vehicles
+  void addVehiclesUniformly(int);    // add vehicles uniformly on the streets
+  void loadVehicles(const char *);   // load vehicles in the network
   void setTemperature(double const); // set the temperature of the network
   void createTransMatrix(); // create all the transition matrices for all
                             // vehicle types
@@ -46,6 +48,8 @@ public:
 
   void fprint(bool const) const noexcept; // print network info on file
   void fprintDistribution(int const) const noexcept; // print streets on file
+
+  void save(const char *) const noexcept; // save network in file
 
   // funzione da eliminare che verrà usata per accedere alle private (DEBUG)
   void test();
