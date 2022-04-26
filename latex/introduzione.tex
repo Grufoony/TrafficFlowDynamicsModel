@@ -1,10 +1,24 @@
 \documentclass[../main.tex]{subfiles}
 
 \begin{document}
-Negli ultimi decenni si è assistito ad una forte crescita delle principali città in tutto il mondo.
-Una maggior popolazione risiedente in città implica una maggior richiesta di mobilità da parte dei suoi residenti: per questo, nell'ultima decade, sono nate molte società di sharing che, causa mancanza di coordinazione tra di esse, hanno contribuito all'aumento del traffico di veicoli \cite{Kondor2022}.
 
 \section*{Random Walk su network}
+Si consideri ora un network generico con $M$ nodi, assumendo che ognuno di essi possa scambiare particelle coi suoi vicini.
+Sia $\pi_{ij}$ la matrice stocastica che definisce la probabilità che una particella effettui il viaggio tra nodi $j\to i$.
+Assumendo di avere $N$ particelle nel reticolo, è possibile definire la funzione $\delta_\alpha(i,t)$ che vale $1$ se la particella $\alpha$ si trova nel nodo $i$ al tempo $t$, 0 altrimenti.
+\\Ogni particella segue quindi la dinamica
+\begin{equation}
+    \delta_\alpha(i,t+\Delta t)=\sum_j\xi_{ij}^\alpha\delta_\alpha(j,t)
+\end{equation}
+dove $\xi_{ij}^\alpha$ è una matrice random che prende valori della base standard $\widehat{e}_i\in \mathbb{R}^M$ con probabilità $\pi_{ij}$.
+Il numero di particelle nel nodo $i$ al tempo $t$ è dato da
+\begin{equation}
+    n_i(t)=\sum_\alpha\delta_\alpha(i,t)
+\end{equation}
+ed è possibile dimostrare \cite{RandomWalks} che la seguente equazione è un integrale del moto
+\begin{equation}
+    \sum_in_i(t)=N
+\end{equation}
 
 \section*{Modelli di traffico}
 
