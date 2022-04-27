@@ -2,14 +2,38 @@
 
 \begin{document}
 
+
+\section{Random Walk su network}
 In generale, un network è descritto da una matrice di adiacenza $A_{ij}=\left\{0,1\right\}$ in cui la cella $(i,j)$ assume il valore $1$ se il nodo $i$ è connesso al nodo $j$, $0$ altrimenti.
 Nei casi considerati in questo studio si assume sempre che $A_{ij}=A_{ji}$ (proprietà di simmetria).
-
-
-\section*{Random Walk su network}
-Si consideri ora un network generico con $M$ nodi, assumendo che ognuno di essi possa scambiare particelle coi suoi vicini.
+\\Dalla matrice di adiacenza si ricava la matrice dei gradi come
+\begin{equation*}
+    D_{ij}=
+    \begin{cases}
+        \sum_jA{ij} \quad &i=j\\
+        0 &i\neq j
+    \end{cases}
+\end{equation*}
+che indica il numero delle connessioni per ogni nodo.
+\\Una volta note le matrici descritte in precedenza è possibile definire la matrice Laplaciana del network come
+\begin{equation}
+    L=D-A
+\end{equation}
+che ha le seguenti proprietà:
+\begin{itemize}
+    \item è semi-definita positiva;
+    \item $L_{ij}>0\Longleftrightarrow i=j$;
+    \item $\sum_jL_{ij}=\sum_iL_{ij}=0$, quindi esiste un autovalore nullo $\lambda_0$ con corrispondente autovettore $\vec{v}_0=(1,\ldots,1)$;
+    \item $\sum_iL_{ii}=2m$, dove $m$ è il numero totale dei link.
+\end{itemize}
+Si assuma ora che la rete abbia in totale $M$ nodi e che ognuno di essi possa scambiare particelle coi suoi vicini.
 Sia $\pi_{ij}$ la matrice stocastica che definisce la probabilità che una particella effettui il viaggio tra nodi $j\to i$.
-Assumendo di avere $N$ particelle nel reticolo, è possibile definire la funzione $\delta_\alpha(i,t)$ che vale $1$ se la particella $\alpha$ si trova nel nodo $i$ al tempo $t$, 0 altrimenti.
+Questa possiede le seguenti proprietà:
+\begin{itemize}
+    \item $A_{ij}=0 \Longrightarrow \pi_{ij}=0$;
+    \item $\sum_j\pi_{ij}=1$.
+\end{itemize}
+Assumendo inoltre di avere $N$ particelle nella rete, è possibile definire la funzione $\delta_\alpha(i,t)$ che vale $1$ se la particella $\alpha$ si trova nel nodo $i$ al tempo $t$, 0 altrimenti.
 \\Ogni particella segue quindi la dinamica
 \begin{equation}
     \delta_\alpha(i,t+\Delta t)=\sum_j\xi_{ij}^\alpha\delta_\alpha(j,t)
@@ -24,6 +48,6 @@ ed è possibile dimostrare \cite{RandomWalks} che la seguente equazione è un in
     \sum_in_i(t)=N
 \end{equation}
 
-\section*{Modelli di traffico}
+\section{Modelli di traffico}
 
 \end{document}
