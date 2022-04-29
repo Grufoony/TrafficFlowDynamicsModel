@@ -18,8 +18,8 @@ void printExeTime(std::chrono::high_resolution_clock::duration interval) {
     unit = " s";
   }
   std::cout << "┌─────────────────────────┐" << '\n';
-  std::cout << "│ " << std::setw(10) << "Execution time: " << duration
-            << std::setprecision(4) << unit << " │" << '\n';
+  std::cout << "│ " << std::setw(10) << "Execution time: " << std::setw(5)
+            << duration << std::setprecision(4) << unit << " │" << '\n';
   std::cout << "└─────────────────────────┘" << '\n';
 }
 
