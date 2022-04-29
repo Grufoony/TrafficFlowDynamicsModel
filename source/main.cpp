@@ -84,25 +84,22 @@ int main(int argc, char **argv) {
     dVehicle = std::stoi(argv[4]);
     g.createTransMatrix();
     g.fprint(true);
-    // g.evolve(100);
-    // g.test();
+    g.addVehiclesUniformly(dVehicle);
     for (int t = 0; t < std::stoi(argv[5]); ++t) {
       printLoadingBar(t, std::stoi(argv[5]));
-      if (t < 25) {
-        g.evolve(dVehicle);
-      } else {
-        g.evolve();
-      }
+      g.evolve();
+      // if (t < 1000) {
+      //   auto out = OUT_FOLDER + std::to_string(t) + OUT_FORMAT;
+      //   fOut.open(out);
+      //   std::cout.rdbuf(fOut.rdbuf());
+      //   std::cout << "source" << '\t' << "target" << '\t' << "load" << '\t'
+      //             << "x" << '\n';
+      //   g.test();
+      //   fOut.close();
+      //   std::cout.rdbuf(rdbufBackup);
+      // }
       if (t % 250 == 0) {
-        auto out = OUT_FOLDER + std::to_string(t) + OUT_FORMAT;
-        fOut.open(out);
-        std::cout.rdbuf(fOut.rdbuf());
-        std::cout << "source" << '\t' << "target" << '\t' << "load" << '\t'
-                  << "x" << '\n';
         g.fprintDistribution(15);
-        g.test();
-        fOut.close();
-        std::cout.rdbuf(rdbufBackup);
       }
     }
     break;
@@ -112,19 +109,6 @@ int main(int argc, char **argv) {
     return EXIT_FAILURE;
     break;
   }
-
-  // fOut.close();
-
-  // g.setTemperature(3000);
-  // g.createTransMatrix();
-  // g.fprint(true);
-  // for (int t = 0; t < 1e3; ++t) {
-  //   std::cout << "Time: " << t << '\n';
-  //   g.evolve(1);
-  //   g.printStreets();
-  // }
-  // g.evolve(1);
-  // g.test();
 
   // ending clock and terminate
   auto stop = Clock::now();

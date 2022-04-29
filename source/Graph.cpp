@@ -128,13 +128,7 @@ void Graph::_evolve() {
                     0)) { // check if the vehicle is on a street
                 _streets.at(vehicle->getStreet())->remVehicle();
               }
-              vehicle->setStreet(streetIndex);
-              vehicle->setVelocity(_streets.at(streetIndex)->getVelocity());
-              _streets.at(streetIndex)->addVehicle();
-              vehicle->setTimePenalty(
-                  static_cast<int>(_streets.at(streetIndex)->getLenght() /
-                                   vehicle->getVelocity()));
-              vehicle->setPosition(i);
+              _streets.at(streetIndex)->addVehicle(vehicle);
               break;
             }
           }
@@ -186,6 +180,7 @@ Graph::Graph(const char *fName) {
 
   // import adj matrix from file
   data.open(fName);
+  int streetIndex = 0;
   for (int u = 0; u < _n; ++u) {
     std::vector<double> temp;
     for (int v = 0; v < _n; ++v) {
@@ -193,7 +188,9 @@ Graph::Graph(const char *fName) {
       b = x > 0;
       temp.push_back(x);
       if (b) {
-        _streets.push_back(std::make_shared<Street>(Street(u, v, x)));
+        _streets.push_back(
+            std::make_shared<Street>(Street(u, v, x, streetIndex)));
+        ++streetIndex;
       }
     }
     _adjMatrix.push_back(temp);
@@ -234,6 +231,7 @@ Graph::Graph(const char *fName, const char *fCoordinates) {
   if (!data) {
     throw std::runtime_error("Matrix file does not exist.\n");
   }
+  int streetIndex = 0;
   for (int u = 0; u < _n; ++u) {
     std::vector<double> temp;
     for (int v = 0; v < _n; ++v) {
@@ -241,7 +239,9 @@ Graph::Graph(const char *fName, const char *fCoordinates) {
       b = x > 0;
       temp.push_back(x);
       if (b) {
-        _streets.push_back(std::make_shared<Street>(Street(u, v, x)));
+        _streets.push_back(
+            std::make_shared<Street>(Street(u, v, x, streetIndex)));
+        ++streetIndex;
       }
     }
     _adjMatrix.push_back(temp);
@@ -272,7 +272,15 @@ void Graph::addVehiclesUniformly(int n) {
   if (n < 0)
     throw std::invalid_argument(
         "Number of vehicles uniformly added must be positive.");
-  // TODO: add vehicles uniformly on _streets
+  std::random_device dev;
+  std::mt19937 rng(dev());
+  std::uniform_int_distribution<> dist(0,
+                                       static_cast<int>(_streets.size() - 1));
+  for (int i = 0; i < n; ++i) {
+    this->addRndmVehicles(1);
+    int index = dist(rng);
+    _streets.at(index)->addVehicle(_vehicles.back());
+  }
 }
 
 void Graph::loadVehicles(const char *fName) {
