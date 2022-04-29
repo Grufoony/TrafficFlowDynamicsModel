@@ -22,7 +22,7 @@ private:
   std::vector<int>
   _nextStep(int const,
             int const); // next step for the destination (min. distance)
-  void _evolve();       // evolve the vehicle's position
+  void _evolve(bool);   // evolve the vehicle's position
   int _findStreet(int const,
                   int const); // find street with origin and destination
 
@@ -40,8 +40,9 @@ public:
   void setTemperature(double const); // set the temperature of the network
   void createTransMatrix(); // create all the transition matrices for all
                             // vehicle types
-  void evolve();            // evolve the network
-  void evolve(int const);   // evolve the vehicles' position inserting nVehicles
+  void evolve(bool);        // evolve the network and ask if reinsertion is
+                            // needed
+  void evolve();            // evolve the network with reinsertion (default)
 
   void printMatrix() const noexcept;     // print adjency matrix on terminal
   void print(bool const) const noexcept; // print network info on terminal

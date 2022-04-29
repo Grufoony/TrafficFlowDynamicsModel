@@ -92,7 +92,7 @@ std::vector<int> Graph::_nextStep(int const src, int const dst) {
   return _nextStep;
 }
 
-void Graph::_evolve() {
+void Graph::_evolve(bool reinsert) {
   // random initializations
   std::random_device dev;
   std::mt19937 rng(dev());
@@ -148,7 +148,9 @@ void Graph::_evolve() {
   ++_time;
   int dVehicles = nVehicles_old - static_cast<int>(_vehicles.size());
   // add new vehicles
-  this->addRndmVehicles(dVehicles);
+  if (reinsert) {
+    this->addRndmVehicles(dVehicles);
+  }
 }
 
 int Graph::_findStreet(int const src, int const dst) {
@@ -336,12 +338,8 @@ void Graph::createTransMatrix() {
   }
 }
 
-void Graph::evolve(int const nVehicles) {
-  if (nVehicles > 0)
-    this->addRndmVehicles(nVehicles);
-  this->_evolve();
-}
-void Graph::evolve() { this->_evolve(); }
+void Graph::evolve(bool reinsert) { this->_evolve(reinsert); }
+void Graph::evolve() { this->_evolve(true); }
 
 void Graph::printMatrix() const noexcept {
   for (auto const &row : _adjMatrix) {
