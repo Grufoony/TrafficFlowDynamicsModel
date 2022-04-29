@@ -93,6 +93,12 @@ std::vector<int> Graph::_nextStep(int const src, int const dst) {
 }
 
 void Graph::_evolve(bool reinsert) {
+  // keep in memory the previous state of the streets
+  int i = 0;
+  for(auto const& street :_streets) {
+    _vehiclesOnStreet.at(i) = street->getNVehicles();
+    i++;
+  }
   // random initializations
   std::random_device dev;
   std::mt19937 rng(dev());
@@ -165,7 +171,7 @@ int Graph::_findStreet(int const src, int const dst) {
 
 Graph::Graph(const char *fName) {
   _n = 0;
-  std::fstream data;
+  std::ifstream data;
 
   // set database's dimension
   data.open(fName);
@@ -198,11 +204,14 @@ Graph::Graph(const char *fName) {
     _adjMatrix.push_back(temp);
   }
   data.close();
+  for(int i = 0; i < static_cast<int>(_streets.size()); ++i) {
+    _vehiclesOnStreet.push_back(0);
+  }
 }
 
 Graph::Graph(const char *fName, const char *fCoordinates) {
   _n = 0;
-  std::fstream data;
+  std::ifstream data;
   // set database's dimension
   data.open(fCoordinates);
   if (!data) {
@@ -415,7 +424,7 @@ void Graph::fprint(const bool printGraph) const noexcept {
   fOut.close();
 }
 
-void Graph::fprintDistribution(int const nBins) const noexcept {
+void Graph::fprintNStreetsPerVehicleDensity(int const nBins) const noexcept {
   std::ofstream fOut;
   auto out = "./data/" + std::to_string(_time - 1) + ".dat";
   fOut.open(out);
@@ -436,6 +445,19 @@ void Graph::fprintDistribution(int const nBins) const noexcept {
   fOut.close();
 }
 
+void Graph::fprintVehicleFluxPerVehicleDensity(int const nBins) const {
+  if (_time < 2) return;
+  std::ofstream fOut;
+  auto out = "./data/" + std::to_string(_time - 1) + "_flux.dat";
+  fOut.open(out);
+  auto const rdbufBackup = std::cout.rdbuf();
+  std::cout.rdbuf(fOut.rdbuf());
+  int n;
+  // TODO
+
+
+}
+
 void Graph::save(const char *fileName) const noexcept {
   std::ofstream fOut;
   fOut.open(fileName);
@@ -453,16 +475,4 @@ void Graph::test() {
               << street->getNVehicles() << '\t' << std::setprecision(3)
               << street->getVelocity() << '\n';
   }
-  // int const nBins = 33;
-  // int n;
-  // for (int i = 0; i < nBins; ++i) {
-  //   n = std::count_if(
-  //       _streets.begin(), _streets.end(),
-  //       [i, nBins](std::shared_ptr<Street> const &street) {
-  //         return street->getVehicleDensity() >= i * (1. / nBins) &&
-  //                street->getVehicleDensity() < (i + 1) * (1. / nBins);
-  //       });
-  //   std::cout << i * (1. / nBins) << '\t' << n << '\n';
-  // }
-  // std::cout << '\n';
 }

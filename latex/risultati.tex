@@ -4,18 +4,18 @@
 
 \begin{figure}[H]
     \centering
-    \begin{tikzpicture}
+    \begin{tikzpicture}[scale=0.5]
     \begin{axis}[ybar interval,
     area style,
-    width = \textwidth,
-    height = 0.75\textwidth,
+    width = 2\textwidth,
+    height = 1.5\textwidth,
     xlabel = {Densità di veicoli},
     ylabel = {Numero di strade},]
     \addplot+[
     ybar interval,
     mark=no,
     line width = 1.25pt
-    ] file {./data/0.dat};
+    ] plot file {./data/0.dat};
     \end{axis}
     \end{tikzpicture}
     \caption{\emph{Prova.}}
@@ -23,18 +23,18 @@
 
 \begin{figure}[H]
     \centering
-    \begin{tikzpicture}
+    \begin{tikzpicture}[scale=0.5]
     \begin{axis}[ybar interval,
     area style,
-    width = \textwidth,
-    height = 0.75\textwidth,
+    width = 2\textwidth,
+    height = 1.5\textwidth,
     xlabel = {Densità di veicoli},
     ylabel = {Numero di strade},]
     \addplot+[
     ybar interval,
     mark=no,
     line width = 1.25pt
-    ] file {./data/1000.dat};
+    ] plot file {./data/1000.dat};
     \end{axis}
     \end{tikzpicture}
     \caption{\emph{Prova.}}
@@ -42,18 +42,18 @@
 
 \begin{figure}[H]
     \centering
-    \begin{tikzpicture}
+    \begin{tikzpicture}[scale=0.5]
     \begin{axis}[ybar interval,
     area style,
-    width = \textwidth,
-    height = 0.75\textwidth,
+    width = 2\textwidth,
+    height = 1.5\textwidth,
     xlabel = {Densità di veicoli},
     ylabel = {Numero di strade},]
     \addplot+[
     ybar interval,
     mark=no,
     line width = 1.25pt
-    ] file {./data/2500.dat};
+    ] plot file {./data/2500.dat};
     \end{axis}
     \end{tikzpicture}
     \caption{\emph{Prova.}}

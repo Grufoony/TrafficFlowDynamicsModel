@@ -99,7 +99,7 @@ int main(int argc, char **argv) {
       //   std::cout.rdbuf(rdbufBackup);
       // }
       if (t % 250 == 0) {
-        g.fprintDistribution(15);
+        g.fprintNStreetsPerVehicleDensity(15);
       }
     }
     break;

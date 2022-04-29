@@ -12,6 +12,7 @@ private:
   std::vector<std::vector<double>> _nodesCoordinates; // coordinates matrix
   std::vector<std::shared_ptr<Street>> _streets;      // streets in the network
   std::vector<std::shared_ptr<Vehicle>> _vehicles;    // vehicles in the network
+  std::vector<int> _vehiclesOnStreet;    // vehicles on the street
   int _n;                                             // dimension
   double _temperature = 0.; // temperature of the network
   int _time = 0;            // time of the simulation
@@ -50,7 +51,9 @@ public:
       noexcept; // print streets on terminal with nodes and number of vehicles
 
   void fprint(bool const) const noexcept; // print network info on file
-  void fprintDistribution(int const) const noexcept; // print streets on file
+  void fprintNStreetsPerVehicleDensity(int const)
+      const noexcept; // print the number of streets per vehicle density on file
+  void fprintVehicleFluxPerVehicleDensity(int const) const;
 
   void save(const char *) const noexcept; // save network in file
 
