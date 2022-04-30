@@ -95,7 +95,7 @@ std::vector<int> Graph::_nextStep(int const src, int const dst) {
 void Graph::_evolve(bool reinsert) {
   // keep in memory the previous state of the streets
   int i = 0;
-  for(auto const& street :_streets) {
+  for (auto const &street : _streets) {
     _vehiclesOnStreet.at(i) = street->getNVehicles();
     i++;
   }
@@ -187,6 +187,7 @@ Graph::Graph(const char *fName) {
   _n = std::sqrt(_n);
 
   // import adj matrix from file
+  std::cout << "Importing adjacency matrix from file..." << '\n';
   data.open(fName);
   int streetIndex = 0;
   for (int u = 0; u < _n; ++u) {
@@ -204,7 +205,8 @@ Graph::Graph(const char *fName) {
     _adjMatrix.push_back(temp);
   }
   data.close();
-  for(int i = 0; i < static_cast<int>(_streets.size()); ++i) {
+  std::cout << "Done." << '\n';
+  for (int i = 0; i < static_cast<int>(_streets.size()); ++i) {
     _vehiclesOnStreet.push_back(0);
   }
 }
@@ -238,6 +240,7 @@ Graph::Graph(const char *fName, const char *fCoordinates) {
   data.close();
 
   // import adj matrix from file
+  std::cout << "Importing adjacency matrix from file..." << '\n';
   data.open(fName);
   if (!data) {
     throw std::runtime_error("Matrix file does not exist.\n");
@@ -258,6 +261,7 @@ Graph::Graph(const char *fName, const char *fCoordinates) {
     _adjMatrix.push_back(temp);
   }
   data.close();
+  std::cout << "Done." << '\n';
 }
 
 void Graph::addVehicle(int type) {
@@ -446,7 +450,8 @@ void Graph::fprintNStreetsPerVehicleDensity(int const nBins) const noexcept {
 }
 
 void Graph::fprintVehicleFluxPerVehicleDensity(int const nBins) const {
-  if (_time < 2) return;
+  if (_time < 2)
+    return;
   std::ofstream fOut;
   auto out = "./data/" + std::to_string(_time - 1) + "_flux.dat";
   fOut.open(out);
@@ -454,8 +459,6 @@ void Graph::fprintVehicleFluxPerVehicleDensity(int const nBins) const {
   std::cout.rdbuf(fOut.rdbuf());
   int n;
   // TODO
-
-
 }
 
 void Graph::save(const char *fileName) const noexcept {

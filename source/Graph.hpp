@@ -12,7 +12,7 @@ private:
   std::vector<std::vector<double>> _nodesCoordinates; // coordinates matrix
   std::vector<std::shared_ptr<Street>> _streets;      // streets in the network
   std::vector<std::shared_ptr<Vehicle>> _vehicles;    // vehicles in the network
-  std::vector<int> _vehiclesOnStreet;    // vehicles on the street
+  std::vector<int> _vehiclesOnStreet;                 // vehicles on the street
   int _n;                                             // dimension
   double _temperature = 0.; // temperature of the network
   int _time = 0;            // time of the simulation
