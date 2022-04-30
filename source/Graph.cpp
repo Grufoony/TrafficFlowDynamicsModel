@@ -41,14 +41,14 @@ void normalizeMat(std::vector<std::vector<double>> &mat) {
 
 // using Dijkstra to calculate distance
 int Graph::_minDistance(int const src, int const dst) const {
-  std::vector<int> dist; // The output array.  dist[i] will hold the shortest
+  std::vector<int> dist; // The output array. dist.at(i) will hold the shortest
   // distance from src to i
 
   std::vector<bool>
-      sptSet; // sptSet[i] will be true if vertex i is included in shortest
+      sptSet; // sptSet.at(i) will be true if vertex i is included in shortest
   // path tree or shortest distance from src to i is finalized
 
-  // Initialize all distances as INFINITE and stpSet[] as false
+  // Initialize all distances as INFINITE and stpSet as false
   for (int i = 0; i < _n; ++i)
     dist.push_back(std::numeric_limits<int>::max()), sptSet.push_back(false);
 
@@ -67,9 +67,9 @@ int Graph::_minDistance(int const src, int const dst) const {
     // Update dist value of the adjacent vertices of the picked vertex.
     for (int v = 0; v < _n; ++v)
 
-      // Update dist[v] only if is not in sptSet, there is an edge from
-      // u to v, and total weight of path from src to  v through u is
-      // smaller than current value of dist[v]
+      // Update dist.at(v) only if is not in sptSet, there is an edge from
+      // u to v, and total weight of path from src to v through u is
+      // smaller than current value of dist.at(v)
       if (!sptSet.at(v) && _adjMatrix.at(u).at(v) &&
           dist.at(u) != std::numeric_limits<int>::max() &&
           dist.at(u) + _adjMatrix.at(u).at(v) < dist.at(v))
