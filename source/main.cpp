@@ -2,6 +2,7 @@
 #include "Vehicle.hpp"
 
 #include <chrono>
+#include <filesystem>
 #include <fstream>
 #include <iomanip>
 #include <iostream>
@@ -44,8 +45,14 @@ void printLoadingBar(int const i, int const n) {
   std::cout.flush();
 }
 
+void clearDir(std::string const &dir) {
+  std::filesystem::remove_all(dir);
+  std::filesystem::create_directories(dir);
+}
+
 int main(int argc, char **argv) {
   std::string const OUT_FORMAT = ".dat";
+  std::string const DATA_FOLDER = "./data/";
   std::string const OUT_FOLDER = "./img/data/";
 
   typedef std::chrono::high_resolution_clock Clock;
@@ -53,8 +60,6 @@ int main(int argc, char **argv) {
   // clock has started
 
   auto g = Graph(argv[1]);
-  std::ofstream fOut;
-  auto const rdbufBackup = std::cout.rdbuf();
   int dVehicle;
 
   switch (argc) {
@@ -85,27 +90,17 @@ int main(int argc, char **argv) {
     g.createTransMatrix();
     g.fprint(true);
     g.addVehiclesUniformly(dVehicle);
+    clearDir(DATA_FOLDER);
     for (int t = 0; t < std::stoi(argv[5]); ++t) {
       printLoadingBar(t, std::stoi(argv[5]));
-      g.evolve();
-      // if (t < 1000) {
-      //   auto out = OUT_FOLDER + std::to_string(t) + OUT_FORMAT;
-      //   fOut.open(out);
-      //   std::cout.rdbuf(fOut.rdbuf());
-      //   std::cout << "source" << '\t' << "target" << '\t' << "load" << '\t'
-      //             << "x" << '\n';
-      //   g.test();
-      //   fOut.close();
-      //   std::cout.rdbuf(rdbufBackup);
-      // }
       if (t % 250 == 0) {
-        g.fprintNStreetsPerVehicleDensity(15);
+        g.fprintNStreetsPerVehicleDensity(DATA_FOLDER, 15);
       }
+      g.evolve();
     }
     break;
 
   default:
-    fOut.close();
     return EXIT_FAILURE;
     break;
   }

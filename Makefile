@@ -19,7 +19,7 @@ debug:
 	clang-format -i ./source/Graph.cpp
 	clang-format -i ./source/Graph.hpp
 	clear
-	g++ -O3 ./source/main.cpp ./source/Graph.cpp ./source/Street.cpp ./source/Vehicle.cpp ./source/VehicleType.cpp -o test.out -Wall -Wextra -fsanitize=address
+	g++ -std=c++17 -O3 ./source/main.cpp ./source/Graph.cpp ./source/Street.cpp ./source/Vehicle.cpp ./source/VehicleType.cpp -o test.out -Wall -Wextra -fsanitize=address
 visual:
 	clear
 	python3 visual.py

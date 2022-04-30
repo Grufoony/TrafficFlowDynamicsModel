@@ -51,7 +51,9 @@ public:
       noexcept; // print streets on terminal with nodes and number of vehicles
 
   void fprint(bool const) const noexcept; // print network info on file
-  void fprintNStreetsPerVehicleDensity(int const)
+  void
+  fprintVisual(std::string const &) const noexcept; // print file for visual.py
+  void fprintNStreetsPerVehicleDensity(std::string const &, int const)
       const noexcept; // print the number of streets per vehicle density on file
   void fprintVehicleFluxPerVehicleDensity(int const) const;
 

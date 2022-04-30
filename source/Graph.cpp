@@ -428,9 +428,27 @@ void Graph::fprint(const bool printGraph) const noexcept {
   fOut.close();
 }
 
-void Graph::fprintNStreetsPerVehicleDensity(int const nBins) const noexcept {
+void Graph::fprintVisual(std::string const &out_folder) const noexcept {
   std::ofstream fOut;
-  auto out = "./data/" + std::to_string(_time - 1) + ".dat";
+  auto out = out_folder + std::to_string(_time) + ".dat";
+  fOut.open("network_info.txt");
+  auto const rdbufBackup = std::cout.rdbuf();
+  std::cout.rdbuf(fOut.rdbuf());
+  std::cout << "source" << '\t' << "target" << '\t' << "load" << '\t' << "x"
+            << '\n';
+  for (auto const &street : _streets) {
+    std::cout << street->getOrigin() << '\t' << street->getDestination() << '\t'
+              << street->getNVehicles() << '\t' << std::setprecision(3)
+              << street->getVelocity() << '\n';
+  }
+  std::cout.rdbuf(rdbufBackup);
+  fOut.close();
+}
+
+void Graph::fprintNStreetsPerVehicleDensity(std::string const &out_folder,
+                                            int const nBins) const noexcept {
+  std::ofstream fOut;
+  auto out = out_folder + std::to_string(_time) + ".dat";
   fOut.open(out);
   auto const rdbufBackup = std::cout.rdbuf();
   std::cout.rdbuf(fOut.rdbuf());
@@ -448,18 +466,18 @@ void Graph::fprintNStreetsPerVehicleDensity(int const nBins) const noexcept {
   std::cout.rdbuf(rdbufBackup);
   fOut.close();
 }
-
-void Graph::fprintVehicleFluxPerVehicleDensity(int const nBins) const {
-  if (_time < 2)
-    return;
-  std::ofstream fOut;
-  auto out = "./data/" + std::to_string(_time - 1) + "_flux.dat";
-  fOut.open(out);
-  auto const rdbufBackup = std::cout.rdbuf();
-  std::cout.rdbuf(fOut.rdbuf());
-  int n;
-  // TODO
-}
+// TODO
+// void Graph::fprintVehicleFluxPerVehicleDensity(int const nBins) const {
+//   if (_time < 2)
+//     return;
+//   std::ofstream fOut;
+//   auto out = "./data/" + std::to_string(_time - 1) + "_flux.dat";
+//   fOut.open(out);
+//   auto const rdbufBackup = std::cout.rdbuf();
+//   std::cout.rdbuf(fOut.rdbuf());
+//   int n;
+//   // TODO
+// }
 
 void Graph::save(const char *fileName) const noexcept {
   std::ofstream fOut;
@@ -472,10 +490,4 @@ void Graph::save(const char *fileName) const noexcept {
 }
 
 // funzione da eliminare (DEBUG)
-void Graph::test() {
-  for (auto const &street : _streets) {
-    std::cout << street->getOrigin() << '\t' << street->getDestination() << '\t'
-              << street->getNVehicles() << '\t' << std::setprecision(3)
-              << street->getVelocity() << '\n';
-  }
-}
+void Graph::test() { return; }
