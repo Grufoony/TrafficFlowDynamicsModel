@@ -136,6 +136,8 @@ void Graph::_evolve(bool reinsert) {
               }
               _streets.at(streetIndex)->addVehicle(vehicle);
               break;
+            } else {
+              vehicle->setVelocity(0.);
             }
           }
         }
@@ -167,6 +169,22 @@ int Graph::_findStreet(int const src, int const dst) {
     ++i;
   }
   throw std::runtime_error("Street not found");
+}
+
+double Graph::_getStreetMeanVelocity(int const streetIndex) const {
+  double vCum = 0;
+  int i = 0;
+  for (auto const &vehicle : _vehicles) {
+    if (vehicle->getStreet() == streetIndex) {
+      vCum += vehicle->getVelocity();
+      ++i;
+    }
+  }
+  if (i == 0) {
+    return -1;
+  } else {
+    return vCum / i;
+  }
 }
 
 Graph::Graph(const char *fName) {
@@ -294,6 +312,9 @@ void Graph::addVehiclesUniformly(int n) {
   for (int i = 0; i < n; ++i) {
     this->addRndmVehicles(1);
     int index = dist(rng);
+    while (_streets.at(index)->isFull()) {
+      index = dist(rng);
+    }
     _streets.at(index)->addVehicle(_vehicles.back());
   }
 }
@@ -445,8 +466,8 @@ void Graph::fprintVisual(std::string const &out_folder) const noexcept {
   fOut.close();
 }
 
-void Graph::fprintNStreetsPerVehicleDensity(std::string const &out_folder,
-                                            int const nBins) const noexcept {
+void Graph::fprintHistogram(std::string const &out_folder,
+                            int const nBins) const noexcept {
   std::ofstream fOut;
   auto out = out_folder + std::to_string(_time) + ".dat";
   fOut.open(out);
@@ -466,18 +487,54 @@ void Graph::fprintNStreetsPerVehicleDensity(std::string const &out_folder,
   std::cout.rdbuf(rdbufBackup);
   fOut.close();
 }
-// TODO
-// void Graph::fprintVehicleFluxPerVehicleDensity(int const nBins) const {
-//   if (_time < 2)
-//     return;
-//   std::ofstream fOut;
-//   auto out = "./data/" + std::to_string(_time - 1) + "_flux.dat";
-//   fOut.open(out);
-//   auto const rdbufBackup = std::cout.rdbuf();
-//   std::cout.rdbuf(fOut.rdbuf());
-//   int n;
-//   // TODO
-// }
+
+void Graph::fprintDistribution(std::string const &outFolder,
+                               std::string const &opt) const {
+  if (opt == "u/q") {
+    if (_time < 2)
+      return;
+    std::ofstream fOut;
+    auto out = outFolder + std::to_string(_time) + "_u-q.dat";
+    fOut.open(out);
+    auto const rdbufBackup = std::cout.rdbuf();
+    std::cout.rdbuf(fOut.rdbuf());
+    for (auto const &street : _streets) {
+      auto meanV = this->_getStreetMeanVelocity(street->getIndex());
+      if (!(meanV < 0))
+        std::cout << meanV * street->getVehicleDensity() * 3.6e3 << '\t'
+                  << meanV * 3.6 << '\n';
+    }
+    std::cout.rdbuf(rdbufBackup);
+    fOut.close();
+  } else if (opt == "q/k") {
+    if (_time < 2)
+      return;
+    std::ofstream fOut;
+    auto out = outFolder + std::to_string(_time) + "_q-k.dat";
+    fOut.open(out);
+    auto const rdbufBackup = std::cout.rdbuf();
+    std::cout.rdbuf(fOut.rdbuf());
+    for (auto const &street : _streets) {
+      auto meanV = this->_getStreetMeanVelocity(street->getIndex());
+      if (!(meanV < 0))
+        std::cout << street->getVehicleDensity() * 1e3 << '\t'
+                  << meanV * street->getVehicleDensity() * 3.6e3 << '\n';
+    }
+    std::cout.rdbuf(rdbufBackup);
+    fOut.close();
+  }
+}
+
+void Graph::fprintActualState(std::basic_streambuf<char> *out) const noexcept {
+  auto const &street = _streets.at(69);
+  auto const rdbufBackup = std::cout.rdbuf();
+  std::cout.rdbuf(out);
+  std::cout << street->getVehicleDensity() * 1e3 << '\t'
+            << this->_getStreetMeanVelocity(street->getIndex()) *
+                   street->getVehicleDensity() * 3.6e3
+            << '\n';
+  std::cout.rdbuf(rdbufBackup);
+}
 
 void Graph::save(const char *fileName) const noexcept {
   std::ofstream fOut;
@@ -490,4 +547,11 @@ void Graph::save(const char *fileName) const noexcept {
 }
 
 // funzione da eliminare (DEBUG)
-void Graph::test() { return; }
+// std::vector<double> Graph::test() {
+//   auto const &street = _streets.at(69);
+//   std::vector<double> v;
+//   v.push_back(street->getVehicleDensity() * 1e3);
+//   v.push_back(this->_getStreetMeanVelocity(street->getIndex()) *
+//               street->getVehicleDensity() * 3.6e3);
+//   return v;
+// }

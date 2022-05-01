@@ -40,14 +40,16 @@ void printTransMatrices() {
 }
 
 void printLoadingBar(int const i, int const n) {
-  std::cout << "Loading: " << std::setprecision(3) << std::fixed
+  std::cout << "Loading: " << std::setprecision(2) << std::fixed
             << (i * 100. / n) << "%" << '\r';
   std::cout.flush();
 }
 
 void clearDir(std::string const &dir) {
+  std::cout << "Cleaning directory: " << dir << '\n';
   std::filesystem::remove_all(dir);
   std::filesystem::create_directories(dir);
+  std::cout << "Directory cleaned." << '\n';
 }
 
 int main(int argc, char **argv) {
@@ -60,6 +62,7 @@ int main(int argc, char **argv) {
   // clock has started
 
   auto g = Graph(argv[1]);
+  std::ofstream fOut;
   int dVehicle;
 
   switch (argc) {
@@ -89,14 +92,25 @@ int main(int argc, char **argv) {
     dVehicle = std::stoi(argv[4]);
     g.createTransMatrix();
     g.fprint(true);
-    g.addVehiclesUniformly(dVehicle);
+    // g.addVehiclesUniformly(dVehicle);
     clearDir(DATA_FOLDER);
+    fOut.open("./prova.dat");
     for (int t = 0; t < std::stoi(argv[5]); ++t) {
       printLoadingBar(t, std::stoi(argv[5]));
       if (t % 250 == 0) {
-        g.fprintNStreetsPerVehicleDensity(DATA_FOLDER, 15);
+        if (t < 1250)
+          g.addVehiclesUniformly(dVehicle / 5);
+        g.fprintHistogram(DATA_FOLDER, 15);
+        g.fprintDistribution(DATA_FOLDER, "q/k");
       }
-      g.evolve();
+      if (t % 2 == 0) {
+        g.fprintActualState(fOut.rdbuf());
+      }
+      if (t < 5e3) {
+        g.evolve();
+      } else {
+        g.evolve(false);
+      }
     }
     break;
 
@@ -104,7 +118,7 @@ int main(int argc, char **argv) {
     return EXIT_FAILURE;
     break;
   }
-
+  fOut.close();
   // ending clock and terminate
   auto stop = Clock::now();
   printExeTime(stop - start);

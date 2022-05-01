@@ -16,7 +16,7 @@ Street::Street(int n_1, int n_2, double l, int index) {
   _lenght = l;
   _nVehicles = 0;
   _nLanes = 1;
-  _vMax = 1.39; // 1.39 m/s = 50 km/h
+  _vMax = 13.9; // 13.9 m/s = 50 km/h
   _index = index;
   if (AVG_LENGHT < 0) {
     _maxCapacity = std::numeric_limits<int>::max();
@@ -27,6 +27,7 @@ Street::Street(int n_1, int n_2, double l, int index) {
 
 int Street::getOrigin() const noexcept { return _src; }
 int Street::getDestination() const noexcept { return _dst; }
+int Street::getIndex() const noexcept { return _index; }
 double Street::getLenght() const noexcept { return _lenght; }
 bool Street::isFull() const noexcept {
   return (_nVehicles == (_nLanes * _maxCapacity));
@@ -47,9 +48,12 @@ double Street::getVelocity() const noexcept { // linear decay
                          static_cast<double>((_nLanes * _maxCapacity))))));
 }
 double Street::getVMax() const noexcept { return _vMax; }
-double Street::getVehicleDensity() const noexcept {
+double Street::getDensity() const noexcept {
   return (static_cast<double>(_nVehicles) /
           static_cast<double>((_nLanes * _maxCapacity)));
+}
+double Street::getVehicleDensity() const noexcept {
+  return (_nVehicles / _lenght);
 }
 void Street::addVehicle(std::shared_ptr<Vehicle> vehicle) {
   vehicle->setStreet(_index);

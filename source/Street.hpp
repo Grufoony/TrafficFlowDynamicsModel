@@ -21,6 +21,7 @@ public:
 
   int getOrigin() const noexcept;
   int getDestination() const noexcept;
+  int getIndex() const noexcept;
   double getLenght() const noexcept;
   bool isFull() const noexcept;
   void setNLanes(int) noexcept;
@@ -28,6 +29,7 @@ public:
   void setVMax(double);
   double getVelocity() const noexcept;
   double getVMax() const noexcept;
+  double getDensity() const noexcept;
   double getVehicleDensity() const noexcept;
   void addVehicle(std::shared_ptr<Vehicle>);
   void remVehicle();

@@ -26,6 +26,8 @@ private:
   void _evolve(bool);   // evolve the vehicle's position
   int _findStreet(int const,
                   int const); // find street with origin and destination
+  double _getStreetMeanVelocity(int const) const; // get the mean velocity of a
+                                                  // street
 
 public:
   Graph(const char *);               // import from file (only matrix)
@@ -53,14 +55,17 @@ public:
   void fprint(bool const) const noexcept; // print network info on file
   void
   fprintVisual(std::string const &) const noexcept; // print file for visual.py
-  void fprintNStreetsPerVehicleDensity(std::string const &, int const)
-      const noexcept; // print the number of streets per vehicle density on file
-  void fprintVehicleFluxPerVehicleDensity(int const) const;
+  void fprintHistogram(std::string const &,
+                       int const) const noexcept; // print histograms
+  void fprintDistribution(std::string const &,
+                          std::string const &) const; // print graphs
+  void fprintActualState(
+      std::basic_streambuf<char> *) const noexcept; // print actual state
 
-  void save(const char *) const noexcept; // save network in file
+  void save(const char *) const noexcept; // TODO: save network in file
 
   // funzione da eliminare che verrà usata per accedere alle private (DEBUG)
-  void test();
+  // std::vector<double> test();
 };
 
 #endif

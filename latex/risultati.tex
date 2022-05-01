@@ -58,4 +58,25 @@
     \end{tikzpicture}
     \caption{\emph{Prova.}}
 \end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+    \begin{axis}[
+    grid = both,
+    major grid style = {lightgray},
+    minor grid style = {lightgray!25},
+    width = 0.75\textwidth,
+    height = 0.5\textwidth,
+    ylabel near ticks,
+    xlabel near ticks,
+    xlabel = {Densità (veh/km)},
+    ylabel = {Flusso (veh/h)},]
+    \addplot[
+    mark size=0.69,
+    draw=black,
+    only marks,] file {./prova.dat};
+    \end{axis}
+    \end{tikzpicture}
+    \end{figure}
 \end{document}
