@@ -1,0 +1,67 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+\section{Osservabili macroscopici}
+Prima di iniziare a modellizzare il problema \`e necessario domandarsi quali siano gli osservabili macroscopici principali e come siano legati tra di loro.
+La descrizione di un sistema a livello macroscopico risulta critica ai fini della descrizione della dinamica.
+\subsection{Densit\`a}
+La densit\`a \`e una variabile tipicamente fisica adotatta nella teoria del traffico.
+La densit\`a $\rho$ rappresenta il numero di veicoli per unit\`a di lunghezza della strada.
+Sia ora $\Delta x$ la lunghezza di una strada in cui sono presenti $n$ veicoli, allora ad un tempo generico $t$ si ha che
+\begin{equation*}
+    \rho(n,t,\Delta x)=\frac{n(t)}{\Delta x}
+\end{equation*}
+La densit\`a si esprime in veicoli al kilometro (veh/km).
+Tipicamente per ogni corsia di una strada si ha una $\rho_{max}\sim 10^2$ veh/km.
+Si osservi ora come moltiplicando e dividendo per un infinitesimo temporale $dt$ il denominatore divenga l'area dell'intervallo di misura $S$.
+In particolare
+\begin{equation}
+    \rho(t,\Delta x, S)=\frac{n(t)dt}{\Delta x dt}=\frac{\mbox{tempo totale trascorso in }S}{S}
+    \label{eq:rho_s}
+\end{equation}
+
+\subsection{Flusso}
+Il flusso $\Phi$ rappresenta il numero $m$ di veicoli che attraversano un certo localit\`a $x$ in un intervallo di tempo $\Delta t$
+\begin{equation}
+    \Phi(m, x, \Delta t)=\frac{m}{\Delta t}
+\end{equation}
+Il flusso \`e espresso in veicoli all'ora (veh/h).
+Considerando ora un intorno infinitesimo $dx$ di $x$ \`e possibile ricavare la dipendenza più generale
+\begin{equation}
+    \Phi(x, \Delta t, S)=\frac{mdx}{\Delta t dx}=\frac{\mbox{distanza totale percorsa dai veicoli in }S}{S}
+    \label{eq:phi_s}
+\end{equation}
+
+\subsection{Velocit\`a media}
+La velocit\`a media \`e definita come il rapporto tra il flusso e la densit\`a: si nota immediatamente come questa non dipenda dall'area dell'intervallo di misura.
+Unendo le Eq. (\ref{eq:phi_s}) e (\ref{eq:rho_s}):
+\begin{equation}
+    \bar{v}(x, t, S)=\frac{\Phi(x, \Delta t, S)}{\rho(t,\Delta x, S)}
+\end{equation}
+La relazione fondamentale della Traffic Flow Theory \cite{H111} \`e riassumibile nella:
+\begin{equation}
+    \Phi=\rho\bar{v}
+    \label{eq:fundamental}
+\end{equation}
+
+\section{Diagrammi fondamentali}
+A causa della relazione fondamentale del traffico riportata in Eq. (\ref{eq:fundamental}) risulta chiaro come su tre osservabili analizzati si abbiano solamente due variabili indipendenti.
+%%
+%Inserire immagine diagrammi fondamentali
+%%
+\begin{tikzpicture}
+    \begin{axis}
+        \addplot [domain=0:1] {-x+1};
+    \end{axis}
+\end{tikzpicture}
+\hspace{1cm}
+\begin{tikzpicture}
+    \begin{axis}
+        \addplot [samples=200, domain=-1:0] {sqrt(-x/2)};
+        \addplot [samples=200, domain=-1:0] {-sqrt(-x/2)};
+    \end{axis}
+\end{tikzpicture}
+In una situazione stazionaria (rete in equilibrio) \`e possibile descrivere il sistema graficamente con tre diagrammi: $\bar{v}-\Phi$, $\Phi-\rho$ e $\bar{v}-\rho$.
+La prima formulazione di questi \`e stata effettuata da Greenshield sulla base di alcune misurazioni da lui eseguite
+
+\end{document}

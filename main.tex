@@ -16,11 +16,6 @@
 
 \begin{document}
 \begin{titlepage}
-%
-%
-% UNA VOLTA FATTE LE DOVUTE MODIFICHE SOSTITUIRE "RED" CON "BLACK" NEI COMANDI \textcolor
-%
-%
 \begin{center}
 {{\Large{\textsc{Alma Mater Studiorum $\cdot$ Universit\`a di Bologna}}}} 
 \rule[0.1cm]{15.8cm}{0.1mm}
@@ -35,31 +30,16 @@ Corso di Laurea in Fisica}}
 
 \vspace{23mm}
 
-\begin{center}\textcolor{red}{
-%
-% INSERIRE IL TITOLO DELLA TESI
-%
-{\LARGE{\bf TITOLO TESI}}\\
+\begin{center}\textcolor{black}{
+{\LARGE{\bf Modelli di traffico per la formazione della congestione su una rete stradale}}\\
 }\end{center}
 
 \vspace{50mm} \par \noindent
 
 \begin{minipage}[t]{0.47\textwidth}
-%
-% INSERIRE IL NOME DEL RELATORE CON IL RELATIVO TITOLO DI DOTTORE O PROFESSORE
-%
 {\large{\bf Relatore: \vspace{2mm}\\\textcolor{black}{
 Prof. Armando Bazzani}\\\\
-%
-% INSERIRE IL NOME DEL CORRELATORE CON IL RELATIVO TITOLO DI DOTTORE O PROFESSORE
-%
-% SE NON AVETE UN CORRELATORE CANCELLATE LE PROSSIME 3 RIGHE
-%
-\textcolor{red}{
-\bf Correlatore: (eventuale)
-\vspace{2mm}\\
-Prof./Dott. Nome Cognome\\\\}}}
-\end{minipage}
+}}\end{minipage}
 %
 \hfill
 %
@@ -86,14 +66,18 @@ Anno Accademico \textcolor{black}{2021/2022}
 \addcontentsline{toc}{chapter}{Introduzione}
 \subfile{latex/introduzione}
 
+\chapter{Modelli di traffico}
+\subfile{latex/teoria}
+
 \chapter{Costruzione del modello}
 \subfile{latex/modello}
 
-\chapter{Implementazione}
-\subfile{latex/implementazione}
-
 \chapter{Risultati}
 \subfile{latex/risultati}
+
+\appendix
+\chapter{Implementazione}
+\subfile{latex/implementazione}
 
 \printbibliography
 \end{document}
