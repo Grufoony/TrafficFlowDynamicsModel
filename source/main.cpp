@@ -101,9 +101,11 @@ int main(int argc, char **argv) {
         if (t < 1250)
           g.addVehiclesUniformly(dVehicle / 5);
         g.fprintHistogram(DATA_FOLDER, 15);
+        g.fprintDistribution(DATA_FOLDER, "u/q");
         g.fprintDistribution(DATA_FOLDER, "q/k");
+        g.fprintDistribution(DATA_FOLDER, "u/k");
       }
-      if (t % 2 == 0) {
+      if (t % 25 == 0) {
         g.fprintActualState(fOut.rdbuf());
       }
       if (t < 5e3) {

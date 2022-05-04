@@ -475,12 +475,11 @@ void Graph::fprintHistogram(std::string const &out_folder,
   std::cout.rdbuf(fOut.rdbuf());
   int n;
   for (int i = 0; i < nBins + 1; ++i) {
-    n = std::count_if(
-        _streets.begin(), _streets.end(),
-        [i, nBins](std::shared_ptr<Street> const &street) {
-          return street->getVehicleDensity() >= i * (1. / nBins) &&
-                 street->getVehicleDensity() < (i + 1) * (1. / nBins);
-        });
+    n = std::count_if(_streets.begin(), _streets.end(),
+                      [i, nBins](std::shared_ptr<Street> const &street) {
+                        return street->getDensity() >= i * (1. / nBins) &&
+                               street->getDensity() < (i + 1) * (1. / nBins);
+                      });
     std::cout << std::setprecision(3) << i * (1. / nBins) << '\t' << n << '\n';
   }
   std::cout << (nBins + 1.) * (1. / nBins);
@@ -519,6 +518,22 @@ void Graph::fprintDistribution(std::string const &outFolder,
       if (!(meanV < 0))
         std::cout << street->getVehicleDensity() * 1e3 << '\t'
                   << meanV * street->getVehicleDensity() * 3.6e3 << '\n';
+    }
+    std::cout.rdbuf(rdbufBackup);
+    fOut.close();
+  } else if (opt == "u/k") {
+    if (_time < 2)
+      return;
+    std::ofstream fOut;
+    auto out = outFolder + std::to_string(_time) + "_u-k.dat";
+    fOut.open(out);
+    auto const rdbufBackup = std::cout.rdbuf();
+    std::cout.rdbuf(fOut.rdbuf());
+    for (auto const &street : _streets) {
+      auto meanV = this->_getStreetMeanVelocity(street->getIndex());
+      if (!(meanV < 0))
+        std::cout << street->getVehicleDensity() * 1e3 << '\t' << meanV * 3.6
+                  << '\n';
     }
     std::cout.rdbuf(rdbufBackup);
     fOut.close();
