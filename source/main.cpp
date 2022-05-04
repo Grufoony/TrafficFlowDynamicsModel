@@ -92,8 +92,8 @@ int main(int argc, char **argv) {
     dVehicle = std::stoi(argv[4]);
     g.createTransMatrix();
     g.fprint(true);
-    // g.addVehiclesUniformly(dVehicle);
     clearDir(DATA_FOLDER);
+    clearDir(OUT_FOLDER);
     fOut.open("./prova.dat");
     for (int t = 0; t < std::stoi(argv[5]); ++t) {
       printLoadingBar(t, std::stoi(argv[5]));
@@ -105,7 +105,7 @@ int main(int argc, char **argv) {
         g.fprintDistribution(DATA_FOLDER, "q/k");
         g.fprintDistribution(DATA_FOLDER, "u/k");
       }
-      if (t % 25 == 0) {
+      if (t % 50 == 0) {
         g.fprintActualState(fOut.rdbuf());
       }
       if (t < 5e3) {
