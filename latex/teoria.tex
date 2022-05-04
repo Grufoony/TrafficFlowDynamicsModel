@@ -59,9 +59,9 @@ A causa della relazione fondamentale del traffico riportata in Eq. (\ref{eq:fund
     ymax = 1.1,
     xmax = 1.1,
     ytick={0.5, 1},
-    yticklabels={$\bar{v}_c$,$\bar{v}_f$},
+    yticklabels={$\bar{v}_c$,$\bar{v}_l$},
     xtick={0.5, 1},
-    xticklabels={$\rho_c$,$\rho_j$}]
+    xticklabels={$\rho_c$,$\rho_t$}]
 \addplot [thick, domain=0:1] {-x+1};
 \nextgroupplot[
     axis y line = left,
@@ -70,7 +70,7 @@ A causa della relazione fondamentale del traffico riportata in Eq. (\ref{eq:fund
     xmin = -1,
     xmax = 0.1,
     ytick={0, 1/1.41},
-    yticklabels={$\bar{v}_c$,$\bar{v}_f$},
+    yticklabels={$\bar{v}_c$,$\bar{v}_l$},
     xtick={0},
     xticklabels={$\Phi_c$}]
 \addplot [samples=200, thick, domain=-1:0] {sqrt(-x/2)};
@@ -83,15 +83,30 @@ A causa della relazione fondamentale del traffico riportata in Eq. (\ref{eq:fund
     ytick={1},
     yticklabels={$\Phi_c$},
     xtick={0, 1},
-    xticklabels={$\rho_c$,$\rho_j$}]
+    xticklabels={$\rho_c$,$\rho_t$}]
 \addplot [samples=200, thick, domain=-1:1] {-x^2+1};
 \end{groupplot}
 
 \end{tikzpicture}
-\caption[Diagrammi fondamentali]{\emph{Diagrammi fondamentali.}}
+\caption[Diagrammi fondamentali di Greenshield]{\emph{Diagrammi fondamentali d Greenshield.}}
+\label{figure:greenshield}
 \end{figure}
 %%
-In una situazione stazionaria (rete in equilibrio) \`e possibile descrivere il sistema graficamente con tre diagrammi: $\bar{v}-\Phi$, $\Phi-\rho$ e $\bar{v}-\rho$.
-La prima formulazione di questi \`e stata effettuata da Greenshield sulla base di alcune misurazioni da lui eseguite
+In una situazione stazionaria (rete in equilibrio) \`e possibile descrivere il sistema graficamente con tre diagrammi: $\bar{v}$-$\Phi$, $\Phi$-$\rho$ e $\bar{v}$-$\rho$.
+La prima formulazione di questi, riportata come esempio in Fig. \ref{figure:greenshield}, \`e stata effettuata da Greenshield sulla base di alcune misurazioni da lui eseguite.
+Assumendo lineare la relazione tra $\rho$ e $\bar{v}$ le relazioni negli altri due diagrammi risultano paraboliche.
+In particolare, si ottengono un massimo di flusso sia a $\rho_c=\frac{\rho_t}{2}$ sia per $\bar{v}_c=\frac{\bar{v}_l}{2}$, con $\rho_j$ e $\bar{v}_l$ capacit\`a e velocit\`a massime, rispettivamente.
+\\Studiando i diagrammi fondamentali \`e possibile suddividere le condizioni di traffico in tre regimi:
+\begin{itemize}
+    \item \emph{Completamente Libero} 
+        \\Quando i veicoli non sono condizionati dal traffico ed \`e per loro possibile viaggiare alla velocit\`a massima $\bar{v}_l$, ossia la velocit\`a \emph{libera}.
+        La velocit\`a libera dipende solo dalla geometria e dalle restrizioni applicate ad una strada.
+        Si osservi come per questo valore di velocit\`a si abbiano un flusso e una densit\`a prossimi allo $0$.
+    \item \emph{Saturo}
+        \\Nelle strade sature il flusso e la velocit\`a tendono a $0$ e i veicoli si accodano ad una densit\`a massima $\rho_t$ (densit\`a di \emph{traffico}).
+    \item \emph{in Capacit\`a}
+        \\La capacit\`a della strada eguaglia il flusso massimo $\Phi_c$, il quale ha associate una densit\`a $\rho_c$ e una velocit\`a $\bar{v}_c$.
+        Si ha sempre $\bar{v}_c<\bar{v}_l$.
+\end{itemize}
 
 \end{document}
