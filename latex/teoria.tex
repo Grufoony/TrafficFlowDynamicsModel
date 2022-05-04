@@ -48,19 +48,49 @@ La relazione fondamentale della Traffic Flow Theory \cite{H111} \`e riassumibile
 A causa della relazione fondamentale del traffico riportata in Eq. (\ref{eq:fundamental}) risulta chiaro come su tre osservabili analizzati si abbiano solamente due variabili indipendenti.
 %%
 %Inserire immagine diagrammi fondamentali
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+    
+\begin{groupplot}[group style={group size=2 by 2}]
+\nextgroupplot[
+    axis y line = left,
+    axis x line = bottom,
+    ymax = 1.1,
+    xmax = 1.1,
+    ytick={0.5, 1},
+    yticklabels={$\bar{v}_c$,$\bar{v}_f$},
+    xtick={0.5, 1},
+    xticklabels={$\rho_c$,$\rho_j$}]
+\addplot [thick, domain=0:1] {-x+1};
+\nextgroupplot[
+    axis y line = left,
+    axis x line = bottom,
+    ymax = 0.823,
+    xmin = -1,
+    xmax = 0.1,
+    ytick={0, 1/1.41},
+    yticklabels={$\bar{v}_c$,$\bar{v}_f$},
+    xtick={0},
+    xticklabels={$\Phi_c$}]
+\addplot [samples=200, thick, domain=-1:0] {sqrt(-x/2)};
+\addplot [samples=200, thick,  domain=-1:0] {-sqrt(-x/2)};
+\nextgroupplot[
+    axis y line = left,
+    axis x line = bottom,
+    ymax = 1.1,
+    xmax = 1.1,
+    ytick={1},
+    yticklabels={$\Phi_c$},
+    xtick={0, 1},
+    xticklabels={$\rho_c$,$\rho_j$}]
+\addplot [samples=200, thick, domain=-1:1] {-x^2+1};
+\end{groupplot}
+
+\end{tikzpicture}
+\caption[Diagrammi fondamentali]{\emph{Diagrammi fondamentali.}}
+\end{figure}
 %%
-\begin{tikzpicture}
-    \begin{axis}
-        \addplot [domain=0:1] {-x+1};
-    \end{axis}
-\end{tikzpicture}
-\hspace{1cm}
-\begin{tikzpicture}
-    \begin{axis}
-        \addplot [samples=200, domain=-1:0] {sqrt(-x/2)};
-        \addplot [samples=200, domain=-1:0] {-sqrt(-x/2)};
-    \end{axis}
-\end{tikzpicture}
 In una situazione stazionaria (rete in equilibrio) \`e possibile descrivere il sistema graficamente con tre diagrammi: $\bar{v}-\Phi$, $\Phi-\rho$ e $\bar{v}-\rho$.
 La prima formulazione di questi \`e stata effettuata da Greenshield sulla base di alcune misurazioni da lui eseguite
 
