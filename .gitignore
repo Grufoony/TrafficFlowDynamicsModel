@@ -5,6 +5,7 @@
 /.vscode/*
 /data/*
 /img/*
+*.wsl
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
