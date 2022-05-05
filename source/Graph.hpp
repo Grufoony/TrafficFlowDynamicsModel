@@ -25,7 +25,7 @@ private:
             int const); // next step for the destination (min. distance)
   void _evolve(bool);   // evolve the vehicle's position
   int _findStreet(int const,
-                  int const); // find street with origin and destination
+                  int const) const; // find street with origin and destination
   double _getStreetMeanVelocity(int const) const; // get the mean velocity of a
                                                   // street
 

@@ -87,10 +87,12 @@ int main(int argc, char **argv) {
     break;
 
   case 6:
+    std::cout << "Setting up the simulation..." << '\n';
     Vehicle::addVehicleType(argv[2]);
     g.setTemperature(std::stod(argv[3]));
     dVehicle = std::stoi(argv[4]);
     g.createTransMatrix();
+    std::cout << "Done." << '\n';
     g.fprint(true);
     clearDir(DATA_FOLDER);
     clearDir(OUT_FOLDER);

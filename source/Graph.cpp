@@ -65,15 +65,20 @@ int Graph::_minDistance(int const src, int const dst) const {
     sptSet.at(u) = true;
 
     // Update dist value of the adjacent vertices of the picked vertex.
-    for (int v = 0; v < _n; ++v)
+    for (int v = 0; v < _n; ++v) {
 
       // Update dist.at(v) only if is not in sptSet, there is an edge from
       // u to v, and total weight of path from src to v through u is
       // smaller than current value of dist.at(v)
-      if (!sptSet.at(v) && _adjMatrix.at(u).at(v) &&
+      auto lenght = _adjMatrix.at(u).at(v);
+      if (lenght > std::numeric_limits<double>::epsilon())
+        lenght /= _streets.at(_findStreet(u, v))->getVMax();
+      auto time = static_cast<int>(lenght);
+      if (!sptSet.at(v) && time &&
           dist.at(u) != std::numeric_limits<int>::max() &&
-          dist.at(u) + _adjMatrix.at(u).at(v) < dist.at(v))
-        dist.at(v) = dist.at(u) + _adjMatrix.at(u).at(v);
+          dist.at(u) + time < dist.at(v))
+        dist.at(v) = dist.at(u) + time;
+    }
   }
   return dist.at(dst);
 }
@@ -85,7 +90,9 @@ std::vector<int> Graph::_nextStep(int const src, int const dst) {
   for (int i = 0; i < static_cast<int>(row.size()); ++i) {
     auto lenght = row.at(i);
     if (lenght > std::numeric_limits<double>::epsilon()) {
-      if (_minDistance(i, dst) == (min - lenght))
+      auto time = static_cast<int>(lenght /
+                                   _streets.at(_findStreet(src, i))->getVMax());
+      if (_minDistance(i, dst) == (min - time))
         _nextStep.push_back(i);
     }
   }
@@ -161,7 +168,7 @@ void Graph::_evolve(bool reinsert) {
   }
 }
 
-int Graph::_findStreet(int const src, int const dst) {
+int Graph::_findStreet(int const src, int const dst) const {
   int i = 0;
   for (auto const &street : _streets) {
     if (street->getOrigin() == src && street->getDestination() == dst)
