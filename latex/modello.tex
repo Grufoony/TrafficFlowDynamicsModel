@@ -2,9 +2,98 @@
 
 \begin{document}
 
+\section{Random Walk su network}
+In generale, un network \`e descritto da una matrice di adiacenza $\mathcal{A}_{ij}=\left\{0,1\right\}$ in cui la cella $(i,j)$ assume il valore $1$ se il nodo $i$ \`e connesso al nodo $j$, $0$ altrimenti.
+Nei casi considerati in questo studio si assume sempre che $\mathcal{A}_{ij}=\mathcal{A}_{ji}$ (proprietà di simmetria).
+Affiancata alla matrice di adiacenza si usa definire spesso la matrice dei pesi $\mathcal{W}_{ij}$, la quale definisce il peso di ciascun collegamento tra nodi.
+In particolare, la matrice $\mathcal{W}_{ij}$ possiede le seguenti propiet\`a:
+\begin{itemize}
+    \item $\mathcal{A}_{ij} = 0 \Longrightarrow \mathcal{W}_{ij} = 0$;
+    \item $\mathcal{A}_{ij} = 1 \Longrightarrow \mathcal{W}_{ij} \neq 0$.
+\end{itemize}
+Dalla matrice di adiacenza \`e possibile definire il grado del nodo $i$-esimo come
+\begin{equation*}
+    d_i=\sum_j\mathcal{A}_{ij}\\
+\end{equation*}
+che indica il numero delle connessioni per ogni nodo.
+\\Una volta note le matrici di adiacenza e il vettore dei gradi la matrice Laplaciana del network \`e definita come
+\begin{equation}
+    \mathcal{L}_{ij}=d_i\delta_{ij}-\mathcal{A}_{ij}
+\end{equation}
+ed ha le seguenti propriet\`a:
+\begin{itemize}
+    \item \`e semi-definita positiva;
+    \item $\mathcal{L}_{ij}>0\Longleftrightarrow i=j$;
+    \item $\sum_j\mathcal{L}_{ij}=\sum_i\mathcal{L}_{ij}=0$, quindi esiste un autovalore nullo $\lambda_0$ con corrispondente autovettore $\vec{v}_0=(1,\ldots,1)$;
+    \item $\sum_i\mathcal{L}_{ii}=2m$, dove $m$ \`e il numero totale dei link.
+\end{itemize}
+Si assuma ora che la rete abbia in totale $M$ nodi e che ognuno di essi possa scambiare particelle coi suoi vicini.
+Sia $\pi_{ij}$ la matrice stocastica che definisce la probabilità che una particella effettui il viaggio tra nodi $j\to i$.
+Questa possiede le seguenti proprietà:
+\begin{itemize}
+    \item $\mathcal{A}_{ij}=0 \Longrightarrow \pi_{ij}=0$;
+    \item $\sum_j\pi_{ij}=1$.
+\end{itemize}
+Assumendo inoltre di avere $N$ particelle nella rete, \`e possibile definire la funzione $\delta_\alpha(i,t)$ che vale $1$ se la particella $\alpha$ si trova nel nodo $i$ al tempo $t$, 0 altrimenti.
+\\Ogni particella segue quindi la dinamica
+\begin{equation*}
+    \delta_\alpha(i,t+\Delta t)=\sum_j\xi_{ij}^\alpha\delta_\alpha(j,t)
+\end{equation*}
+dove $\xi_{ij}^\alpha$ \`e una matrice random che prende valori della base standard $\widehat{e}_i\in \mathbb{R}^M$ con probabilità $\pi_{ij}$.
+Il numero di particelle nel nodo $i$ al tempo $t$ \`e dato da
+\begin{equation*}
+    n_i(t)=\sum_\alpha\delta_\alpha(i,t)
+\end{equation*}
+ed \`e possibile dimostrare \cite{RandomWalks} che la seguente equazione \`e un integrale del moto
+\begin{equation}
+    \sum_in_i(t)=N
+\end{equation}
+
 \section{Costruzione del modello}
-Si consideri una matrice di adiacenza pesata $\mathcal{W}_{ij}$ che differisce dalla matrice di adiacenza $\mathcal{A}_{ij}$ in quanto non possiede solamente i valori $\left\{0,1\right\}$.
-In particolare, questi pesi rappresentino la lunghezza delle strade (collegamenti) tra i vari nodi della rete, ovvero $\mathcal{W}_{ij} \geq 0$.
-Una volta definito il network stradale \`e possibile definire le classi di agenti $c(s,d)$ che vi circoleranno sopra, le quali saranno definite da un nodo $s$ sorgente e da un nodo $d$ destinazione.
-Ogni individuo dovrà quindi muovere dalla sua sorgente alla destinazione prefissate, seguendo il percorso pi\`u breve (a costo minore) tra tutti i percorsi disponibili.
+Si consideri ora una matrice di adiacenza simmetrica $\mathcal{A}_{ij}$ rappresentante i collegamenti tra i nodi (incroci) di una rete stradale a cui \`e associata una matrice dei pesi $\mathcal{S}_{ij} \geq 0$ che definisce la lunghezza di questi collegamenti (strade).
+Su questo network si definiscano ora le classi di agenti $C_{1},\ldots,C_{k}$, ognuna delle quali caratterizzata da un nodo sorgente $src$ e destinazione $dst$ e denotate come $C_{\alpha}(src,dst)$.
+Ogni individuo dovr\`a, nel corso della simulazione, muovere tra i nodi $src\to dst$ in modo da seguire il percorso con il costo inferiore.
+Tuttavia, sarebbe errato calcolare il costo di un percorso sulla base della lunghezza: data la mobilit\`a dei veicoli, \`e pi\`u accurato minimizzare il tempo di percorrenza.
+A tale fine si definisca ora un'altra matrice dei pesi $\mathcal{V}_{ij} \geq 0$ rappresentante la velocit\`a massima che un agente pu\`o possedere su una determinata strada.
+Discretizzando il tempo con un passo $\Delta t$, il costo di un percorso risulta esprimibile come $C=n\Delta t$ con $n \in \mathbb{N}$.
+Nel limite di individui non interagenti tra di loro \`e quindi possibile calcolare costo del \emph{best path}, ossia il percorso a costo inferiore, come
+\begin{equation}
+    C_{\text{best}} = n_{\text{best}}\Delta t = \min \left\{\sum_{\left\{i,j\right\}=src}^{dst}\frac{\mathcal{S}_{ij}}{\mathcal{V}_{ij}}\right\}
+    \label{eq:best_path}
+\end{equation}
+\`E ora necessario definire come questi agenti muovano effettivamente sul network.
+Per ogni classe di individui $C_{\alpha}$ si definisca una matrice stocastica (di transizione) $\pi_{ij}^{\alpha}$ con le propriet\`a descritte nella sezione precedente.
+La probabilit\`a di transizione $i\to j$ viene assegnata con il seguente algoritmo:
+\begin{itemize}
+    \item fissato il nodo di partenza $i$ si inizia a scorrere sul passo successivo nel nodo $j$;
+    \item se il nodo $j$ si trova sul percorso definito dall'Eq.(\ref{eq:best_path}) allora viene assegnato peso 1 ($\pi_{ij}=1$);
+    \item altrimenti, se $\mathcal{A}_{ij} \neq 0$ (il collegamento esiste) viene assegnato un peso $\pi_{ij}=\tanh \beta T$, dove $\beta$ \`e un parametro di controllo del modello e $T$ rappresenta una temperatura statistica;
+    \item una volta controllati tutti i possibili $j$ la riga $i$-esima viene poi normalizzata in modo tale da avere $\sum_j\pi_{ij}=1$.
+\end{itemize}
+Si osservi che grazie all'introduzione della temperatura statistica $T$ \`e possibile permettere agli agenti di ``sbagliare'' percorso e uscire dal best path, introducendo cos\`i delle fluttuazioni.
+Inoltre, per $T \to \infty$ l'evoluzione del sistema diventa equivalente ad un random walk su network in quanto ogni scelta di percorso ha la medesima probabilit\`a.
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            grid = both,
+            major grid style = {lightgray},
+            minor grid style = {lightgray},
+            width = 0.7\textwidth,
+            height = 0.5\textwidth,
+            xlabel = {$\beta T$},
+            ylabel = {$\tanh \beta T$},]
+            \addplot[
+                domain = 0:5,
+                smooth,
+                color = blue,
+                line width = 1.5pt,] {tanh(x)};
+        \end{axis}
+    \end{tikzpicture}
+    \caption[Temperatura statistica]{\emph{Probabilit\`a di errore in funzione della temperatura statistica.}}
+    \label{fig:temperature}
+\end{figure}
+Nella realt\`a una strada ha una capacit\`a finita, intesa come numero massimo di veicoli presenti su di essa in un generico istante di tempo $t$.
+Considerando anche questo, la dinamica degli agenti necessita di un algoritmo per determinarne l
+
 \end{document}

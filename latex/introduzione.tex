@@ -1,54 +1,17 @@
 \documentclass[../main.tex]{subfiles}
 
 \begin{document}
-Le congestioni nel traffico sono oggi uno dei maggiori problemi per lo sviluppo delle citt\`a.
-Queste dipendono strettamente dalla logistica della stessa.
-Considerando una citt\`a fittizia, la cui superficie sia approssimabile a quella di una circonferenza di raggio $R$, \`e facile osservare come il numero $M$ di nodi della sua rete stradale debba cresecere proporzionalmente alla superficie, ossia $M\propto R^2$.
-Ci si aspetta inoltre che il costo $C$ della rete sia legato sia al numero di nodi, sia alla dimensione della rete, ottenendo $C\propto ML$.
-Unendo le relazioni precedenti si dimostra come il costo di una rete stradale sia $C\propto M^\frac{3}{2}$, quindi destinato a crescere all'aumentare del numero di nodi.
-Nonostante la considerazione precedente le città sono comunque riuscite a espandersi nel tempo grazie a cambiamenti nella mobilit\`a, come ad esempio l'introduzione di mezzi pubblici quali autobus, tram e metropolitane.
-\\Tuttavia, gran parte della mobiltà cittadina si presenta ancora come automobili private le quali, soprattutto negli orari di punta, tendono a saturare la rete e comportano enormi sprechi di tempo e denaro, oltre a causare inquinamento.
-
-
-\section{Random Walk su network}
-In generale, un network \`e descritto da una matrice di adiacenza $\mathcal{A}_{ij}=\left\{0,1\right\}$ in cui la cella $(i,j)$ assume il valore $1$ se il nodo $i$ \`e connesso al nodo $j$, $0$ altrimenti.
-Nei casi considerati in questo studio si assume sempre che $\mathcal{A}_{ij}=\mathcal{A}_{ji}$ (proprietà di simmetria).
-\\Dalla matrice di adiacenza si pu\`o definire il grado del nodo $i$-esimo come
-\begin{equation*}
-    d_i=\sum_j\mathcal{A}_{ij}\\
-\end{equation*}
-che indica il numero delle connessioni per ogni nodo.
-\\Una volta note le matrici descritte in precedenza \`e possibile definire la matrice Laplaciana del network come
-\begin{equation}
-    \mathcal{L}_{ij}=d_i\delta_{ij}-\mathcal{A}_{ij}
-\end{equation}
-che ha le seguenti propriet\`a:
-\begin{itemize}
-    \item \`e semi-definita positiva;
-    \item $\mathcal{L}_{ij}>0\Longleftrightarrow i=j$;
-    \item $\sum_j\mathcal{L}_{ij}=\sum_i\mathcal{L}_{ij}=0$, quindi esiste un autovalore nullo $\lambda_0$ con corrispondente autovettore $\vec{v}_0=(1,\ldots,1)$;
-    \item $\sum_i\mathcal{L}_{ii}=2m$, dove $m$ \`e il numero totale dei link.
-\end{itemize}
-Si assuma ora che la rete abbia in totale $M$ nodi e che ognuno di essi possa scambiare particelle coi suoi vicini.
-Sia $\pi_{ij}$ la matrice stocastica che definisce la probabilità che una particella effettui il viaggio tra nodi $j\to i$.
-Questa possiede le seguenti proprietà:
-\begin{itemize}
-    \item $\mathcal{A}_{ij}=0 \Longrightarrow \pi_{ij}=0$;
-    \item $\sum_j\pi_{ij}=1$.
-\end{itemize}
-Assumendo inoltre di avere $N$ particelle nella rete, \`e possibile definire la funzione $\delta_\alpha(i,t)$ che vale $1$ se la particella $\alpha$ si trova nel nodo $i$ al tempo $t$, 0 altrimenti.
-\\Ogni particella segue quindi la dinamica
-\begin{equation}
-    \delta_\alpha(i,t+\Delta t)=\sum_j\xi_{ij}^\alpha\delta_\alpha(j,t)
-\end{equation}
-dove $\xi_{ij}^\alpha$ \`e una matrice random che prende valori della base standard $\widehat{e}_i\in \mathbb{R}^M$ con probabilità $\pi_{ij}$.
-Il numero di particelle nel nodo $i$ al tempo $t$ \`e dato da
-\begin{equation}
-    n_i(t)=\sum_\alpha\delta_\alpha(i,t)
-\end{equation}
-ed \`e possibile dimostrare \cite{RandomWalks} che la seguente equazione \`e un integrale del moto
-\begin{equation}
-    \sum_in_i(t)=N
-\end{equation}
+Le congestioni nel traffico sono ad oggi uno dei maggiori problemi per lo sviluppo delle citt\`a.
+Nel solo stato della Florida, ad esempio, \`e stato stimato che dal 2003 al 2007 queste abbiano causato perdite dai 4.5 ai 7 miliardi di dollari annui \cite{florida}.
+Nell'ultimo decennio, con l'obiettivo di attenuare questa problematica, nelle grandi citt\`a hanno cominciato a proliferare diverse compagnie di ride-hailing, come Uber.
+Nonostante il beneficio economico portato da esse e dalla competitivit\`a del mercato la presenza in gran numero di questi fornitori di servizi va a peggiorare la qualit\`a della mobilit\`a urbana.
+Questo effetto diventa abbastanza rilevante in zone nelle quali vi \`e poca domanda o la velocit\`a stradale media \`e sufficientemente bassa.
+Ogni operatore aggiunto di questo settore causa, ad esempio, un aumento del numero totale di veicoli su strada del 2.5\% a Manhattan e del 37\% a San Francisco \cite{Kondor2022}.
+\\Un ruolo fondamentale nella gestione delle congestioni nelle citt\`a lo gioca la logistica delle stesse.
+Si consideri ora la rete stradale di una citt\`a generica di superfice approssimabile a quella di una circonferenza di raggio $R$.
+\`E lecito ipotizzare che il numero $M$ di nodi (incroci) della rete cresca proporzionalmente alla superficie della citt\`a, quindi al quadrato del raggio $M\propto R^2$.
+Si definisca ora la variabile costo $C$ della rete, la quale dipender\`a sia dal numero di nodi che dalla lunghezza di scala della stessa, ossia $C\propto MR^2$.
+Unendo le due relazioni precedenti si ottiene $C\propto M^\frac{3}{2}$ ed \`e possibile constatare che per una citt\`a ideale come quella considerata il costo della logistica stradale cresca all'aumentare del numero di nodi.
+La nascita e lo sviluppo delle metropoli, avvenuta nell'ultimo secolo, ha quindi cause da ricercarsi non nel miglioramento della logistica quanto a cambiamenti nella mobilit\`a, come l'introduzione di mezzi pubblici quali autobus, tram e metropolitane.
 
 \end{document}

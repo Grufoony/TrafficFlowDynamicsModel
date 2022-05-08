@@ -68,27 +68,27 @@ Quest'ultimo peso varia in base alla temperatura del sistema secondo la funzione
     \pi(T)=\tanh(kT)
 \end{equation}
 dove $k$ \'e un parametro di controllo del modello.
-\begin{figure}[H]
-    \centering
-    \begin{tikzpicture}
-        \begin{axis}[
-            grid = both,
-            major grid style = {lightgray},
-            minor grid style = {lightgray},
-            width = 0.7\textwidth,
-            height = 0.5\textwidth,
-            xlabel = {kT},
-            ylabel = {$\pi(kT)$},]
-            \addplot[
-                domain = 0:3.1415,
-                smooth,
-                color = blue,
-                line width = 1.5pt,] {tanh(x)};
-        \end{axis}
-    \end{tikzpicture}
-    \caption[Temperatura statistica nel modello]{\emph{Probabilità di errore in funzione della temperatura.}}
-    \label{figure:temperature}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \begin{tikzpicture}
+%         \begin{axis}[
+%             grid = both,
+%             major grid style = {lightgray},
+%             minor grid style = {lightgray},
+%             width = 0.7\textwidth,
+%             height = 0.5\textwidth,
+%             xlabel = {kT},
+%             ylabel = {$\pi(kT)$},]
+%             \addplot[
+%                 domain = 0:3.1415,
+%                 smooth,
+%                 color = blue,
+%                 line width = 1.5pt,] {tanh(x)};
+%         \end{axis}
+%     \end{tikzpicture}
+%     \caption[Temperatura statistica nel modello]{\emph{Probabilità di errore in funzione della temperatura.}}
+%     \label{figure:temperature}
+% \end{figure}
 Si procede poi alla normalizzazione a 1 di ogni vettore riga della matrice in modo tale da poter ottenere la probabilità di transizione.
 Una volta ottenute le probabilità di transizione il sistema può evolvere tenendo presente che:
 \begin{itemize}
