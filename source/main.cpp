@@ -97,11 +97,12 @@ int main(int argc, char **argv) {
     clearDir(DATA_FOLDER);
     clearDir(OUT_FOLDER);
     fOut.open("./prova.dat");
+    g.addVehiclesUniformly(dVehicle);
     for (int t = 0; t < std::stoi(argv[5]); ++t) {
       printLoadingBar(t, std::stoi(argv[5]));
       if (t % 250 == 0) {
-        if (t < 1250)
-          g.addVehiclesUniformly(dVehicle / 5);
+        // if (t < 1250)
+        //   g.addVehiclesUniformly(dVehicle / 5);
         g.fprintHistogram(DATA_FOLDER, 15);
         g.fprintDistribution(DATA_FOLDER, "u/q");
         g.fprintDistribution(DATA_FOLDER, "q/k");
@@ -123,7 +124,6 @@ int main(int argc, char **argv) {
     break;
   }
   fOut.close();
-  g.test();
   // ending clock and terminate
   auto stop = Clock::now();
   printExeTime(stop - start);

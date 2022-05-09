@@ -118,7 +118,22 @@ void Graph::_evolve(bool reinsert) {
     auto const p = dist(rng);
     auto timePenalty = vehicle->getTimePenalty();
     if (timePenalty > 0) { // check if the vehicle can move
-      vehicle->setTimePenalty(timePenalty - 1);
+      // if the vahicle cannot move checks if the vehicle could go faster
+      auto streetLenght = _streets.at(vehicle->getStreet())->getLenght();
+      auto oldTime = static_cast<int>(streetLenght / vehicle->getVelocity());
+      auto newTime = static_cast<int>(
+          streetLenght / _streets.at(vehicle->getStreet())->getVelocity());
+      auto dTime = newTime - oldTime;
+      if (dTime < 0) {
+        if ((timePenalty + dTime) > 0) {
+          vehicle->setTimePenalty(timePenalty + dTime);
+        } else {
+          vehicle->setTimePenalty(0);
+        }
+        vehicle->setVelocity(_streets.at(vehicle->getStreet())->getVelocity());
+      } else {
+        vehicle->setTimePenalty(timePenalty - 1);
+      }
     } else {
       for (int i = 0; i < _n; ++i) {
         auto prob = trans_vec.at(i);
@@ -497,8 +512,6 @@ void Graph::fprintHistogram(std::string const &out_folder,
 void Graph::fprintDistribution(std::string const &outFolder,
                                std::string const &opt) const {
   if (opt == "u/q") {
-    if (_time < 2)
-      return;
     std::ofstream fOut;
     auto out = outFolder + std::to_string(_time) + "_u-q.dat";
     fOut.open(out);
@@ -513,8 +526,6 @@ void Graph::fprintDistribution(std::string const &outFolder,
     std::cout.rdbuf(rdbufBackup);
     fOut.close();
   } else if (opt == "q/k") {
-    if (_time < 2)
-      return;
     std::ofstream fOut;
     auto out = outFolder + std::to_string(_time) + "_q-k.dat";
     fOut.open(out);
@@ -529,8 +540,6 @@ void Graph::fprintDistribution(std::string const &outFolder,
     std::cout.rdbuf(rdbufBackup);
     fOut.close();
   } else if (opt == "u/k") {
-    if (_time < 2)
-      return;
     std::ofstream fOut;
     auto out = outFolder + std::to_string(_time) + "_u-k.dat";
     fOut.open(out);
@@ -578,6 +587,7 @@ void Graph::save(const char *fileName) const noexcept {
   fOut.close();
 }
 
+// funzione da eliminare (DEBUG)
 void Graph::test() {
   std::cout << _vehicles.size() << '\n';
   //   auto const &street = _streets.at(69);
