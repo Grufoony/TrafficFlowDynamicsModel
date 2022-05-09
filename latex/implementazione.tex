@@ -30,30 +30,6 @@ In particolare, l'andamento della velocità su una strada segue la funzione
     v(n)=v_{max}\left(1-0.75\frac{n}{n_{max}}\right)
     \label{equation:velocity}
 \end{equation}
-\begin{figure}[H]
-    \centering
-    \begin{tikzpicture}
-        \begin{axis}[
-            grid = both,
-            major grid style = {lightgray},
-            minor grid style = {lightgray},
-            ymin=0,
-            xmin=0,
-            xmax=1,
-            width = 0.7\textwidth,
-            height = 0.5\textwidth,
-            xlabel = {Densità ($\frac{n}{n_{max}}$)},
-            ylabel = {Velocità},]
-        \addplot[
-            domain = 0:1,
-            smooth,
-            color = blue,
-            line width = 1.5pt,] {1-0.75*x};
-        \end{axis}
-    \end{tikzpicture}
-    \caption[Velocità nel modello]{\emph{Ipotesi dell'andamento della velocità in funzione della densità.}}
-    \label{figure:velocity}
-\end{figure}
 Come visibile in Fig. \ref{figure:velocity} anche una volta raggiunta la densità massima i veicoli non si fermano ma si immettono sulla strada, quando si libera sufficiente spazio, con una velocità minima pari al $25\%$ della velocità massima.
 \subsection{Graph}
 Ultima classe definita, che comprende tutte le precedenti, \'e la classe \emph{Graph}, la quale costruisce effettivamente il network stradale.

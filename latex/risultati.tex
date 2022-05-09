@@ -2,6 +2,15 @@
 
 \begin{document}
 
+\section{Modalit\`a di esecuzione}
+Nella sezione precedente si \`e costruito il modello ed \`e emerso come questo si basi su alcuni parametri di controllo.
+Variando questi parametri \`e di fatto possibile ottenere risultati estremamente diversi tra di loro.
+Assumendo che uno step temporale del modello sia equivalente a $1$ s 
+
+\section{Diagrammi fondamentali}
+
+\section{Isteresi}
+
 \begin{figure}[H]
     \centering
     \begin{tikzpicture}[scale=0.5]
@@ -22,7 +31,6 @@
 \end{figure}
 
 \begin{figure}[H]
-    \centering
     \begin{tikzpicture}[scale=0.5]
     \begin{axis}[ybar interval,
     area style,
@@ -53,15 +61,14 @@
     ybar interval,
     mark=no,
     line width = 1.25pt
-    ] plot file {./data/5500.dat};
+    ] plot file {./data/10000.dat};
     \end{axis}
     \end{tikzpicture}
     \caption{\emph{Prova.}}
 \end{figure}
 
 \begin{figure}[H]
-    \centering
-    \begin{tikzpicture}
+    \begin{tikzpicture}[scale=0.6]
     \begin{axis}[
     grid = both,
     major grid style = {lightgray},
@@ -75,35 +82,28 @@
     \addplot[
     mark size=0.69,
     draw=black,
-    only marks] file {./data/7000_u-q.dat};
+    only marks] file {./data/250_u-q.dat};
     \end{axis}
+    \end{tikzpicture}\hfill
+    \begin{tikzpicture}[scale=0.6]
+        \begin{axis}[
+        grid = both,
+        major grid style = {lightgray},
+        minor grid style = {lightgray!25},
+        width = 0.75\textwidth,
+        height = 0.5\textwidth,
+        ylabel near ticks,
+        xlabel near ticks,
+        xlabel = {Densità (veh/km)},
+        ylabel = {Flusso (veh/h)},]
+        \addplot[
+        mark size=0.69,
+        draw=black,
+        only marks] file {./data/250_q-k.dat};
+        \end{axis}
     \end{tikzpicture}
-\end{figure}
-
-\begin{figure}[H]
     \centering
-    \begin{tikzpicture}
-    \begin{axis}[
-    grid = both,
-    major grid style = {lightgray},
-    minor grid style = {lightgray!25},
-    width = 0.75\textwidth,
-    height = 0.5\textwidth,
-    ylabel near ticks,
-    xlabel near ticks,
-    xlabel = {Densità (veh/km)},
-    ylabel = {Flusso (veh/h)},]
-    \addplot[
-    mark size=0.69,
-    draw=black,
-    only marks] file {./data/7000_q-k.dat};
-    \end{axis}
-    \end{tikzpicture}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \begin{tikzpicture}
+    \begin{tikzpicture}[scale=0.6]
     \begin{axis}[
     grid = both,
     major grid style = {lightgray},
@@ -117,9 +117,10 @@
     \addplot[
     mark size=0.69,
     draw=black,
-    only marks] file {./data/7000_u-k.dat};
+    only marks] file {./data/250_u-k.dat};
     \end{axis}
     \end{tikzpicture}
+    \caption[Diagrammi fondamentali con distribuzione omogenea]{\emph{Diagrammi fondamentali con distribuzione omogenea.}}
 \end{figure}
 
 \begin{figure}[H]
@@ -137,7 +138,8 @@
     ylabel = {Flusso (veh/h)},]
     \addplot[
     mark size=0.69,
-    draw=black,] file {./prova.dat};
+    draw=black,
+    only marks] file {./prova.dat};
     \end{axis}
     \end{tikzpicture}
 \end{figure}
