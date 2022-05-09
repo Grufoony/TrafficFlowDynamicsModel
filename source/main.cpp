@@ -107,7 +107,7 @@ int main(int argc, char **argv) {
         g.fprintDistribution(DATA_FOLDER, "q/k");
         g.fprintDistribution(DATA_FOLDER, "u/k");
       }
-      if (t % 50 == 0) {
+      if (t % 5 == 0) {
         g.fprintActualState(fOut.rdbuf());
       }
       if (t < 5e3) {
@@ -123,6 +123,7 @@ int main(int argc, char **argv) {
     break;
   }
   fOut.close();
+  g.test();
   // ending clock and terminate
   auto stop = Clock::now();
   printExeTime(stop - start);

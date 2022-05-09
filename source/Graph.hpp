@@ -65,7 +65,7 @@ public:
   void save(const char *) const noexcept; // TODO: save network in file
 
   // funzione da eliminare che verrà usata per accedere alle private (DEBUG)
-  // std::vector<double> test();
+  void test();
 };
 
 #endif

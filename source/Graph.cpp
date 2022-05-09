@@ -578,12 +578,12 @@ void Graph::save(const char *fileName) const noexcept {
   fOut.close();
 }
 
-// funzione da eliminare (DEBUG)
-// std::vector<double> Graph::test() {
-//   auto const &street = _streets.at(69);
-//   std::vector<double> v;
-//   v.push_back(street->getVehicleDensity() * 1e3);
-//   v.push_back(this->_getStreetMeanVelocity(street->getIndex()) *
-//               street->getVehicleDensity() * 3.6e3);
-//   return v;
-// }
+void Graph::test() {
+  std::cout << _vehicles.size() << '\n';
+  //   auto const &street = _streets.at(69);
+  //   std::vector<double> v;
+  //   v.push_back(street->getVehicleDensity() * 1e3);
+  //   v.push_back(this->_getStreetMeanVelocity(street->getIndex()) *
+  //               street->getVehicleDensity() * 3.6e3);
+  //   return v;
+}
