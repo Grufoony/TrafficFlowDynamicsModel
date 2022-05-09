@@ -50,12 +50,12 @@ ed \`e possibile dimostrare \cite{RandomWalks} che la seguente equazione \`e un 
 \end{equation}
 
 \section{Costruzione del modello}
-Si consideri ora una matrice di adiacenza simmetrica $\mathcal{A}_{ij}$ rappresentante i collegamenti tra i nodi (incroci) di una rete stradale a cui \`e associata una matrice dei pesi $\mathcal{S}_{ij} \geq 0$ che definisce la lunghezza di questi collegamenti (strade).
+Si consideri ora una matrice di adiacenza simmetrica $\mathcal{A}_{ij}$ rappresentante i collegamenti tra i nodi (incroci) di una rete stradale a cui \`e associata una matrice dei pesi $\mathcal{S}_{ij} \geq 0$ che definisce la lunghezza delle strade.
 Su questo network si definiscano ora le classi di agenti $C_{1},\ldots,C_{k}$, ognuna delle quali caratterizzata da un nodo sorgente $src$ e destinazione $dst$ e denotate come $C_{\alpha}(src,dst)$.
 Ogni individuo dovr\`a, nel corso della simulazione, muovere tra i nodi $src\to dst$ in modo da seguire il percorso con il costo inferiore.
-Tuttavia, sarebbe errato calcolare il costo di un percorso sulla base della lunghezza: data la mobilit\`a dei veicoli, \`e pi\`u accurato minimizzare il tempo di percorrenza.
-A tale fine si definisca ora un'altra matrice dei pesi $\mathcal{V}_{ij} \geq 0$ rappresentante la velocit\`a massima che un agente pu\`o possedere su una determinata strada.
-Discretizzando il tempo con un passo $\Delta t$, il costo di un percorso risulta esprimibile come $C=n\Delta t$ con $n \in \mathbb{N}$.
+Tuttavia, sarebbe errato calcolare il costo di un percorso sulla base della lunghezza: data la mobilit\`a dei veicoli, risulta pi\`u accurato minimizzare il tempo di percorrenza.
+A tale fine si definisca ora un'altra matrice dei pesi $\mathcal{V}_{ij} \geq 0$ rappresentante la velocit\`a massima alla quale un agente pu\`o andare su una determinata strada.
+Discretizzando il tempo con un passo $\Delta t$, il costo di un percorso risulta esprimibile come $C=n\Delta t$, dove $n \in \mathbb{N}$ rappresenta, di fatto, una penalit\`a temporale.
 Nel limite di individui non interagenti tra di loro \`e quindi possibile calcolare costo del \emph{best path}, ossia il percorso a costo inferiore, come
 \begin{equation}
     C_{\text{best}} = n_{\text{best}}\Delta t = \min \left\{\sum_{\left\{i,j\right\}=src}^{dst}\frac{\mathcal{S}_{ij}}{\mathcal{V}_{ij}}\right\}
@@ -94,6 +94,18 @@ Inoltre, per $T \to \infty$ l'evoluzione del sistema diventa equivalente ad un r
     \label{fig:temperature}
 \end{figure}
 Nella realt\`a una strada ha una capacit\`a finita, intesa come numero massimo di veicoli presenti su di essa in un generico istante di tempo $t$.
-Considerando anche questo, la dinamica degli agenti necessita di un algoritmo per determinarne l
+La dinamica degli agenti necessita ora di un algoritmo per determinarne l'evoluzione ad ogni step temporale.
+Considerando un individuo generico appartente alla classe $C_{\alpha}$ si procede nel modo seguente:
+\begin{itemize}
+    \item si controlla se sia in grado di muoversi;
+    \item in caso affermativo, il passo successivo sarà deciso stocasticamente dalla matrice $\pi_{ij}^{\alpha}$;
+    \item se la strada di arrivo \`e piena si perde uno step temporale, altrimenti l'individuo si immette sulla strada che connette i nodi $i \to j$ regolando la sua velocit\`a secondo la legge 
+    \begin{equation}
+        v(t) = v_{max}\left(1-k\frac{\rho(t)}{\rho_{max}}\right)
+    \end{equation}
+    dove $v_{max}$ e $\rho_{max}$ rappresentano, rispettivamente, la velocit\`a e la densit\`a di veicoli massima sulla strada, $\rho(t)$ rappresenta la densit\`a di veicoli presenti sulla strada al tempo $t$ e $k$ \`e un parametro di controllo del modello;
+    \item in base alla velocit\`a acquisita all'inviduo viene poi assegnata una penalit\`a temporale $n = \frac{L}{v(t)\Delta t}$, con $L$ lunghezza della strada in cui si trova, e non sar\`a ritenuto in grado di muoversi prima di averla scontata.
+\end{itemize}
+
 
 \end{document}
