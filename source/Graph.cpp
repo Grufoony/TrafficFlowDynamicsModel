@@ -557,23 +557,22 @@ void Graph::fprintDistribution(std::string const &outFolder,
 }
 
 void Graph::fprintActualState(std::basic_streambuf<char> *out) const noexcept {
-  // auto const &street = _streets.at(69);
   auto const rdbufBackup = std::cout.rdbuf();
   auto meanDensity = 0.;
   auto meanVelocity = 0.;
   for (auto const &street : _streets) {
-    meanDensity += street->getVehicleDensity();
-    meanVelocity += street->getVelocity();
+    meanDensity += street->getVehicleDensity() * 1e3;
+    meanVelocity += street->getVelocity() * 3.6;
   }
   meanDensity /= _streets.size();
   meanVelocity /= _streets.size();
   std::cout.rdbuf(out);
+  std::cout << meanDensity << '\t' << meanVelocity * meanDensity << '\n';
+  // auto const &street = _streets.at(69);
   // std::cout << street->getVehicleDensity() * 1e3 << '\t'
   //           << this->_getStreetMeanVelocity(street->getIndex()) *
   //                  street->getVehicleDensity() * 3.6e3
   //           << '\n';
-  std::cout << meanDensity * 1e3 << '\t' << meanVelocity * meanDensity * 3.6e3
-            << '\n';
   std::cout.rdbuf(rdbufBackup);
 }
 
