@@ -134,12 +134,13 @@ Assumendo che uno step temporale del modello sia equivalente a $1$ s
     height = 0.5\textwidth,
     ylabel near ticks,
     xlabel near ticks,
-    xlabel = {Densità (veh/km)},
-    ylabel = {Flusso (veh/h)},]
+    xlabel = {Densit\`a (veh/km)},
+    ylabel = {Varianza della densit\`a (veh/km)},]
     \addplot[
     mark size=0.69,
     draw=black,
-    only marks] file {./prova.dat};
+    only marks,
+    sharp plot] file {./prova.dat};
     \end{axis}
     \end{tikzpicture}
 \end{figure}

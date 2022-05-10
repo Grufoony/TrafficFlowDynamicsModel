@@ -566,8 +566,14 @@ void Graph::fprintActualState(std::basic_streambuf<char> *out) const noexcept {
   }
   meanDensity /= _streets.size();
   meanVelocity /= _streets.size();
+  auto variance = 0.;
+  for (auto const &street : _streets) {
+    variance += (street->getVehicleDensity() * 1e3 - meanDensity) *
+                (street->getVehicleDensity() * 1e3 - meanDensity);
+  }
+  variance = std::sqrt(variance / _streets.size());
   std::cout.rdbuf(out);
-  std::cout << meanDensity << '\t' << meanVelocity * meanDensity << '\n';
+  std::cout << meanDensity << '\t' << variance << '\n';
   // auto const &street = _streets.at(69);
   // std::cout << street->getVehicleDensity() * 1e3 << '\t'
   //           << this->_getStreetMeanVelocity(street->getIndex()) *
