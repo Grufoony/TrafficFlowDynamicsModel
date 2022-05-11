@@ -16,7 +16,7 @@ private:
   int _index;       // index of the street (it's used to identify the street)
 
 public:
-  Street(int, int, double, int);
+  Street(int, int, double, int); // src, dst, lenght, index
   ~Street() = default;
 
   int getOrigin() const noexcept;
@@ -27,10 +27,13 @@ public:
   void setNLanes(int) noexcept;
   int getNVehicles() const noexcept;
   void setVMax(double);
-  double getVelocity() const noexcept;
+  double getInputVelocity()
+      const noexcept; // get instant input velocity for the street
   double getVMax() const noexcept;
-  double getDensity() const noexcept;
-  double getVehicleDensity() const noexcept;
+  double getDensity()
+      const noexcept; // get instant density for the street (in percentage)
+  double getVehicleDensity()
+      const noexcept; // get instant vehicle density for the stree
   void addVehicle(std::shared_ptr<Vehicle>);
   void remVehicle();
 };
