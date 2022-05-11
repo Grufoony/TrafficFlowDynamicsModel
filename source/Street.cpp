@@ -43,7 +43,7 @@ void Street::setVMax(double v) {
     throw std::invalid_argument("Error in setVMax.\n");
   _vMax = v;
 }
-double Street::getVelocity() const noexcept { // linear decay
+double Street::getInputVelocity() const noexcept { // linear decay
   return (_vMax *
           (1 - (V_MIN * (static_cast<double>(_nVehicles) /
                          static_cast<double>((_nLanes * _maxCapacity))))));
@@ -58,7 +58,7 @@ double Street::getVehicleDensity() const noexcept {
 }
 void Street::addVehicle(std::shared_ptr<Vehicle> vehicle) {
   vehicle->setStreet(_index);
-  vehicle->setVelocity(this->getVelocity());
+  vehicle->setVelocity(this->getInputVelocity());
   vehicle->setTimePenalty(static_cast<int>(_lenght / vehicle->getVelocity()));
   vehicle->setPosition(_dst);
   ++_nVehicles;
