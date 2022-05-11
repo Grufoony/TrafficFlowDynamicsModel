@@ -89,9 +89,9 @@ int main(int argc, char **argv) {
   case 6:
     std::cout << "Setting up the simulation..." << '\n';
     Vehicle::addVehicleType(argv[2]);
+    g.updateTransMatrix();
     g.setTemperature(std::stod(argv[3]));
     dVehicle = std::stoi(argv[4]);
-    g.createTransMatrix();
     std::cout << "Done." << '\n';
     g.fprint(true);
     clearDir(DATA_FOLDER);
@@ -112,7 +112,10 @@ int main(int argc, char **argv) {
         g.fprintActualState(DATA_FOLDER, "q/k");
         g.fprintActualState(DATA_FOLDER, "u/k");
       }
-      if (t < 5e3) {
+      if (t == 4e3) {
+        g.updateTransMatrix();
+      }
+      if (t < 7e3) {
         g.evolve();
       } else {
         g.evolve(false);

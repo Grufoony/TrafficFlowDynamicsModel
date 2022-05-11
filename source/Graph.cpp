@@ -72,7 +72,7 @@ int Graph::_minDistance(int const src, int const dst) const {
       // smaller than current value of dist.at(v)
       auto lenght = _adjMatrix.at(u).at(v);
       if (lenght > std::numeric_limits<double>::epsilon())
-        lenght /= _streets.at(_findStreet(u, v))->getVMax();
+        lenght /= this->_getStreetMeanVelocity(_findStreet(u, v));
       auto time = static_cast<int>(lenght);
       if (!sptSet.at(v) && time &&
           dist.at(u) != std::numeric_limits<int>::max() &&
@@ -90,8 +90,8 @@ std::vector<int> Graph::_nextStep(int const src, int const dst) {
   for (int i = 0; i < static_cast<int>(row.size()); ++i) {
     auto lenght = row.at(i);
     if (lenght > std::numeric_limits<double>::epsilon()) {
-      auto time = static_cast<int>(lenght /
-                                   _streets.at(_findStreet(src, i))->getVMax());
+      auto time = static_cast<int>(
+          lenght / this->_getStreetMeanVelocity(_findStreet(src, i)));
       if (_minDistance(i, dst) == (min - time))
         _nextStep.push_back(i);
     }
@@ -203,7 +203,7 @@ double Graph::_getStreetMeanVelocity(int const streetIndex) const {
     }
   }
   if (i == 0) {
-    return -1;
+    return _streets.at(streetIndex)->getVMax();
   } else {
     return vCum / i;
   }
@@ -356,7 +356,7 @@ void Graph::setTemperature(double const temperature) {
   _temperature = temperature;
 }
 
-void Graph::createTransMatrix() {
+void Graph::updateTransMatrix() {
   // function for noise using a kelvin-like temperature normalization
   auto const noise = std::tanh(_temperature * TEMP_NORM);
 

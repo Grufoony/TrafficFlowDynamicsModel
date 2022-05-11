@@ -41,7 +41,7 @@ public:
   void addVehiclesUniformly(int);  // add vehicles uniformly on the streets
   void loadVehicles(const char *); // load vehicles in the network
   void setTemperature(double const); // set the temperature of the network
-  void createTransMatrix(); // create all the transition matrices for all
+  void updateTransMatrix(); // create all the transition matrices for all
                             // vehicle types
   void evolve(bool);        // evolve the network and ask if reinsertion is
                             // needed
