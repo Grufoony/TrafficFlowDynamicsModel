@@ -62,7 +62,7 @@ int main(int argc, char **argv) {
   // clock has started
 
   auto g = Graph(argv[1]);
-  std::ofstream fOut;
+  // std::ofstream fOut;
   int dVehicle;
 
   switch (argc) {
@@ -96,12 +96,11 @@ int main(int argc, char **argv) {
     g.fprint(true);
     clearDir(DATA_FOLDER);
     clearDir(OUT_FOLDER);
-    fOut.open("./prova.dat");
     // g.addVehiclesUniformly(dVehicle);
     for (int t = 0; t < std::stoi(argv[5]); ++t) {
       printLoadingBar(t, std::stoi(argv[5]));
-      if (t < 1000 && t % 10 == 0) {
-        g.addVehiclesUniformly(dVehicle / 100);
+      if (t < 1000 && t % 100 == 0 && t != 0) {
+        g.addVehiclesUniformly(dVehicle / 10);
       }
       if (t % 250 == 0) {
         g.fprintHistogram(DATA_FOLDER, 15);
@@ -110,7 +109,8 @@ int main(int argc, char **argv) {
         g.fprintDistribution(DATA_FOLDER, "u/k");
       }
       if (t % 100 == 0) {
-        g.fprintActualState(fOut.rdbuf());
+        g.fprintActualState(DATA_FOLDER, "q/k");
+        g.fprintActualState(DATA_FOLDER, "u/k");
       }
       if (t < 5e3) {
         g.evolve();
@@ -124,7 +124,6 @@ int main(int argc, char **argv) {
     return EXIT_FAILURE;
     break;
   }
-  fOut.close();
   // ending clock and terminate
   auto stop = Clock::now();
   printExeTime(stop - start);

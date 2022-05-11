@@ -59,8 +59,9 @@ public:
                        int const) const noexcept; // print histograms
   void fprintDistribution(std::string const &,
                           std::string const &) const; // print graphs
-  void fprintActualState(
-      std::basic_streambuf<char> *) const noexcept; // print actual state
+  void
+  fprintActualState(std::string const &,
+                    std::string const &) const noexcept; // print actual state
 
   void save(const char *) const noexcept; // TODO: save network in file
 

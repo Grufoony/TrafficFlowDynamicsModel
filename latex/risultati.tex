@@ -134,12 +134,33 @@ Assumendo che uno step temporale del modello sia equivalente a $1$ s
     height = 0.5\textwidth,
     ylabel near ticks,
     xlabel near ticks,
-    xlabel = {Densit\`a (veh/km)},
-    ylabel = {Flusso (veh/h)},]
+    xlabel = {Densit\`a media (veh/km)},
+    ylabel = {Flusso medio (veh/h)},]
     \addplot[
     mark size=0.69,
     draw=black,
-    mark=o] file {./prova.dat};
+    mark=o] file {./data/q-k.dat};
+    \end{axis}
+    \end{tikzpicture}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+    \begin{axis}[
+    grid = both,
+    major grid style = {lightgray},
+    minor grid style = {lightgray!25},
+    width = 0.75\textwidth,
+    height = 0.5\textwidth,
+    ylabel near ticks,
+    xlabel near ticks,
+    xlabel = {Densit\`a media (veh/km)},
+    ylabel = {Velocit\`a media (km/h)},]
+    \addplot[
+    mark size=0.69,
+    draw=black,
+    mark=o] file {./data/u-k.dat};
     \end{axis}
     \end{tikzpicture}
 \end{figure}
