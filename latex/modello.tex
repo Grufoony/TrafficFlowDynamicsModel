@@ -2,55 +2,6 @@
 
 \begin{document}
 
-\section{Networks}
-In generale, un network \`e descritto da una matrice di adiacenza $\mathcal{A}_{ij}=\left\{0,1\right\}$ in cui la cella $(i,j)$ assume il valore $1$ se il nodo $i$ \`e connesso al nodo $j$, $0$ altrimenti.
-Nei casi considerati in questo studio si assume sempre che $\mathcal{A}_{ij}=\mathcal{A}_{ji}$ (proprietà di simmetria).
-Affiancata alla matrice di adiacenza si usa definire spesso la matrice dei pesi $\mathcal{W}_{ij}$, la quale definisce il peso di ciascun collegamento tra nodi.
-In particolare, la matrice $\mathcal{W}_{ij}$ possiede le seguenti propiet\`a:
-\begin{itemize}
-    \item $\mathcal{A}_{ij} = 0 \Longrightarrow \mathcal{W}_{ij} = 0$;
-    \item $\mathcal{A}_{ij} = 1 \Longrightarrow \mathcal{W}_{ij} \neq 0$.
-\end{itemize}
-Dalla matrice di adiacenza \`e possibile definire il grado del nodo $i$-esimo come
-\begin{equation*}
-    d_i=\sum_j\mathcal{A}_{ij}\\
-\end{equation*}
-che indica il numero dei link per ogni nodo.
-\\Una volta note le matrici di adiacenza e il vettore dei gradi la matrice Laplaciana del network \`e definita come
-\begin{equation}
-    \mathcal{L}_{ij}=d_i\delta_{ij}-\mathcal{A}_{ij}
-\end{equation}
-ed ha le seguenti propriet\`a:
-\begin{itemize}
-    \item \`e semi-definita positiva;
-    \item $\mathcal{L}_{ij}>0\Longleftrightarrow i=j$;
-    \item $\sum_j\mathcal{L}_{ij}=\sum_i\mathcal{L}_{ij}=0$, quindi esiste un autovalore nullo $\lambda_0$ con corrispondente autovettore $\vec{v}_0=(1,\ldots,1)$;
-    \item $\sum_i\mathcal{L}_{ii}=2m$, dove $m$ \`e il numero totale dei link.
-\end{itemize}
-\subsection{Random Walk su network}
-Si assuma ora che la rete abbia in totale $M$ nodi e che ognuno di essi possa scambiare particelle coi suoi vicini.
-Sia $\pi_{ij}$ la matrice stocastica che definisce la probabilità che una particella effettui il viaggio tra nodi $j\to i$.
-Questa possiede le seguenti proprietà:
-\begin{itemize}
-    \item $\mathcal{A}_{ij}=0 \Longrightarrow \pi_{ij}=0$;
-    \item $\sum_j\pi_{ij}=1$.
-\end{itemize}
-Assumendo inoltre di avere $N$ particelle nella rete, \`e possibile definire la funzione $\delta_\alpha(i,t)$ che vale $1$ se la particella $\alpha$ si trova nel nodo $i$ al tempo $t$, 0 altrimenti.
-\\Ogni particella segue quindi la dinamica
-\begin{equation*}
-    \delta_\alpha(i,t+\Delta t)=\sum_j\xi_{ij}^\alpha\delta_\alpha(j,t)
-\end{equation*}
-dove $\xi_{ij}^\alpha$ \`e una matrice random che prende valori della base standard $\widehat{e}_i\in \mathbb{R}^M$ con probabilità $\pi_{ij}$.
-Il numero di particelle nel nodo $i$ al tempo $t$ \`e dato da
-\begin{equation*}
-    n_i(t)=\sum_\alpha\delta_\alpha(i,t)
-\end{equation*}
-ed \`e possibile dimostrare \cite{RandomWalks} che la seguente equazione \`e un integrale del moto
-\begin{equation}
-    \sum_in_i(t)=N
-\end{equation}
-
-\section{Costruzione del modello}
 Si consideri ora un network generato dalla matrice di adiacenza simmetrica $\mathcal{A}_{ij}$ i cui nodi rappresentano gli incroci di una rete stradale.
 Alla matrice di adiacenza \`e associata una matrice dei pesi $\mathcal{S}_{ij} \geq 0$ che, associando un diverso peso ad ogni link, definisce la lunghezza delle strade.
 Su questo network si definiscano ora le classi di agenti $C_{1},\ldots,C_{k}$, ognuna delle quali caratterizzata da un nodo sorgente $src$ e destinazione $dst$ e denotate come $C_{\alpha}(src,dst)$.
@@ -81,7 +32,7 @@ Per ogni classe di individui $C_{\alpha}$ \`e quindi necessario definire una mat
 Nella realt\`a una strada ha una capacit\`a finita, intesa come numero massimo di veicoli presenti su di essa in un generico istante di tempo $t$.
 Tale vincolo viene implementato nel modello tramite l'introduzione di una densit\`a massima $\rho_{max}$ posseduta da ogni strada.
 
-\subsection{Algoritmo di evoluzione}
+\section{Algoritmo di evoluzione}
 \`E ora necessario definire come i veicoli muovano effettivamente sul network.
 La probabilit\`a di transizione di osgni classe $\pi_{ij}^{\alpha}$ viene assegnata nel modo seguente:
 \begin{itemize}

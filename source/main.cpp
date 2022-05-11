@@ -99,7 +99,7 @@ int main(int argc, char **argv) {
     // g.addVehiclesUniformly(dVehicle);
     for (int t = 0; t < std::stoi(argv[5]); ++t) {
       printLoadingBar(t, std::stoi(argv[5]));
-      if (t < 1000 && t % 100 == 0 && t != 0) {
+      if (t < 2000 && t % 200 == 0 && t != 0) {
         g.addVehiclesUniformly(dVehicle / 10);
       }
       if (t % 250 == 0) {
@@ -112,10 +112,10 @@ int main(int argc, char **argv) {
         g.fprintActualState(DATA_FOLDER, "q/k");
         g.fprintActualState(DATA_FOLDER, "u/k");
       }
-      if (t == 4e3) {
-        g.updateTransMatrix();
-      }
-      if (t < 7e3) {
+      // if (t == 4e3) {
+      //   g.updateTransMatrix();
+      // }
+      if (t < 5e3) {
         g.evolve();
       } else {
         g.evolve(false);
