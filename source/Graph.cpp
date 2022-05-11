@@ -122,7 +122,7 @@ void Graph::_evolve(bool reinsert) {
       auto streetLenght = _streets.at(vehicle->getStreet())->getLenght();
       auto oldTime = static_cast<int>(streetLenght / vehicle->getVelocity());
       auto newTime = static_cast<int>(
-          streetLenght / _streets.at(vehicle->getStreet())->getVelocity());
+          streetLenght / _streets.at(vehicle->getStreet())->getInputVelocity());
       auto dTime = newTime - oldTime;
       if (dTime < 0) {
         if ((timePenalty + dTime) > 0) {
@@ -130,7 +130,8 @@ void Graph::_evolve(bool reinsert) {
         } else {
           vehicle->setTimePenalty(0);
         }
-        vehicle->setVelocity(_streets.at(vehicle->getStreet())->getVelocity());
+        vehicle->setVelocity(
+            _streets.at(vehicle->getStreet())->getInputVelocity());
       } else {
         vehicle->setTimePenalty(timePenalty - 1);
       }
@@ -455,7 +456,7 @@ void Graph::printStreets() const noexcept {
       std::cout << i << '(' << street->getOrigin() << ','
                 << street->getDestination() << ')' << ": "
                 << street->getNVehicles() << '\t' << std::setprecision(3)
-                << street->getVelocity() << '\n';
+                << street->getInputVelocity() << '\n';
     }
     ++i;
   }
@@ -482,7 +483,7 @@ void Graph::fprintVisual(std::string const &out_folder) const noexcept {
   for (auto const &street : _streets) {
     std::cout << street->getOrigin() << '\t' << street->getDestination() << '\t'
               << street->getNVehicles() << '\t' << std::setprecision(3)
-              << street->getVelocity() << '\n';
+              << street->getInputVelocity() << '\n';
   }
   std::cout.rdbuf(rdbufBackup);
   fOut.close();
