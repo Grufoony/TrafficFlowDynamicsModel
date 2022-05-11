@@ -1,7 +1,10 @@
-.PHONY: run wsl debug windows visual
+.PHONY: run wsl debug windows visual test
 run:
 	clear
 	./test.wsl matrix.dat vehicletype.dat 300 26750 10001
+test:
+	clear
+	./test.wsl matrix_old.dat vehicletype_old.dat 0 0 0
 wsl:
 	clear
 	g++ -O3 ./source/main.cpp ./source/Graph.cpp ./source/Street.cpp ./source/Vehicle.cpp ./source/VehicleType.cpp -o test.wsl
