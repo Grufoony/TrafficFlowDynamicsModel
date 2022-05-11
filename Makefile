@@ -1,7 +1,7 @@
 .PHONY: run wsl debug windows visual test
 run:
 	clear
-	./test.wsl matrix.dat vehicletype.dat 300 26750 10001
+	./test.wsl matrix.dat vehicletype.dat 300 20000 20001
 test:
 	clear
 	./test.wsl matrix_old.dat vehicletype_old.dat 0 0 0
