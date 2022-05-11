@@ -96,12 +96,12 @@ int main(int argc, char **argv) {
     g.fprint(true);
     clearDir(DATA_FOLDER);
     clearDir(OUT_FOLDER);
-    g.addVehiclesUniformly(dVehicle);
+    // g.addVehiclesUniformly(dVehicle);
     for (int t = 0; t < std::stoi(argv[5]); ++t) {
       printLoadingBar(t, std::stoi(argv[5]));
-      // if (t < 2000 && t % 200 == 0 && t != 0) {
-      //   g.addVehiclesUniformly(dVehicle / 10);
-      // }
+      if (t < 2000 && t % 200 == 0 && t != 0) {
+        g.addVehiclesUniformly(dVehicle / 10);
+      }
       if (t % 250 == 0) {
         g.fprintHistogram(DATA_FOLDER, 15);
         g.fprintDistribution(DATA_FOLDER, "u/q");
@@ -112,9 +112,9 @@ int main(int argc, char **argv) {
         g.fprintActualState(DATA_FOLDER, "q/k");
         g.fprintActualState(DATA_FOLDER, "u/k");
       }
-      if (t == 1e4) {
-        g.updateTransMatrix();
-      }
+      // if (t == 1e4) {
+      //   g.updateTransMatrix();
+      // }
       if (t < 5e3) {
         g.evolve();
       } else {
