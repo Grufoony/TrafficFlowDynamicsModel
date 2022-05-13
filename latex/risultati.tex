@@ -1,15 +1,95 @@
 \documentclass[../main.tex]{subfiles}
 
 \begin{document}
-
-\section{Modalit\`a di esecuzione}
 Nella sezione precedente si \`e costruito il modello ed \`e emerso come questo si basi su alcuni parametri di controllo.
-Variando questi parametri \`e di fatto possibile ottenere risultati estremamente diversi tra di loro.
-Assumendo che uno step temporale del modello sia equivalente a $1$ s 
+Variando questi parametri \`e di fatto possibile ottenere risultati estremamente diversi tra di loro, permettendo lo svolgimento di pi\`u studi.
+In particolare, verranno effettuate tre tipologie di studi per diversi reticoli stradali:
+\begin{itemize}
+    \item \emph{Carico adiabatico omogeneo}: il reticolo viene caricato omogeneamente (inserendo contemporaneamente lo stesso numero di veicoli su tutte le strade), lentamente e per diverse volte, in modo tale da raggiungere un nuovo equilibrio prima dell'immissione di nuovi veicoli;
+    \item \emph{Carico periodico}: il reticolo viene caricato nel tempo con una funzione sinusoidale, volta a rappresentare le diverse fasi di carico a cui una normale rete stradale \`e soggetta nell'arco di una giornata;
+    \item \emph{Limite di random walk}: il reticolo viene sovraccaricato uniformemente. Vengono inoltre resi equiprobabili tutti i percorsi esistenti tra sorgente e destinazione.
+\end{itemize}
 
-\section{Diagrammi fondamentali}
+\section{Reticolo omogeneo}
+Si consideri ora un network composto da 120 nodi disposti in un reticolo 10x12.
+Su questo, si definiscano 16 differenti classi di veicoli, le cui sorgenti sono i nodi 1, 4, 7, 10 e le cui destinazioni sono i nodi 109, 112, 115, 118.
+Risulta evidente dalla FIGURA CHE MANCA come i veicoli scorrano da un lato all'altro del reticolo.
+Ogni strada abbia lunghezza e velocit\`a massima fissate a $500$ m e $50$ km/h, rispettivamente.
+Si ponga ora la lunghezza media di un veicolo pari a $4$ m, la velocit\`a minima su una strada pari a $v_{min}=\frac{3}{4}v_{max}$ e una probabilit\`a di errore del $25$\% (DA RIVEDERE).
 
-\section{Isteresi}
+\subsection{Carico adiabatico omogeneo}
+Si inserisca ora nel sistema un totale di 20000 veicoli, suddivisi in 200 veicoli ogni $50$ s.
+
+\begin{figure}[H]
+    \begin{tikzpicture}[scale=0.6]
+        \begin{axis}[
+        grid = both,
+        major grid style = {lightgray},
+        minor grid style = {lightgray!25},
+        width = 0.75\textwidth,
+        height = 0.5\textwidth,
+        ylabel near ticks,
+        xlabel near ticks,
+        xlabel = {Densità (veh/km)},
+        ylabel = {Flusso (veh/h)},]
+        \addplot[
+        mark size=0.69,
+        draw=black,
+        only marks] file {./data/adiabatic_homo/750_q-k.dat};
+        \end{axis}
+    \end{tikzpicture}\hfill
+    \begin{tikzpicture}[scale=0.6]
+    \begin{axis}[
+    grid = both,
+    major grid style = {lightgray},
+    minor grid style = {lightgray!25},
+    width = 0.75\textwidth,
+    height = 0.5\textwidth,
+    ylabel near ticks,
+    xlabel near ticks,
+    xlabel = {Flusso (veh/h)},
+    ylabel = {Velocit\`a media (km/h)},]
+    \addplot[
+    mark size=0.69,
+    draw=black,
+    only marks] file {./data/adiabatic_homo/750_u-q.dat};
+    \end{axis}
+    \end{tikzpicture}
+    \centering
+    \begin{tikzpicture}[scale=0.6]
+    \begin{axis}[
+    grid = both,
+    major grid style = {lightgray},
+    minor grid style = {lightgray!25},
+    width = 0.75\textwidth,
+    height = 0.5\textwidth,
+    ylabel near ticks,
+    xlabel near ticks,
+    xlabel = {Densit\`a (veh/km)},
+    ylabel = {Velocit\`a media (km/h)},]
+    \addplot[
+    mark size=0.69,
+    draw=black,
+    only marks] file {./data/adiabatic_homo/750_u-k.dat};
+    \end{axis}
+    \end{tikzpicture}
+    \caption[DMF stazionari con carico adiabatico e reticolo omogeneo]{\emph{Diagrammi fondamentali macroscopici in situazione stazionaria per un reticolo omogeneo caricato adiabaticamente.}}
+    \label{fig:FMD_adiabatic_homo}
+\end{figure}
+
+\subsection{Carico periodico}
+
+\subsection{Limite di random walk}
+
+\section{Rete stradale di Rimini (?)}
+
+\subsection{Carico adiabatico omogeneo}
+
+\subsection{Carico periodico}
+
+\subsection{Limite di random walk}
+
+\section{Discussione}
 
 \begin{figure}[H]
     \centering
@@ -24,7 +104,7 @@ Assumendo che uno step temporale del modello sia equivalente a $1$ s
     ybar interval,
     mark=no,
     line width = 1.25pt
-    ] plot file {./data/250.dat};
+    ] plot file {./temp_data/250.dat};
     \end{axis}
     \end{tikzpicture}
     \caption{\emph{Prova.}}
@@ -42,7 +122,7 @@ Assumendo che uno step temporale del modello sia equivalente a $1$ s
     ybar interval,
     mark=no,
     line width = 1.25pt
-    ] plot file {./data/1250.dat};
+    ] plot file {./temp_data/1250.dat};
     \end{axis}
     \end{tikzpicture}
     \caption{\emph{Prova.}}
@@ -61,7 +141,7 @@ Assumendo che uno step temporale del modello sia equivalente a $1$ s
     ybar interval,
     mark=no,
     line width = 1.25pt
-    ] plot file {./data/10000.dat};
+    ] plot file {./temp_data/750.dat};
     \end{axis}
     \end{tikzpicture}
     \caption{\emph{Prova.}}
@@ -82,7 +162,7 @@ Assumendo che uno step temporale del modello sia equivalente a $1$ s
     \addplot[
     mark size=0.69,
     draw=black,
-    only marks] file {./data/250_u-q.dat};
+    only marks] file {./temp_data/750_u-q.dat};
     \end{axis}
     \end{tikzpicture}\hfill
     \begin{tikzpicture}[scale=0.6]
@@ -99,7 +179,7 @@ Assumendo che uno step temporale del modello sia equivalente a $1$ s
         \addplot[
         mark size=0.69,
         draw=black,
-        only marks] file {./data/250_q-k.dat};
+        only marks] file {./temp_data/750_q-k.dat};
         \end{axis}
     \end{tikzpicture}
     \centering
@@ -117,7 +197,7 @@ Assumendo che uno step temporale del modello sia equivalente a $1$ s
     \addplot[
     mark size=0.69,
     draw=black,
-    only marks] file {./data/250_u-k.dat};
+    only marks] file {./temp_data/750_u-k.dat};
     \end{axis}
     \end{tikzpicture}
     \caption[Diagrammi fondamentali con distribuzione omogenea]{\emph{Diagrammi fondamentali con distribuzione omogenea.}}
@@ -139,7 +219,7 @@ Assumendo che uno step temporale del modello sia equivalente a $1$ s
     \addplot[
     mark size=0.69,
     draw=black,
-    mark=o] file {./data/q-k.dat};
+    mark=o] file {./temp_data/q-k.dat};
     \end{axis}
     \end{tikzpicture}
 \end{figure}
@@ -160,7 +240,7 @@ Assumendo che uno step temporale del modello sia equivalente a $1$ s
     \addplot[
     mark size=0.69,
     draw=black,
-    mark=o] file {./data/u-k.dat};
+    mark=o] file {./temp_data/u-k.dat};
     \end{axis}
     \end{tikzpicture}
 \end{figure}

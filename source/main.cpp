@@ -54,8 +54,8 @@ void clearDir(std::string const &dir) {
 
 int main(int argc, char **argv) {
   std::string const OUT_FORMAT = ".dat";
-  std::string const DATA_FOLDER = "./data/";
-  std::string const OUT_FOLDER = "./img/data/";
+  std::string const DATA_FOLDER = "./temp_data/";
+  std::string const OUT_FOLDER = "./temp_img/data/";
 
   typedef std::chrono::high_resolution_clock Clock;
   auto start = Clock::now();
@@ -89,8 +89,8 @@ int main(int argc, char **argv) {
   case 6:
     std::cout << "Setting up the simulation..." << '\n';
     Vehicle::addVehicleType(argv[2]);
-    g.updateTransMatrix();
     g.setTemperature(std::stod(argv[3]));
+    g.updateTransMatrix();
     dVehicle = std::stoi(argv[4]);
     std::cout << "Done." << '\n';
     g.fprint(true);
@@ -115,7 +115,7 @@ int main(int argc, char **argv) {
       // if (t == 1e4) {
       //   g.updateTransMatrix();
       // }
-      if (t < 0.5e4) {
+      if (t < 0.4e4) {
         g.evolve();
       } else {
         g.evolve(false);

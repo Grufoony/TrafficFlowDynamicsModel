@@ -2,7 +2,7 @@
 
 \begin{document}
 \section{Osservabili macroscopici}
-Prima di iniziare a modellizzare il problema \`e necessario domandarsi quali siano gli osservabili macroscopici principali e come siano legati tra di loro.
+Prima di iniziare a modellizzare il problema \`e necessario domandarsi quali siano gli osservabili macroscopici principali e come siano legati tra di loro \cite{H111}.
 La descrizione di un sistema a livello macroscopico risulta critica ai fini della descrizione della dinamica.
 \subsection{Densit\`a}
 La densit\`a \`e una variabile tipicamente fisica adotatta nella teoria del traffico.
@@ -38,7 +38,7 @@ Unendo le Eq. (\ref{eq:phi_s}) e (\ref{eq:rho_s}):
 \begin{equation}
     \bar{v}(x, t, S)=\frac{\Phi(x, \Delta t, S)}{\rho(t,\Delta x, S)}
 \end{equation}
-La relazione fondamentale della Traffic Flow Theory \cite{H111} \`e riassumibile nella:
+La relazione fondamentale della teoria dei flussi di traffico \`e riassumibile nella:
 \begin{equation}
     \Phi=\rho\bar{v}
     \label{eq:fundamental}
@@ -46,8 +46,6 @@ La relazione fondamentale della Traffic Flow Theory \cite{H111} \`e riassumibile
 
 \section{Diagrammi fondamentali}
 A causa della relazione fondamentale del traffico riportata in Eq. (\ref{eq:fundamental}) risulta chiaro come su tre osservabili analizzati si abbiano solamente due variabili indipendenti.
-%%
-%Inserire immagine diagrammi fondamentali
 \begin{figure}[H]
 \centering
 \begin{tikzpicture}
@@ -88,10 +86,9 @@ A causa della relazione fondamentale del traffico riportata in Eq. (\ref{eq:fund
 \end{groupplot}
 
 \end{tikzpicture}
-\caption[Diagrammi fondamentali di Greenshield]{\emph{Diagrammi fondamentali d Greenshield.}}
+\caption[Diagrammi fondamentali di Greenshield]{\emph{Diagrammi fondamentali di Greenshield.}}
 \label{figure:greenshield}
 \end{figure}
-%%
 In una situazione stazionaria (rete in equilibrio) \`e possibile descrivere il sistema graficamente con tre diagrammi: $\bar{v}$-$\Phi$, $\Phi$-$\rho$ e $\bar{v}$-$\rho$.
 La prima formulazione di questi, riportata come esempio in Fig. \ref{figure:greenshield}, \`e stata effettuata da Greenshield sulla base di alcune misurazioni da lui eseguite.
 Assumendo lineare la relazione tra $\rho$ e $\bar{v}$ le relazioni negli altri due diagrammi risultano paraboliche.
@@ -110,8 +107,11 @@ In particolare, si ottengono un massimo di flusso sia a $\rho_c=\frac{\rho_t}{2}
 \end{itemize}
 
 \section{Networks}
-In generale, un network \`e descritto formalmente da una matrice di adiacenza $\mathcal{A}_{ij}=\left\{0,1\right\}$ in cui la cella $(i,j)$ assume il valore $1$ se il nodo $i$ \`e connesso al nodo $j$, $0$ altrimenti.
-Nei casi considerati in questo studio si assume sempre che $\mathcal{A}_{ij}=\mathcal{A}_{ji}$ (proprietà di simmetria).
+In generale, per costruire un qualsiasi modello fisico \`e necessaria una base matematica di partenza.
+Nell'ambito degli studi di traffico \`e largamente utilizzata la teoria dei network per rappresentare le reti stradali e lavorare su di esse.
+
+Formalmente, un network \`e descritto da una matrice di adiacenza $\mathcal{A}_{ij}=\left\{0,1\right\}$ in cui la cella $(i,j)$ assume il valore $1$ se il nodo $i$ \`e connesso al nodo $j$, $0$ altrimenti.
+Nel caso di network stradali \`e convenzione considerare matrici di adiacenza simmetriche, tali che $\mathcal{A}_{ij}=\mathcal{A}_{ji}$.
 Affiancata alla matrice di adiacenza si usa definire spesso la matrice dei pesi $\mathcal{W}_{ij}$, la quale definisce il peso di ciascun collegamento tra nodi.
 In particolare, la matrice $\mathcal{W}_{ij}$ possiede le seguenti propiet\`a:
 \begin{itemize}
@@ -134,6 +134,8 @@ ed ha le seguenti propriet\`a:
     \item $\sum_j\mathcal{L}_{ij}=\sum_i\mathcal{L}_{ij}=0$, quindi esiste un autovalore nullo $\lambda_0$ con corrispondente autovettore $\vec{v}_0=(1,\ldots,1)$;
     \item $\sum_i\mathcal{L}_{ii}=2m$, dove $m$ \`e il numero totale dei link.
 \end{itemize}
+La presenza di pi\`u autovalori nulli all'interno della matrice Laplaciana evidenzia una disconnessione del network.
+In particolare, dati un numero $x$ di autovalori nulli il network \`e separabile in altrettanti subnetwork non connessi tra loro.
 \subsection{Random Walk su network}
 Si assuma ora che la rete abbia in totale $M$ nodi e che ognuno di essi possa scambiare particelle coi suoi vicini.
 Sia $\pi_{ij}$ la matrice stocastica che definisce la probabilità che una particella effettui il viaggio tra nodi $j\to i$.

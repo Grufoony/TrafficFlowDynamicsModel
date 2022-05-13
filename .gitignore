@@ -3,8 +3,8 @@
 *.exe
 *.txt
 /.vscode/*
-/data/*
-/img/*
+/temp_data/*
+/temp_img/*
 *.wsl
 
 ## Core latex/pdflatex auxiliary files:
