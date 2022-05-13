@@ -4,8 +4,8 @@
 #include <stdexcept>
 
 double constexpr AVG_LENGHT =
-    4.;                          // if < 0 then there's no limit on the capacity
-double constexpr V_MIN = 100e-2; // minimum velocity
+    4.;                         // if < 0 then there's no limit on the capacity
+double constexpr V_MIN = 75e-2; // minimum velocity
 
 Street::Street(int n_1, int n_2, double l, int index) {
   if (!(l > 0))

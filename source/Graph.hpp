@@ -57,8 +57,9 @@ public:
   fprintVisual(std::string const &) const noexcept; // print file for visual.py
   void fprintHistogram(std::string const &,
                        int const) const noexcept; // print histograms
-  void fprintDistribution(std::string const &,
-                          std::string const &) const; // print graphs
+  void fprintDistribution(
+      std::string const &,
+      std::string const &) const; // print graphs whit format y \t x
   void
   fprintActualState(std::string const &,
                     std::string const &) const noexcept; // print actual state

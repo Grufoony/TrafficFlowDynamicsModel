@@ -494,8 +494,6 @@ void Graph::fprintHistogram(std::string const &out_folder,
   std::ofstream fOut;
   auto out = out_folder + std::to_string(_time) + ".dat";
   fOut.open(out);
-  auto const rdbufBackup = std::cout.rdbuf();
-  std::cout.rdbuf(fOut.rdbuf());
   int n;
   for (int i = 0; i < nBins + 1; ++i) {
     n = std::count_if(_streets.begin(), _streets.end(),
@@ -503,63 +501,51 @@ void Graph::fprintHistogram(std::string const &out_folder,
                         return street->getDensity() >= i * (1. / nBins) &&
                                street->getDensity() < (i + 1) * (1. / nBins);
                       });
-    std::cout << std::setprecision(3) << i * (1. / nBins) << '\t' << n << '\n';
+    fOut << std::setprecision(3) << i * (1. / nBins) << '\t' << n << '\n';
   }
-  std::cout << (nBins + 1.) * (1. / nBins);
-  std::cout.rdbuf(rdbufBackup);
+  fOut << (nBins + 1.) * (1. / nBins);
   fOut.close();
 }
 
 void Graph::fprintDistribution(std::string const &outFolder,
                                std::string const &opt) const {
+  std::ofstream fOut;
   if (opt == "u/q") {
-    std::ofstream fOut;
     auto out = outFolder + std::to_string(_time) + "_u-q.dat";
     fOut.open(out);
-    auto const rdbufBackup = std::cout.rdbuf();
-    std::cout.rdbuf(fOut.rdbuf());
     for (auto const &street : _streets) {
       auto meanV = this->_getStreetMeanVelocity(street->getIndex());
       if (!(meanV < 0))
-        std::cout << meanV * street->getVehicleDensity() * 3.6e3 << '\t'
-                  << meanV * 3.6 << '\n';
+        fOut << meanV * street->getVehicleDensity() * 3.6e3 << '\t'
+             << meanV * 3.6 << '\n';
     }
-    std::cout.rdbuf(rdbufBackup);
-    fOut.close();
   } else if (opt == "q/k") {
     std::ofstream fOut;
     auto out = outFolder + std::to_string(_time) + "_q-k.dat";
     fOut.open(out);
-    auto const rdbufBackup = std::cout.rdbuf();
-    std::cout.rdbuf(fOut.rdbuf());
     for (auto const &street : _streets) {
       auto meanV = this->_getStreetMeanVelocity(street->getIndex());
       if (!(meanV < 0))
-        std::cout << street->getVehicleDensity() * 1e3 << '\t'
-                  << meanV * street->getVehicleDensity() * 3.6e3 << '\n';
+        fOut << street->getVehicleDensity() * 1e3 << '\t'
+             << meanV * street->getVehicleDensity() * 3.6e3 << '\n';
     }
-    std::cout.rdbuf(rdbufBackup);
-    fOut.close();
   } else if (opt == "u/k") {
     std::ofstream fOut;
     auto out = outFolder + std::to_string(_time) + "_u-k.dat";
     fOut.open(out);
-    auto const rdbufBackup = std::cout.rdbuf();
-    std::cout.rdbuf(fOut.rdbuf());
     for (auto const &street : _streets) {
       auto meanV = this->_getStreetMeanVelocity(street->getIndex());
       if (!(meanV < 0))
-        std::cout << street->getVehicleDensity() * 1e3 << '\t' << meanV * 3.6
-                  << '\n';
+        fOut << street->getVehicleDensity() * 1e3 << '\t' << meanV * 3.6
+             << '\n';
     }
-    std::cout.rdbuf(rdbufBackup);
-    fOut.close();
   }
+  fOut.close();
 }
 
 void Graph::fprintActualState(std::string const &outFolder,
                               std::string const &opt) const noexcept {
-  auto const rdbufBackup = std::cout.rdbuf();
+  std::ofstream fOut;
   if (opt == "q/k") {
     auto meanDensity = 0.;
     auto meanVelocity = 0.;
@@ -576,10 +562,8 @@ void Graph::fprintActualState(std::string const &outFolder,
     // }
     // variance = std::sqrt(variance / _streets.size());
     auto out = outFolder + "q-k.dat";
-    std::ofstream fOut;
     fOut.open(out, std::ios_base::app);
-    std::cout.rdbuf(fOut.rdbuf());
-    std::cout << meanDensity << '\t' << meanVelocity * meanDensity << '\n';
+    fOut << meanDensity << '\t' << meanVelocity * meanDensity << '\n';
     // auto const &street = _streets.at(69);
     // std::cout << street->getVehicleDensity() * 1e3 << '\t'
     //           << this->_getStreetMeanVelocity(street->getIndex()) *
@@ -595,21 +579,16 @@ void Graph::fprintActualState(std::string const &outFolder,
     meanDensity /= _streets.size();
     meanVelocity /= _streets.size();
     auto out = outFolder + "u-k.dat";
-    std::ofstream fOut;
     fOut.open(out, std::ios_base::app);
-    std::cout.rdbuf(fOut.rdbuf());
-    std::cout << meanDensity << '\t' << meanVelocity << '\n';
+    fOut << meanDensity << '\t' << meanVelocity << '\n';
   }
-  std::cout.rdbuf(rdbufBackup);
+  fOut.close();
 }
 
 void Graph::save(const char *fileName) const noexcept {
   std::ofstream fOut;
   fOut.open(fileName);
-  auto const rdbufBackup = std::cout.rdbuf();
-  std::cout.rdbuf(fOut.rdbuf());
   // TODO: save network state on file
-  std::cout.rdbuf(rdbufBackup);
   fOut.close();
 }
 
