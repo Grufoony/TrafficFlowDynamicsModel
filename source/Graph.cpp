@@ -475,7 +475,7 @@ void Graph::fprint(const bool printGraph) const noexcept {
 void Graph::fprintVisual(std::string const &out_folder) const noexcept {
   std::ofstream fOut;
   auto out = out_folder + std::to_string(_time) + ".dat";
-  fOut.open("network_info.txt");
+  fOut.open(out);
   auto const rdbufBackup = std::cout.rdbuf();
   std::cout.rdbuf(fOut.rdbuf());
   std::cout << "source" << '\t' << "target" << '\t' << "load" << '\t' << "x"
