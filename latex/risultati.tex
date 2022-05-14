@@ -19,7 +19,7 @@ Si ponga ora la lunghezza media di un veicolo pari a $4$ m, la velocit\`a minima
 
 \subsection{Carico adiabatico omogeneo}
 Si inserisca ora nel sistema un totale di 20000 veicoli, suddivisi in 200 veicoli ogni $50$ s.
-
+Ci si aspetta che il sistema si carichi adiabaticamente, quindi che in uno stato stazionario i diagrammi fondamentali siano del tipo rappresentato in Fig. \ref{figure:greenshield}.
 \begin{figure}[H]
     \begin{tikzpicture}[scale=0.6]
         \begin{axis}[
@@ -76,6 +76,7 @@ Si inserisca ora nel sistema un totale di 20000 veicoli, suddivisi in 200 veicol
     \caption[DMF stazionari con carico adiabatico e reticolo omogeneo]{\emph{Diagrammi fondamentali macroscopici in situazione stazionaria per un reticolo omogeneo caricato adiabaticamente.}}
     \label{fig:FMD_adiabatic_homo}
 \end{figure}
+Come osservabile in Fig. \ref{fig:FMD_adiabatic_homo} l'ipotesi \`e ben verificata.
 
 \subsection{Carico periodico}
 
@@ -91,6 +92,43 @@ Si inserisca ora nel sistema un totale di 20000 veicoli, suddivisi in 200 veicol
 
 \section{Discussione}
 
+% \begin{figure}[H]
+%     \centering
+%     \begin{tikzpicture}[scale=0.5]
+%     \begin{axis}[ybar interval,
+%     area style,
+%     width = 2\textwidth,
+%     height = 1.5\textwidth,
+%     xlabel = {Densità di veicoli},
+%     ylabel = {Numero di strade},]
+%     \addplot+[
+%     ybar interval,
+%     mark=no,
+%     line width = 1.25pt
+%     ] plot file {./temp_data/250.dat};
+%     \end{axis}
+%     \end{tikzpicture}
+%     \caption{\emph{Prova.}}
+% \end{figure}
+
+% \begin{figure}[H]
+%     \begin{tikzpicture}[scale=0.5]
+%     \begin{axis}[ybar interval,
+%     area style,
+%     width = 2\textwidth,
+%     height = 1.5\textwidth,
+%     xlabel = {Densità di veicoli},
+%     ylabel = {Numero di strade},]
+%     \addplot+[
+%     ybar interval,
+%     mark=no,
+%     line width = 1.25pt
+%     ] plot file {./temp_data/1250.dat};
+%     \end{axis}
+%     \end{tikzpicture}
+%     \caption{\emph{Prova.}}
+% \end{figure}
+
 \begin{figure}[H]
     \centering
     \begin{tikzpicture}[scale=0.5]
@@ -104,44 +142,7 @@ Si inserisca ora nel sistema un totale di 20000 veicoli, suddivisi in 200 veicol
     ybar interval,
     mark=no,
     line width = 1.25pt
-    ] plot file {./temp_data/250.dat};
-    \end{axis}
-    \end{tikzpicture}
-    \caption{\emph{Prova.}}
-\end{figure}
-
-\begin{figure}[H]
-    \begin{tikzpicture}[scale=0.5]
-    \begin{axis}[ybar interval,
-    area style,
-    width = 2\textwidth,
-    height = 1.5\textwidth,
-    xlabel = {Densità di veicoli},
-    ylabel = {Numero di strade},]
-    \addplot+[
-    ybar interval,
-    mark=no,
-    line width = 1.25pt
-    ] plot file {./temp_data/1250.dat};
-    \end{axis}
-    \end{tikzpicture}
-    \caption{\emph{Prova.}}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \begin{tikzpicture}[scale=0.5]
-    \begin{axis}[ybar interval,
-    area style,
-    width = 2\textwidth,
-    height = 1.5\textwidth,
-    xlabel = {Densità di veicoli},
-    ylabel = {Numero di strade},]
-    \addplot+[
-    ybar interval,
-    mark=no,
-    line width = 1.25pt
-    ] plot file {./temp_data/750.dat};
+    ] plot file {./temp_data/1800.dat};
     \end{axis}
     \end{tikzpicture}
     \caption{\emph{Prova.}}
@@ -162,7 +163,7 @@ Si inserisca ora nel sistema un totale di 20000 veicoli, suddivisi in 200 veicol
     \addplot[
     mark size=0.69,
     draw=black,
-    only marks] file {./temp_data/750_u-q.dat};
+    only marks] file {./temp_data/1800_u-q.dat};
     \end{axis}
     \end{tikzpicture}\hfill
     \begin{tikzpicture}[scale=0.6]
@@ -179,7 +180,7 @@ Si inserisca ora nel sistema un totale di 20000 veicoli, suddivisi in 200 veicol
         \addplot[
         mark size=0.69,
         draw=black,
-        only marks] file {./temp_data/750_q-k.dat};
+        only marks] file {./temp_data/1800_q-k.dat};
         \end{axis}
     \end{tikzpicture}
     \centering
@@ -197,7 +198,7 @@ Si inserisca ora nel sistema un totale di 20000 veicoli, suddivisi in 200 veicol
     \addplot[
     mark size=0.69,
     draw=black,
-    only marks] file {./temp_data/750_u-k.dat};
+    only marks] file {./temp_data/1800_u-k.dat};
     \end{axis}
     \end{tikzpicture}
     \caption[Diagrammi fondamentali con distribuzione omogenea]{\emph{Diagrammi fondamentali con distribuzione omogenea.}}
@@ -240,7 +241,49 @@ Si inserisca ora nel sistema un totale di 20000 veicoli, suddivisi in 200 veicol
     \addplot[
     mark size=0.69,
     draw=black,
-    mark=o] file {./temp_data/u-k.dat};
+    mark=o] file {./temp_data/k-t.dat};
+    \end{axis}
+    \end{tikzpicture}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+    \begin{axis}[
+    grid = both,
+    major grid style = {lightgray},
+    minor grid style = {lightgray!25},
+    width = 0.75\textwidth,
+    height = 0.5\textwidth,
+    ylabel near ticks,
+    xlabel near ticks,
+    xlabel = {Densit\`a media (veh/km)},
+    ylabel = {Velocit\`a media (km/h)},]
+    \addplot[
+    mark size=0.69,
+    draw=black,
+    mark=o] file {./temp_data/q-t.dat};
+    \end{axis}
+    \end{tikzpicture}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+    \begin{axis}[
+    grid = both,
+    major grid style = {lightgray},
+    minor grid style = {lightgray!25},
+    width = 0.75\textwidth,
+    height = 0.5\textwidth,
+    ylabel near ticks,
+    xlabel near ticks,
+    xlabel = {Densit\`a media (veh/km)},
+    ylabel = {Velocit\`a media (km/h)},]
+    \addplot[
+    mark size=0.69,
+    draw=black,
+    mark=o] file {./temp_data/u-t.dat};
     \end{axis}
     \end{tikzpicture}
 \end{figure}
