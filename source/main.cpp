@@ -2,6 +2,7 @@
 #include "Vehicle.hpp"
 
 #include <chrono>
+#include <cmath>
 #include <filesystem>
 #include <fstream>
 #include <iomanip>
@@ -87,6 +88,7 @@ int main(int argc, char **argv) {
     break;
 
   case 6:
+    // argv = matrix_file vehicle_type_file temperature n_vehicles time_limit
     std::cout << "Setting up the simulation..." << '\n';
     Vehicle::addVehicleType(argv[2]);
     g.setTemperature(std::stod(argv[3]));
@@ -116,6 +118,44 @@ int main(int argc, char **argv) {
       //   g.updateTransMatrix();
       // }
       if (t < 0.4e4) {
+        g.evolve();
+      } else {
+        g.evolve(false);
+      }
+    }
+    break;
+
+  case 7:
+    // argv = matrix_file vehicle_type_file temperature amplitude period
+    // time_limit
+    std::cout << "Setting up the simulation..." << '\n';
+    Vehicle::addVehicleType(argv[2]);
+    g.setTemperature(std::stod(argv[3]));
+    g.updateTransMatrix();
+    dVehicle = std::stoi(argv[4]);
+    std::cout << "Done." << '\n';
+    g.fprint(true);
+    clearDir(DATA_FOLDER);
+    clearDir(OUT_FOLDER);
+    for (int t = 0; t < std::stoi(argv[6]); ++t) {
+      printLoadingBar(t, std::stoi(argv[6]));
+      if (t % 300 == 0) {
+        dVehicle = std::abs(std::stoi(argv[4]) *
+                            std::sin(2 * M_PI * t / std::stoi(argv[5])));
+        g.addVehiclesUniformly(dVehicle);
+      }
+      if (t % 1800 == 0) {
+        g.fprintHistogram(DATA_FOLDER, 15);
+        g.fprintDistribution(DATA_FOLDER, "u/q");
+        g.fprintDistribution(DATA_FOLDER, "q/k");
+        g.fprintDistribution(DATA_FOLDER, "u/k");
+        g.fprintActualState(DATA_FOLDER, "q/k");
+        g.fprintActualState(DATA_FOLDER, "u/k");
+        g.fprintTimeDistribution(DATA_FOLDER, "k");
+        g.fprintTimeDistribution(DATA_FOLDER, "q");
+        g.fprintTimeDistribution(DATA_FOLDER, "u");
+      }
+      if ((t < 8100) || (t > 16200 && t < 24300) || (t > 32400 && t < 40500)) {
         g.evolve();
       } else {
         g.evolve(false);

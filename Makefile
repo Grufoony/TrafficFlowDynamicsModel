@@ -1,7 +1,10 @@
-.PHONY: run wsl debug windows visual test
+.PHONY: run wsl debug windows visual test periodictest
 run:
 	clear
 	./test.wsl matrix.dat vehicletype_old.dat 2000 20000 10001
+periodictest:
+	clear
+	./test.wsl matrix.dat vehicletype_old.dat 2000 1000 32400 48600
 test:
 	clear
 	./test.wsl matrix_old.dat vehicletype_old.dat 0 0 0

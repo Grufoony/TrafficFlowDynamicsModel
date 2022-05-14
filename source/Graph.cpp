@@ -520,7 +520,6 @@ void Graph::fprintDistribution(std::string const &outFolder,
              << meanV * 3.6 << '\n';
     }
   } else if (opt == "q/k") {
-    std::ofstream fOut;
     auto out = outFolder + std::to_string(_time) + "_q-k.dat";
     fOut.open(out);
     for (auto const &street : _streets) {
@@ -530,7 +529,6 @@ void Graph::fprintDistribution(std::string const &outFolder,
              << meanV * street->getVehicleDensity() * 3.6e3 << '\n';
     }
   } else if (opt == "u/k") {
-    std::ofstream fOut;
     auto out = outFolder + std::to_string(_time) + "_u-k.dat";
     fOut.open(out);
     for (auto const &street : _streets) {
@@ -539,6 +537,43 @@ void Graph::fprintDistribution(std::string const &outFolder,
         fOut << street->getVehicleDensity() * 1e3 << '\t' << meanV * 3.6
              << '\n';
     }
+  }
+  fOut.close();
+}
+
+void Graph::fprintTimeDistribution(std::string const &outFolder,
+                                   std::string const &opt) const {
+  std::ofstream fOut;
+  if (opt == "k") {
+    auto out = outFolder + "k-t.dat";
+    fOut.open(out, std::ios_base::app);
+    auto meanDensity = 0.;
+    for (auto const &street : _streets) {
+      meanDensity += street->getVehicleDensity() * 1e3;
+    }
+    meanDensity /= _streets.size();
+    fOut << _time * 3.6e-3 << '\t' << meanDensity << '\n';
+  } else if (opt == "q") {
+    auto out = outFolder + "q-t.dat";
+    fOut.open(out, std::ios_base::app);
+    auto meanDensity = 0.;
+    auto meanVelocity = 0.;
+    for (auto const &street : _streets) {
+      meanDensity += street->getVehicleDensity();
+      meanVelocity += this->_getStreetMeanVelocity(street->getIndex()) * 3.6;
+    }
+    meanDensity /= _streets.size();
+    meanVelocity /= _streets.size();
+    fOut << _time * 3.6e-3 << '\t' << meanDensity * meanVelocity << '\n';
+  } else if (opt == "u") {
+    auto out = outFolder + "u-t.dat";
+    fOut.open(out, std::ios_base::app);
+    auto meanVelocity = 0.;
+    for (auto const &street : _streets) {
+      meanVelocity += this->_getStreetMeanVelocity(street->getIndex()) * 3.6;
+    }
+    meanVelocity /= _streets.size();
+    fOut << _time * 3.6e-3 << '\t' << meanVelocity << '\n';
   }
   fOut.close();
 }
