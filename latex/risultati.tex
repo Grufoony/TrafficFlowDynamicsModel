@@ -18,8 +18,9 @@ Ogni strada abbia lunghezza e velocit\`a massima fissate a $500$ m e $50$ km/h, 
 Si ponga ora la lunghezza media di un veicolo pari a $4$ m, la velocit\`a minima su una strada pari a $v_{min}=\frac{3}{4}v_{max}$ e una probabilit\`a di errore del $25$\% (DA RIVEDERE).
 
 \subsection{Carico adiabatico omogeneo}
-Si inserisca ora nel sistema un totale di 20000 veicoli, suddivisi in 200 veicoli ogni $50$ s.
-Ci si aspetta che il sistema si carichi adiabaticamente, quindi che in uno stato stazionario i diagrammi fondamentali siano del tipo rappresentato in Fig. \ref{figure:greenshield}.
+Si inserisca ora nel sistema un totale di 20000 veicoli, suddivisi in 200 veicoli ogni $50$ s, impedendone la fuoriuscita dal reticolo.
+Se un veicoli arriva a destinazione, infatti, viene distrutto e ricreato in un nodo sorgente.
+Ci si aspetta cosi\`i che il sistema si carichi adiabaticamente, quindi una serie di stati stazionari a cui sono associati i diagrammi fondamentali presenti in Fig. \ref{figure:greenshield}.
 \begin{figure}[H]
     \begin{tikzpicture}[scale=0.6]
         \begin{axis}[
@@ -76,7 +77,69 @@ Ci si aspetta che il sistema si carichi adiabaticamente, quindi che in uno stato
     \caption[DMF stazionari con carico adiabatico e reticolo omogeneo]{\emph{Diagrammi fondamentali macroscopici in situazione stazionaria per un reticolo omogeneo caricato adiabaticamente.}}
     \label{fig:FMD_adiabatic_homo}
 \end{figure}
-Come osservabile in Fig. \ref{fig:FMD_adiabatic_homo} l'ipotesi \`e ben verificata.
+Come osservabile in Fig. \ref{fig:FMD_adiabatic_homo}, i diagrammi di Greenshield risultano ben riprodotti.
+Tuttavia, il limite di densit\`a delle strade impedisce la creazione di curve perfettamente paraboliche in quanto queste tendono a ``schiacciarsi'' in prossimit\`a della densit\`a massima.
+Una volta caricato il sistema adiabaticamente, l'equilibrio finale risulta uno stato di congestione.
+Quest'ultimo fatto \`e verificabile nell'istogramma graficato in Fig. (MANCA) dove \` riportato il numero di strade in base alla densit\`a di veicoli su di esse.
+% \begin{figure}[H]
+%     \centering
+%     \begin{tikzpicture}[scale=0.5]
+%     \begin{axis}[ybar interval,
+%     area style,
+%     width = 2\textwidth,
+%     height = 1.5\textwidth,
+%     xlabel = {Densità di veicoli},
+%     ylabel = {Numero di strade},]
+%     \addplot+[
+%     ybar interval,
+%     mark=no,
+%     line width = 1.25pt
+%     ] plot file {./temp_data/250.dat};
+%     \end{axis}
+%     \end{tikzpicture}
+%     \caption{\emph{Prova.}}
+% \end{figure}
+Una volta caricato completamente il sistema e raggiunto l'equilibrio finale viene permesso ai veicoli di uscire, quindi una volta che questi hanno raggiunto il nodo destinazione vengono distrutti e pi\`u ricreati.
+Secondo la teoria dei flussi di traffico, infatti, un sistema congestionato tende a risolvere la congestione in modo differente da come questa si \`e formata.
+\begin{figure}[H]
+    \begin{tikzpicture}[scale=0.6]
+        \begin{axis}[
+        grid = both,
+        major grid style = {lightgray},
+        minor grid style = {lightgray!25},
+        width = 0.75\textwidth,
+        height = 0.5\textwidth,
+        ylabel near ticks,
+        xlabel near ticks,
+        xlabel = {Densità (veh/km)},
+        ylabel = {Flusso (veh/h)},]
+        \addplot[
+        mark size=0.69,
+        draw=black,
+        mark=o] file {./data/adiabatic_homo/q-k.dat};
+        \end{axis}
+    \end{tikzpicture}\hfill
+    \begin{tikzpicture}[scale=0.6]
+    \begin{axis}[
+    grid = both,
+    major grid style = {lightgray},
+    minor grid style = {lightgray!25},
+    width = 0.75\textwidth,
+    height = 0.5\textwidth,
+    ylabel near ticks,
+    xlabel near ticks,
+    xlabel = {Densit\`a (veh/km)},
+    ylabel = {Velocit\`a media (km/h)},]
+    \addplot[
+    mark size=0.69,
+    draw=black,
+    mark=o] file {./data/adiabatic_homo/u-k.dat};
+    \end{axis}
+    \end{tikzpicture}
+    \caption[Isteresi con carico adiabatico e reticolo omogeneo]{\emph{Cicli di isteresi per un reticolo omogeneo caricato adiabaticamente.}}
+    \label{fig:hysteresys_adiabatic_homo}
+\end{figure}
+
 
 \subsection{Carico periodico}
 

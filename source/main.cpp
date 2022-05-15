@@ -142,7 +142,7 @@ int main(int argc, char **argv) {
       if (t % 300 == 0) {
         dVehicle = std::abs(std::stoi(argv[4]) *
                             std::sin(2 * M_PI * t / std::stoi(argv[5])));
-        g.addVehiclesUniformly(dVehicle);
+        g.addRndmVehicles(dVehicle);
       }
       if (t % 1800 == 0) {
         g.fprintHistogram(DATA_FOLDER, 15);
@@ -155,11 +155,13 @@ int main(int argc, char **argv) {
         g.fprintTimeDistribution(DATA_FOLDER, "q");
         g.fprintTimeDistribution(DATA_FOLDER, "u");
       }
-      if ((t < 8100) || (t > 16200 && t < 24300) || (t > 32400 && t < 40500)) {
+      if ((t < 1.399e3) || (t > 1.4e3 && t < 3.199e3) ||
+          (t > 3.2e3 && t < 4.5e3)) {
         g.evolve();
       } else {
         g.evolve(false);
       }
+      // g.evolve();
     }
     break;
 
