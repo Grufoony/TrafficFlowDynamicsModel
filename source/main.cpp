@@ -139,7 +139,7 @@ int main(int argc, char **argv) {
     clearDir(OUT_FOLDER);
     for (int t = 0; t < std::stoi(argv[6]); ++t) {
       printLoadingBar(t, std::stoi(argv[6]));
-      if (t % 300 == 0) {
+      if (t % 300 == 0 && t < 4.5e3) {
         dVehicle = std::abs(std::stoi(argv[4]) *
                             std::sin(2 * M_PI * t / std::stoi(argv[5])));
         g.addRndmVehicles(dVehicle);
