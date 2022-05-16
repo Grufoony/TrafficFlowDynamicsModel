@@ -139,12 +139,12 @@ int main(int argc, char **argv) {
     clearDir(OUT_FOLDER);
     for (int t = 0; t < std::stoi(argv[6]); ++t) {
       printLoadingBar(t, std::stoi(argv[6]));
-      if (t % 300 == 0 && t < 4.5e3) {
+      if ((t % 300 == 0) && (t < (std::stoi(argv[5]) * 3 / 2))) {
         dVehicle = std::abs(std::stoi(argv[4]) *
                             std::sin(2 * M_PI * t / std::stoi(argv[5])));
-        g.addRndmVehicles(dVehicle);
+        g.addVehiclesUniformly(dVehicle);
       }
-      if (t % 1800 == 0) {
+      if (t % 900 == 0) {
         g.fprintHistogram(DATA_FOLDER, 15);
         g.fprintDistribution(DATA_FOLDER, "u/q");
         g.fprintDistribution(DATA_FOLDER, "q/k");
@@ -155,8 +155,8 @@ int main(int argc, char **argv) {
         g.fprintTimeDistribution(DATA_FOLDER, "q");
         g.fprintTimeDistribution(DATA_FOLDER, "u");
       }
-      if ((t < 1.399e3) || (t > 1.4e3 && t < 3.199e3) ||
-          (t > 3.2e3 && t < 4.5e3)) {
+      // || (t > 2.025e4 && t < 2.835e4)
+      if ((t < 1.215e4) || (t > 3.645e4 && t < 4.455e4)) {
         g.evolve();
       } else {
         g.evolve(false);
