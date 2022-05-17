@@ -1,22 +1,22 @@
-\documentclass[../main.tex]{subfiles}
+\documentclass[../main.tex]{subfiles}un
 
 \begin{document}
-Il modello descritto in precedenza \'e stato implementato tramite un software scritto in C++.
+Il modello descritto in precedenza \`e stato implementato tramite un software scritto in C++.
 \section{Classi}
-Sfruttando la programmazione a oggetti su cui \'e basato il linguaggio C++ si \'e diviso il modello in varie classi.
+Sfruttando la programmazione a oggetti su cui \`e basato il linguaggio C++ si \`e diviso il modello in varie classi.
 \subsection{VehicleType}
-La classe a livello inferiore \'e \emph{VehicleType} che, come suggerisce il nome, definisce una tipologia di veicolo.
-In questo modello ogni veicolo \'e caratterizzato dai parametri di input nodo sorgente e nodo destinazione.
+La classe a livello inferiore \`e \emph{VehicleType} che, come suggerisce il nome, definisce una tipologia di veicolo.
+In questo modello ogni veicolo \`e caratterizzato dai parametri di input nodo sorgente e nodo destinazione.
 Tuttavia, per muoversi sul network, ogni tipologia di veicolo necessita anche di una matrice di transizione contenente le probabilità di effettuare o meno un passo in una specifica direzione.
 Questa matrice viene solo dichiarata come parametro della classe e viene impostata dopo la definizione del network.
 \subsection{Vehicle}
-Dopo aver definito le tipologie di veicoli \'e necessario definire anche i veicoli stessi.
+Dopo aver definito le tipologie di veicoli \`e necessario definire anche i veicoli stessi.
 La classe \emph{Vehicle} rappresenta gli agenti che andranno a muoversi sul network stradale.
 Un vettore statico di \emph{VehicleType} permette ad ogni veicolo di avere una tipologia definita, tramite un parametro indiciale che determina la posizione nel vettore.
 Ogni agente ha inoltre due coordinate che ne definiscono la posizione: nodo attuale e strada attuale.
 Per permetterne il movimento nel tempo sono presenti altri due parametri, non necessari in input, rappresentanti la velocità del veicolo, dettata dalla strada sulla quale si trova, e la penalità di tempo che questo deve scontare, dipendente sia dalla velocità del veicolo stesso sia alla densità di veicoli presente sulla strada in cui si trova.
 \subsection{Street}
-Una volta definiti i veicoli \'e necessario definire le proprietà dei collegamenti tra i vari nodi (incroci) della rete.
+Una volta definiti i veicoli \`e necessario definire le proprietà dei collegamenti tra i vari nodi (incroci) della rete.
 Ogni istanza della classe \emph{Street} rappresenta un collegamento tra due nodi.
 I parametri da fornire come input per distinguere una strada in maniera univoca sono l'indice del nodo sorgente e l'indice del nodo destinazione.
 Si presti ora attenzione al fatto che ogni strada abbia una direzione: considerando due nodi generici $i$ e $j$, la strada che connette $i\to j$ sarà differente dalla strada che connette $j \to i$.
@@ -32,18 +32,18 @@ In particolare, l'andamento della velocità su una strada segue la funzione
 \end{equation}
 Come visibile in Fig. \ref{figure:velocity} anche una volta raggiunta la densità massima i veicoli non si fermano ma si immettono sulla strada, quando si libera sufficiente spazio, con una velocità minima pari al $25\%$ della velocità massima.
 \subsection{Graph}
-Ultima classe definita, che comprende tutte le precedenti, \'e la classe \emph{Graph}, la quale costruisce effettivamente il network stradale.
-Parametro di input necessario per creare un'istanza \'e la matrice di adiacenza, che definisce le connessioni tra i nodi.
+Ultima classe definita, che comprende tutte le precedenti, \`e la classe \emph{Graph}, la quale costruisce effettivamente il network stradale.
+Parametro di input necessario per creare un'istanza \`e la matrice di adiacenza, che definisce le connessioni tra i nodi.
 Tramite essa viene poi generato un vettore di puntatori a \emph{Street} che genera le connessioni tra i nodi come strade.\\
-Il movimento degli agenti sul network \'e determinato dalla matrice di transizione assegnata alle varie tipologie di veicoli.
+Il movimento degli agenti sul network \`e determinato dalla matrice di transizione assegnata alle varie tipologie di veicoli.
 Questa viene generata tramite l'utilizzo del famoso algoritmo Dijkstra \cite{dijkstra} e si basa sulla ricerca del \emph{best path}, il percorso a costo (lunghezza) inferiore, dalla posizione dell'agente alla destinazione definita dal suo \emph{VehicleType}.
-Si \'e poi deciso di introdurre un parametro di temperatura statistica al network per poter permettere ai veicoli di seguire un percorso differente rispetto al best path fornito dall'algoritmo Dijkstra.
+Si \`e poi deciso di introdurre un parametro di temperatura statistica al network per poter permettere ai veicoli di seguire un percorso differente rispetto al best path fornito dall'algoritmo Dijkstra.
 L'algoritmo di evoluzione, infatti, assegna peso 1 ai best path e un peso $\pi$ variabile tra 0 e 1 ai percorsi più lunghi.
 Quest'ultimo peso varia in base alla temperatura del sistema secondo la funzione
 \begin{equation}
     \pi(T)=\tanh(kT)
 \end{equation}
-dove $k$ \'e un parametro di controllo del modello.
+dove $k$ \`e un parametro di controllo del modello.
 % \begin{figure}[H]
 %     \centering
 %     \begin{tikzpicture}
@@ -75,8 +75,8 @@ Una volta ottenute le probabilità di transizione il sistema può evolvere tenen
 \section{Esecuzione}
 
 \section{Performance}
-Il programma \'e stato compilato utilizzando il compilatore gcc-9 su Ubuntu 20.04 nel Windows Subsystem for Linux.
-La compilazione \'e stata effettuata utilizzando le flag
+Il programma \`e stato compilato utilizzando il compilatore gcc-9 su Ubuntu 20.04 nel Windows Subsystem for Linux.
+La compilazione \`e stata effettuata utilizzando le flag
 \begin{verbatim}
     -O3 -Wall -Wextra -fsanitize=address
 \end{verbatim}
