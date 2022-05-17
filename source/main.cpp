@@ -113,6 +113,9 @@ int main(int argc, char **argv) {
       if (t % 60 == 0) {
         g.fprintActualState(DATA_FOLDER, "q/k");
         g.fprintActualState(DATA_FOLDER, "u/k");
+        g.fprintTimeDistribution(DATA_FOLDER, "k");
+        g.fprintTimeDistribution(DATA_FOLDER, "q");
+        g.fprintTimeDistribution(DATA_FOLDER, "u");
       }
       // if (t == 1e4) {
       //   g.updateTransMatrix();
@@ -156,12 +159,12 @@ int main(int argc, char **argv) {
         g.fprintTimeDistribution(DATA_FOLDER, "u");
       }
       // || (t > 2.025e4 && t < 2.835e4)
-      if ((t < 1.215e4) || (t > 3.645e4 && t < 4.455e4)) {
-        g.evolve();
-      } else {
-        g.evolve(false);
-      }
-      // g.evolve();
+      // if ((t < 1.215e4) || (t > 3.645e4 && t < 4.455e4)) {
+      //   g.evolve();
+      // } else {
+      //   g.evolve(false);
+      // }
+      g.evolve(false);
     }
     break;
 
