@@ -146,6 +146,65 @@ Tale differenza \`e visibile sia sul piano $\Phi/\rho$, sia sul piano $\bar{v}/\
 
 
 \subsection{Carico periodico}
+Si vuole ora sottoporre il sistema ad un carico realistico, quindi variabile nell'arco di una giornata.
+Per semplicit\`a si decide di trascurare il carico notturno, in quanto nella maggior parte dei casi lascia il sistema in uno stato di flusso libero.
+Durante il giorno, invece, dalle acquisizioni reali (MANCA REF) si notano diversi picchi: il primo al mattino verso le ore 9:00, il secondo all'ora di pranzo, verso le 13:00 e il terzo al rientro serale, alle 17:00.
+Gli orari dei picchi sono stati leggermente approssimati in modo tale da semplificare la funzione in ingresso, la quale deve avere un picco ogni 4 ore.
+Assumendo come orario di inizio simulazione le 5:45 del mattino, si immettano veicoli uniformemente nel sistema secondo la seguente funzione:
+\begin{equation}
+    \Delta n(t) = A \left\lvert \sin\left(\frac{2\pi}{T}t\right) \right\rvert 
+\end{equation}
+con $A = 4400$ veh e $T = 32400$ s.
+In questo caso, non vi \`e accumulo di veicoli: in ogni istante i veicoli che giungono a destinazione vengono eliminati.
+Ci si aspetta in questo modo che, avendo la funzione tre picchi, il sistema compia tre cicli di caricamento e scaricamento.
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+    \begin{axis}[
+    grid = both,
+    major grid style = {lightgray},
+    minor grid style = {lightgray!25},
+    width = 0.75\textwidth,
+    height = 0.5\textwidth,
+    ylabel near ticks,
+    xlabel near ticks,
+    xlabel = {Tempo (h)},
+    ylabel = {Densit\`a media (veh/km)},]
+    \addplot[
+    mark size=0.69,
+    draw=black,
+    mark=o] file {./data/periodic_homo/k-t.dat};
+    \end{axis}
+    \end{tikzpicture}
+    \caption[Variazione periodica della densit\`a in un reticolo omogeneo]{\emph{Variazione della densit\`a media delle strade della rete nel tempo. Si possono notare tre picchi: il primo alle 8:45, il secondo alle 13:00 e il terzo alle 17:45.}}
+    \label{fig:density_time_periodic_homo}
+\end{figure}
+I tre picchi sono ben visibili in Fig. \ref{fig:density_time_periodic_homo}.
+A ogni picco corrisponde una fase di carico/scarico, quindi, come osservato precedentemente in Fig. \ref{fig:hysteresys_adiabatic_homo}, ci si aspetta la presenza di tre cicli di isteresi.
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+    \begin{axis}[
+    grid = both,
+    major grid style = {lightgray},
+    minor grid style = {lightgray!25},
+    width = 0.75\textwidth,
+    height = 0.5\textwidth,
+    ylabel near ticks,
+    xlabel near ticks,
+    xlabel = {Densit\`a media (veh/km)},
+    ylabel = {Flusso medio (veh/h)},]
+    \addplot[
+    mark size=0.69,
+    draw=black,
+    mark=o] file {./temp_data/q-k.dat};
+    \end{axis}
+    \end{tikzpicture}
+    \caption[Isteresi con carico periodico e reticolo omogeneo]{\emph{Cicli di isteresi sul piano $\Phi/\rho$ per un reticolo omogeneo caricato periodicamente.}}
+    \label{fig:hysteresys_periodic_homo}
+\end{figure}
+Come si pu\`o notare in Fig. \ref{fig:hysteresys_periodic_homo} sono effettivamente presenti tre diversi cicli di isteresi.
+Si osserva, inoltre, che il secondo ciclo ha ampiezza inferiore, essendo il picco di densit\`a meno pronunciato.
 
 \subsection{Limite di random walk}
 

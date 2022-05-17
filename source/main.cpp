@@ -145,6 +145,9 @@ int main(int argc, char **argv) {
       if ((t % 300 == 0) && (t < (std::stoi(argv[5]) * 3 / 2))) {
         dVehicle = std::abs(std::stoi(argv[4]) *
                             std::sin(2 * M_PI * t / std::stoi(argv[5])));
+        if (t > 1.62e4 && t < 2.43e4) {
+          dVehicle /= M_SQRT2;
+        }
         g.addVehiclesUniformly(dVehicle);
       }
       if (t % 900 == 0) {

@@ -4,7 +4,7 @@ run:
 	./test.wsl matrix.dat vehicletype_old.dat 300 37500 12001
 periodictest:
 	clear
-	./test.wsl matrix.dat vehicletype_old.dat 300 4000 32400 55000
+	./test.wsl matrix.dat vehicletype_old.dat 300 4400 32400 55000
 test:
 	clear
 	./test.wsl matrix_old.dat vehicletype_old.dat 0 0 0
