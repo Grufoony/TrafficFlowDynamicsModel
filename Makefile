@@ -1,13 +1,13 @@
 .PHONY: run run1 run2 wsl debug windows visual test periodictest
 run:
 	clear
-	./test.wsl matrix.dat vehicletype_old.dat 10000 25000 12001
+	./test.wsl matrix.dat vehicletype_old.dat 300 15000 12001
 run1:
 	clear
-	./test.wsl matrix.dat vehicletype_old.dat 300 37500 12001
+	./test.wsl matrix.dat vehicletype_old.dat 300 18750 12001
 run2:
 	clear
-	./test.wsl matrix.dat vehicletype_old.dat 300 4400 32400 55000
+	./test.wsl matrix.dat vehicletype_old.dat 300 2200 32400 55000
 test:
 	clear
 	./test.wsl matrix_old.dat vehicletype_old.dat 0 0 0

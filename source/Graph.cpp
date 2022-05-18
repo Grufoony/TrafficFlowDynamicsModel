@@ -542,7 +542,9 @@ void Graph::fprintDistribution(std::string const &outFolder,
 }
 
 void Graph::fprintTimeDistribution(std::string const &outFolder,
-                                   std::string const &opt) const {
+                                   std::string const &opt,
+                                   double const timeZero) const {
+  // timeZero in hours
   std::ofstream fOut;
   if (opt == "k") {
     auto out = outFolder + "k-t.dat";
@@ -552,7 +554,7 @@ void Graph::fprintTimeDistribution(std::string const &outFolder,
       meanDensity += street->getVehicleDensity() * 1e3;
     }
     meanDensity /= _streets.size();
-    fOut << _time / 3.6e3 + 5 << '\t' << meanDensity << '\n';
+    fOut << _time / 3.6e3 + timeZero << '\t' << meanDensity << '\n';
   } else if (opt == "q") {
     auto out = outFolder + "q-t.dat";
     fOut.open(out, std::ios_base::app);
@@ -564,7 +566,8 @@ void Graph::fprintTimeDistribution(std::string const &outFolder,
     }
     meanDensity /= _streets.size();
     meanVelocity /= _streets.size();
-    fOut << _time / 3.6e3 + 5 << '\t' << meanDensity * meanVelocity << '\n';
+    fOut << _time / 3.6e3 + timeZero << '\t' << meanDensity * meanVelocity
+         << '\n';
   } else if (opt == "u") {
     auto out = outFolder + "u-t.dat";
     fOut.open(out, std::ios_base::app);
@@ -573,7 +576,7 @@ void Graph::fprintTimeDistribution(std::string const &outFolder,
       meanVelocity += this->_getStreetMeanVelocity(street->getIndex()) * 3.6;
     }
     meanVelocity /= _streets.size();
-    fOut << _time / 3.6e3 + 5 << '\t' << meanVelocity << '\n';
+    fOut << _time / 3.6e3 + timeZero << '\t' << meanVelocity << '\n';
   }
   fOut.close();
 }

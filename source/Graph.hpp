@@ -60,9 +60,9 @@ public:
   void fprintDistribution(
       std::string const &,
       std::string const &) const; // print graphs whit format y \t x
-  void fprintTimeDistribution(
-      std::string const &,
-      std::string const &) const; // print graphs whit format y \t t
+  void
+  fprintTimeDistribution(std::string const &, std::string const &,
+                         double const) const; // print graphs whit format y \t t
   void
   fprintActualState(std::string const &,
                     std::string const &) const noexcept; // print actual state

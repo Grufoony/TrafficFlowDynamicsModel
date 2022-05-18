@@ -3,11 +3,11 @@
 \begin{document}
 Nella sezione precedente si \`e costruito il modello ed \`e emerso come questo si basi su alcuni parametri di controllo.
 Variando questi parametri \`e di fatto possibile ottenere risultati estremamente diversi tra di loro, permettendo lo svolgimento di pi\`u studi.
-In particolare, verranno effettuate tre tipologie di studi per diversi reticoli stradali:
+In particolare, verranno effettuate tre tipologie di studi dove il caricamento della rete viene effettuato omogeneamente (inserendo contemporaneamente lo stesso numero di veicoli su tutte le strade):
 \begin{itemize}
-    \item \emph{Carico adiabatico omogeneo}: il reticolo viene caricato omogeneamente (inserendo contemporaneamente lo stesso numero di veicoli su tutte le strade), lentamente e per diverse volte, in modo tale da raggiungere un nuovo equilibrio prima dell'immissione di nuovi veicoli;
+    \item \emph{Carico costante}: il reticolo viene sottoposto ad un carico costante per un certo lasso di tempo;
+    \item \emph{Carico piccato}: il reticolo viene sovraccaricato nei primi istanti, durante i quali nessun veicolo pu\`o uscire, in modo tale da creare una congestione. Successivamente i veicoli vengono lasciati liberi di uscire dalla rete per permetterne lo svuotamento e studiarne gli effetti;
     \item \emph{Carico periodico}: il reticolo viene caricato nel tempo con una funzione sinusoidale, volta a rappresentare le diverse fasi di carico a cui una normale rete stradale \`e soggetta nell'arco di una giornata;
-    \item \emph{Limite di random walk}: il reticolo viene sovraccaricato uniformemente. Vengono inoltre resi equiprobabili tutti i percorsi esistenti tra sorgente e destinazione.
 \end{itemize}
 
 \section{Reticolo omogeneo}
@@ -15,49 +15,21 @@ Si consideri ora un network composto da 120 nodi disposti in un reticolo 10x12.
 Su questo, si definiscano 16 differenti classi di veicoli, le cui sorgenti sono i nodi 1, 4, 7, 10 e le cui destinazioni sono i nodi 109, 112, 115, 118.
 Risulta evidente dalla FIGURA CHE MANCA come i veicoli scorrano da un lato all'altro del reticolo.
 Ogni strada abbia lunghezza e velocit\`a massima fissate a $500$ m e $50$ km/h, rispettivamente.
-Si ponga ora la lunghezza media di un veicolo pari a $4$ m, la velocit\`a minima su una strada pari a $v_{min}=\frac{3}{4}v_{max}$ e una probabilit\`a di errore del $25$\% (DA RIVEDERE).
+Si ponga ora la lunghezza media di un veicolo pari a $8$ m, la velocit\`a minima su una strada pari a $v_{min}=\frac{3}{4}v_{max}$ e una probabilit\`a di errore del $25$\% (DA RIVEDERE).
 
-\subsection{Carico adiabatico omogeneo}
-Si inserisca ora nel sistema un totale di 20000 veicoli, suddivisi in 200 veicoli ogni $50$ s, impedendone la fuoriuscita dal reticolo.
-Se un veicoli arriva a destinazione, infatti, viene distrutto e ricreato in un nodo sorgente.
-Ci si aspetta cosi\`i che il sistema si carichi adiabaticamente, quindi una serie di stati stazionari a cui sono associati i diagrammi fondamentali presenti in Fig. \ref{figure:greenshield}.
+\subsection{Carico costante}
+Si vuole, come prima cosa, sottoporre il sistema ad un carico costante.
+In questo modo si dovrebbe evitare la formazione di congestioni, lasciando al sistema la capacit\`a di trasporto.
+Si carichi quindi il sistema con 15000 veicoli, suddivisi in 1500 veicoli ogni 50 s, e si impedista a loro di uscire per 8000 s.
+
+
+\subsection{Carico piccato}
+Si inserisca ora nel sistema un totale di 27500 veicoli, suddivisi in 2750 veicoli ogni 50 s, impedendone la fuoriuscita dal reticolo.
+Se un veicolo arriva a destinazione, infatti, viene distrutto e ricreato in un nodo sorgente.
+Si osserva in Fig. \ref{fig:density_peaked_homo} un picco iniziale della densit\`a media: questo rappresenta il sovraccarico del sistema.
 \begin{figure}[H]
-    \begin{tikzpicture}[scale=0.6]
-        \begin{axis}[
-        grid = both,
-        major grid style = {lightgray},
-        minor grid style = {lightgray!25},
-        width = 0.75\textwidth,
-        height = 0.5\textwidth,
-        ylabel near ticks,
-        xlabel near ticks,
-        xlabel = {Densità (veh/km)},
-        ylabel = {Flusso (veh/h)},]
-        \addplot[
-        mark size=0.69,
-        draw=black,
-        only marks] file {./data/adiabatic_homo/750_q-k.dat};
-        \end{axis}
-    \end{tikzpicture}\hfill
-    \begin{tikzpicture}[scale=0.6]
-    \begin{axis}[
-    grid = both,
-    major grid style = {lightgray},
-    minor grid style = {lightgray!25},
-    width = 0.75\textwidth,
-    height = 0.5\textwidth,
-    ylabel near ticks,
-    xlabel near ticks,
-    xlabel = {Flusso (veh/h)},
-    ylabel = {Velocit\`a media (km/h)},]
-    \addplot[
-    mark size=0.69,
-    draw=black,
-    only marks] file {./data/adiabatic_homo/750_u-q.dat};
-    \end{axis}
-    \end{tikzpicture}
     \centering
-    \begin{tikzpicture}[scale=0.6]
+    \begin{tikzpicture}
     \begin{axis}[
     grid = both,
     major grid style = {lightgray},
@@ -66,41 +38,40 @@ Ci si aspetta cosi\`i che il sistema si carichi adiabaticamente, quindi una seri
     height = 0.5\textwidth,
     ylabel near ticks,
     xlabel near ticks,
-    xlabel = {Densit\`a (veh/km)},
-    ylabel = {Velocit\`a media (km/h)},]
+    xlabel = {Tempo (h)},
+    ylabel = {Densit\`a media (veh/km)},]
     \addplot[
     mark size=0.69,
     draw=black,
-    only marks] file {./data/adiabatic_homo/750_u-k.dat};
+    mark=o] file {./data/peaked_homo/k-t.dat};
     \end{axis}
     \end{tikzpicture}
-    \caption[DMF stazionari con carico adiabatico e reticolo omogeneo]{\emph{Diagrammi fondamentali macroscopici in situazione stazionaria per un reticolo omogeneo caricato adiabaticamente.}}
-    \label{fig:FMD_adiabatic_homo}
+    \caption[Densit\`a media per un reticolo omogeneo sovraccaricato]{\emph{Densit\`a media per un reticolo omogeneo sovraccaricato.}}
+    \label{fig:density_peaked_homo}
 \end{figure}
-Come osservabile in Fig. \ref{fig:FMD_adiabatic_homo}, i diagrammi di Greenshield risultano ben riprodotti.
-Tuttavia, il limite di densit\`a delle strade impedisce la creazione di curve perfettamente paraboliche in quanto queste tendono a ``schiacciarsi'' in prossimit\`a della densit\`a massima.
-Una volta caricato il sistema adiabaticamente, l'equilibrio finale risulta uno stato di congestione.
-Quest'ultimo fatto \`e verificabile nell'istogramma graficato in Fig. (MANCA) dove \` riportato il numero di strade in base alla densit\`a di veicoli su di esse.
-% \begin{figure}[H]
-%     \centering
-%     \begin{tikzpicture}[scale=0.5]
-%     \begin{axis}[ybar interval,
-%     area style,
-%     width = 2\textwidth,
-%     height = 1.5\textwidth,
-%     xlabel = {Densità di veicoli},
-%     ylabel = {Numero di strade},]
-%     \addplot+[
-%     ybar interval,
-%     mark=no,
-%     line width = 1.25pt
-%     ] plot file {./temp_data/250.dat};
-%     \end{axis}
-%     \end{tikzpicture}
-%     \caption{\emph{Prova.}}
-% \end{figure}
-Una volta caricato completamente il sistema e raggiunto l'equilibrio finale viene permesso ai veicoli di uscire, quindi una volta che questi hanno raggiunto il nodo destinazione vengono distrutti e pi\`u ricreati.
-Secondo la teoria dei flussi di traffico, infatti, un sistema congestionato tende a risolvere la congestione in modo differente da come questa si \`e formata: questo fenomeno causa la formazione di un ciclo di isteresi, visibile in Fig. \ref{fig:hysteresys_adiabatic_homo}.
+Una volta caricato il sistema ci si aspetta che la distribuzione di veicoli nelle strade non resti omogenea, anche a numero di veicoli costante.
+Mantenendo il numero di agenti constante nel tempo, questi tenderanno ad occupare le strade costituenti i loro \emph{best path} e a lasciare vuote quelle pi\`u lontane da essi.
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[scale=0.5]
+    \begin{axis}[ybar interval,
+    area style,
+    width = 2\textwidth,
+    height = 1.5\textwidth,
+    xlabel = {Densità (veh/km)},
+    ylabel = {Numero di strade},]
+    \addplot+[
+    ybar interval,
+    mark=no,
+    line width = 1.25pt
+    ] plot file {./data/peaked_homo/120.dat};
+    \end{axis}
+    \end{tikzpicture}
+    \caption{\emph{Numero di strade in funzione della densit\`a di veicoli.}}
+    \label{fig:nStreet_density_peaked_homo}
+\end{figure}
+In Fig. \ref{fig:nStreet_density_peaked_homo} \`e visibile il diagramma caratteristico della congestione, in cui sono presenti, come atteso, un gran numero di strade vuote e altrettante sature.
+Secondo la teoria dei flussi di traffico, un sistema congestionato tende a risolvere la congestione in modo differente da come questa si \`e formata: questo fenomeno causa la formazione di un ciclo di isteresi, visibile in Fig. \ref{fig:hysteresys_peaked_homo}.
 \begin{figure}[H]
     \begin{tikzpicture}[scale=0.6]
         \begin{axis}[
@@ -116,7 +87,7 @@ Secondo la teoria dei flussi di traffico, infatti, un sistema congestionato tend
         \addplot[
         mark size=0.69,
         draw=black,
-        mark=o] file {./data/adiabatic_homo/q-k.dat};
+        mark=o] file {./data/peaked_homo/q-k.dat};
         \end{axis}
     \end{tikzpicture}\hfill
     \begin{tikzpicture}[scale=0.6]
@@ -133,11 +104,11 @@ Secondo la teoria dei flussi di traffico, infatti, un sistema congestionato tend
     \addplot[
     mark size=0.69,
     draw=black,
-    mark=o] file {./data/adiabatic_homo/u-k.dat};
+    mark=o] file {./data/peaked_homo/u-k.dat};
     \end{axis}
     \end{tikzpicture}
-    \caption[Isteresi con carico adiabatico e reticolo omogeneo]{\emph{Cicli di isteresi per un reticolo omogeneo caricato adiabaticamente.}}
-    \label{fig:hysteresys_adiabatic_homo}
+    \caption[Isteresi per un reticolo omogeneo sovraccaricato]{\emph{Ciclo di isteresi per un reticolo omogeneo sovraccaricato.}}
+    \label{fig:hysteresys_peaked_homo}
 \end{figure}
 Si pu\`o notare come sia il flusso che la densit\`a crescano fino a un punto critico nel quale si ha un calo drastico del flusso dovuto all'eccessiva presenza di veicoli sulle strade.
 Il sistema risulta qui congestionato e perde la capacit\`a di trasporto.
@@ -154,7 +125,7 @@ Assumendo come orario di inizio simulazione le 5:45 del mattino, si immettano ve
 \begin{equation}
     \Delta n(t) = A \left\lvert \sin\left(\frac{2\pi}{T}t\right) \right\rvert 
 \end{equation}
-con $A = 4400$ veh e $T = 32400$ s.
+con $A = 2200$ veh e $T = 32400$ s.
 In questo caso, non vi \`e accumulo di veicoli: in ogni istante i veicoli che giungono a destinazione vengono eliminati.
 Ci si aspetta in questo modo che, avendo la funzione tre picchi, il sistema compia tre cicli di caricamento e scaricamento.
 \begin{figure}[H]
@@ -180,7 +151,7 @@ Ci si aspetta in questo modo che, avendo la funzione tre picchi, il sistema comp
     \label{fig:density_time_periodic_homo}
 \end{figure}
 I tre picchi sono ben visibili in Fig. \ref{fig:density_time_periodic_homo}.
-A ogni picco corrisponde una fase di carico/scarico, quindi, come osservato precedentemente in Fig. \ref{fig:hysteresys_adiabatic_homo}, ci si aspetta la presenza di tre cicli di isteresi.
+A ogni picco corrisponde una fase di carico/scarico, quindi, come osservato precedentemente in Fig. \ref{fig:hysteresys_peaked_homo}, ci si aspetta la presenza di tre cicli di isteresi.
 \begin{figure}[H]
     \centering
     \begin{tikzpicture}
@@ -197,7 +168,7 @@ A ogni picco corrisponde una fase di carico/scarico, quindi, come osservato prec
     \addplot[
     mark size=0.69,
     draw=black,
-    mark=o] file {./temp_data/q-k.dat};
+    mark=o] file {./data/periodic_homo/q-k.dat};
     \end{axis}
     \end{tikzpicture}
     \caption[Isteresi con carico periodico e reticolo omogeneo]{\emph{Cicli di isteresi sul piano $\Phi/\rho$ per un reticolo omogeneo caricato periodicamente.}}
@@ -205,8 +176,6 @@ A ogni picco corrisponde una fase di carico/scarico, quindi, come osservato prec
 \end{figure}
 Come si pu\`o notare in Fig. \ref{fig:hysteresys_periodic_homo} sono effettivamente presenti tre diversi cicli di isteresi.
 Si osserva, inoltre, che il secondo ciclo ha ampiezza inferiore, essendo il picco di densit\`a meno pronunciato.
-
-\subsection{Limite di random walk}
 
 \section{Rete stradale di Rimini (?)}
 
@@ -274,61 +243,61 @@ Si osserva, inoltre, che il secondo ciclo ha ampiezza inferiore, essendo il picc
 %     \caption{\emph{Prova.}}
 % \end{figure}
 
-% \begin{figure}[H]
-%     \begin{tikzpicture}[scale=0.6]
-%     \begin{axis}[
-%     grid = both,
-%     major grid style = {lightgray},
-%     minor grid style = {lightgray!25},
-%     width = 0.75\textwidth,
-%     height = 0.5\textwidth,
-%     ylabel near ticks,
-%     xlabel near ticks,
-%     xlabel = {Flusso (veh/h)},
-%     ylabel = {Velocit\`a media (km/h)},]
-%     \addplot[
-%     mark size=0.69,
-%     draw=black,
-%     only marks] file {./temp_data/9900_u-q.dat};
-%     \end{axis}
-%     \end{tikzpicture}\hfill
-%     \begin{tikzpicture}[scale=0.6]
-%         \begin{axis}[
-%         grid = both,
-%         major grid style = {lightgray},
-%         minor grid style = {lightgray!25},
-%         width = 0.75\textwidth,
-%         height = 0.5\textwidth,
-%         ylabel near ticks,
-%         xlabel near ticks,
-%         xlabel = {Densità (veh/km)},
-%         ylabel = {Flusso (veh/h)},]
-%         \addplot[
-%         mark size=0.69,
-%         draw=black,
-%         only marks] file {./temp_data/9900_q-k.dat};
-%         \end{axis}
-%     \end{tikzpicture}
-%     \centering
-%     \begin{tikzpicture}[scale=0.6]
-%     \begin{axis}[
-%     grid = both,
-%     major grid style = {lightgray},
-%     minor grid style = {lightgray!25},
-%     width = 0.75\textwidth,
-%     height = 0.5\textwidth,
-%     ylabel near ticks,
-%     xlabel near ticks,
-%     xlabel = {Densit\`a (veh/km)},
-%     ylabel = {Velocit\`a media (km/h)},]
-%     \addplot[
-%     mark size=0.69,
-%     draw=black,
-%     only marks] file {./temp_data/9900_u-k.dat};
-%     \end{axis}
-%     \end{tikzpicture}
-%     \caption[Diagrammi fondamentali con distribuzione omogenea]{\emph{Diagrammi fondamentali con distribuzione omogenea.}}
-% \end{figure}
+\begin{figure}[H]
+    \begin{tikzpicture}[scale=0.6]
+    \begin{axis}[
+    grid = both,
+    major grid style = {lightgray},
+    minor grid style = {lightgray!25},
+    width = 0.75\textwidth,
+    height = 0.5\textwidth,
+    ylabel near ticks,
+    xlabel near ticks,
+    xlabel = {Flusso (veh/h)},
+    ylabel = {Velocit\`a media (km/h)},]
+    \addplot[
+    mark size=0.69,
+    draw=black,
+    only marks] file {./temp_data/660_u-q.dat};
+    \end{axis}
+    \end{tikzpicture}\hfill
+    \begin{tikzpicture}[scale=0.6]
+        \begin{axis}[
+        grid = both,
+        major grid style = {lightgray},
+        minor grid style = {lightgray!25},
+        width = 0.75\textwidth,
+        height = 0.5\textwidth,
+        ylabel near ticks,
+        xlabel near ticks,
+        xlabel = {Densità (veh/km)},
+        ylabel = {Flusso (veh/h)},]
+        \addplot[
+        mark size=0.69,
+        draw=black,
+        only marks] file {./temp_data/360_q-k.dat};
+        \end{axis}
+    \end{tikzpicture}
+    \centering
+    \begin{tikzpicture}[scale=0.6]
+    \begin{axis}[
+    grid = both,
+    major grid style = {lightgray},
+    minor grid style = {lightgray!25},
+    width = 0.75\textwidth,
+    height = 0.5\textwidth,
+    ylabel near ticks,
+    xlabel near ticks,
+    xlabel = {Densit\`a (veh/km)},
+    ylabel = {Velocit\`a media (km/h)},]
+    \addplot[
+    mark size=0.69,
+    draw=black,
+    only marks] file {./temp_data/720_u-k.dat};
+    \end{axis}
+    \end{tikzpicture}
+    \caption[Diagrammi fondamentali con distribuzione omogenea]{\emph{Diagrammi fondamentali con distribuzione omogenea.}}
+\end{figure}
 
 \begin{figure}[H]
     \centering

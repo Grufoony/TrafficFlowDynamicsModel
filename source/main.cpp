@@ -98,33 +98,37 @@ int main(int argc, char **argv) {
     g.fprint(true);
     clearDir(DATA_FOLDER);
     clearDir(OUT_FOLDER);
-    // g.addVehiclesUniformly(dVehicle);
+    // adiabatic analysis
     for (int t = 0; t < std::stoi(argv[5]); ++t) {
       printLoadingBar(t, std::stoi(argv[5]));
+      // all analysis
       if (t < 500 && t % 50 == 0 && t != 0) {
         g.addVehiclesUniformly(dVehicle / 10);
       }
-      if (t % 250 == 0) {
+      if (t % 60 == 0) {
         g.fprintHistogram(DATA_FOLDER, 15);
         g.fprintDistribution(DATA_FOLDER, "u/q");
         g.fprintDistribution(DATA_FOLDER, "q/k");
         g.fprintDistribution(DATA_FOLDER, "u/k");
-      }
-      if (t % 60 == 0) {
         g.fprintActualState(DATA_FOLDER, "q/k");
         g.fprintActualState(DATA_FOLDER, "u/k");
-        g.fprintTimeDistribution(DATA_FOLDER, "k");
-        g.fprintTimeDistribution(DATA_FOLDER, "q");
-        g.fprintTimeDistribution(DATA_FOLDER, "u");
+        g.fprintTimeDistribution(DATA_FOLDER, "k", 0.);
+        g.fprintTimeDistribution(DATA_FOLDER, "q", 0.);
+        g.fprintTimeDistribution(DATA_FOLDER, "u", 0.);
       }
-      // if (t == 1e4) {
-      //   g.updateTransMatrix();
+      // constant analysis
+      // if (t < 8e3) {
+      //   g.evolve();
+      // } else {
+      //   g.evolve(false);
       // }
+      // peaked analysis
       if (t < 0.4e4) {
         g.evolve();
       } else {
         g.evolve(false);
       }
+      // g.evolve(false);
     }
     break;
 
@@ -157,9 +161,9 @@ int main(int argc, char **argv) {
         g.fprintDistribution(DATA_FOLDER, "u/k");
         g.fprintActualState(DATA_FOLDER, "q/k");
         g.fprintActualState(DATA_FOLDER, "u/k");
-        g.fprintTimeDistribution(DATA_FOLDER, "k");
-        g.fprintTimeDistribution(DATA_FOLDER, "q");
-        g.fprintTimeDistribution(DATA_FOLDER, "u");
+        g.fprintTimeDistribution(DATA_FOLDER, "k", 5.);
+        g.fprintTimeDistribution(DATA_FOLDER, "q", 5.);
+        g.fprintTimeDistribution(DATA_FOLDER, "u", 5.);
       }
       // || (t > 2.025e4 && t < 2.835e4)
       // if ((t < 1.215e4) || (t > 3.645e4 && t < 4.455e4)) {
