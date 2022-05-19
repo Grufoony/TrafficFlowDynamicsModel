@@ -15,16 +15,16 @@ Si consideri ora un network composto da 120 nodi disposti in un reticolo 10x12.
 Su questo, si definiscano 16 differenti classi di veicoli, le cui sorgenti sono i nodi 1, 4, 7, 10 e le cui destinazioni sono i nodi 109, 112, 115, 118.
 Risulta evidente dalla FIGURA CHE MANCA come i veicoli scorrano da un lato all'altro del reticolo.
 Ogni strada abbia lunghezza e velocit\`a massima fissate a $500$ m e $50$ km/h, rispettivamente.
-Si ponga ora la lunghezza media di un veicolo pari a $8$ m, la velocit\`a minima su una strada pari a $v_{min}=\frac{3}{4}v_{max}$ e una probabilit\`a di errore del $25$\% (DA RIVEDERE).
+Si ponga ora la lunghezza media di un veicolo pari a 8 m, la velocit\`a minima su una strada pari a $v_{min}=\frac{3}{4}v_{max}$ e una probabilit\`a di errore dell'8\%.
 
 \subsection{Carico costante}
 Si vuole, come prima cosa, sottoporre il sistema ad un carico costante.
 In questo modo si dovrebbe evitare la formazione di congestioni, lasciando al sistema la capacit\`a di trasporto.
-Si carichi quindi il sistema con 15000 veicoli, suddivisi in 1500 veicoli ogni 50 s, e si impedista a loro di uscire per 8000 s.
+Si carichi quindi il sistema con un carico costante di 250 ogni 60 s, fino a un tempo di 12000 s, lasciandoli liberi di uscire dalla rete una volta giunti a destinazione.
 
 
 \subsection{Carico piccato}
-Si inserisca ora nel sistema un totale di 27500 veicoli, suddivisi in 2750 veicoli ogni 50 s, impedendone la fuoriuscita dal reticolo.
+Si inserisca ora nel sistema un totale di 14000 veicoli, suddivisi in 1400 veicoli ogni 50 s, impedendone la fuoriuscita dal reticolo.
 Se un veicolo arriva a destinazione, infatti, viene distrutto e ricreato in un nodo sorgente.
 Si osserva in Fig. \ref{fig:density_peaked_homo} un picco iniziale della densit\`a media: questo rappresenta il sovraccarico del sistema.
 \begin{figure}[H]
@@ -53,7 +53,7 @@ Una volta caricato il sistema ci si aspetta che la distribuzione di veicoli nell
 Mantenendo il numero di agenti constante nel tempo, questi tenderanno ad occupare le strade costituenti i loro \emph{best path} e a lasciare vuote quelle pi\`u lontane da essi.
 \begin{figure}[H]
     \centering
-    \begin{tikzpicture}[scale=0.5]
+    \begin{tikzpicture}[scale=0.25]
     \begin{axis}[ybar interval,
     area style,
     width = 2\textwidth,
@@ -64,13 +64,70 @@ Mantenendo il numero di agenti constante nel tempo, questi tenderanno ad occupar
     ybar interval,
     mark=no,
     line width = 1.25pt
-    ] plot file {./data/peaked_homo/120.dat};
+    ] plot file {./data/peaked_homo/540.dat};
     \end{axis}
     \end{tikzpicture}
     \caption{\emph{Numero di strade in funzione della densit\`a di veicoli.}}
     \label{fig:nStreet_density_peaked_homo}
 \end{figure}
 In Fig. \ref{fig:nStreet_density_peaked_homo} \`e visibile il diagramma caratteristico della congestione, in cui sono presenti, come atteso, un gran numero di strade vuote e altrettante sature.
+In questo istante di tempo, pari a 540 s da inizio simulazione, ci si aspetta dunque che i diagrammi fondamentali siano confrontabili con quelli in Fig. \ref{fig:greenshield}: questa ipotesi \`e confermata dalla Fig. \ref{fig:DMF_peaked_homo}.
+\begin{figure}[H]
+    \begin{tikzpicture}[scale=0.6]
+    \begin{axis}[
+    grid = both,
+    major grid style = {lightgray},
+    minor grid style = {lightgray!25},
+    width = 0.75\textwidth,
+    height = 0.5\textwidth,
+    ylabel near ticks,
+    xlabel near ticks,
+    xlabel = {Flusso (veh/h)},
+    ylabel = {Velocit\`a media (km/h)},]
+    \addplot[
+    mark size=0.69,
+    draw=black,
+    only marks] file {./data/peaked_homo/540_u-q.dat};
+    \end{axis}
+    \end{tikzpicture}\hfill
+    \begin{tikzpicture}[scale=0.6]
+        \begin{axis}[
+        grid = both,
+        major grid style = {lightgray},
+        minor grid style = {lightgray!25},
+        width = 0.75\textwidth,
+        height = 0.5\textwidth,
+        ylabel near ticks,
+        xlabel near ticks,
+        xlabel = {Densità (veh/km)},
+        ylabel = {Flusso (veh/h)},]
+        \addplot[
+        mark size=0.69,
+        draw=black,
+        only marks] file {./data/peaked_homo/540_q-k.dat};
+        \end{axis}
+    \end{tikzpicture}
+    \centering
+    \begin{tikzpicture}[scale=0.6]
+    \begin{axis}[
+    grid = both,
+    major grid style = {lightgray},
+    minor grid style = {lightgray!25},
+    width = 0.75\textwidth,
+    height = 0.5\textwidth,
+    ylabel near ticks,
+    xlabel near ticks,
+    xlabel = {Densit\`a (veh/km)},
+    ylabel = {Velocit\`a media (km/h)},]
+    \addplot[
+    mark size=0.69,
+    draw=black,
+    only marks] file {./data/peaked_homo/540_u-k.dat};
+    \end{axis}
+    \end{tikzpicture}
+    \caption[DFM per una congestione]{\emph{Diagrammi fondamentali macroscopici di una congestione in un reticolo omogeneo.}}
+    \label{fig:DMF_peaked_homo}
+\end{figure}
 Secondo la teoria dei flussi di traffico, un sistema congestionato tende a risolvere la congestione in modo differente da come questa si \`e formata: questo fenomeno causa la formazione di un ciclo di isteresi, visibile in Fig. \ref{fig:hysteresys_peaked_homo}.
 \begin{figure}[H]
     \begin{tikzpicture}[scale=0.6]
@@ -224,80 +281,80 @@ Si osserva, inoltre, che il secondo ciclo ha ampiezza inferiore, essendo il picc
 %     \caption{\emph{Prova.}}
 % \end{figure}
 
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[scale=0.5]
+    \begin{axis}[ybar interval,
+    area style,
+    width = 2\textwidth,
+    height = 1.5\textwidth,
+    xlabel = {Densità di veicoli},
+    ylabel = {Numero di strade},]
+    \addplot+[
+    ybar interval,
+    mark=no,
+    line width = 1.25pt
+    ] plot file {./temp_data/7200.dat};
+    \end{axis}
+    \end{tikzpicture}
+    \caption{\emph{Prova.}}
+\end{figure}
+
 % \begin{figure}[H]
+%     \begin{tikzpicture}[scale=0.6]
+%     \begin{axis}[
+%     grid = both,
+%     major grid style = {lightgray},
+%     minor grid style = {lightgray!25},
+%     width = 0.75\textwidth,
+%     height = 0.5\textwidth,
+%     ylabel near ticks,
+%     xlabel near ticks,
+%     xlabel = {Flusso (veh/h)},
+%     ylabel = {Velocit\`a media (km/h)},]
+%     \addplot[
+%     mark size=0.69,
+%     draw=black,
+%     only marks] file {./temp_data/660_u-q.dat};
+%     \end{axis}
+%     \end{tikzpicture}\hfill
+%     \begin{tikzpicture}[scale=0.6]
+%         \begin{axis}[
+%         grid = both,
+%         major grid style = {lightgray},
+%         minor grid style = {lightgray!25},
+%         width = 0.75\textwidth,
+%         height = 0.5\textwidth,
+%         ylabel near ticks,
+%         xlabel near ticks,
+%         xlabel = {Densità (veh/km)},
+%         ylabel = {Flusso (veh/h)},]
+%         \addplot[
+%         mark size=0.69,
+%         draw=black,
+%         only marks] file {./temp_data/360_q-k.dat};
+%         \end{axis}
+%     \end{tikzpicture}
 %     \centering
-%     \begin{tikzpicture}[scale=0.5]
-%     \begin{axis}[ybar interval,
-%     area style,
-%     width = 2\textwidth,
-%     height = 1.5\textwidth,
-%     xlabel = {Densità di veicoli},
-%     ylabel = {Numero di strade},]
-%     \addplot+[
-%     ybar interval,
-%     mark=no,
-%     line width = 1.25pt
-%     ] plot file {./temp_data/9900.dat};
+%     \begin{tikzpicture}[scale=0.6]
+%     \begin{axis}[
+%     grid = both,
+%     major grid style = {lightgray},
+%     minor grid style = {lightgray!25},
+%     width = 0.75\textwidth,
+%     height = 0.5\textwidth,
+%     ylabel near ticks,
+%     xlabel near ticks,
+%     xlabel = {Densit\`a (veh/km)},
+%     ylabel = {Velocit\`a media (km/h)},]
+%     \addplot[
+%     mark size=0.69,
+%     draw=black,
+%     only marks] file {./temp_data/720_u-k.dat};
 %     \end{axis}
 %     \end{tikzpicture}
-%     \caption{\emph{Prova.}}
+%     \caption[Diagrammi fondamentali con distribuzione omogenea]{\emph{Diagrammi fondamentali con distribuzione omogenea.}}
 % \end{figure}
-
-\begin{figure}[H]
-    \begin{tikzpicture}[scale=0.6]
-    \begin{axis}[
-    grid = both,
-    major grid style = {lightgray},
-    minor grid style = {lightgray!25},
-    width = 0.75\textwidth,
-    height = 0.5\textwidth,
-    ylabel near ticks,
-    xlabel near ticks,
-    xlabel = {Flusso (veh/h)},
-    ylabel = {Velocit\`a media (km/h)},]
-    \addplot[
-    mark size=0.69,
-    draw=black,
-    only marks] file {./temp_data/660_u-q.dat};
-    \end{axis}
-    \end{tikzpicture}\hfill
-    \begin{tikzpicture}[scale=0.6]
-        \begin{axis}[
-        grid = both,
-        major grid style = {lightgray},
-        minor grid style = {lightgray!25},
-        width = 0.75\textwidth,
-        height = 0.5\textwidth,
-        ylabel near ticks,
-        xlabel near ticks,
-        xlabel = {Densità (veh/km)},
-        ylabel = {Flusso (veh/h)},]
-        \addplot[
-        mark size=0.69,
-        draw=black,
-        only marks] file {./temp_data/360_q-k.dat};
-        \end{axis}
-    \end{tikzpicture}
-    \centering
-    \begin{tikzpicture}[scale=0.6]
-    \begin{axis}[
-    grid = both,
-    major grid style = {lightgray},
-    minor grid style = {lightgray!25},
-    width = 0.75\textwidth,
-    height = 0.5\textwidth,
-    ylabel near ticks,
-    xlabel near ticks,
-    xlabel = {Densit\`a (veh/km)},
-    ylabel = {Velocit\`a media (km/h)},]
-    \addplot[
-    mark size=0.69,
-    draw=black,
-    only marks] file {./temp_data/720_u-k.dat};
-    \end{axis}
-    \end{tikzpicture}
-    \caption[Diagrammi fondamentali con distribuzione omogenea]{\emph{Diagrammi fondamentali con distribuzione omogenea.}}
-\end{figure}
 
 \begin{figure}[H]
     \centering

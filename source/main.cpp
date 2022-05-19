@@ -101,10 +101,14 @@ int main(int argc, char **argv) {
     // adiabatic analysis
     for (int t = 0; t < std::stoi(argv[5]); ++t) {
       printLoadingBar(t, std::stoi(argv[5]));
-      // all analysis
-      if (t < 500 && t % 50 == 0 && t != 0) {
-        g.addVehiclesUniformly(dVehicle / 10);
+      // constant analysis
+      if (t < 12e3 && t % 60 == 0 && t != 0) {
+        g.addVehiclesUniformly(dVehicle);
       }
+      // peaked analysis
+      // if (t < 500 && t % 50 == 0 && t != 0) {
+      //   g.addVehiclesUniformly(dVehicle / 10);
+      // }
       if (t % 60 == 0) {
         g.fprintHistogram(DATA_FOLDER, 15);
         g.fprintDistribution(DATA_FOLDER, "u/q");
@@ -123,12 +127,12 @@ int main(int argc, char **argv) {
       //   g.evolve(false);
       // }
       // peaked analysis
-      if (t < 0.4e4) {
-        g.evolve();
-      } else {
-        g.evolve(false);
-      }
-      // g.evolve(false);
+      // if (t < 0.4e4) {
+      //   g.evolve();
+      // } else {
+      //   g.evolve(false);
+      // }
+      g.evolve(false);
     }
     break;
 
@@ -150,7 +154,7 @@ int main(int argc, char **argv) {
         dVehicle = std::abs(std::stoi(argv[4]) *
                             std::sin(2 * M_PI * t / std::stoi(argv[5])));
         if (t > 1.62e4 && t < 2.43e4) {
-          dVehicle /= M_SQRT2;
+          dVehicle /= 1.125;
         }
         g.addVehiclesUniformly(dVehicle);
       }
@@ -165,12 +169,6 @@ int main(int argc, char **argv) {
         g.fprintTimeDistribution(DATA_FOLDER, "q", 5.);
         g.fprintTimeDistribution(DATA_FOLDER, "u", 5.);
       }
-      // || (t > 2.025e4 && t < 2.835e4)
-      // if ((t < 1.215e4) || (t > 3.645e4 && t < 4.455e4)) {
-      //   g.evolve();
-      // } else {
-      //   g.evolve(false);
-      // }
       g.evolve(false);
     }
     break;

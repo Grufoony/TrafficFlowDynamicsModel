@@ -37,6 +37,7 @@ Tale vincolo viene implementato nel modello tramite l'introduzione di una densit
 Assumendo la lunghezza media dei veicoli sia un valore fissato $\bar{l}_v$ e la lunghezza di una strada generica sia $l_s$, la densit\`a massima \`e calcolabile come
 \begin{equation}
     \rho_{max}=\frac{\bar{l}_v}{l_s}
+    \label{eq:density}
 \end{equation}
 Si osservi come il valore di $l_s$ sia sempre noto, essendo un elemento della matrice $\mathcal{S}$.
 
@@ -79,6 +80,7 @@ Considerando ora un individuo generico appartente alla classe $C_{\alpha}$ si pr
     \item se la strada di arrivo \`e piena si perde uno step temporale, altrimenti l'individuo si immette sulla strada che connette i nodi $i \to j$ regolando la sua velocit\`a secondo la legge 
     \begin{equation}
         v(t) = v_{max}\left(1-k\frac{\rho(t)}{\rho_{max}}\right)
+        \label{eq:velocity}
     \end{equation}
     dove $\rho(t)$ rappresenta la densit\`a di veicoli presenti sulla strada al tempo $t$ e $k$ \`e un parametro di controllo del modello;
     \item in base alla velocit\`a acquisita all'inviduo viene poi assegnata una nuova penalit\`a temporale $c = \frac{L}{v(t)\Delta t}$, con $L$ lunghezza della strada in cui si trova.
@@ -105,13 +107,23 @@ Considerando ora un individuo generico appartente alla classe $C_{\alpha}$ si pr
         \end{axis}
     \end{tikzpicture}
     \caption[Velocit\`a nel modello]{\emph{Ipotesi dell'andamento della velocit\`a in funzione della densit\`a per $k = 0.75$.}}
-    \label{figure:velocity}
+    \label{fig:velocity}
 \end{figure}
-Si noti come l'Eq. (\ref{eq:best_path}), graficata in Fig. \ref{figure:velocity}, tenda all'ipotesi di Greenshield per $k = 1$ (cfr. Eq. (\ref{figure:greenshield})).
+Si noti come l'Eq. (\ref{eq:best_path}), graficata in Fig. \ref{fig:velocity}, tenda all'ipotesi di Greenshield per $k = 1$ (cfr. Eq. (\ref{fig:greenshield})).
 
 \section{Parametri di controllo}
-Durante la costruzione del modello sono emersi alcuni parametri da cui esso dipende.
-Per semplificare la trattazione, in questa sezione questi verranno riassunti e spiegati, in modo tale da rendere pi\`u chiari i risultati ottenuti.
+Durante la costruzione del modello sono emersi alcuni parametri da cui esso dipende che vengono esplicitamente richiesti in input.
+Questi sono:
+\begin{itemize}
+    \item \emph{Lunghezza media dei veicoli}, rappresentata dal parametro $\bar{l}_v$ presente in Eq. (\ref{eq:density}).
+        Si nota immediatamente come la densit\`a massima sulle strade dipenda da esso e, di conseguenza, anche flusso e densit\`a (cfr. Eq. (\ref{fig:greenshield}));
+    \item Coefficiente $k$ della temperatura statistica, rappresenta il grado di crescita delle fluttuazioni statistiche presenti nel sistema;
+    \item \emph{Velocit\`a minima su una strada}, rappresenta la velocit\`a corrispondente alla densit\`a massima, come espresso in Eq. (\ref{eq:velocity}).
+        Da questa dipender\`a naturalmente l'evoluzione temporale del sistema stesso;
+    \item \emph{Flusso di veicoli immessi}, ossia il numero di veicoli immessi nella rete per unit\`a di tempo;
+    \item \emph{Tempo di esecuzione}, il quale deve essere impostato in base al tipo di fenomeno che si vuole osservare.
+\end{itemize}
+Naturalmente la simulazione dipende dalle caratteristiche geometriche del sistema, come la rete stessa (inserita come matrice di adiacenza) e le classi di veicoli.
 
 \begin{itemize}
     \item \emph{Lunghezza media dei veicoli}
