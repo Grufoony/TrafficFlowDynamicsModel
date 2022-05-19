@@ -44,7 +44,7 @@ La relazione fondamentale della teoria dei flussi di traffico \`e riassumibile n
     \label{eq:fundamental}
 \end{equation}
 
-\section{Diagrammi fondamentali}
+\section{Diagrammi Fondamentali Macroscopici}
 A causa della relazione fondamentale del traffico riportata in Eq. (\ref{eq:fundamental}) risulta chiaro come su tre osservabili analizzati si abbiano solamente due variabili indipendenti.
 \begin{figure}[H]
 \centering
@@ -86,10 +86,10 @@ A causa della relazione fondamentale del traffico riportata in Eq. (\ref{eq:fund
 \end{groupplot}
 
 \end{tikzpicture}
-\caption[Diagrammi fondamentali di Greenshield]{\emph{Diagrammi fondamentali di Greenshield.}}
+\caption[DFM di Greenshield]{\emph{Diagrammi Fondamentali Macroscopici di Greenshield.}}
 \label{fig:greenshield}
 \end{figure}
-In una situazione stazionaria (rete in equilibrio) \`e possibile descrivere il sistema graficamente con tre diagrammi: $\bar{v}$-$\Phi$, $\Phi$-$\rho$ e $\bar{v}$-$\rho$.
+In una situazione stazionaria (rete in equilibrio) \`e possibile descrivere il sistema graficamente con tre diagrammi, detti Diagrammi Fondamentali Macroscopici (DFM): $\bar{v}$-$\Phi$, $\Phi$-$\rho$ e $\bar{v}$-$\rho$.
 La prima formulazione di questi, riportata come esempio in Fig. \ref{fig:greenshield}, \`e stata effettuata da Greenshield sulla base di alcune misurazioni da lui eseguite.
 Assumendo lineare la relazione tra $\rho$ e $\bar{v}$ le relazioni negli altri due diagrammi risultano paraboliche.
 In particolare, si ottengono un massimo di flusso sia a $\rho_c=\frac{\rho_t}{2}$ sia per $\bar{v}_c=\frac{\bar{v}_l}{2}$, con $\rho_j$ e $\bar{v}_l$ capacit\`a e velocit\`a massime, rispettivamente.
@@ -134,7 +134,7 @@ ed ha le seguenti propriet\`a:
     \item $\sum_j\mathcal{L}_{ij}=\sum_i\mathcal{L}_{ij}=0$, quindi esiste un autovalore nullo $\lambda_0$ con corrispondente autovettore $\vec{v}_0=(1,\ldots,1)$;
     \item $\sum_i\mathcal{L}_{ii}=2m$, dove $m$ \`e il numero totale dei link.
 \end{itemize}
-La presenza di pi\`u autovalori nulli all'interno della matrice Laplaciana evidenzia una disconnessione del network.
+La presenza di pi\`u autovalori nulli all'interno della matrice Laplaciana evidenzia una disconnessione del network (un approfondimento \`e presente in Appendice \ref{appendix:laplacian}).
 In particolare, dati un numero $x$ di autovalori nulli il network \`e separabile in altrettanti subnetwork non connessi tra loro.
 \subsection{Random Walk su network}
 Si assuma ora che la rete abbia in totale $M$ nodi e che ognuno di essi possa scambiare particelle coi suoi vicini.

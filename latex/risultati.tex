@@ -103,7 +103,7 @@ Mantenendo il numero di agenti constante nel tempo, questi tenderanno ad occupar
     area style,
     width = 2\textwidth,
     height = 1.5\textwidth,
-    xlabel = {Densità (veh/km)},
+    xlabel = {Densit\`a (veh/km)},
     ylabel = {Numero di strade},]
     \addplot+[
     ybar interval,
@@ -112,7 +112,7 @@ Mantenendo il numero di agenti constante nel tempo, questi tenderanno ad occupar
     ] plot file {./data/peaked_homo/540.dat};
     \end{axis}
     \end{tikzpicture}
-    \caption{\emph{Numero di strade in funzione della densit\`a di veicoli.}}
+    \caption[Distribuzione strade non congestionate per un reticolo omogeneo.]{\emph{Distribuzione strade congestionate per un reticolo omogeneo.}}
     \label{fig:nStreet_density_peaked_homo}
 \end{figure}
 In Fig. \ref{fig:nStreet_density_peaked_homo} \`e visibile il diagramma caratteristico della congestione, in cui sono presenti, come atteso, un gran numero di strade vuote e altrettante sature.
@@ -272,7 +272,7 @@ A ogni picco corrisponde una fase di carico/scarico, quindi, come osservato prec
     mark=o] file {./data/periodic_homo/q-k.dat};
     \end{axis}
     \end{tikzpicture}
-    \caption[Isteresi con carico periodico e reticolo omogeneo]{\emph{Cicli di isteresi sul piano $\Phi/\rho$ per un reticolo omogeneo caricato periodicamente.}}
+    \caption[Isteresi per un reticolo omogeneo caricato periodicamente]{\emph{Cicli di isteresi sul piano $\Phi/\rho$ per un reticolo omogeneo caricato periodicamente.}}
     \label{fig:hysteresys_periodic_homo}
 \end{figure}
 Come si pu\`o notare in Fig. \ref{fig:hysteresys_periodic_homo} sono effettivamente presenti tre diversi cicli di isteresi.
