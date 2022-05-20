@@ -4,7 +4,22 @@
 \chapter{Esempi di matrici Laplaciane}
 \label{appendix:laplacian}
 Si vuole qui dare un esempio di come una matrice Laplaciana venga realmente costruita e una breve analisi degli autovalori.
-Si consideri come primo esempio il network completamente connesso rappresentato in FIGURA CHE MANCA.
+Si consideri come primo esempio il network completamente connesso rappresentato in Fig. \ref{fig:network_connesso}.
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[>=latex,every node/.style={draw,circle,minimum width={3em},node distance=6em}]
+    \node (2) {2};
+    \node [above left of=2] (0) {0}; 
+    \node [above right of=2] (1) {1};
+    \node [below of=2] (3) {3};  
+    \draw [<->] (2) -- (0);
+    \draw [<->] (2) -- (1);
+    \draw [<->] (0) -- (1);
+    \draw [<->] (2) -- (3);
+    \end{tikzpicture}
+    \caption{\emph{Esempio network connesso.}}
+    \label{fig:network_connesso}
+\end{figure}
 Questo \`e descritto dalla matrice di adiacenza:
 \begin{equation}
     \mathcal{A}=\left(
@@ -27,7 +42,25 @@ La matrice Laplaciana costruita dalla definizione risulta
 \end{equation}
 la quale possiede autovalori 0, 1, 3, 4.
 In particolare, si nota la presenza dell'autovalore nullo, come previsto teoricamente.\\
-Si esegua ora la stessa analisi per un network disconnesso, come quello in FIGURA CHE MANCA.
+Si esegua ora la stessa analisi per un network disconnesso, come quello in Fig. \ref{fig:network_sconnesso}.
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[>=latex,every node/.style={draw,circle,minimum width={3em},node distance=6em}]
+    \node (0) {0};
+    \node [above right of=0] (1) {1}; 
+    \node [below right of=1] (2) {2};
+    \node [right of=2] (3) {3};
+    \node [below right of=3] (4) {4};
+    \node [above right of=4] (5) {5};
+    \draw [<->] (0) -- (1);
+    \draw [<->] (1) -- (2);
+    \draw [<->] (3) -- (4);
+    \draw [<->] (4) -- (5);
+    \draw [<->] (3) -- (5);
+    \end{tikzpicture}
+    \caption{\emph{Esempio network sconnesso.}}
+    \label{fig:network_sconnesso}
+\end{figure}
 La matrice di adiacenza \`e
 \begin{equation}
     \mathcal{A}=\left(
