@@ -12,15 +12,20 @@ In particolare, verranno effettuate tre tipologie di studi dove il caricamento d
 
 \section{Reticolo omogeneo}
 Si consideri ora un network composto da 120 nodi disposti in un reticolo 10x12.
+\begin{figure}
+    \includegraphics[scale=0.25, trim={2cm 5cm 10cm 5cm},clip]{./img/network.png}
+    \caption[Network omogeneo]{Network omogeneo.}
+    \label{fig:network_homo}
+\end{figure}
 Su questo, si definiscano 16 differenti classi di veicoli, le cui sorgenti sono i nodi 1, 4, 7, 10 e le cui destinazioni sono i nodi 109, 112, 115, 118.
-Risulta evidente dalla FIGURA CHE MANCA come i veicoli scorrano da un lato all'altro del reticolo.
-Ogni strada abbia lunghezza e velocit\`a massima fissate a 500 m e 50 km/h, rispettivamente.
+Risulta evidente dalla Fig. \ref{fig:network_homo} come i veicoli scorrano da un lato all'altro del reticolo.
+Ogni strada ha lunghezza e velocit\`a massima fissate a 500 m e 50 km/h, rispettivamente.
 Si ponga ora la lunghezza media di un veicolo pari a 8 m, la velocit\`a minima su una strada pari a $v_{min}=\frac{3}{4}v_{max}$ e una probabilit\`a di errore dell'8\%.
 
 \subsection{Carico costante}
 Si vuole, come prima cosa, sottoporre il sistema ad un carico costante.
 In questo modo si dovrebbe evitare la formazione di congestioni, lasciando al sistema la capacit\`a di trasporto.
-Il sistema viene quindi sottoposto ad un carico costante di 250 ogni 60 s, fino a un tempo di  3.33 h, per un tempo totale di 4.15 h, lasciandoli liberi di uscire dalla rete una volta giunti a destinazione.
+Il sistema viene quindi sottoposto ad un carico costante di 250 veicoli immessi ogni 60 s, fino a un tempo di  3.33 h, per un tempo totale di 4.15 h, lasciandoli liberi di uscire dalla rete una volta giunti a destinazione.
 Ci si aspetta cos\`i una crescita iniziale della densit\`a media, la quale si mantiene costante fintantoch\'e nuovi veicoli vengono immessi nel sistema.
 L'obiettivo \`e, infatti, avere tanti veicoli che escono quanti ne entrano.
 \begin{figure}[H]

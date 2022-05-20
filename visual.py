@@ -7,16 +7,16 @@ from PIL import Image
 from PIL import ImageDraw
 
 # clear the img folder
-for i in tqdm(range(len([name for name in os.listdir('./img')])-1)):
-    path = './img/'+str(i)+'.png'
+for i in tqdm(range(len([name for name in os.listdir('./temp_img')])-1)):
+    path = './temp_img/'+str(i)+'.png'
     if(os.path.exists(path)): 
-        os.remove('./img/'+str(i)+'.png')
+        os.remove('./temp_img/'+str(i)+'.png')
 
 # create new imgs
-for fName in tqdm(os.listdir('./img/data')):
+for fName in tqdm(os.listdir('./temp_img/data')):
 
     graph = nx.DiGraph()
-    edge_df = pd.read_csv('./img/data/'+fName, sep='\t')
+    edge_df = pd.read_csv('./temp_img/data/'+fName, sep='\t')
 
     #edge list from dataframe
     edge_list = zip(edge_df['source'], edge_df['target'])
@@ -42,7 +42,7 @@ for fName in tqdm(os.listdir('./img/data')):
     nx.draw_networkx_edges(graph, pos, ax=ax, edgelist=curved_edges, connectionstyle=f'arc3, rad = {0.1}',edge_color=temp,
                     edge_cmap=cmap)
     limits = plt.axis("off")
-    plt.savefig('temp.png')
+    plt.savefig('temp.png', dpi = 300)
     plt.close()
 
     img = Image.open('temp.png')
@@ -51,16 +51,16 @@ for fName in tqdm(os.listdir('./img/data')):
     I1 = ImageDraw.Draw(img)
     
     # Add Text to an image
-    I1.text((20, 20), "Time: " + fName.split('.')[0], fill=(0, 0, 0))
+    # I1.text((20, 20), "Time: " + fName.split('.')[0], fill=(0, 0, 0))
     
     # Save the edited image
-    img.save('./img/' + fName.split('.')[0] + '.png')
+    img.save('./temp_img/' + fName.split('.')[0] + '.png')
     os.remove('temp.png')
 
 #save into a gif
 frames = []
-for i in tqdm(range(len([name for name in os.listdir('./img')])-1)):
-    new_frame = Image.open('./img/'+str(i)+'.png')
+for i in tqdm(range(len([name for name in os.listdir('./temp_img')])-1)):
+    new_frame = Image.open('./temp_img/'+str(i)+'.png')
     frames.append(new_frame)
 
 # Save into a GIF file that loops forever

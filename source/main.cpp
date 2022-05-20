@@ -56,7 +56,7 @@ void clearDir(std::string const &dir) {
 int main(int argc, char **argv) {
   std::string const OUT_FORMAT = ".dat";
   std::string const DATA_FOLDER = "./temp_data/";
-  std::string const OUT_FOLDER = "./temp_img/data/";
+  std::string const IMG_FOLDER = "./temp_img/data/";
 
   typedef std::chrono::high_resolution_clock Clock;
   auto start = Clock::now();
@@ -97,7 +97,7 @@ int main(int argc, char **argv) {
     std::cout << "Done." << '\n';
     g.fprint(true);
     clearDir(DATA_FOLDER);
-    clearDir(OUT_FOLDER);
+    clearDir(IMG_FOLDER);
     // adiabatic analysis
     for (int t = 0; t < std::stoi(argv[5]); ++t) {
       printLoadingBar(t, std::stoi(argv[5]));
@@ -108,6 +108,9 @@ int main(int argc, char **argv) {
       // peaked analysis
       if (t < 500 && t % 50 == 0 && t != 0) {
         g.addVehiclesUniformly(dVehicle / 10);
+      }
+      if (t == 0) {
+        g.fprintVisual(IMG_FOLDER);
       }
       if (t % 60 == 0) {
         g.fprintHistogram(DATA_FOLDER, 15);
@@ -147,7 +150,7 @@ int main(int argc, char **argv) {
     std::cout << "Done." << '\n';
     g.fprint(true);
     clearDir(DATA_FOLDER);
-    clearDir(OUT_FOLDER);
+    clearDir(IMG_FOLDER);
     for (int t = 0; t < std::stoi(argv[6]); ++t) {
       printLoadingBar(t, std::stoi(argv[6]));
       if ((t % 300 == 0) && (t < (std::stoi(argv[5]) * 3 / 2))) {
