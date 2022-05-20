@@ -94,9 +94,8 @@ In particolare, si nota come il grafico sia effettivamente una retta, il che imp
 \end{figure}
 
 \subsection{Carico piccato}
-Si inserisca ora nel sistema un totale di 14000 veicoli, suddivisi in 1400 veicoli ogni 50 s, impedendone la fuoriuscita dal reticolo.
-Se un veicolo arriva a destinazione, infatti, viene distrutto e ricreato in un nodo sorgente.
-Si osserva in Fig. \ref{fig:density_peaked_homo} un picco iniziale della densit\`a media: questo rappresenta il sovraccarico del sistema.
+Si inserisca ora nel sistema un totale di 25000 veicoli, suddivisi in 2500 veicoli ogni 50 s, consentendone la fuoriuscita dal reticolo.
+Si osserva cos\`i in Fig. \ref{fig:density_peaked_homo} un picco iniziale della densit\`a media: questo rappresenta il sovraccarico del sistema.
 \begin{figure}[H]
     \centering
     \begin{tikzpicture}[scale=0.75]
@@ -119,8 +118,7 @@ Si osserva in Fig. \ref{fig:density_peaked_homo} un picco iniziale della densit\
     \caption[Densit\`a media per un reticolo omogeneo sovraccaricato]{\emph{Densit\`a media per un reticolo omogeneo sovraccaricato.}}
     \label{fig:density_peaked_homo}
 \end{figure}
-Una volta caricato il sistema ci si aspetta che la distribuzione di veicoli nelle strade non resti omogenea, anche a numero di veicoli costante.
-Mantenendo il numero di agenti constante nel tempo, questi tenderanno ad occupare le strade costituenti i loro \emph{best path} e a lasciare vuote quelle pi\`u lontane da essi.
+Una volta caricato il sistema ci si aspetta che la distribuzione di veicoli nelle strade non resti omogenea nel tempo: gli agenti presenti sul sistema tenderanno ad occupare le strade costituenti i loro \emph{best path} e a lasciare vuote quelle pi\`u lontane da essi.
 \begin{figure}[H]
     \centering
     \begin{tikzpicture}[scale=0.25]
@@ -134,14 +132,14 @@ Mantenendo il numero di agenti constante nel tempo, questi tenderanno ad occupar
     ybar interval,
     mark=no,
     line width = 1.25pt
-    ] plot file {./data/peaked_homo/540.dat};
+    ] plot file {./data/peaked_homo/2700.dat};
     \end{axis}
     \end{tikzpicture}
     \caption[Distribuzione strade non congestionate per un reticolo omogeneo.]{\emph{Distribuzione strade congestionate per un reticolo omogeneo.}}
     \label{fig:nStreet_density_peaked_homo}
 \end{figure}
 In Fig. \ref{fig:nStreet_density_peaked_homo} \`e visibile il diagramma caratteristico della congestione, in cui sono presenti, come atteso, un gran numero di strade vuote e altrettante sature.
-In questo istante di tempo, pari a 540 s da inizio simulazione, ci si aspetta dunque che i diagrammi fondamentali siano confrontabili con quelli in Fig. \ref{fig:greenshield}: questa ipotesi \`e confermata dalla Fig. \ref{fig:DMF_peaked_homo}.
+In questo istante di tempo, pari a 1.75 h da inizio simulazione, ci si aspetta dunque che i diagrammi fondamentali siano confrontabili con quelli in Fig. \ref{fig:greenshield}: questa ipotesi \`e confermata dalla Fig. \ref{fig:DMF_peaked_homo}.
 \begin{figure}[H]
     \begin{tikzpicture}[scale=0.6]
     \begin{axis}[
@@ -157,7 +155,7 @@ In questo istante di tempo, pari a 540 s da inizio simulazione, ci si aspetta du
     \addplot[
     mark size=0.69,
     draw=black,
-    only marks] file {./data/peaked_homo/540_u-q.dat};
+    only marks] file {./data/peaked_homo/2700_u-q.dat};
     \end{axis}
     \end{tikzpicture}\hfill
     \begin{tikzpicture}[scale=0.6]
@@ -174,7 +172,7 @@ In questo istante di tempo, pari a 540 s da inizio simulazione, ci si aspetta du
         \addplot[
         mark size=0.69,
         draw=black,
-        only marks] file {./data/peaked_homo/540_q-k.dat};
+        only marks] file {./data/peaked_homo/2700_q-k.dat};
         \end{axis}
     \end{tikzpicture}
     \centering
@@ -192,7 +190,7 @@ In questo istante di tempo, pari a 540 s da inizio simulazione, ci si aspetta du
     \addplot[
     mark size=0.69,
     draw=black,
-    only marks] file {./data/peaked_homo/540_u-k.dat};
+    only marks] file {./data/peaked_homo/2700_u-k.dat};
     \end{axis}
     \end{tikzpicture}
     \caption[DFM per una congestione]{\emph{Diagrammi fondamentali macroscopici di una congestione in un reticolo omogeneo.}}
@@ -239,8 +237,7 @@ Secondo la teoria dei flussi di traffico, un sistema congestionato tende a risol
 \end{figure}
 Si pu\`o notare come sia il flusso che la densit\`a crescano fino a un punto critico nel quale si ha un calo drastico del flusso dovuto all'eccessiva presenza di veicoli sulle strade.
 Il sistema risulta qui congestionato e perde la capacit\`a di trasporto.
-Permettendo ai veicoli di uscire senza rientrare, si inizia a scaricare il sistema: lo scarico, che avviene gradualmente, prevede un ritorno alla stabilit\`a lungo una traiettoria differente rispetto alla fase di carico.
-Tale differenza \`e visibile sia sul piano $\Phi/\rho$, sia sul piano $\bar{v}/\rho$.
+Lo scarico del sistema avviene gradualmente eprevede un ritorno alla stabilit\`a lungo una traiettoria differente rispetto alla fase di carico: tale differenza \`e visibile sia sul piano $\Phi/\rho$, sia sul piano $\bar{v}/\rho$.
 
 \subsection{Carico periodico}
 Si vuole ora sottoporre il sistema ad un carico realistico, quindi variabile nell'arco di una giornata.
@@ -379,7 +376,7 @@ Ulterioristudi potrebbero essere svolte per vericare come queste revisioni impat
 %     \addplot[
 %     mark size=0.69,
 %     draw=black,
-%     only marks] file {./temp_data/7200_u-q.dat};
+%     only marks] file {./temp_data/300_u-q.dat};
 %     \end{axis}
 %     \end{tikzpicture}\hfill
 %     \begin{tikzpicture}[scale=0.6]
@@ -396,7 +393,7 @@ Ulterioristudi potrebbero essere svolte per vericare come queste revisioni impat
 %         \addplot[
 %         mark size=0.69,
 %         draw=black,
-%         only marks] file {./temp_data/7200_q-k.dat};
+%         only marks] file {./temp_data/300_q-k.dat};
 %         \end{axis}
 %     \end{tikzpicture}
 %     \centering
@@ -414,7 +411,7 @@ Ulterioristudi potrebbero essere svolte per vericare come queste revisioni impat
 %     \addplot[
 %     mark size=0.69,
 %     draw=black,
-%     only marks] file {./temp_data/7200_u-k.dat};
+%     only marks] file {./temp_data/300_u-k.dat};
 %     \end{axis}
 %     \end{tikzpicture}
 %     \caption[Diagrammi fondamentali con distribuzione omogenea]{\emph{Diagrammi fondamentali con distribuzione omogenea.}}

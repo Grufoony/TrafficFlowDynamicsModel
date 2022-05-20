@@ -102,13 +102,13 @@ int main(int argc, char **argv) {
     for (int t = 0; t < std::stoi(argv[5]); ++t) {
       printLoadingBar(t, std::stoi(argv[5]));
       // constant analysis
-      if (t < 12e3 && t % 60 == 0 && t != 0) {
-        g.addVehiclesUniformly(dVehicle);
-      }
-      // peaked analysis
-      // if (t < 500 && t % 50 == 0 && t != 0) {
-      //   g.addVehiclesUniformly(dVehicle / 10);
+      // if (t < 12e3 && t % 60 == 0 && t != 0) {
+      //   g.addVehiclesUniformly(dVehicle);
       // }
+      // peaked analysis
+      if (t < 500 && t % 50 == 0 && t != 0) {
+        g.addVehiclesUniformly(dVehicle / 10);
+      }
       if (t % 60 == 0) {
         g.fprintHistogram(DATA_FOLDER, 15);
         g.fprintDistribution(DATA_FOLDER, "u/q");

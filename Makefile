@@ -4,7 +4,7 @@ run:
 	./test.wsl matrix.dat vehicletype_old.dat 300 250 15001
 run1:
 	clear
-	./test.wsl matrix.dat vehicletype_old.dat 300 14000 12001
+	./test.wsl matrix.dat vehicletype_old.dat 300 25000 6301
 run2:
 	clear
 	./test.wsl matrix.dat vehicletype_old.dat 300 2200 32400 55000
