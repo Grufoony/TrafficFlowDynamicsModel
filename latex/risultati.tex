@@ -14,7 +14,7 @@ In particolare, verranno effettuate tre tipologie di studi dove il caricamento d
 Si consideri ora un network composto da 120 nodi disposti in un reticolo 10x12.
 Su questo, si definiscano 16 differenti classi di veicoli, le cui sorgenti sono i nodi 1, 4, 7, 10 e le cui destinazioni sono i nodi 109, 112, 115, 118.
 Risulta evidente dalla FIGURA CHE MANCA come i veicoli scorrano da un lato all'altro del reticolo.
-Ogni strada abbia lunghezza e velocit\`a massima fissate a $500$ m e $50$ km/h, rispettivamente.
+Ogni strada abbia lunghezza e velocit\`a massima fissate a 500 m e 50 km/h, rispettivamente.
 Si ponga ora la lunghezza media di un veicolo pari a 8 m, la velocit\`a minima su una strada pari a $v_{min}=\frac{3}{4}v_{max}$ e una probabilit\`a di errore dell'8\%.
 
 \subsection{Carico costante}
@@ -46,7 +46,7 @@ L'obiettivo \`e, infatti, avere tanti veicoli che escono quanti ne entrano.
     \label{fig:density_constant_homo}
 \end{figure}
 In Fig. \ref{fig:density_constant_homo} si pu\`o notare l'innalzamento iniziale, fino a circa 1.5 h, poi un regime pressoch\'e costante fino a 3.33 h, seguito da una rapida discesa.
-Nell'arco temporale in cui la densit\`a \`e stabile, ossia da 1.5 h a 3.3 h, ci si aspetta un regime di traffico libero.
+Nell'arco temporale in cui la densit\`a \`e stabile, ossia da 1.5 h a 3.3 h, ci si aspetta un regime di traffico completamente libero.
 L'ipotesi \`e verificata in Fig. \ref{fig:nStreet_density_constant_homo} dove, graficando il numero di strade in funzione della densit\`a a 2 h, si pu\`o notare come la quasi totalit\`a di esse abbia densit\`a minima.
 \begin{figure}[H]
     \centering
@@ -67,6 +67,31 @@ L'ipotesi \`e verificata in Fig. \ref{fig:nStreet_density_constant_homo} dove, g
     \caption[Distribuzione strade non congestionate per un reticolo omogeneo.]{\emph{Distribuzione strade non congestionate per un reticolo omogeneo.}}
     \label{fig:nStreet_density_constant_homo}
 \end{figure}
+Non formandosi nessuna congestione ci si aspetta che il sistema si svuoti allo stesso modo in cui si \`e riempito.
+In Fig. \ref{fig:hysteresys_constant_homo} \`e graficata la dipendenza tra i valori medi del flusso e della densit\`a.
+In particolare, si nota come il grafico sia effettivamente una retta, il che implica che la curva di scarico sia sovrapposta a quella di carico.
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[scale=0.75]
+        \begin{axis}[
+        grid = both,
+        major grid style = {lightgray},
+        minor grid style = {lightgray!25},
+        width = 0.75\textwidth,
+        height = 0.5\textwidth,
+        ylabel near ticks,
+        xlabel near ticks,
+        xlabel = {Densità (veh/km)},
+        ylabel = {Flusso (veh/h)},]
+        \addplot[
+        mark size=0.69,
+        draw=black,
+        mark=o] file {./data/constant_homo/q-k.dat};
+        \end{axis}
+    \end{tikzpicture}
+    \caption[Diagramma flusso/densit\`a medi per un reticolo omogeneo sottoposto ad un carico costante.]{\emph{Diagramma flusso/densit\`a medi per un reticolo omogeneo sottoposto ad un carico costante.}}
+    \label{fig:hysteresys_constant_homo}
+\end{figure}
 
 \subsection{Carico piccato}
 Si inserisca ora nel sistema un totale di 14000 veicoli, suddivisi in 1400 veicoli ogni 50 s, impedendone la fuoriuscita dal reticolo.
@@ -74,7 +99,7 @@ Se un veicolo arriva a destinazione, infatti, viene distrutto e ricreato in un n
 Si osserva in Fig. \ref{fig:density_peaked_homo} un picco iniziale della densit\`a media: questo rappresenta il sovraccarico del sistema.
 \begin{figure}[H]
     \centering
-    \begin{tikzpicture}
+    \begin{tikzpicture}[scale=0.75]
     \begin{axis}[
     grid = both,
     major grid style = {lightgray},
@@ -219,7 +244,7 @@ Tale differenza \`e visibile sia sul piano $\Phi/\rho$, sia sul piano $\bar{v}/\
 
 \subsection{Carico periodico}
 Si vuole ora sottoporre il sistema ad un carico realistico, quindi variabile nell'arco di una giornata.
-Per semplicit\`a si decide di trascurare il carico notturno, in quanto nella maggior parte dei casi lascia il sistema in uno stato di flusso libero.
+Per semplicit\`a si decide di trascurare il carico notturno, in quanto nella maggior parte dei casi lascia il sistema in uno stato di traffico completamente libero.
 Durante il giorno, invece, dalle acquisizioni reali (MANCA REF) si notano diversi picchi: il primo al mattino verso le ore 9:00, il secondo all'ora di pranzo, verso le 13:00 e il terzo al rientro serale, alle 17:00.
 Gli orari dei picchi sono stati leggermente approssimati in modo tale da semplificare la funzione in ingresso, la quale deve avere un picco ogni 4 ore.
 Assumendo come orario di inizio simulazione le 5:45 del mattino, si immettano veicoli uniformemente nel sistema secondo la seguente funzione:
@@ -281,6 +306,25 @@ Si osserva, inoltre, che il secondo ciclo ha ampiezza inferiore, essendo il picc
 \section{Rete stradale di Rimini (?)}
 
 \section{Discussione}
+L'analisi dei diagrammi fondamentali macroscopici condotta in diverse situazioni ha evidenziato una forte dipendenza tra i valori medi di flusso, velocit\`a e densit\`a.
+Inoltre, \`e emerso un legame evidente tra la formazione di congestioni e la presenza di cicli di isteresi nei diagrammi dei valori medi di flusso e densit\`a.
+
+
+L'analisi del reticolo omogeneo ha evidenziato comportamenti altamente dipendenti dalla tipologia di carico a cui esso \`e stato sottoposto.
+In particolare, nel caso di un carico costante, si \`e evitata completamente la creazione di congestioni, mantenendo il sistema in un costante stato di traffico completamente libero.
+La mancata formazione di congestioni non ha, inoltre, permesso la formazione di cicli di isteresi, fatto osservabile negli altri due casi riportati.
+Una volta sottoposto ad un carico piccato, infatti, il sistema si \`e congestionato, riducendo la propria capacit\`a di trasporto.
+La riduzione della capacit\`a di trasporto \`e associabile al rapido calo del flusso medio osservabile in Fig. \ref{fig:hysteresys_peaked_homo}.
+Nella stessa figura si pu\`o notare la presenza di un ciclo di isteresi dovuto alla congestione stessa, che va a chiudersi una volta permesso al sistema di svuotarsi.
+Analogamente al caso precedente, nel caso di un carico periodico si osservano, in Fig. \ref{fig:hysteresys_periodic_homo}, tre cicli di isteresi differenti, ognuno corrisponente ad un diverso picco della densit\`a media (cfr Fig. \ref{fig:density_time_periodic_homo}).
+
+
+Nonostante il modello riproduca egregiamente numerose caratteristiche delle congestioni di traffico risulta sostanzialmente incompleto.
+Manca, ad esempio, la possibilit\`a di ricalcolare i \emph{best path} in base alle condizioni istantanee di traffico, oltre all'implementazione di alcune caratteristiche tipiche degli OVM (\emph{Optimal Velocity Model}) come la dipendenza della velocit\`a e della distanza di un veicolo in base al precedente.
+Ulterioristudi potrebbero essere svolte per vericare come queste revisioni impattino sui DFM, anche prese singolarmente.
+
+
+% \section{Test}
 
 % \begin{figure}[H]
 %     \centering
@@ -320,164 +364,164 @@ Si osserva, inoltre, che il secondo ciclo ha ampiezza inferiore, essendo il picc
 %     \caption{\emph{Prova.}}
 % \end{figure}
 
-\begin{figure}[H]
-    \begin{tikzpicture}[scale=0.6]
-    \begin{axis}[
-    grid = both,
-    major grid style = {lightgray},
-    minor grid style = {lightgray!25},
-    width = 0.75\textwidth,
-    height = 0.5\textwidth,
-    ylabel near ticks,
-    xlabel near ticks,
-    xlabel = {Flusso (veh/h)},
-    ylabel = {Velocit\`a media (km/h)},]
-    \addplot[
-    mark size=0.69,
-    draw=black,
-    only marks] file {./temp_data/7200_u-q.dat};
-    \end{axis}
-    \end{tikzpicture}\hfill
-    \begin{tikzpicture}[scale=0.6]
-        \begin{axis}[
-        grid = both,
-        major grid style = {lightgray},
-        minor grid style = {lightgray!25},
-        width = 0.75\textwidth,
-        height = 0.5\textwidth,
-        ylabel near ticks,
-        xlabel near ticks,
-        xlabel = {Densità (veh/km)},
-        ylabel = {Flusso (veh/h)},]
-        \addplot[
-        mark size=0.69,
-        draw=black,
-        only marks] file {./temp_data/7200_q-k.dat};
-        \end{axis}
-    \end{tikzpicture}
-    \centering
-    \begin{tikzpicture}[scale=0.6]
-    \begin{axis}[
-    grid = both,
-    major grid style = {lightgray},
-    minor grid style = {lightgray!25},
-    width = 0.75\textwidth,
-    height = 0.5\textwidth,
-    ylabel near ticks,
-    xlabel near ticks,
-    xlabel = {Densit\`a (veh/km)},
-    ylabel = {Velocit\`a media (km/h)},]
-    \addplot[
-    mark size=0.69,
-    draw=black,
-    only marks] file {./temp_data/7200_u-k.dat};
-    \end{axis}
-    \end{tikzpicture}
-    \caption[Diagrammi fondamentali con distribuzione omogenea]{\emph{Diagrammi fondamentali con distribuzione omogenea.}}
-\end{figure}
+% \begin{figure}[H]
+%     \begin{tikzpicture}[scale=0.6]
+%     \begin{axis}[
+%     grid = both,
+%     major grid style = {lightgray},
+%     minor grid style = {lightgray!25},
+%     width = 0.75\textwidth,
+%     height = 0.5\textwidth,
+%     ylabel near ticks,
+%     xlabel near ticks,
+%     xlabel = {Flusso (veh/h)},
+%     ylabel = {Velocit\`a media (km/h)},]
+%     \addplot[
+%     mark size=0.69,
+%     draw=black,
+%     only marks] file {./temp_data/7200_u-q.dat};
+%     \end{axis}
+%     \end{tikzpicture}\hfill
+%     \begin{tikzpicture}[scale=0.6]
+%         \begin{axis}[
+%         grid = both,
+%         major grid style = {lightgray},
+%         minor grid style = {lightgray!25},
+%         width = 0.75\textwidth,
+%         height = 0.5\textwidth,
+%         ylabel near ticks,
+%         xlabel near ticks,
+%         xlabel = {Densità (veh/km)},
+%         ylabel = {Flusso (veh/h)},]
+%         \addplot[
+%         mark size=0.69,
+%         draw=black,
+%         only marks] file {./temp_data/7200_q-k.dat};
+%         \end{axis}
+%     \end{tikzpicture}
+%     \centering
+%     \begin{tikzpicture}[scale=0.6]
+%     \begin{axis}[
+%     grid = both,
+%     major grid style = {lightgray},
+%     minor grid style = {lightgray!25},
+%     width = 0.75\textwidth,
+%     height = 0.5\textwidth,
+%     ylabel near ticks,
+%     xlabel near ticks,
+%     xlabel = {Densit\`a (veh/km)},
+%     ylabel = {Velocit\`a media (km/h)},]
+%     \addplot[
+%     mark size=0.69,
+%     draw=black,
+%     only marks] file {./temp_data/7200_u-k.dat};
+%     \end{axis}
+%     \end{tikzpicture}
+%     \caption[Diagrammi fondamentali con distribuzione omogenea]{\emph{Diagrammi fondamentali con distribuzione omogenea.}}
+% \end{figure}
 
-\begin{figure}[H]
-    \centering
-    \begin{tikzpicture}
-    \begin{axis}[
-    grid = both,
-    major grid style = {lightgray},
-    minor grid style = {lightgray!25},
-    width = 0.75\textwidth,
-    height = 0.5\textwidth,
-    ylabel near ticks,
-    xlabel near ticks,
-    xlabel = {Densit\`a media (veh/km)},
-    ylabel = {Flusso medio (veh/h)},]
-    \addplot[
-    mark size=0.69,
-    draw=black,
-    mark=o] file {./temp_data/q-k.dat};
-    \end{axis}
-    \end{tikzpicture}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \begin{tikzpicture}
+%     \begin{axis}[
+%     grid = both,
+%     major grid style = {lightgray},
+%     minor grid style = {lightgray!25},
+%     width = 0.75\textwidth,
+%     height = 0.5\textwidth,
+%     ylabel near ticks,
+%     xlabel near ticks,
+%     xlabel = {Densit\`a media (veh/km)},
+%     ylabel = {Flusso medio (veh/h)},]
+%     \addplot[
+%     mark size=0.69,
+%     draw=black,
+%     mark=o] file {./temp_data/q-k.dat};
+%     \end{axis}
+%     \end{tikzpicture}
+% \end{figure}
 
-\begin{figure}[H]
-    \centering
-    \begin{tikzpicture}
-    \begin{axis}[
-    grid = both,
-    major grid style = {lightgray},
-    minor grid style = {lightgray!25},
-    width = 0.75\textwidth,
-    height = 0.5\textwidth,
-    ylabel near ticks,
-    xlabel near ticks,
-    xlabel = {Densit\`a media (veh/km)},
-    ylabel = {Velocit\`a medio (veh/h)},]
-    \addplot[
-    mark size=0.69,
-    draw=black,
-    mark=o] file {./temp_data/u-k.dat};
-    \end{axis}
-    \end{tikzpicture}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \begin{tikzpicture}
+%     \begin{axis}[
+%     grid = both,
+%     major grid style = {lightgray},
+%     minor grid style = {lightgray!25},
+%     width = 0.75\textwidth,
+%     height = 0.5\textwidth,
+%     ylabel near ticks,
+%     xlabel near ticks,
+%     xlabel = {Densit\`a media (veh/km)},
+%     ylabel = {Velocit\`a medio (veh/h)},]
+%     \addplot[
+%     mark size=0.69,
+%     draw=black,
+%     mark=o] file {./temp_data/u-k.dat};
+%     \end{axis}
+%     \end{tikzpicture}
+% \end{figure}
 
-\begin{figure}[H]
-    \centering
-    \begin{tikzpicture}
-    \begin{axis}[
-    grid = both,
-    major grid style = {lightgray},
-    minor grid style = {lightgray!25},
-    width = 0.75\textwidth,
-    height = 0.5\textwidth,
-    ylabel near ticks,
-    xlabel near ticks,
-    xlabel = {Tempo (h)},
-    ylabel = {Densit\`a media (veh/km)},]
-    \addplot[
-    mark size=0.69,
-    draw=black,
-    mark=o] file {./temp_data/k-t.dat};
-    \end{axis}
-    \end{tikzpicture}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \begin{tikzpicture}
+%     \begin{axis}[
+%     grid = both,
+%     major grid style = {lightgray},
+%     minor grid style = {lightgray!25},
+%     width = 0.75\textwidth,
+%     height = 0.5\textwidth,
+%     ylabel near ticks,
+%     xlabel near ticks,
+%     xlabel = {Tempo (h)},
+%     ylabel = {Densit\`a media (veh/km)},]
+%     \addplot[
+%     mark size=0.69,
+%     draw=black,
+%     mark=o] file {./temp_data/k-t.dat};
+%     \end{axis}
+%     \end{tikzpicture}
+% \end{figure}
 
-\begin{figure}[H]
-    \centering
-    \begin{tikzpicture}
-    \begin{axis}[
-    grid = both,
-    major grid style = {lightgray},
-    minor grid style = {lightgray!25},
-    width = 0.75\textwidth,
-    height = 0.5\textwidth,
-    ylabel near ticks,
-    xlabel near ticks,
-    xlabel = {Tempo (h)},
-    ylabel = {Flusso medio (veh/h)},]
-    \addplot[
-    mark size=0.69,
-    draw=black,
-    mark=o] file {./temp_data/q-t.dat};
-    \end{axis}
-    \end{tikzpicture}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \begin{tikzpicture}
+%     \begin{axis}[
+%     grid = both,
+%     major grid style = {lightgray},
+%     minor grid style = {lightgray!25},
+%     width = 0.75\textwidth,
+%     height = 0.5\textwidth,
+%     ylabel near ticks,
+%     xlabel near ticks,
+%     xlabel = {Tempo (h)},
+%     ylabel = {Flusso medio (veh/h)},]
+%     \addplot[
+%     mark size=0.69,
+%     draw=black,
+%     mark=o] file {./temp_data/q-t.dat};
+%     \end{axis}
+%     \end{tikzpicture}
+% \end{figure}
 
-\begin{figure}[H]
-    \centering
-    \begin{tikzpicture}
-    \begin{axis}[
-    grid = both,
-    major grid style = {lightgray},
-    minor grid style = {lightgray!25},
-    width = 0.75\textwidth,
-    height = 0.5\textwidth,
-    ylabel near ticks,
-    xlabel near ticks,
-    xlabel = {Tempo (h)},
-    ylabel = {Velocit\`a media (km/h)},]
-    \addplot[
-    mark size=0.69,
-    draw=black,
-    mark=o] file {./temp_data/u-t.dat};
-    \end{axis}
-    \end{tikzpicture}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \begin{tikzpicture}
+%     \begin{axis}[
+%     grid = both,
+%     major grid style = {lightgray},
+%     minor grid style = {lightgray!25},
+%     width = 0.75\textwidth,
+%     height = 0.5\textwidth,
+%     ylabel near ticks,
+%     xlabel near ticks,
+%     xlabel = {Tempo (h)},
+%     ylabel = {Velocit\`a media (km/h)},]
+%     \addplot[
+%     mark size=0.69,
+%     draw=black,
+%     mark=o] file {./temp_data/u-t.dat};
+%     \end{axis}
+%     \end{tikzpicture}
+% \end{figure}
 \end{document}
