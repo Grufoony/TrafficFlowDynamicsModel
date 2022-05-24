@@ -70,10 +70,14 @@ int Graph::_minDistance(int const src, int const dst) const {
       // Update dist.at(v) only if is not in sptSet, there is an edge from
       // u to v, and total weight of path from src to v through u is
       // smaller than current value of dist.at(v)
-      auto lenght = _adjMatrix.at(u).at(v);
-      if (lenght > std::numeric_limits<double>::epsilon())
-        lenght /= this->_getStreetMeanVelocity(_findStreet(u, v));
-      auto time = static_cast<int>(lenght);
+
+      // auto lenght = _adjMatrix.at(u).at(v);
+      int time = 0;
+      if (_adjMatrix.at(u).at(v)) {
+        auto weight = _streets.at(_findStreet(u, v))->getLenght();
+        weight /= this->_getStreetMeanVelocity(_findStreet(u, v));
+        time = static_cast<int>(weight);
+      }
       if (!sptSet.at(v) && time &&
           dist.at(u) != std::numeric_limits<int>::max() &&
           dist.at(u) + time < dist.at(v))
@@ -88,10 +92,10 @@ std::vector<int> Graph::_nextStep(int const src, int const dst) {
   auto const min = _minDistance(src, dst);
   std::vector<int> _nextStep;
   for (int i = 0; i < static_cast<int>(row.size()); ++i) {
-    auto lenght = row.at(i);
-    if (lenght > std::numeric_limits<double>::epsilon()) {
-      auto time = static_cast<int>(
-          lenght / this->_getStreetMeanVelocity(_findStreet(src, i)));
+    if (row.at(i)) {
+      auto weight = _streets.at(_findStreet(src, i))->getLenght();
+      weight /= this->_getStreetMeanVelocity(_findStreet(src, i));
+      auto time = static_cast<int>(weight);
       if (_minDistance(i, dst) == (min - time))
         _nextStep.push_back(i);
     }
@@ -117,6 +121,7 @@ void Graph::_evolve(bool reinsert) {
     auto threshold = 0.;
     auto const p = dist(rng);
     auto timePenalty = vehicle->getTimePenalty();
+    vehicle->incrementTimeTraveled();
     if (timePenalty > 0) { // check if the vehicle can move
       // if the vahicle cannot move checks if the vehicle could go faster
       auto streetLenght = _streets.at(vehicle->getStreet())->getLenght();
@@ -169,13 +174,19 @@ void Graph::_evolve(bool reinsert) {
   }
   int nVehicles_old = static_cast<int>(_vehicles.size());
   // erase vehicles that have reached their destination
-  _vehicles.erase(std::remove_if(_vehicles.begin(), _vehicles.end(),
-                                 [](std::shared_ptr<Vehicle> const &vehicle) {
-                                   return vehicle->getPosition() ==
-                                              vehicle->getDestination() &&
-                                          vehicle->getStreet() == -1;
-                                 }),
-                  _vehicles.end());
+  _vehicles.erase(
+      std::remove_if(_vehicles.begin(), _vehicles.end(),
+                     [this](std::shared_ptr<Vehicle> const &vehicle) {
+                       bool condition = vehicle->getPosition() ==
+                                            vehicle->getDestination() &&
+                                        vehicle->getStreet() == -1;
+                       if (condition) {
+                         _meanTimeTraveled += vehicle->getTimeTraveled();
+                         ++_nVehiclesToDst;
+                       }
+                       return condition;
+                     }),
+      _vehicles.end());
   ++_time;
   int dVehicles = nVehicles_old - static_cast<int>(_vehicles.size());
   // add new vehicles
@@ -191,7 +202,7 @@ int Graph::_findStreet(int const src, int const dst) const {
       return i;
     ++i;
   }
-  throw std::runtime_error("Street not found");
+  return -1;
 }
 
 double Graph::_getStreetMeanVelocity(int const streetIndex) const {
@@ -232,11 +243,11 @@ Graph::Graph(const char *fName) {
   data.open(fName);
   int streetIndex = 0;
   for (int u = 0; u < _n; ++u) {
-    std::vector<double> temp;
+    std::vector<bool> temp;
     for (int v = 0; v < _n; ++v) {
       data >> x;
       b = x > 0;
-      temp.push_back(x);
+      temp.push_back(b);
       if (b) {
         _streets.push_back(
             std::make_shared<Street>(Street(u, v, x, streetIndex)));
@@ -252,58 +263,58 @@ Graph::Graph(const char *fName) {
   }
 }
 
-Graph::Graph(const char *fName, const char *fCoordinates) {
-  _n = 0;
-  std::ifstream data;
-  // set database's dimension
-  data.open(fCoordinates);
-  if (!data) {
-    throw std::runtime_error("Coordinates file does not exist.\n");
-  }
-  double x;
-  bool b;
-  while (data >> x) {
-    ++_n;
-  }
-  data.close();
-  _n = _n / 2;
+// Graph::Graph(const char *fName, const char *fCoordinates) {
+//   _n = 0;
+//   std::ifstream data;
+//   // set database's dimension
+//   data.open(fCoordinates);
+//   if (!data) {
+//     throw std::runtime_error("Coordinates file does not exist.\n");
+//   }
+//   double x;
+//   bool b;
+//   while (data >> x) {
+//     ++_n;
+//   }
+//   data.close();
+//   _n = _n / 2;
 
-  // import coordinates
-  data.open(fCoordinates);
-  for (int u = 0; u < 2; ++u) {
-    std::vector<double> temp;
-    for (int v = 0; v < _n; ++v) {
-      data >> x;
-      temp.push_back(x);
-    }
-    _nodesCoordinates.push_back(temp);
-  }
-  data.close();
+//   // import coordinates
+//   data.open(fCoordinates);
+//   for (int u = 0; u < 2; ++u) {
+//     std::vector<double> temp;
+//     for (int v = 0; v < _n; ++v) {
+//       data >> x;
+//       temp.push_back(x);
+//     }
+//     _nodesCoordinates.push_back(temp);
+//   }
+//   data.close();
 
-  // import adj matrix from file
-  std::cout << "Importing adjacency matrix from file..." << '\n';
-  data.open(fName);
-  if (!data) {
-    throw std::runtime_error("Matrix file does not exist.\n");
-  }
-  int streetIndex = 0;
-  for (int u = 0; u < _n; ++u) {
-    std::vector<double> temp;
-    for (int v = 0; v < _n; ++v) {
-      data >> x;
-      b = x > 0;
-      temp.push_back(x);
-      if (b) {
-        _streets.push_back(
-            std::make_shared<Street>(Street(u, v, x, streetIndex)));
-        ++streetIndex;
-      }
-    }
-    _adjMatrix.push_back(temp);
-  }
-  data.close();
-  std::cout << "Done." << '\n';
-}
+//   // import adj matrix from file
+//   std::cout << "Importing adjacency matrix from file..." << '\n';
+//   data.open(fName);
+//   if (!data) {
+//     throw std::runtime_error("Matrix file does not exist.\n");
+//   }
+//   int streetIndex = 0;
+//   for (int u = 0; u < _n; ++u) {
+//     std::vector<double> temp;
+//     for (int v = 0; v < _n; ++v) {
+//       data >> x;
+//       b = x > 0;
+//       temp.push_back(x);
+//       if (b) {
+//         _streets.push_back(
+//             std::make_shared<Street>(Street(u, v, x, streetIndex)));
+//         ++streetIndex;
+//       }
+//     }
+//     _adjMatrix.push_back(temp);
+//   }
+//   data.close();
+//   std::cout << "Done." << '\n';
+// }
 
 void Graph::addVehicle(int type) {
   if (type < 0 || !(type < Vehicle::getNVehicleType()))
@@ -632,7 +643,10 @@ void Graph::save(const char *fileName) const noexcept {
 
 // funzione da eliminare (DEBUG)
 void Graph::test() {
-  std::cout << _vehicles.size() << '\n';
+  std::cout << "Test tempo medio di viaggio a t = " << _time
+            << " s:" << _meanTimeTraveled / _nVehiclesToDst << '\n';
+  _meanTimeTraveled = 0.;
+  _nVehiclesToDst = 0;
   //   auto const &street = _streets.at(69);
   //   std::vector<double> v;
   //   v.push_back(street->getVehicleDensity() * 1e3);

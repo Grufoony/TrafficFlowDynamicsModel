@@ -13,6 +13,7 @@ private:
   int _street = -1;
   int _timePenalty = 0; // penalità di tempo da scontare
   double _velocity = 0.;
+  int _timeTraveled = 0;
 
 public:
   Vehicle(int);
@@ -35,6 +36,9 @@ public:
   int getTimePenalty() const;
   void setVelocity(double);
   double getVelocity() const;
+  void incrementTimeTraveled();
+  int getTimeTraveled() const;
+  void resetTimeTraveled();
 };
 
 #endif

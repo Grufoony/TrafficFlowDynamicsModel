@@ -74,3 +74,6 @@ void Vehicle::setVelocity(double vel) {
   _velocity = vel;
 }
 double Vehicle::getVelocity() const { return _velocity; }
+void Vehicle::incrementTimeTraveled() { ++_timeTraveled; }
+int Vehicle::getTimeTraveled() const { return _timeTraveled; }
+void Vehicle::resetTimeTraveled() { _timeTraveled = 0; }

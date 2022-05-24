@@ -98,6 +98,8 @@ int main(int argc, char **argv) {
     g.fprint(true);
     clearDir(DATA_FOLDER);
     clearDir(IMG_FOLDER);
+    // TEST
+    // printTransMatrices();
     // adiabatic analysis
     for (int t = 0; t < std::stoi(argv[5]); ++t) {
       printLoadingBar(t, std::stoi(argv[5]));
@@ -122,6 +124,9 @@ int main(int argc, char **argv) {
         g.fprintTimeDistribution(DATA_FOLDER, "k", 0.);
         g.fprintTimeDistribution(DATA_FOLDER, "q", 0.);
         g.fprintTimeDistribution(DATA_FOLDER, "u", 0.);
+      }
+      if (t % 240 == 0) {
+        g.test();
       }
       // constant analysis
       // if (t < 8e3) {
@@ -171,6 +176,9 @@ int main(int argc, char **argv) {
         g.fprintTimeDistribution(DATA_FOLDER, "k", 5.);
         g.fprintTimeDistribution(DATA_FOLDER, "q", 5.);
         g.fprintTimeDistribution(DATA_FOLDER, "u", 5.);
+      }
+      if (t % 1800 == 0 && t != 0) {
+        g.test();
       }
       g.evolve(false);
     }

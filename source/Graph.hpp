@@ -8,14 +8,16 @@
 
 class Graph {
 private:
-  std::vector<std::vector<double>> _adjMatrix;        // adjacency matrix
+  std::vector<std::vector<bool>> _adjMatrix;          // adjacency matrix
   std::vector<std::vector<double>> _nodesCoordinates; // coordinates matrix
   std::vector<std::shared_ptr<Street>> _streets;      // streets in the network
   std::vector<std::shared_ptr<Vehicle>> _vehicles;    // vehicles in the network
   std::vector<int> _vehiclesOnStreet;                 // vehicles on the street
   int _n;                                             // dimension
-  double _temperature = 0.; // temperature of the network
-  int _time = 0;            // time of the simulation
+  double _temperature = 0.;      // temperature of the network
+  int _time = 0;                 // time of the simulation
+  double _meanTimeTraveled = 0.; // mean time traveled by vehicles
+  int _nVehiclesToDst = 0;       // number of vehicles to destination
 
   int _minDistance(
       int const,

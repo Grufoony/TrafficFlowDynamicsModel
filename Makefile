@@ -1,16 +1,19 @@
-.PHONY: run run1 run2 wsl debug windows visual test periodictest
+.PHONY: run run1 run2 wsl debug windows visual test periodictest rimini
 run:
 	clear
-	./test.wsl matrix.dat vehicletype_old.dat 300 250 15001
+	./test.wsl matrix.dat vehicletype.dat 300 250 15001
 run1:
 	clear
-	./test.wsl matrix.dat vehicletype_old.dat 300 25000 6301
+	./test.wsl matrix.dat vehicletype.dat 300 25000 6301
 run2:
 	clear
-	./test.wsl matrix.dat vehicletype_old.dat 300 2200 32400 55000
+	./test.wsl matrix.dat vehicletype.dat 300 2200 32400 55000
 test:
 	clear
 	./test.wsl matrix_old.dat vehicletype_old.dat 0 0 0
+rimini:
+	clear
+	./test.wsl rimini_matrix.dat vehicletype.dat 300 250 15001
 wsl:
 	clear
 	g++ -O3 ./source/main.cpp ./source/Graph.cpp ./source/Street.cpp ./source/Vehicle.cpp ./source/VehicleType.cpp -o test.wsl
