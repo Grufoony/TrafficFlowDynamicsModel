@@ -2,13 +2,16 @@
 
 \begin{document}
 Nella sezione precedente si \`e costruito il modello ed \`e emerso come questo si basi su alcuni parametri di controllo.
-Variando questi parametri \`e di fatto possibile ottenere risultati estremamente diversi tra di loro, permettendo lo svolgimento di pi\`u studi.
-In particolare, verranno effettuate tre tipologie di studi dove il caricamento della rete viene effettuato omogeneamente (inserendo contemporaneamente lo stesso numero di veicoli su tutte le strade):
+Variando questi parametri \`e di fatto possibile ottenere risultati estremamente diversi tra di loro, permettendo lo svolgimento di pi\`u analisi.
+In particolare, si andr\`a ora a effettuate tre tipologie di studi dove la rete viene caricata in modo omogeneo (inserendo contemporaneamente lo stesso numero di veicoli su tutte le strade):
 \begin{itemize}
     \item \emph{Carico costante}: il reticolo viene sottoposto ad un carico costante per un certo lasso di tempo;
-    \item \emph{Carico piccato}: il reticolo viene sovraccaricato nei primi istanti, durante i quali nessun veicolo pu\`o uscire, in modo tale da creare una congestione. Successivamente i veicoli vengono lasciati liberi di uscire dalla rete per permetterne lo svuotamento e studiarne gli effetti;
-    \item \emph{Carico periodico}: il reticolo viene caricato nel tempo con una funzione sinusoidale, volta a rappresentare le diverse fasi di carico a cui una normale rete stradale \`e soggetta nell'arco di una giornata;
+    \item \emph{Carico piccato}: il reticolo viene sovraccaricato nei primi istanti, in modo tale da creare una congestione. Successivamente la rete viene lasciata svuotare per studiarne il comportamento;
+    \item \emph{Carico periodico}: il reticolo viene caricato nel tempo con un andamento sinusoidale, volto a rappresentare le diverse fasi di carico a cui una normale rete stradale \`e soggetta nell'arco di una giornata;
 \end{itemize}
+Il carico omogeneo non permette l'analisi del ruolo dei nodi sorgente i quali, salvo nei casi in cui i veicoli vengono reimmessi nella rete, perdono la loro funzione.
+Questa scelta \`e stata effettuata in quanto lo studio \`e focalizzato sulle congestioni, fenomeni sono difficilmente realizzabili con poche sorgenti e, nel caso, richiederebbero scale temporali non trascurabili rispetto alle scale temporali delle congestioni stesse.
+Anche da un punto di vista pratico risulta pi\`u realistico supporre che i veicoli si immettano omogeneamente sulle strade (ipotizzando zone residenziali) e tendano a muovere verso alcuni punti attrattori, che possono essere supermercati, centri sportivi, ecc.
 
 \section{Reticolo omogeneo}
 Si consideri ora un network composto da 120 nodi disposti in un reticolo 10x12.
@@ -20,14 +23,14 @@ Si consideri ora un network composto da 120 nodi disposti in un reticolo 10x12.
 Su questo, si definiscano 16 differenti classi di veicoli, le cui sorgenti sono i nodi 1, 4, 7, 10 e le cui destinazioni sono i nodi 109, 112, 115, 118.
 Risulta evidente dalla Fig. \ref{fig:network_homo} come i veicoli scorrano da un lato all'altro del reticolo.
 Ogni strada ha lunghezza e velocit\`a massima fissate a 500 m e 50 km/h, rispettivamente.
-Si ponga ora la lunghezza media di un veicolo pari a 8 m, la velocit\`a minima su una strada pari a $v_{min}=\frac{3}{4}v_{max}$ e una probabilit\`a di errore dell'8\%.
+Si pongano ora la lunghezza media di un veicolo pari a 8 m, la velocit\`a minima su una strada pari a $\frac{1}{4}$ della velocit\`a massima e una probabilit\`a di errore dell'8\%.
 
 \subsection{Carico costante}
 Si vuole, come prima cosa, sottoporre il sistema ad un carico costante.
-In questo modo si dovrebbe evitare la formazione di congestioni, lasciando al sistema la capacit\`a di trasporto.
-Il sistema viene quindi sottoposto ad un carico costante di 250 veicoli immessi ogni 60 s, fino a un tempo di  3.33 h, per un tempo totale di 4.15 h, lasciandoli liberi di uscire dalla rete una volta giunti a destinazione.
+In questo modo si dovrebbe evitare la formazione di congestioni, mantenendo una capacit\`a di trasporto.
+Il sistema viene quindi sottoposto ad un carico costante di 250 veicoli immessi ogni 60 s, fino a un tempo di 3.33 h, per un tempo totale di 4.15 h, lasciandoli liberi di uscire dalla rete una volta giunti a destinazione.
 Ci si aspetta cos\`i una crescita iniziale della densit\`a media, la quale si mantiene costante fintantoch\'e nuovi veicoli vengono immessi nel sistema.
-L'obiettivo \`e, infatti, avere tanti veicoli che escono quanti ne entrano.
+L'obiettivo \`e, infatti, mantrenere complessivamente invariato il numero totale di veicoli presenti sulla rete, a meno di fluttuazioni.
 \begin{figure}[H]
     \centering
     \begin{tikzpicture}
@@ -50,8 +53,8 @@ L'obiettivo \`e, infatti, avere tanti veicoli che escono quanti ne entrano.
     \caption[Densit\`a media per un reticolo omogeneo con carico costante]{\emph{Densit\`a media per un reticolo omogeneo con carico costante.}}
     \label{fig:density_constant_homo}
 \end{figure}
-In Fig. \ref{fig:density_constant_homo} si pu\`o notare l'innalzamento iniziale, fino a circa 1.5 h, poi un regime pressoch\'e costante fino a 3.33 h, seguito da una rapida discesa.
-Nell'arco temporale in cui la densit\`a \`e stabile, ossia da 1.5 h a 3.3 h, ci si aspetta un regime di traffico completamente libero.
+In Fig. \ref{fig:density_constant_homo} si pu\`o notare l'innalzamento iniziale, fino a circa 1.5 h, poi un regime pressoch\'e costante fino a 3.3 h, seguito da una rapida discesa.
+Nell'arco temporale in cui la densit\`a \`e stabile ci si aspetta un regime di traffico completamente libero.
 L'ipotesi \`e verificata in Fig. \ref{fig:nStreet_density_constant_homo} dove, graficando il numero di strade in funzione della densit\`a a 2 h, si pu\`o notare come la quasi totalit\`a di esse abbia densit\`a minima.
 \begin{figure}[H]
     \centering
@@ -100,7 +103,7 @@ In particolare, si nota come il grafico sia effettivamente una retta, il che imp
 
 \subsection{Carico piccato}
 Si inserisca ora nel sistema un totale di 25000 veicoli, suddivisi in 2500 veicoli ogni 50 s, consentendone la fuoriuscita dal reticolo.
-Si osserva cos\`i in Fig. \ref{fig:density_peaked_homo} un picco iniziale della densit\`a media: questo rappresenta il sovraccarico del sistema.
+Si osserva cos\`i in Fig. \ref{fig:peaked_homo} un picco iniziale della densit\`a media: questo rappresenta il sovraccarico del sistema.
 \begin{figure}[H]
     \centering
     \begin{tikzpicture}[scale=0.75]
@@ -120,8 +123,25 @@ Si osserva cos\`i in Fig. \ref{fig:density_peaked_homo} un picco iniziale della 
     mark=o] file {./data/peaked_homo/k-t.dat};
     \end{axis}
     \end{tikzpicture}
+    \begin{tikzpicture}[scale=0.75]
+        \begin{axis}[
+        grid = both,
+        major grid style = {lightgray},
+        minor grid style = {lightgray!25},
+        width = 0.75\textwidth,
+        height = 0.5\textwidth,
+        ylabel near ticks,
+        xlabel near ticks,
+        xlabel = {Tempo (h)},
+        ylabel = {Flusso medio (veh/h)},]
+        \addplot[
+        mark size=0.69,
+        draw=black,
+        mark=o] file {./data/peaked_homo/q-t.dat};
+        \end{axis}
+        \end{tikzpicture}
     \caption[Densit\`a media per un reticolo omogeneo sovraccaricato]{\emph{Densit\`a media per un reticolo omogeneo sovraccaricato.}}
-    \label{fig:density_peaked_homo}
+    \label{fig:peaked_homo}
 \end{figure}
 Una volta caricato il sistema ci si aspetta che la distribuzione di veicoli nelle strade non resti omogenea nel tempo: gli agenti presenti sul sistema tenderanno ad occupare le strade costituenti i loro \emph{best path} e a lasciare vuote quelle pi\`u lontane da essi.
 \begin{figure}[H]
@@ -201,7 +221,8 @@ In questo istante di tempo, pari a 1.75 h da inizio simulazione, ci si aspetta d
     \caption[DFM per una congestione]{\emph{Diagrammi fondamentali macroscopici di una congestione in un reticolo omogeneo.}}
     \label{fig:DMF_peaked_homo}
 \end{figure}
-Secondo la teoria dei flussi di traffico, un sistema congestionato tende a risolvere la congestione in modo differente da come questa si \`e formata: questo fenomeno causa la formazione di un ciclo di isteresi, visibile in Fig. \ref{fig:hysteresys_peaked_homo}.
+Secondo la teoria dei flussi di traffico, un sistema congestionato tende a risolvere la congestione in modo differente da come questa si \`e formata: questo fenomeno causa la formazione di un ciclo di isteresi.
+Lo scarico del sistema avviene gradualmente e prevede un ritorno alla stabilit\`a lungo una traiettoria differente rispetto alla fase di carico: tale differenza \`e visibile in Fig. \ref{fig:hysteresys_peaked_homo}.
 \begin{figure}[H]
     \begin{tikzpicture}[scale=0.6]
         \begin{axis}[
@@ -240,21 +261,22 @@ Secondo la teoria dei flussi di traffico, un sistema congestionato tende a risol
     \caption[Isteresi per un reticolo omogeneo sovraccaricato]{\emph{Ciclo di isteresi per un reticolo omogeneo sovraccaricato.}}
     \label{fig:hysteresys_peaked_homo}
 \end{figure}
-Si pu\`o notare come sia il flusso che la densit\`a crescano fino a un punto critico nel quale si ha un calo drastico del flusso dovuto all'eccessiva presenza di veicoli sulle strade.
+Si pu\`o notare come sia il flusso che la densit\`a crescano fino a un punto critico nel quale si ha un calo drastico del flusso stesso dovuto all'eccessiva presenza di veicoli sulle strade.
 Il sistema risulta qui congestionato e perde la capacit\`a di trasporto.
-Lo scarico del sistema avviene gradualmente eprevede un ritorno alla stabilit\`a lungo una traiettoria differente rispetto alla fase di carico: tale differenza \`e visibile sia sul piano $\Phi/\rho$, sia sul piano $\bar{v}/\rho$.
+In particolare, il massimo del flusso si ha durante la fase di carico mentre, alla fine della stessa, il sovraccarico ha gi\`a apportato modifiche al sistema, riducendone il flusso medio (cfr. Fig. \ref{fig:peaked_homo}).
+Inoltre, il flusso medio del sistema tende a rimanere stabile a ridosso della congestione, a differenza della densit\`a media che risulta gi\`a in diminuzione grazie alla fuoriuscita dei primi veicoli dalla rete.
 
 \subsection{Carico periodico}
 Si vuole ora sottoporre il sistema ad un carico realistico, quindi variabile nell'arco di una giornata.
 Per semplicit\`a si decide di trascurare il carico notturno, in quanto nella maggior parte dei casi lascia il sistema in uno stato di traffico completamente libero.
-Durante il giorno, invece, dalle acquisizioni reali (MANCA REF) si notano diversi picchi: il primo al mattino verso le ore 9:00, il secondo all'ora di pranzo, verso le 13:00 e il terzo al rientro serale, alle 17:00.
-Gli orari dei picchi sono stati leggermente approssimati in modo tale da semplificare la funzione in ingresso, la quale deve avere un picco ogni 4 ore.
+Durante il giorno, invece, dalle acquisizioni reali si notano diversi picchi: il primo al mattino verso le ore 9:00, seguito da una lieve discesa, il secondo verso le 13:00, un po' meno marcato, e il terzo al rientro serale, alle 17:00.
 Assumendo come orario di inizio simulazione le 5:45 del mattino, si immettano veicoli uniformemente nel sistema secondo la seguente funzione:
 \begin{equation}
     \Delta n(t) = A \left\lvert \sin\left(\frac{2\pi}{T}t\right) \right\rvert 
 \end{equation}
 con $A = 2200$ veh e $T = 32400$ s.
 In questo caso, non vi \`e accumulo di veicoli: in ogni istante i veicoli che giungono a destinazione vengono eliminati.
+Per rendere meno marcato il secondo picco si riduce l'ampiezza in salita di un fattore 1.125, dal primo minimo al secondo massimo.
 Ci si aspetta in questo modo che, avendo la funzione tre picchi, il sistema compia tre cicli di caricamento e scaricamento.
 \begin{figure}[H]
     \centering
@@ -526,4 +548,5 @@ Ulterioristudi potrebbero essere svolte per vericare come queste revisioni impat
 %     \end{axis}
 %     \end{tikzpicture}
 % \end{figure}
+
 \end{document}
