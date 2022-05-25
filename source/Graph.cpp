@@ -155,7 +155,7 @@ void Graph::_evolve(bool reinsert) {
           if (p < threshold) {
             // street update
             int streetIndex =
-                _findStreet(vehicle->getPosition(), i); // nex street index
+                _findStreet(vehicle->getPosition(), i); // next street index
             if (!(_streets.at(streetIndex)
                       ->isFull())) { // check if i can move on (street not full)
               if (!(vehicle->getStreet() <
