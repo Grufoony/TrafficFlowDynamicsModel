@@ -643,14 +643,20 @@ void Graph::save(const char *fileName) const noexcept {
 
 // funzione da eliminare (DEBUG)
 void Graph::test() {
-  std::cout << "Test tempo medio di viaggio a t = " << _time
-            << " s:" << _meanTimeTraveled / _nVehiclesToDst << '\n';
-  _meanTimeTraveled = 0.;
-  _nVehiclesToDst = 0;
-  //   auto const &street = _streets.at(69);
-  //   std::vector<double> v;
-  //   v.push_back(street->getVehicleDensity() * 1e3);
-  //   v.push_back(this->_getStreetMeanVelocity(street->getIndex()) *
-  //               street->getVehicleDensity() * 3.6e3);
-  //   return v;
+  std::ofstream fOut;
+  int nBins = 20;
+  double binSize = 6e3 / nBins;
+  auto out = "./temp_data/" + std::to_string(_time) + "_t.dat";
+  fOut.open(out);
+  int n;
+  for (int i = 0; i < nBins + 1; ++i) {
+    n = std::count_if(_vehicles.begin(), _vehicles.end(),
+                      [i, binSize](std::shared_ptr<Vehicle> const &vehicle) {
+                        return vehicle->getTimeTraveled() >= i * binSize &&
+                               vehicle->getTimeTraveled() < (i + 1) * binSize;
+                      });
+    fOut << std::setprecision(3) << i * binSize << '\t' << n << '\n';
+  }
+  fOut << (nBins + 1.) * binSize;
+  fOut.close();
 }

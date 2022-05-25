@@ -104,13 +104,13 @@ int main(int argc, char **argv) {
     for (int t = 0; t < std::stoi(argv[5]); ++t) {
       printLoadingBar(t, std::stoi(argv[5]));
       // constant analysis
-      // if (t < 12e3 && t % 60 == 0 && t != 0) {
-      //   g.addVehiclesUniformly(dVehicle);
-      // }
-      // peaked analysis
-      if (t < 500 && t % 50 == 0 && t != 0) {
-        g.addVehiclesUniformly(dVehicle / 10);
+      if (t < 12e3 && t % 60 == 0 && t != 0) {
+        g.addVehiclesUniformly(dVehicle);
       }
+      // peaked analysis
+      // if (t < 500 && t % 50 == 0 && t != 0) {
+      //   g.addVehiclesUniformly(dVehicle / 10);
+      // }
       if (t == 0) {
         g.fprintVisual(IMG_FOLDER);
       }
@@ -124,10 +124,11 @@ int main(int argc, char **argv) {
         g.fprintTimeDistribution(DATA_FOLDER, "k", 0.);
         g.fprintTimeDistribution(DATA_FOLDER, "q", 0.);
         g.fprintTimeDistribution(DATA_FOLDER, "u", 0.);
-      }
-      if (t % 240 == 0 && t != 0) {
         g.test();
       }
+      // if (t % 240 == 0 && t != 0) {
+      //   g.test();
+      // }
       // constant analysis
       // if (t < 8e3) {
       //   g.evolve();
