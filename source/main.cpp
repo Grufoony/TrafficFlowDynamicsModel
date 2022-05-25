@@ -125,7 +125,7 @@ int main(int argc, char **argv) {
         g.fprintTimeDistribution(DATA_FOLDER, "q", 0.);
         g.fprintTimeDistribution(DATA_FOLDER, "u", 0.);
       }
-      if (t % 240 == 0) {
+      if (t % 240 == 0 && t != 0) {
         g.test();
       }
       // constant analysis
