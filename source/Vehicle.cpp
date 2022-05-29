@@ -54,9 +54,11 @@ int Vehicle::getNVehicleType() { return static_cast<int>(_vehicleType.size()); }
 void Vehicle::setPosition(int pos) {
   if (pos < 0)
     throw std::invalid_argument("Error in setPosition.\n");
+  _previousPosition = _position;
   _position = pos;
 }
 int Vehicle::getPosition() const { return _position; }
+int Vehicle::getPreviousPosition() const { return _previousPosition; }
 void Vehicle::setStreet(int street) { _street = street; }
 int Vehicle::getStreet() const { return _street; }
 void Vehicle::setTimePenalty(int time) {

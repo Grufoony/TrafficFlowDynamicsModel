@@ -104,6 +104,30 @@ std::vector<int> Graph::_nextStep(int const src, int const dst) {
 }
 
 void Graph::_evolve(bool reinsert) {
+  ++_time;
+  int timeScale = 100;
+  if (_time % timeScale == 0) {
+    int nVehicles_old = static_cast<int>(_vehicles.size());
+    // erase vehicles that have reached their destination
+    _vehicles.erase(
+        std::remove_if(_vehicles.begin(), _vehicles.end(),
+                       [this](std::shared_ptr<Vehicle> const &vehicle) {
+                         bool condition = vehicle->getPosition() ==
+                                              vehicle->getDestination() &&
+                                          vehicle->getStreet() == -1;
+                         if (condition) {
+                           _meanTimeTraveled += vehicle->getTimeTraveled();
+                           ++_nVehiclesToDst;
+                         }
+                         return condition;
+                       }),
+        _vehicles.end());
+    int dVehicles = nVehicles_old - static_cast<int>(_vehicles.size());
+    // add new vehicles
+    if (reinsert) {
+      this->addRndmVehicles(dVehicles);
+    }
+  }
   // keep in memory the previous state of the streets
   int i = 0;
   for (auto const &street : _streets) {
@@ -156,8 +180,9 @@ void Graph::_evolve(bool reinsert) {
             // street update
             int streetIndex =
                 _findStreet(vehicle->getPosition(), i); // next street index
-            if (!(_streets.at(streetIndex)
-                      ->isFull())) { // check if i can move on (street not full)
+            if (!(_streets.at(streetIndex)->isFull()) &&
+                !(vehicle->getPreviousPosition() ==
+                  streetIndex)) { // check if i can move on (street not full)
               if (!(vehicle->getStreet() <
                     0)) { // check if the vehicle is on a street
                 _streets.at(vehicle->getStreet())->remVehicle();
@@ -171,27 +196,6 @@ void Graph::_evolve(bool reinsert) {
         }
       }
     }
-  }
-  int nVehicles_old = static_cast<int>(_vehicles.size());
-  // erase vehicles that have reached their destination
-  _vehicles.erase(
-      std::remove_if(_vehicles.begin(), _vehicles.end(),
-                     [this](std::shared_ptr<Vehicle> const &vehicle) {
-                       bool condition = vehicle->getPosition() ==
-                                            vehicle->getDestination() &&
-                                        vehicle->getStreet() == -1;
-                       if (condition) {
-                         _meanTimeTraveled += vehicle->getTimeTraveled();
-                         ++_nVehiclesToDst;
-                       }
-                       return condition;
-                     }),
-      _vehicles.end());
-  ++_time;
-  int dVehicles = nVehicles_old - static_cast<int>(_vehicles.size());
-  // add new vehicles
-  if (reinsert) {
-    this->addRndmVehicles(dVehicles);
   }
 }
 
@@ -652,8 +656,12 @@ void Graph::test() {
   for (int i = 0; i < nBins + 1; ++i) {
     n = std::count_if(_vehicles.begin(), _vehicles.end(),
                       [i, binSize](std::shared_ptr<Vehicle> const &vehicle) {
-                        return vehicle->getTimeTraveled() >= i * binSize &&
-                               vehicle->getTimeTraveled() < (i + 1) * binSize;
+                        if (vehicle->getPosition() ==
+                            vehicle->getDestination()) {
+                          return vehicle->getTimeTraveled() >= i * binSize &&
+                                 vehicle->getTimeTraveled() < (i + 1) * binSize;
+                        } else
+                          return false;
                       });
     fOut << std::setprecision(3) << i * binSize << '\t' << n << '\n';
   }

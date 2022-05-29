@@ -103,18 +103,7 @@ int main(int argc, char **argv) {
     // adiabatic analysis
     for (int t = 0; t < std::stoi(argv[5]); ++t) {
       printLoadingBar(t, std::stoi(argv[5]));
-      // constant analysis
-      if (t < 12e3 && t % 60 == 0 && t != 0) {
-        g.addVehiclesUniformly(dVehicle);
-      }
-      // peaked analysis
-      // if (t < 500 && t % 50 == 0 && t != 0) {
-      //   g.addVehiclesUniformly(dVehicle / 10);
-      // }
-      if (t == 0) {
-        g.fprintVisual(IMG_FOLDER);
-      }
-      if (t % 60 == 0) {
+      if (t % 100 == 0) {
         g.fprintHistogram(DATA_FOLDER, 15);
         g.fprintDistribution(DATA_FOLDER, "u/q");
         g.fprintDistribution(DATA_FOLDER, "q/k");
@@ -125,6 +114,18 @@ int main(int argc, char **argv) {
         g.fprintTimeDistribution(DATA_FOLDER, "q", 0.);
         g.fprintTimeDistribution(DATA_FOLDER, "u", 0.);
         g.test();
+      }
+      // constant analysis
+      if (t < 12e3 && t % 60 == 0 && t != 0) {
+        g.addVehiclesUniformly(dVehicle / 1.125);
+        g.addRndmVehicles(dVehicle);
+      }
+      // peaked analysis
+      // if (t < 500 && t % 50 == 0 && t != 0) {
+      //   g.addVehiclesUniformly(dVehicle / 10);
+      // }
+      if (t == 0) {
+        g.fprintVisual(IMG_FOLDER);
       }
       // if (t % 240 == 0 && t != 0) {
       //   g.test();
@@ -163,9 +164,10 @@ int main(int argc, char **argv) {
         dVehicle = std::abs(std::stoi(argv[4]) *
                             std::sin(2 * M_PI * t / std::stoi(argv[5])));
         if (t > 1.62e4 && t < 2.43e4) {
-          dVehicle /= 1.125;
+          dVehicle *= 1.125;
         }
         g.addVehiclesUniformly(dVehicle);
+        // g.addRndmVehicles(dVehicle / 2);
       }
       if (t % 900 == 0) {
         g.fprintHistogram(DATA_FOLDER, 15);
@@ -174,11 +176,11 @@ int main(int argc, char **argv) {
         g.fprintDistribution(DATA_FOLDER, "u/k");
         g.fprintActualState(DATA_FOLDER, "q/k");
         g.fprintActualState(DATA_FOLDER, "u/k");
-        g.fprintTimeDistribution(DATA_FOLDER, "k", 5.);
-        g.fprintTimeDistribution(DATA_FOLDER, "q", 5.);
-        g.fprintTimeDistribution(DATA_FOLDER, "u", 5.);
+        g.fprintTimeDistribution(DATA_FOLDER, "k", 4.);
+        g.fprintTimeDistribution(DATA_FOLDER, "q", 4.);
+        g.fprintTimeDistribution(DATA_FOLDER, "u", 4.);
       }
-      if (t % 1800 == 0 && t != 0) {
+      if (t % 100 == 0 && t != 0) {
         g.test();
       }
       g.evolve(false);

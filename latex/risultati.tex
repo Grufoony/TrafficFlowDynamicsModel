@@ -363,11 +363,30 @@ Ulterioristudi potrebbero essere svolte per vericare come queste revisioni impat
     ybar interval,
     mark=no,
     line width = 1.25pt
-    ] plot file {./temp_data/13200_t.dat};
+    ] plot file {./temp_data/12100_t.dat};
     \end{axis}
     \end{tikzpicture}
     \caption{\emph{Prova.}}
 \end{figure}
+
+% \begin{figure}[H]
+%     \centering
+%     \begin{tikzpicture}[scale=0.5]
+%     \begin{axis}[ybar interval,
+%     area style,
+%     width = 2\textwidth,
+%     height = 1.5\textwidth,
+%     xlabel = {Densità di veicoli},
+%     ylabel = {Numero di strade},]
+%     \addplot+[
+%     ybar interval,
+%     mark=no,
+%     line width = 1.25pt
+%     ] plot file {./temp_data/45900_t.dat};
+%     \end{axis}
+%     \end{tikzpicture}
+%     \caption{\emph{Prova.}}
+% \end{figure}
 
 % \begin{figure}[H]
 %     \centering
@@ -444,109 +463,109 @@ Ulterioristudi potrebbero essere svolte per vericare come queste revisioni impat
 %     \caption[Diagrammi fondamentali con distribuzione omogenea]{\emph{Diagrammi fondamentali con distribuzione omogenea.}}
 % \end{figure}
 
-% \begin{figure}[H]
-%     \centering
-%     \begin{tikzpicture}
-%     \begin{axis}[
-%     grid = both,
-%     major grid style = {lightgray},
-%     minor grid style = {lightgray!25},
-%     width = 0.75\textwidth,
-%     height = 0.5\textwidth,
-%     ylabel near ticks,
-%     xlabel near ticks,
-%     xlabel = {Densit\`a media (veh/km)},
-%     ylabel = {Flusso medio (veh/h)},]
-%     \addplot[
-%     mark size=0.69,
-%     draw=black,
-%     mark=o] file {./temp_data/q-k.dat};
-%     \end{axis}
-%     \end{tikzpicture}
-% \end{figure}
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+    \begin{axis}[
+    grid = both,
+    major grid style = {lightgray},
+    minor grid style = {lightgray!25},
+    width = 0.75\textwidth,
+    height = 0.5\textwidth,
+    ylabel near ticks,
+    xlabel near ticks,
+    xlabel = {Densit\`a media (veh/km)},
+    ylabel = {Flusso medio (veh/h)},]
+    \addplot[
+    mark size=0.69,
+    draw=black,
+    mark=o] file {./temp_data/q-k.dat};
+    \end{axis}
+    \end{tikzpicture}
+\end{figure}
 
-% \begin{figure}[H]
-%     \centering
-%     \begin{tikzpicture}
-%     \begin{axis}[
-%     grid = both,
-%     major grid style = {lightgray},
-%     minor grid style = {lightgray!25},
-%     width = 0.75\textwidth,
-%     height = 0.5\textwidth,
-%     ylabel near ticks,
-%     xlabel near ticks,
-%     xlabel = {Densit\`a media (veh/km)},
-%     ylabel = {Velocit\`a medio (veh/h)},]
-%     \addplot[
-%     mark size=0.69,
-%     draw=black,
-%     mark=o] file {./temp_data/u-k.dat};
-%     \end{axis}
-%     \end{tikzpicture}
-% \end{figure}
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+    \begin{axis}[
+    grid = both,
+    major grid style = {lightgray},
+    minor grid style = {lightgray!25},
+    width = 0.75\textwidth,
+    height = 0.5\textwidth,
+    ylabel near ticks,
+    xlabel near ticks,
+    xlabel = {Densit\`a media (veh/km)},
+    ylabel = {Velocit\`a medio (veh/h)},]
+    \addplot[
+    mark size=0.69,
+    draw=black,
+    mark=o] file {./temp_data/u-k.dat};
+    \end{axis}
+    \end{tikzpicture}
+\end{figure}
 
-% \begin{figure}[H]
-%     \centering
-%     \begin{tikzpicture}
-%     \begin{axis}[
-%     grid = both,
-%     major grid style = {lightgray},
-%     minor grid style = {lightgray!25},
-%     width = 0.75\textwidth,
-%     height = 0.5\textwidth,
-%     ylabel near ticks,
-%     xlabel near ticks,
-%     xlabel = {Tempo (h)},
-%     ylabel = {Densit\`a media (veh/km)},]
-%     \addplot[
-%     mark size=0.69,
-%     draw=black,
-%     mark=o] file {./temp_data/k-t.dat};
-%     \end{axis}
-%     \end{tikzpicture}
-% \end{figure}
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+    \begin{axis}[
+    grid = both,
+    major grid style = {lightgray},
+    minor grid style = {lightgray!25},
+    width = 0.75\textwidth,
+    height = 0.5\textwidth,
+    ylabel near ticks,
+    xlabel near ticks,
+    xlabel = {Tempo (h)},
+    ylabel = {Densit\`a media (veh/km)},]
+    \addplot[
+    mark size=0.69,
+    draw=black,
+    mark=o] file {./temp_data/k-t.dat};
+    \end{axis}
+    \end{tikzpicture}
+\end{figure}
 
-% \begin{figure}[H]
-%     \centering
-%     \begin{tikzpicture}
-%     \begin{axis}[
-%     grid = both,
-%     major grid style = {lightgray},
-%     minor grid style = {lightgray!25},
-%     width = 0.75\textwidth,
-%     height = 0.5\textwidth,
-%     ylabel near ticks,
-%     xlabel near ticks,
-%     xlabel = {Tempo (h)},
-%     ylabel = {Flusso medio (veh/h)},]
-%     \addplot[
-%     mark size=0.69,
-%     draw=black,
-%     mark=o] file {./temp_data/q-t.dat};
-%     \end{axis}
-%     \end{tikzpicture}
-% \end{figure}
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+    \begin{axis}[
+    grid = both,
+    major grid style = {lightgray},
+    minor grid style = {lightgray!25},
+    width = 0.75\textwidth,
+    height = 0.5\textwidth,
+    ylabel near ticks,
+    xlabel near ticks,
+    xlabel = {Tempo (h)},
+    ylabel = {Flusso medio (veh/h)},]
+    \addplot[
+    mark size=0.69,
+    draw=black,
+    mark=o] file {./temp_data/q-t.dat};
+    \end{axis}
+    \end{tikzpicture}
+\end{figure}
 
-% \begin{figure}[H]
-%     \centering
-%     \begin{tikzpicture}
-%     \begin{axis}[
-%     grid = both,
-%     major grid style = {lightgray},
-%     minor grid style = {lightgray!25},
-%     width = 0.75\textwidth,
-%     height = 0.5\textwidth,
-%     ylabel near ticks,
-%     xlabel near ticks,
-%     xlabel = {Tempo (h)},
-%     ylabel = {Velocit\`a media (km/h)},]
-%     \addplot[
-%     mark size=0.69,
-%     draw=black,
-%     mark=o] file {./temp_data/u-t.dat};
-%     \end{axis}
-%     \end{tikzpicture}
-% \end{figure}
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+    \begin{axis}[
+    grid = both,
+    major grid style = {lightgray},
+    minor grid style = {lightgray!25},
+    width = 0.75\textwidth,
+    height = 0.5\textwidth,
+    ylabel near ticks,
+    xlabel near ticks,
+    xlabel = {Tempo (h)},
+    ylabel = {Velocit\`a media (km/h)},]
+    \addplot[
+    mark size=0.69,
+    draw=black,
+    mark=o] file {./temp_data/u-t.dat};
+    \end{axis}
+    \end{tikzpicture}
+\end{figure}
 
 \end{document}

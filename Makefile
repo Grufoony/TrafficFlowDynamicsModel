@@ -1,13 +1,13 @@
 .PHONY: run run1 run2 wsl debug windows visual test periodictest rimini
 run:
 	clear
-	./test.wsl matrix.dat vehicletype.dat 300 380 15001
+	./test.wsl matrix.dat vehicletype.dat 300 200 15001
 run1:
 	clear
-	./test.wsl matrix.dat vehicletype.dat 300 25000 6301
+	./test.wsl matrix.dat vehicletype.dat 300 30000 6301
 run2:
 	clear
-	./test.wsl matrix.dat vehicletype.dat 300 2000 32400 55000
+	./test.wsl matrix.dat vehicletype.dat 300 2100 32400 55000
 test:
 	clear
 	./test.wsl matrix_old.dat vehicletype_old.dat 300 0 0
