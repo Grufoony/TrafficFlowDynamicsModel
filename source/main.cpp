@@ -104,12 +104,12 @@ int main(int argc, char **argv) {
     for (int t = 0; t < std::stoi(argv[5]); ++t) {
       printLoadingBar(t, std::stoi(argv[5]));
       if (t % 100 == 0) {
-        g.fprintHistogram(DATA_FOLDER, 15);
-        g.fprintDistribution(DATA_FOLDER, "u/q");
-        g.fprintDistribution(DATA_FOLDER, "q/k");
-        g.fprintDistribution(DATA_FOLDER, "u/k");
-        g.fprintActualState(DATA_FOLDER, "q/k");
-        g.fprintActualState(DATA_FOLDER, "u/k");
+        // g.fprintHistogram(DATA_FOLDER, 15);
+        // g.fprintDistribution(DATA_FOLDER, "u/q");
+        // g.fprintDistribution(DATA_FOLDER, "q/k");
+        // g.fprintDistribution(DATA_FOLDER, "u/k");
+        // g.fprintActualState(DATA_FOLDER, "q/k");
+        // g.fprintActualState(DATA_FOLDER, "u/k");
         g.fprintTimeDistribution(DATA_FOLDER, "k", 0.);
         g.fprintTimeDistribution(DATA_FOLDER, "q", 0.);
         g.fprintTimeDistribution(DATA_FOLDER, "u", 0.);
@@ -170,12 +170,12 @@ int main(int argc, char **argv) {
         // g.addRndmVehicles(dVehicle / 2);
       }
       if (t % 900 == 0) {
-        g.fprintHistogram(DATA_FOLDER, 15);
-        g.fprintDistribution(DATA_FOLDER, "u/q");
-        g.fprintDistribution(DATA_FOLDER, "q/k");
-        g.fprintDistribution(DATA_FOLDER, "u/k");
-        g.fprintActualState(DATA_FOLDER, "q/k");
-        g.fprintActualState(DATA_FOLDER, "u/k");
+        // g.fprintHistogram(DATA_FOLDER, 15);
+        // g.fprintDistribution(DATA_FOLDER, "u/q");
+        // g.fprintDistribution(DATA_FOLDER, "q/k");
+        // g.fprintDistribution(DATA_FOLDER, "u/k");
+        // g.fprintActualState(DATA_FOLDER, "q/k");
+        // g.fprintActualState(DATA_FOLDER, "u/k");
         g.fprintTimeDistribution(DATA_FOLDER, "k", 4.);
         g.fprintTimeDistribution(DATA_FOLDER, "q", 4.);
         g.fprintTimeDistribution(DATA_FOLDER, "u", 4.);

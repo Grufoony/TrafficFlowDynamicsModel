@@ -663,8 +663,8 @@ void Graph::test() {
                         } else
                           return false;
                       });
-    fOut << std::setprecision(3) << i * binSize << '\t' << n << '\n';
+    fOut << std::setprecision(3) << i * binSize / 3.6e3 << '\t' << n << '\n';
   }
-  fOut << (nBins + 1.) * binSize;
+  fOut << (nBins + 1.) * binSize / 3.6e3;
   fOut.close();
 }

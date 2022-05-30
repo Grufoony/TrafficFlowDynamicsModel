@@ -38,11 +38,61 @@ Unendo le Eq. (\ref{eq:phi_s}) e (\ref{eq:rho_s}):
 \begin{equation}
     \bar{v}(x, t, S)=\frac{\Phi(x, \Delta t, S)}{\rho(t,\Delta x, S)}
 \end{equation}
+La velocit\`a media \`e espressa in kilometri orari (km/h).
 La relazione fondamentale della teoria dei flussi di traffico \`e riassumibile nella:
 \begin{equation}
     \Phi=\rho\bar{v}
     \label{eq:fundamental}
 \end{equation}
+
+\subsection{Tempo di percorrenza}
+Gli osservabili descritti in precedenza, quali velocit\`a media, densit\`a e flusso, sono estremamente utili ai fini di un'analisi quantitativa di un problema di traffico.
+Tuttavia, per un problema di questo tipo sarebbe ideale trovare un osservabile il cui valore riesca a far capire grossolanamente lo stato del sistema.
+Ad esempio, l'informazione fornita dalla frase \emph{la temperatura esterna \`e di circa 27 °C} suggerisce un abbigliamento leggero, mentre l'informazione \emph{la velocit\`a media dell'aria \`e di circa 410 m/s} non \`e molto chiara, pur significando la stessa cosa.
+Nel caso del traffico l'osservabile in questione \`e il tempo di percorrenza, definito come il tempo impiegato da un individuo per giungere alla propria destinazione.
+
+Tre diversi andamenti possono essere distinti graficando la frequenza con cui i veicoli impiegano un determinato tempo per percorrere ciascuno il proprio percorso \cite{TravelTime}:
+\begin{itemize}
+    \item \emph{distribuzione normale unimodale}, tipica di un sistema con densit\`a approssimativamente nulla su ogni strada.
+        Tipicamente la gaussiana risultante \`e centrata in prossimit\`a dello zero, o comunque a tempi molto bassi;
+    \item \emph{distribuzione lognormale unimodale}, si ottiene caricando il sistema a partire dalla condizione precedente.
+        La gaussiana tende ad allungare la coda rivolta verso i tempi pi\`u alti, ad indicare che alcune strade stanno cominciando a congestionarsi;
+    \item \emph{distribuzione normale bimodale}, si ottiene una volta giunti alla congestione del sistema.
+        In questo caso si hanno due gaussiane con due differenti picchi, rappresentanti veicoli ``fortunati'', che trovano le strade libere, e ``sfortunati'', che rimangono intrappolati in congestione.
+\end{itemize}
+In Fig. \ref{fig:frequency_distributions} sono rappresentati i tre andamenti, rispettivamente in blu, rosso e verde.
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            grid = both,
+            major grid style = {lightgray},
+            minor grid style = {lightgray},
+            width = 0.85\textwidth,
+            height = 0.5\textwidth,
+            xlabel = {Tempo di percorrenza (u.a.)},
+            ylabel = {Frequenza},]
+            \addplot[
+                domain = 0:8,
+                smooth,
+                color = blue,
+                line width = 1.5pt,] {e^(-(x-1)^2)};
+            \addplot[
+                domain = 0:8,
+                smooth,
+                color = red,
+                line width = 1.5pt,] {e^(-ln(x)^2)};
+            \addplot[
+                domain = 0:8,
+                smooth,
+                color = green,
+                line width = 1.5pt,] {e^(-2*((x-1)^2))+e^(-(2*(x-3)^2))};
+        \legend{Normale Unimodale, Lognormale Unimodale, Normale Bimodale}
+        \end{axis}
+    \end{tikzpicture}
+    \caption[Frequenza di veicoli in funzione del tempo di percorrenza]{\emph{Frequenza di veicoli in funzione del tempo di percorrenza.}}
+    \label{fig:frequency_distributions}
+\end{figure}
 
 \section{Diagrammi Fondamentali Macroscopici}
 A causa della relazione fondamentale del traffico riportata in Eq. (\ref{eq:fundamental}) risulta chiaro come su tre osservabili analizzati si abbiano solamente due variabili indipendenti.

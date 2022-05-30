@@ -64,7 +64,7 @@ L'ipotesi \`e verificata in Fig. \ref{fig:nStreet_density_constant_homo} dove, g
     width = 2\textwidth,
     height = 1.5\textwidth,
     xlabel = {Densit\`a di veicoli},
-    ylabel = {Numero di strade},]
+    ylabel = {Frequenza},]
     \addplot+[
     ybar interval,
     mark=no,
@@ -72,7 +72,7 @@ L'ipotesi \`e verificata in Fig. \ref{fig:nStreet_density_constant_homo} dove, g
     ] plot file {./data/constant_homo/7200.dat};
     \end{axis}
     \end{tikzpicture}
-    \caption[Distribuzione strade non congestionate per un reticolo omogeneo.]{\emph{Distribuzione strade non congestionate per un reticolo omogeneo.}}
+    \caption[Distribuzione delle strade non congestionate per un reticolo omogeneo.]{\emph{Distribuzione delle strade non congestionate per un reticolo omogeneo.}}
     \label{fig:nStreet_density_constant_homo}
 \end{figure}
 Non formandosi nessuna congestione ci si aspetta che il sistema si svuoti allo stesso modo in cui si \`e riempito.
@@ -146,13 +146,14 @@ Si osserva cos\`i in Fig. \ref{fig:peaked_homo} un picco iniziale della densit\`
 Una volta caricato il sistema ci si aspetta che la distribuzione di veicoli nelle strade non resti omogenea nel tempo: gli agenti presenti sul sistema tenderanno ad occupare le strade costituenti i loro \emph{best path} e a lasciare vuote quelle pi\`u lontane da essi.
 \begin{figure}[H]
     \centering
-    \begin{tikzpicture}[scale=0.25]
+    \begin{tikzpicture}
     \begin{axis}[ybar interval,
+    every tick label/.append style={font=\tiny},
     area style,
-    width = 2\textwidth,
-    height = 1.5\textwidth,
+    width = 0.75\textwidth,
+    height = 0.50\textwidth,
     xlabel = {Densit\`a (veh/km)},
-    ylabel = {Numero di strade},]
+    ylabel = {Frequenza},]
     \addplot+[
     ybar interval,
     mark=no,
@@ -160,7 +161,7 @@ Una volta caricato il sistema ci si aspetta che la distribuzione di veicoli nell
     ] plot file {./data/peaked_homo/2700.dat};
     \end{axis}
     \end{tikzpicture}
-    \caption[Distribuzione strade non congestionate per un reticolo omogeneo.]{\emph{Distribuzione strade congestionate per un reticolo omogeneo.}}
+    \caption[Distribuzione delle strade non congestionate per un reticolo omogeneo.]{\emph{Distribuzione delle strade congestionate per un reticolo omogeneo.}}
     \label{fig:nStreet_density_peaked_homo}
 \end{figure}
 In Fig. \ref{fig:nStreet_density_peaked_homo} \`e visibile il diagramma caratteristico della congestione, in cui sono presenti, come atteso, un gran numero di strade vuote e altrettante sature.
@@ -321,13 +322,101 @@ A ogni picco corrisponde una fase di carico/scarico, quindi, come osservato prec
     mark=o] file {./data/periodic_homo/q-k.dat};
     \end{axis}
     \end{tikzpicture}
-    \caption[Isteresi per un reticolo omogeneo caricato periodicamente]{\emph{Cicli di isteresi sul piano $\Phi/\rho$ per un reticolo omogeneo caricato periodicamente.}}
+    \caption[Isteresi per un reticolo omogeneo caricato periodicamente]{\emph{Cicli di isteresi sul piano flusso/densit\`a per un reticolo omogeneo caricato periodicamente.}}
     \label{fig:hysteresys_periodic_homo}
 \end{figure}
 Come si pu\`o notare in Fig. \ref{fig:hysteresys_periodic_homo} sono effettivamente presenti tre diversi cicli di isteresi.
 Si osserva, inoltre, che il secondo ciclo ha ampiezza inferiore, essendo il picco di densit\`a meno pronunciato.
 
-\section{Rete stradale di Rimini (?)}
+\section{Tempo di percorrenza}
+Un'ultima analisi effettuata riguarda il tempo di percorrenza.
+Per evidenziare i comportamenti attesi rappresentati in Fig. \ref{fig:frequency_distributions} si \`e deciso di effettuare una simulazione a parte caricando progressivamente il sistema come si puo\` notare dall'aumento della densit\`a media riportato in Fig. \ref{fig:density_travel_time}.
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+    \begin{axis}[
+    grid = both,
+    major grid style = {lightgray},
+    minor grid style = {lightgray!25},
+    width = 0.75\textwidth,
+    height = 0.5\textwidth,
+    ylabel near ticks,
+    xlabel near ticks,
+    xlabel = {Tempo (h)},
+    ylabel = {Densit\`a media (veh/km)},]
+    \addplot[
+    mark size=0.69,
+    draw=black,
+    mark=o] file {./data/travel_time/k-t.dat};
+    \end{axis}
+    \end{tikzpicture}
+    \caption[Distribuzione della densit\`a media per un reticolo omogeneo caricato progressivamente]{\emph{Distribuzione della densit\`a media per un reticolo omogeneo caricato progressivamente.}}
+    \label{fig:density_travel_time}
+\end{figure}
+Dopo 50 minuti da inizio simulazione, ossia quando vi \`e ancora uno stato di traffico libero, si pu\`o notare in Fig. \ref{fig:frequency_free_flow} una distribuzione normale centrata su tempi relativamente bassi, dell'ordine del quarto d'ora.
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+    \begin{axis}[ybar interval,
+    every tick label/.append style={font=\tiny},
+    area style,
+    width = 1\textwidth,
+    height = 0.75\textwidth,
+    xlabel = {Tempo di percorrenza (s)},
+    ylabel = {Frequenza},]
+    \addplot+[
+    ybar interval,
+    mark=no,
+    line width = 1.25pt
+    ] plot file {./data/travel_time/3000_t.dat};
+    \end{axis}
+    \end{tikzpicture}
+    \caption[Distribuzione del tempo di percorrenza con traffico libero]{\emph{Distribuzione del tempo di percorrenza con traffico libero.}}
+    \label{fig:frequency_free_flow}
+\end{figure}
+Continuando a caricare il sistema ci si aspetta che un numero sempre maggiore di individui capiti in strade trafficate, aumentando cos\`i la coda gaussiana tendente a tempi pi\`u elevati: \`e il caso riportato in Fig. \ref{fig:frequency_flow}, corrispondente a circa 1.75 h da inizio simulazione.
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[scale=0.25]
+    \begin{axis}[ybar interval,
+    area style,
+    width = 2\textwidth,
+    height = 1.5\textwidth,
+    xlabel = {Tempo di percorrenza (s)},
+    ylabel = {Frequenza},]
+    \addplot+[
+    ybar interval,
+    mark=no,
+    line width = 1.25pt
+    ] plot file {./data/travel_time/6000_t.dat};
+    \end{axis}
+    \end{tikzpicture}
+    \caption[Distribuzione del tempo di percorrenza con traffico]{\emph{Distribuzione del tempo di percorrenza con traffico.}}
+    \label{fig:frequency_flow}
+\end{figure}
+Infine, dopo circa 3.36 h da inizio simulazione il sistema risulta congestionato.
+L'andamento della frequenza, riportato in Fig. \ref{fig:frequency_congested_flow}, segue una distribuzione normale bimodale, come previsto teoricamente.
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[scale=0.25]
+    \begin{axis}[ybar interval,
+    area style,
+    width = 2\textwidth,
+    height = 1.5\textwidth,
+    xlabel = {Tempo di percorrenza (s)},
+    ylabel = {Frequenza},]
+    \addplot+[
+    ybar interval,
+    mark=no,
+    line width = 1.25pt
+    ] plot file {./data/travel_time/12100_t.dat};
+    \end{axis}
+    \end{tikzpicture}
+    \caption[Distribuzione del tempo di percorrenza con traffico congestionato]{\emph{Distribuzione del tempo di percorrenza con traffico congestionato.}}
+    \label{fig:frequency_congested_flow}
+\end{figure}
+Complessivamente, si osserva come il tempo di percorrenza aumenti all'aumentare delle congestioni, passando dall'ordine della decina di minuti all'ordine dell'ora.
+%TODO: fittare gli istogrammi
 
 \section{Discussione}
 L'analisi dei diagrammi fondamentali macroscopici condotta in diverse situazioni ha evidenziato una forte dipendenza tra i valori medi di flusso, velocit\`a e densit\`a.
@@ -345,29 +434,10 @@ Analogamente al caso precedente, nel caso di un carico periodico si osservano, i
 
 Nonostante il modello riproduca egregiamente numerose caratteristiche delle congestioni di traffico risulta sostanzialmente incompleto.
 Manca, ad esempio, la possibilit\`a di ricalcolare i \emph{best path} in base alle condizioni istantanee di traffico, oltre all'implementazione di alcune caratteristiche tipiche degli OVM (\emph{Optimal Velocity Model}) come la dipendenza della velocit\`a e della distanza di un veicolo in base al precedente.
-Ulterioristudi potrebbero essere svolte per vericare come queste revisioni impattino sui DFM, anche prese singolarmente.
+Ulteriori studi potrebbero essere svolti per vericare come queste revisioni impattino sui DFM, anche prese singolarmente.
 
 
-\section{Test}
-
-\begin{figure}[H]
-    \centering
-    \begin{tikzpicture}[scale=0.5]
-    \begin{axis}[ybar interval,
-    area style,
-    width = 2\textwidth,
-    height = 1.5\textwidth,
-    xlabel = {Densità di veicoli},
-    ylabel = {Numero di strade},]
-    \addplot+[
-    ybar interval,
-    mark=no,
-    line width = 1.25pt
-    ] plot file {./temp_data/12100_t.dat};
-    \end{axis}
-    \end{tikzpicture}
-    \caption{\emph{Prova.}}
-\end{figure}
+% \section{Test}
 
 % \begin{figure}[H]
 %     \centering
@@ -376,13 +446,51 @@ Ulterioristudi potrebbero essere svolte per vericare come queste revisioni impat
 %     area style,
 %     width = 2\textwidth,
 %     height = 1.5\textwidth,
-%     xlabel = {Densità di veicoli},
-%     ylabel = {Numero di strade},]
+%     xlabel = {Tempo di percorrenza (s)},
+%     ylabel = {Numero di veicoli},]
 %     \addplot+[
 %     ybar interval,
 %     mark=no,
 %     line width = 1.25pt
-%     ] plot file {./temp_data/45900_t.dat};
+%     ] plot file {./temp_data/3000_t.dat};
+%     \end{axis}
+%     \end{tikzpicture}
+%     \caption{\emph{Prova.}}
+% \end{figure}
+
+% \begin{figure}[H]
+%     \centering
+%     \begin{tikzpicture}[scale=0.5]
+%     \begin{axis}[ybar interval,
+%     area style,
+%     width = 2\textwidth,
+%     height = 1.5\textwidth,
+%     xlabel = {Tempo di percorrenza (s)},
+%     ylabel = {Numero di veicoli},]
+%     \addplot+[
+%     ybar interval,
+%     mark=no,
+%     line width = 1.25pt
+%     ] plot file {./temp_data/6000_t.dat};
+%     \end{axis}
+%     \end{tikzpicture}
+%     \caption{\emph{Prova.}}
+% \end{figure}
+
+% \begin{figure}[H]
+%     \centering
+%     \begin{tikzpicture}[scale=0.5]
+%     \begin{axis}[ybar interval,
+%     area style,
+%     width = 2\textwidth,
+%     height = 1.5\textwidth,
+%     xlabel = {Tempo di percorrenza (s)},
+%     ylabel = {Numero di veicoli},]
+%     \addplot+[
+%     ybar interval,
+%     mark=no,
+%     line width = 1.25pt
+%     ] plot file {./temp_data/12100_t.dat};
 %     \end{axis}
 %     \end{tikzpicture}
 %     \caption{\emph{Prova.}}
@@ -463,109 +571,109 @@ Ulterioristudi potrebbero essere svolte per vericare come queste revisioni impat
 %     \caption[Diagrammi fondamentali con distribuzione omogenea]{\emph{Diagrammi fondamentali con distribuzione omogenea.}}
 % \end{figure}
 
-\begin{figure}[H]
-    \centering
-    \begin{tikzpicture}
-    \begin{axis}[
-    grid = both,
-    major grid style = {lightgray},
-    minor grid style = {lightgray!25},
-    width = 0.75\textwidth,
-    height = 0.5\textwidth,
-    ylabel near ticks,
-    xlabel near ticks,
-    xlabel = {Densit\`a media (veh/km)},
-    ylabel = {Flusso medio (veh/h)},]
-    \addplot[
-    mark size=0.69,
-    draw=black,
-    mark=o] file {./temp_data/q-k.dat};
-    \end{axis}
-    \end{tikzpicture}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \begin{tikzpicture}
+%     \begin{axis}[
+%     grid = both,
+%     major grid style = {lightgray},
+%     minor grid style = {lightgray!25},
+%     width = 0.75\textwidth,
+%     height = 0.5\textwidth,
+%     ylabel near ticks,
+%     xlabel near ticks,
+%     xlabel = {Densit\`a media (veh/km)},
+%     ylabel = {Flusso medio (veh/h)},]
+%     \addplot[
+%     mark size=0.69,
+%     draw=black,
+%     mark=o] file {./temp_data/q-k.dat};
+%     \end{axis}
+%     \end{tikzpicture}
+% \end{figure}
 
-\begin{figure}[H]
-    \centering
-    \begin{tikzpicture}
-    \begin{axis}[
-    grid = both,
-    major grid style = {lightgray},
-    minor grid style = {lightgray!25},
-    width = 0.75\textwidth,
-    height = 0.5\textwidth,
-    ylabel near ticks,
-    xlabel near ticks,
-    xlabel = {Densit\`a media (veh/km)},
-    ylabel = {Velocit\`a medio (veh/h)},]
-    \addplot[
-    mark size=0.69,
-    draw=black,
-    mark=o] file {./temp_data/u-k.dat};
-    \end{axis}
-    \end{tikzpicture}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \begin{tikzpicture}
+%     \begin{axis}[
+%     grid = both,
+%     major grid style = {lightgray},
+%     minor grid style = {lightgray!25},
+%     width = 0.75\textwidth,
+%     height = 0.5\textwidth,
+%     ylabel near ticks,
+%     xlabel near ticks,
+%     xlabel = {Densit\`a media (veh/km)},
+%     ylabel = {Velocit\`a medio (veh/h)},]
+%     \addplot[
+%     mark size=0.69,
+%     draw=black,
+%     mark=o] file {./temp_data/u-k.dat};
+%     \end{axis}
+%     \end{tikzpicture}
+% \end{figure}
 
-\begin{figure}[H]
-    \centering
-    \begin{tikzpicture}
-    \begin{axis}[
-    grid = both,
-    major grid style = {lightgray},
-    minor grid style = {lightgray!25},
-    width = 0.75\textwidth,
-    height = 0.5\textwidth,
-    ylabel near ticks,
-    xlabel near ticks,
-    xlabel = {Tempo (h)},
-    ylabel = {Densit\`a media (veh/km)},]
-    \addplot[
-    mark size=0.69,
-    draw=black,
-    mark=o] file {./temp_data/k-t.dat};
-    \end{axis}
-    \end{tikzpicture}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \begin{tikzpicture}
+%     \begin{axis}[
+%     grid = both,
+%     major grid style = {lightgray},
+%     minor grid style = {lightgray!25},
+%     width = 0.75\textwidth,
+%     height = 0.5\textwidth,
+%     ylabel near ticks,
+%     xlabel near ticks,
+%     xlabel = {Tempo (h)},
+%     ylabel = {Densit\`a media (veh/km)},]
+%     \addplot[
+%     mark size=0.69,
+%     draw=black,
+%     mark=o] file {./temp_data/k-t.dat};
+%     \end{axis}
+%     \end{tikzpicture}
+% \end{figure}
 
-\begin{figure}[H]
-    \centering
-    \begin{tikzpicture}
-    \begin{axis}[
-    grid = both,
-    major grid style = {lightgray},
-    minor grid style = {lightgray!25},
-    width = 0.75\textwidth,
-    height = 0.5\textwidth,
-    ylabel near ticks,
-    xlabel near ticks,
-    xlabel = {Tempo (h)},
-    ylabel = {Flusso medio (veh/h)},]
-    \addplot[
-    mark size=0.69,
-    draw=black,
-    mark=o] file {./temp_data/q-t.dat};
-    \end{axis}
-    \end{tikzpicture}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \begin{tikzpicture}
+%     \begin{axis}[
+%     grid = both,
+%     major grid style = {lightgray},
+%     minor grid style = {lightgray!25},
+%     width = 0.75\textwidth,
+%     height = 0.5\textwidth,
+%     ylabel near ticks,
+%     xlabel near ticks,
+%     xlabel = {Tempo (h)},
+%     ylabel = {Flusso medio (veh/h)},]
+%     \addplot[
+%     mark size=0.69,
+%     draw=black,
+%     mark=o] file {./temp_data/q-t.dat};
+%     \end{axis}
+%     \end{tikzpicture}
+% \end{figure}
 
-\begin{figure}[H]
-    \centering
-    \begin{tikzpicture}
-    \begin{axis}[
-    grid = both,
-    major grid style = {lightgray},
-    minor grid style = {lightgray!25},
-    width = 0.75\textwidth,
-    height = 0.5\textwidth,
-    ylabel near ticks,
-    xlabel near ticks,
-    xlabel = {Tempo (h)},
-    ylabel = {Velocit\`a media (km/h)},]
-    \addplot[
-    mark size=0.69,
-    draw=black,
-    mark=o] file {./temp_data/u-t.dat};
-    \end{axis}
-    \end{tikzpicture}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \begin{tikzpicture}
+%     \begin{axis}[
+%     grid = both,
+%     major grid style = {lightgray},
+%     minor grid style = {lightgray!25},
+%     width = 0.75\textwidth,
+%     height = 0.5\textwidth,
+%     ylabel near ticks,
+%     xlabel near ticks,
+%     xlabel = {Tempo (h)},
+%     ylabel = {Velocit\`a media (km/h)},]
+%     \addplot[
+%     mark size=0.69,
+%     draw=black,
+%     mark=o] file {./temp_data/u-t.dat};
+%     \end{axis}
+%     \end{tikzpicture}
+% \end{figure}
 
 \end{document}
