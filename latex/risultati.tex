@@ -330,7 +330,7 @@ Si osserva, inoltre, che il secondo ciclo ha ampiezza inferiore, essendo il picc
 
 \section{Tempo di percorrenza}
 Un'ultima analisi effettuata riguarda il tempo di percorrenza.
-Per evidenziare i comportamenti attesi rappresentati in Fig. \ref{fig:frequency_distributions} si \`e deciso di effettuare una simulazione a parte caricando progressivamente il sistema come si puo\` notare dall'aumento della densit\`a media riportato in Fig. \ref{fig:density_travel_time}.
+Per evidenziare i comportamenti attesi rappresentati in Fig. \ref{fig:frequency_distributions} si \`e deciso di effettuare una simulazione a parte caricando progressivamente il sistema come si pu\`o notare dall'aumento della densit\`a media riportato in Fig. \ref{fig:density_travel_time}.
 \begin{figure}[H]
     \centering
     \begin{tikzpicture}
@@ -350,7 +350,7 @@ Per evidenziare i comportamenti attesi rappresentati in Fig. \ref{fig:frequency_
     mark=o] file {./data/travel_time/k-t.dat};
     \end{axis}
     \end{tikzpicture}
-    \caption[Distribuzione della densit\`a media per un reticolo omogeneo caricato progressivamente]{\emph{Distribuzione della densit\`a media per un reticolo omogeneo caricato progressivamente.}}
+    \caption[Distribuzione della densit\`a media per un reticolo omogeneo caricato progressivamente]{\emph{Variazione della densit\`a media nel tempo per un reticolo omogeneo caricato progressivamente.}}
     \label{fig:density_travel_time}
 \end{figure}
 Dopo 50 minuti da inizio simulazione, ossia quando vi \`e ancora uno stato di traffico libero, si pu\`o notare in Fig. \ref{fig:frequency_free_flow} una distribuzione normale centrata su tempi relativamente bassi, dell'ordine del quarto d'ora.
@@ -360,9 +360,9 @@ Dopo 50 minuti da inizio simulazione, ossia quando vi \`e ancora uno stato di tr
     \begin{axis}[ybar interval,
     every tick label/.append style={font=\tiny},
     area style,
-    width = 1\textwidth,
-    height = 0.75\textwidth,
-    xlabel = {Tempo di percorrenza (s)},
+    width = 0.75\textwidth,
+    height = 0.5\textwidth,
+    xlabel = {Tempo di percorrenza (min)},
     ylabel = {Frequenza},]
     \addplot+[
     ybar interval,
@@ -377,12 +377,13 @@ Dopo 50 minuti da inizio simulazione, ossia quando vi \`e ancora uno stato di tr
 Continuando a caricare il sistema ci si aspetta che un numero sempre maggiore di individui capiti in strade trafficate, aumentando cos\`i la coda gaussiana tendente a tempi pi\`u elevati: \`e il caso riportato in Fig. \ref{fig:frequency_flow}, corrispondente a circa 1.75 h da inizio simulazione.
 \begin{figure}[H]
     \centering
-    \begin{tikzpicture}[scale=0.25]
+    \begin{tikzpicture}
     \begin{axis}[ybar interval,
+    every tick label/.append style={font=\tiny},
     area style,
-    width = 2\textwidth,
-    height = 1.5\textwidth,
-    xlabel = {Tempo di percorrenza (s)},
+    width = 0.75\textwidth,
+    height = 0.5\textwidth,
+    xlabel = {Tempo di percorrenza (min)},
     ylabel = {Frequenza},]
     \addplot+[
     ybar interval,
@@ -398,12 +399,13 @@ Infine, dopo circa 3.36 h da inizio simulazione il sistema risulta congestionato
 L'andamento della frequenza, riportato in Fig. \ref{fig:frequency_congested_flow}, segue una distribuzione normale bimodale, come previsto teoricamente.
 \begin{figure}[H]
     \centering
-    \begin{tikzpicture}[scale=0.25]
+    \begin{tikzpicture}
     \begin{axis}[ybar interval,
+    every tick label/.append style={font=\tiny},
     area style,
-    width = 2\textwidth,
-    height = 1.5\textwidth,
-    xlabel = {Tempo di percorrenza (s)},
+    width = 0.75\textwidth,
+    height = 0.5\textwidth,
+    xlabel = {Tempo di percorrenza (min)},
     ylabel = {Frequenza},]
     \addplot+[
     ybar interval,
