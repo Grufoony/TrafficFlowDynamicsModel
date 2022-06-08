@@ -652,9 +652,10 @@ void Graph::test() {
   double binSize = 6e3 / nBins;
   auto out = "./temp_data/" + std::to_string(_time) + "_t.dat";
   fOut.open(out);
-  int n;
+  int j;
+  std::vector<double> N;
   for (int i = 0; i < nBins + 1; ++i) {
-    n = std::count_if(_vehicles.begin(), _vehicles.end(),
+    j = std::count_if(_vehicles.begin(), _vehicles.end(),
                       [i, binSize](std::shared_ptr<Vehicle> const &vehicle) {
                         if (vehicle->getPosition() ==
                             vehicle->getDestination()) {
@@ -663,8 +664,15 @@ void Graph::test() {
                         } else
                           return false;
                       });
-    fOut << std::setprecision(3) << i * binSize / 60 << '\t' << n << '\n';
+    N.push_back(static_cast<double>(j));
+    // fOut << std::setprecision(3) << i * binSize / 60 << '\t' << n << '\n';
   }
-  fOut << (nBins + 1.) * binSize / 3.6e3;
+  normalizeVec(N);
+  j = 0;
+  for (auto const &n : N) {
+    fOut << std::setprecision(3) << j * binSize / 60 << '\t' << n << '\n';
+    ++j;
+  }
+  // fOut << (nBins + 1.) * binSize / 3.6e3;
   fOut.close();
 }
