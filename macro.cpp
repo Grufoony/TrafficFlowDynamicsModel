@@ -18,7 +18,7 @@ void macro() {
         h2->Fill(data);
     }
     fIn.close();
-    fIn.open("./temp_data/10000_root.dat");
+    fIn.open("./temp_data/12100_root.dat");
     while(fIn >> data) {
         h3->Fill(data);
     }
@@ -37,11 +37,10 @@ void macro() {
     // g1->SetParameters(2, 19, 8);
     // auto g2= new TF1("g2","gaus", 0, 100);
     // g2->SetParameters(2, 60, 8);
-    // auto f3 = new TF1("f3", "[0]*TMath::Exp((x-[1])^2/(2*[2]))+[3]*TMath::Exp((x-[4])^2/(2*[5]))", 0, 100);
-    auto prova= new TF1("g1","gaus", 0, 100);
-    // f3->SetParameters(6, 19, 8, 2, 40, 8);
+    auto f3 = new TF1("f3", "[0]*TMath::Gaus(x, [1], [2])+[3]*TMath::Gaus(x, [4], [5])", 0, 100);
+    f3->SetParameters(6, 19, 8, 2, 40, 8);
 
-    h3->Fit(prova, "R");
+    h3->Fit(f3, "R");
     h3->Draw("HIST,SAME");
 
 
