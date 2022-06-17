@@ -104,7 +104,7 @@ int main(int argc, char **argv) {
     for (int t = 0; t < std::stoi(argv[5]); ++t) {
       printLoadingBar(t, std::stoi(argv[5]));
       if (t % 100 == 0) {
-        // g.fprintHistogram(DATA_FOLDER, 15);
+        // g.fprintHistogram(DATA_FOLDER, "density", 15);
         // g.fprintDistribution(DATA_FOLDER, "u/q");
         // g.fprintDistribution(DATA_FOLDER, "q/k");
         // g.fprintDistribution(DATA_FOLDER, "u/k");
@@ -113,6 +113,7 @@ int main(int argc, char **argv) {
         g.fprintTimeDistribution(DATA_FOLDER, "k", 0.);
         g.fprintTimeDistribution(DATA_FOLDER, "q", 0.);
         g.fprintTimeDistribution(DATA_FOLDER, "u", 0.);
+        g.fprintHistogram(DATA_FOLDER, "traveltime", 20);
         g.test();
       }
       // constant analysis
@@ -170,7 +171,7 @@ int main(int argc, char **argv) {
         // g.addRndmVehicles(dVehicle / 2);
       }
       if (t % 900 == 0) {
-        // g.fprintHistogram(DATA_FOLDER, 15);
+        // g.fprintHistogram(DATA_FOLDER, "density", 15);
         // g.fprintDistribution(DATA_FOLDER, "u/q");
         // g.fprintDistribution(DATA_FOLDER, "q/k");
         // g.fprintDistribution(DATA_FOLDER, "u/k");
@@ -181,7 +182,7 @@ int main(int argc, char **argv) {
         g.fprintTimeDistribution(DATA_FOLDER, "u", 4.);
       }
       if (t % 100 == 0 && t != 0) {
-        g.test();
+        g.fprintHistogram(DATA_FOLDER, "traveltime", 100);
       }
       g.evolve(false);
     }

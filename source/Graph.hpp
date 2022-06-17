@@ -57,7 +57,7 @@ public:
   void fprint(bool const) const noexcept; // print network info on file
   void
   fprintVisual(std::string const &) const noexcept; // print file for visual.py
-  void fprintHistogram(std::string const &,
+  void fprintHistogram(std::string const &, std::string const &,
                        int const) const noexcept; // print histograms
   void fprintDistribution(
       std::string const &,

@@ -505,20 +505,49 @@ void Graph::fprintVisual(std::string const &out_folder) const noexcept {
 }
 
 void Graph::fprintHistogram(std::string const &out_folder,
+                            std::string const &opt,
                             int const nBins) const noexcept {
   std::ofstream fOut;
-  auto out = out_folder + std::to_string(_time) + ".dat";
-  fOut.open(out);
-  int n;
-  for (int i = 0; i < nBins + 1; ++i) {
-    n = std::count_if(_streets.begin(), _streets.end(),
-                      [i, nBins](std::shared_ptr<Street> const &street) {
-                        return street->getDensity() >= i * (1. / nBins) &&
-                               street->getDensity() < (i + 1) * (1. / nBins);
-                      });
-    fOut << std::setprecision(3) << i * (1. / nBins) << '\t' << n << '\n';
+  if (opt == "density") {
+    auto out = out_folder + std::to_string(_time) + "den.dat";
+    fOut.open(out);
+    int n;
+    for (int i = 0; i < nBins + 1; ++i) {
+      n = std::count_if(_streets.begin(), _streets.end(),
+                        [i, nBins](std::shared_ptr<Street> const &street) {
+                          return street->getDensity() >= i * (1. / nBins) &&
+                                 street->getDensity() < (i + 1) * (1. / nBins);
+                        });
+      fOut << std::setprecision(3) << i * (1. / nBins) << '\t' << n << '\n';
+    }
+    fOut << (nBins + 1.) * (1. / nBins);
+  } else if (opt == "traveltime") {
+    double binSize = 6e3 / nBins;
+    auto out = "./temp_data/" + std::to_string(_time) + "_t.dat";
+    fOut.open(out);
+    int j;
+    std::vector<double> N;
+    for (int i = 0; i < nBins + 1; ++i) {
+      j = std::count_if(
+          _vehicles.begin(), _vehicles.end(),
+          [i, binSize](std::shared_ptr<Vehicle> const &vehicle) {
+            if (vehicle->getPosition() == vehicle->getDestination()) {
+              return vehicle->getTimeTraveled() >= i * binSize &&
+                     vehicle->getTimeTraveled() < (i + 1) * binSize;
+            } else
+              return false;
+          });
+      N.push_back(static_cast<double>(j));
+      // fOut << std::setprecision(3) << i * binSize / 60 << '\t' << n << '\n';
+    }
+    normalizeVec(N);
+    j = 0;
+    for (auto const &n : N) {
+      fOut << std::setprecision(3) << j * binSize / 60 << '\t' << n << '\n';
+      ++j;
+    }
   }
-  fOut << (nBins + 1.) * (1. / nBins);
+
   fOut.close();
 }
 
@@ -647,32 +676,32 @@ void Graph::save(const char *fileName) const noexcept {
 
 // funzione da eliminare (DEBUG)
 void Graph::test() {
+  // to root file
   std::ofstream fOut;
-  int nBins = 20;
-  double binSize = 6e3 / nBins;
-  auto out = "./temp_data/" + std::to_string(_time) + "_t.dat";
+  auto out = "./temp_data/" + std::to_string(_time) + "_root.dat";
+  // int nBins = 100;
+  // double binSize = 6e3 / nBins;
   fOut.open(out);
-  int j;
   std::vector<double> N;
-  for (int i = 0; i < nBins + 1; ++i) {
-    j = std::count_if(_vehicles.begin(), _vehicles.end(),
-                      [i, binSize](std::shared_ptr<Vehicle> const &vehicle) {
-                        if (vehicle->getPosition() ==
-                            vehicle->getDestination()) {
-                          return vehicle->getTimeTraveled() >= i * binSize &&
-                                 vehicle->getTimeTraveled() < (i + 1) * binSize;
-                        } else
-                          return false;
-                      });
-    N.push_back(static_cast<double>(j));
-    // fOut << std::setprecision(3) << i * binSize / 60 << '\t' << n << '\n';
+  for (auto const &vehicle : _vehicles) {
+    if (vehicle->getPosition() == vehicle->getDestination()) {
+      fOut << vehicle->getTimeTraveled() / 60 << '\n';
+    }
   }
-  normalizeVec(N);
-  j = 0;
-  for (auto const &n : N) {
-    fOut << std::setprecision(3) << j * binSize / 60 << '\t' << n << '\n';
-    ++j;
-  }
-  // fOut << (nBins + 1.) * binSize / 3.6e3;
+  // for (int i = 0; i < nBins + 1; ++i) {
+  //   j = std::count_if(_vehicles.begin(), _vehicles.end(),
+  //                     [i, binSize](std::shared_ptr<Vehicle> const &vehicle) {
+  //                       if (vehicle->getPosition() ==
+  //                           vehicle->getDestination()) {
+  //                         return vehicle->getTimeTraveled() >= i * binSize &&
+  //                                vehicle->getTimeTraveled() < (i + 1) *
+  //                                binSize;
+  //                       } else
+  //                         return false;
+  //                     });
+  //   N.push_back(static_cast<double>(j));
+  //   // fOut << std::setprecision(3) << i * binSize / 60 << '\t' << n << '\n';
+  // }
+  // normalizeVec(N);
   fOut.close();
 }
