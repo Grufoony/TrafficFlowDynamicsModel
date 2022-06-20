@@ -13,12 +13,12 @@ void macro() {
         h1->Fill(data);
     }
     fIn.close();
-    fIn.open("./temp_data/6000_root.dat");
+    fIn.open("./temp_data/4800_root.dat");
     while(fIn >> data) {
         h2->Fill(data);
     }
     fIn.close();
-    fIn.open("./temp_data/12100_root.dat");
+    fIn.open("./temp_data/11900_root.dat");
     while(fIn >> data) {
         h3->Fill(data);
     }
@@ -28,8 +28,9 @@ void macro() {
     h1->Fit("gaus");
     h1->Draw("HIST,SAME");
     canv->cd(2);
-    auto f2 = new TF1("f2","[0]*TMath::Exp([1]*x)", 30, 100);
-    f2->SetParameters(4.5, -6e-2);
+    // auto f2 = new TF1("f2","[0]*TMath::Exp([1]*x)", 30, 100);
+    auto f2 = new TF1("f2","[0]*TMath::Gaus(TMath::Log(x), [1], [2])/x", 0, 100);
+    f2->SetParameters(4.5, 30, 100);
     h2->Fit(f2, "R");
     h2->Draw("HIST,SAME");
     canv->cd(3);
