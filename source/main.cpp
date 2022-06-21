@@ -113,8 +113,7 @@ int main(int argc, char **argv) {
         g.fprintTimeDistribution(DATA_FOLDER, "k", 0.);
         g.fprintTimeDistribution(DATA_FOLDER, "q", 0.);
         g.fprintTimeDistribution(DATA_FOLDER, "u", 0.);
-        g.fprintHistogram(DATA_FOLDER, "traveltime", 20);
-        g.test();
+        g.fprintHistogram(DATA_FOLDER, "traveltime", 20, "root");
       }
       // constant analysis
       if (t < 12e3 && t % 60 == 0 && t != 0) {
@@ -182,7 +181,7 @@ int main(int argc, char **argv) {
         g.fprintTimeDistribution(DATA_FOLDER, "u", 4.);
       }
       if (t % 100 == 0 && t != 0) {
-        g.fprintHistogram(DATA_FOLDER, "traveltime", 100);
+        g.fprintHistogram(DATA_FOLDER, "traveltime", 100, "root");
       }
       g.evolve(false);
     }

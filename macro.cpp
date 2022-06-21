@@ -8,17 +8,17 @@ void macro() {
     auto h3 = new TH1F("h3", "titolo", 100, 1, 100);
     std::ifstream fIn;
     double data;
-    fIn.open("./temp_data/3000_root.dat");
+    fIn.open("./temp_data/3000_t.dat");
     while(fIn >> data) {
         h1->Fill(data);
     }
     fIn.close();
-    fIn.open("./temp_data/4800_root.dat");
+    fIn.open("./temp_data/5200_t.dat");
     while(fIn >> data) {
         h2->Fill(data);
     }
     fIn.close();
-    fIn.open("./temp_data/11900_root.dat");
+    fIn.open("./temp_data/11900_t.dat");
     while(fIn >> data) {
         h3->Fill(data);
     }
@@ -29,9 +29,10 @@ void macro() {
     h1->Draw("HIST,SAME");
     canv->cd(2);
     // auto f2 = new TF1("f2","[0]*TMath::Exp([1]*x)", 30, 100);
-    auto f2 = new TF1("f2","[0]*TMath::Gaus(TMath::Log(x), [1], [2])/x", 0, 100);
-    f2->SetParameters(4.5, 30, 100);
-    h2->Fit(f2, "R");
+    // auto f2 = new TF1("f2","[0]*TMath::Gaus(TMath::Log(x), [1], [2])/x", 0, 100);
+    // f2->SetParameters(4.5, 30, 100);
+    // h2->Fit(f2, "R");
+    h2->Fit("gaus");
     h2->Draw("HIST,SAME");
     canv->cd(3);
     // auto g1= new TF1("g1","gaus", 0, 100);

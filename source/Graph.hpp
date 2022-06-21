@@ -21,7 +21,7 @@ private:
 
   int _minDistance(
       int const,
-      int const) const; // algoritmo per la distanza minima tra due nodi
+      int const) const; // algorithm for min distance between two nodes
   std::vector<int>
   _nextStep(int const,
             int const); // next step for the destination (min. distance)
@@ -57,8 +57,8 @@ public:
   void fprint(bool const) const noexcept; // print network info on file
   void
   fprintVisual(std::string const &) const noexcept; // print file for visual.py
-  void fprintHistogram(std::string const &, std::string const &,
-                       int const) const noexcept; // print histograms
+  void fprintHistogram(std::string const &, std::string const &, int const,
+                       std::string const &) const noexcept; // print histograms
   void fprintDistribution(
       std::string const &,
       std::string const &) const; // print graphs whit format y \t x
