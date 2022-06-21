@@ -6,6 +6,8 @@
 /temp_data/*
 /temp_img/*
 *.wsl
+/source/html/*
+/source/latex/*.pdf
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
