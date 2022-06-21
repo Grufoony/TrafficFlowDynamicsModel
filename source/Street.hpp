@@ -1,6 +1,10 @@
 #ifndef STREET_HPP
 #define STREET_HPP
 
+//! Street class
+
+//! This class is used to represent a street.
+
 #include "Vehicle.hpp"
 #include <memory>
 
@@ -28,14 +32,14 @@ public:
   int getNVehicles() const noexcept;
   void setVMax(double);
   double getInputVelocity()
-      const noexcept; // get instant input velocity for the street
+      const noexcept; //!< get instant input velocity for the street
   double getVMax() const noexcept;
   double getDensity()
-      const noexcept; // get instant density for the street (in percentage)
+      const noexcept; //!< get instant density for the street (in percentage)
   double getVehicleDensity()
-      const noexcept; // get instant vehicle density for the stree
-  void addVehicle(std::shared_ptr<Vehicle>);
-  void remVehicle();
+      const noexcept; //!< get instant vehicle density for the stree
+  void addVehicle(std::shared_ptr<Vehicle>); //!< add a vehicle to the street
+  void remVehicle(); //!< remove a vehicle from the street
 };
 
 #endif

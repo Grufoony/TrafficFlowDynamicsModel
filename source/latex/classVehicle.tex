@@ -1,0 +1,178 @@
+\hypertarget{classVehicle}{}\doxysection{Vehicle Class Reference}
+\label{classVehicle}\index{Vehicle@{Vehicle}}
+
+
+\mbox{\hyperlink{classVehicle}{Vehicle}} class.  
+
+
+
+
+{\ttfamily \#include $<$Vehicle.\+hpp$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classVehicle_a18fea85ff7231d0934548287d0b8b1d4}{Vehicle}} (int)
+\begin{DoxyCompactList}\small\item\em create a vehicle of a type in \+\_\+vehicle\+Type \end{DoxyCompactList}\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classVehicleType}{Vehicle\+Type}} $>$ \mbox{\hyperlink{classVehicle_a5ae299a8e9cf9973e91a1b26da8ec8c2}{get\+Vehicle\+Type}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Get the vehicle type. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classVehicle_a27ce8af4e758254b0698165d0b11dce6}\label{classVehicle_a27ce8af4e758254b0698165d0b11dce6}} 
+int {\bfseries get\+Type} () const noexcept
+\item 
+void \mbox{\hyperlink{classVehicle_af9d39f3d63ac443b62ab2a7549609df4}{set\+Position}} (int)
+\begin{DoxyCompactList}\small\item\em Set the position of the vehicle. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classVehicle_a8ec3f49f2298169ad82060f04fd2c18c}\label{classVehicle_a8ec3f49f2298169ad82060f04fd2c18c}} 
+int {\bfseries get\+Position} () const
+\item 
+\mbox{\Hypertarget{classVehicle_ab78f61466eff5fa41d6512752399ee5a}\label{classVehicle_ab78f61466eff5fa41d6512752399ee5a}} 
+int {\bfseries get\+Previous\+Position} () const
+\item 
+\mbox{\Hypertarget{classVehicle_af8965e1936cc1f397dfa4121ebded61a}\label{classVehicle_af8965e1936cc1f397dfa4121ebded61a}} 
+void {\bfseries set\+Street} (int)
+\item 
+\mbox{\Hypertarget{classVehicle_ad7336a517e0489d163692d1138964f8d}\label{classVehicle_ad7336a517e0489d163692d1138964f8d}} 
+int {\bfseries get\+Street} () const
+\item 
+\mbox{\Hypertarget{classVehicle_a90c6829e8ecf622ef8aa7fce4fa6db14}\label{classVehicle_a90c6829e8ecf622ef8aa7fce4fa6db14}} 
+int {\bfseries get\+Destination} () const
+\item 
+\mbox{\Hypertarget{classVehicle_a0281b574cfa8574e32407b9980abe030}\label{classVehicle_a0281b574cfa8574e32407b9980abe030}} 
+void {\bfseries set\+Time\+Penalty} (int)
+\item 
+\mbox{\Hypertarget{classVehicle_a220f8d39d7153a07a7d1ff3ee8c845df}\label{classVehicle_a220f8d39d7153a07a7d1ff3ee8c845df}} 
+int {\bfseries get\+Time\+Penalty} () const
+\item 
+\mbox{\Hypertarget{classVehicle_a0390777909c5904ab8ad5b09412378e1}\label{classVehicle_a0390777909c5904ab8ad5b09412378e1}} 
+void {\bfseries set\+Velocity} (double)
+\item 
+\mbox{\Hypertarget{classVehicle_a2a0124da5f070cc68f69c46b0df3949a}\label{classVehicle_a2a0124da5f070cc68f69c46b0df3949a}} 
+double {\bfseries get\+Velocity} () const
+\item 
+\mbox{\Hypertarget{classVehicle_a36f6af8fa08f48f2fe1d47d31b1d880b}\label{classVehicle_a36f6af8fa08f48f2fe1d47d31b1d880b}} 
+void \mbox{\hyperlink{classVehicle_a36f6af8fa08f48f2fe1d47d31b1d880b}{increment\+Time\+Traveled}} ()
+\begin{DoxyCompactList}\small\item\em Increment the time traveled by the vehicle. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classVehicle_a3e87d9518e0814f5ab5a672823bb3e19}\label{classVehicle_a3e87d9518e0814f5ab5a672823bb3e19}} 
+int {\bfseries get\+Time\+Traveled} () const
+\item 
+\mbox{\Hypertarget{classVehicle_ad00b82b07d6c8d92706e0d36efe520f5}\label{classVehicle_ad00b82b07d6c8d92706e0d36efe520f5}} 
+void {\bfseries reset\+Time\+Traveled} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{classVehicle_ac80a8ab13560a09ac042906ddd9369cb}{add\+Vehicle\+Type}} (int, int)
+\begin{DoxyCompactList}\small\item\em add a vehicle type in \+\_\+vehicle\+Type \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classVehicle_abceca5e6c933de7cf6b66edd34213ba8}{add\+Vehicle\+Type}} (const char $\ast$)
+\item 
+static std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classVehicleType}{Vehicle\+Type}} $>$ \mbox{\hyperlink{classVehicle_a791111a5af7d4bcbfd28ddc331e613b2}{get\+Vehicle\+Type}} (int const)
+\begin{DoxyCompactList}\small\item\em Get the vehicle type. \end{DoxyCompactList}\item 
+static int \mbox{\hyperlink{classVehicle_a395a9fe1a85ad99d767d011f83b1f81a}{get\+NVehicle\+Type}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{classVehicle}{Vehicle}} class. 
+
+This class is used to represent a vehicle. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classVehicle_a18fea85ff7231d0934548287d0b8b1d4}\label{classVehicle_a18fea85ff7231d0934548287d0b8b1d4}} 
+\index{Vehicle@{Vehicle}!Vehicle@{Vehicle}}
+\index{Vehicle@{Vehicle}!Vehicle@{Vehicle}}
+\doxysubsubsection{\texorpdfstring{Vehicle()}{Vehicle()}}
+{\footnotesize\ttfamily Vehicle\+::\+Vehicle (\begin{DoxyParamCaption}\item[{int}]{type }\end{DoxyParamCaption})}
+
+
+
+create a vehicle of a type in \+\_\+vehicle\+Type 
+
+Create a new \mbox{\hyperlink{classVehicle}{Vehicle}} object.
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & The index of the vehicle type in \+\_\+vehicle\+Type. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classVehicle_abceca5e6c933de7cf6b66edd34213ba8}\label{classVehicle_abceca5e6c933de7cf6b66edd34213ba8}} 
+\index{Vehicle@{Vehicle}!addVehicleType@{addVehicleType}}
+\index{addVehicleType@{addVehicleType}!Vehicle@{Vehicle}}
+\doxysubsubsection{\texorpdfstring{addVehicleType()}{addVehicleType()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Vehicle\+::add\+Vehicle\+Type (\begin{DoxyParamCaption}\item[{const char $\ast$}]{f\+Name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+add many vehicle types in \+\_\+vehicle\+Type from file \mbox{\Hypertarget{classVehicle_ac80a8ab13560a09ac042906ddd9369cb}\label{classVehicle_ac80a8ab13560a09ac042906ddd9369cb}} 
+\index{Vehicle@{Vehicle}!addVehicleType@{addVehicleType}}
+\index{addVehicleType@{addVehicleType}!Vehicle@{Vehicle}}
+\doxysubsubsection{\texorpdfstring{addVehicleType()}{addVehicleType()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Vehicle\+::add\+Vehicle\+Type (\begin{DoxyParamCaption}\item[{int}]{src,  }\item[{int}]{dst }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+add a vehicle type in \+\_\+vehicle\+Type 
+
+Add a vehicle type in \+\_\+vehicle\+Type.
+
+
+\begin{DoxyParams}{Parameters}
+{\em src} & The source node. \\
+\hline
+{\em dst} & The destination node. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classVehicle_a395a9fe1a85ad99d767d011f83b1f81a}\label{classVehicle_a395a9fe1a85ad99d767d011f83b1f81a}} 
+\index{Vehicle@{Vehicle}!getNVehicleType@{getNVehicleType}}
+\index{getNVehicleType@{getNVehicleType}!Vehicle@{Vehicle}}
+\doxysubsubsection{\texorpdfstring{getNVehicleType()}{getNVehicleType()}}
+{\footnotesize\ttfamily int Vehicle\+::get\+NVehicle\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+get the number of vehicle types in \+\_\+vehicle\+Type \mbox{\Hypertarget{classVehicle_a5ae299a8e9cf9973e91a1b26da8ec8c2}\label{classVehicle_a5ae299a8e9cf9973e91a1b26da8ec8c2}} 
+\index{Vehicle@{Vehicle}!getVehicleType@{getVehicleType}}
+\index{getVehicleType@{getVehicleType}!Vehicle@{Vehicle}}
+\doxysubsubsection{\texorpdfstring{getVehicleType()}{getVehicleType()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classVehicleType}{Vehicle\+Type}} $>$ Vehicle\+::get\+Vehicle\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Get the vehicle type. 
+
+\begin{DoxyReturn}{Returns}
+A pointer to the vehicle type object of this istance. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classVehicle_a791111a5af7d4bcbfd28ddc331e613b2}\label{classVehicle_a791111a5af7d4bcbfd28ddc331e613b2}} 
+\index{Vehicle@{Vehicle}!getVehicleType@{getVehicleType}}
+\index{getVehicleType@{getVehicleType}!Vehicle@{Vehicle}}
+\doxysubsubsection{\texorpdfstring{getVehicleType()}{getVehicleType()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classVehicleType}{Vehicle\+Type}} $>$ Vehicle\+::get\+Vehicle\+Type (\begin{DoxyParamCaption}\item[{int const}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Get the vehicle type. 
+
+get a vehicle type from \+\_\+vehicle\+Type
+
+\begin{DoxyReturn}{Returns}
+A pointer to the vehicle type object. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classVehicle_af9d39f3d63ac443b62ab2a7549609df4}\label{classVehicle_af9d39f3d63ac443b62ab2a7549609df4}} 
+\index{Vehicle@{Vehicle}!setPosition@{setPosition}}
+\index{setPosition@{setPosition}!Vehicle@{Vehicle}}
+\doxysubsubsection{\texorpdfstring{setPosition()}{setPosition()}}
+{\footnotesize\ttfamily void Vehicle\+::set\+Position (\begin{DoxyParamCaption}\item[{int}]{pos }\end{DoxyParamCaption})}
+
+
+
+Set the position of the vehicle. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em position} & The position of the vehicle, as a node index. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Vehicle.\+hpp\item 
+Vehicle.\+cpp\end{DoxyCompactItemize}

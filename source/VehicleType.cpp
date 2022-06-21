@@ -1,6 +1,9 @@
 #include "VehicleType.hpp"
 #include <stdexcept>
 
+/// \brief Create a new VehicleType object.
+/// \param src The source node.
+/// \param dst The destination node.
 VehicleType::VehicleType(int src, int dst) {
   _trip[0] = src;
   _trip[1] = dst;
@@ -8,6 +11,9 @@ VehicleType::VehicleType(int src, int dst) {
 
 int VehicleType::getSource() const noexcept { return _trip[0]; }
 int VehicleType::getDestination() const noexcept { return _trip[1]; }
+
+/// \brief Set the transition matrix.
+/// \param transMatrix The transition matrix.
 void VehicleType::setTransMatrix(std::vector<std::vector<double>> &matrix) {
   int n = matrix.size();
   if (n == 0)
