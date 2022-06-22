@@ -224,7 +224,8 @@ double Graph::_getStreetMeanVelocity(int const streetIndex) const {
     return vCum / i;
   }
 }
-
+/// \brief Generate the graph from the matrix
+/// \param fName matrix file path
 Graph::Graph(const char *fName) {
   _n = 0;
   std::ifstream data;
@@ -319,13 +320,17 @@ Graph::Graph(const char *fName) {
 //   data.close();
 //   std::cout << "Done." << '\n';
 // }
-
+/// \brief Adds a vehicle with defined type
+///  Adds a vehicle with defined type starting at its origin
+/// \param type vehicle type
 void Graph::addVehicle(int type) {
   if (type < 0 || !(type < Vehicle::getNVehicleType()))
     throw std::runtime_error("Invalid vehicle type.\n");
   _vehicles.push_back(std::make_shared<Vehicle>(Vehicle(type)));
 }
-
+/// \brief Adds a fixed number of vehicles with random types
+/// Adds a fixed number of vehicles with random types starting at their origin
+/// \param nVehicles number of vehicles
 void Graph::addRndmVehicles(int nVehicles) {
   if (nVehicles < 0)
     throw std::invalid_argument(
@@ -338,16 +343,18 @@ void Graph::addRndmVehicles(int nVehicles) {
     this->addVehicle(index);
   }
 }
-
-void Graph::addVehiclesUniformly(int n) {
-  if (n < 0)
+/// \brief Adds a fixed number of vehicles with random types
+/// Adds a fixed number of vehicles with random types uniformply distributed on
+/// the graph \param nVehicles number of vehicles
+void Graph::addVehiclesUniformly(int nVehicles) {
+  if (nVehicles < 0)
     throw std::invalid_argument(
         "Number of vehicles uniformly added must be positive.");
   std::random_device dev;
   std::mt19937 rng(dev());
   std::uniform_int_distribution<> dist(0,
                                        static_cast<int>(_streets.size() - 1));
-  for (int i = 0; i < n; ++i) {
+  for (int i = 0; i < nVehicles; ++i) {
     this->addRndmVehicles(1);
     int index = dist(rng);
     while (_streets.at(index)->isFull()) {
@@ -365,7 +372,8 @@ void Graph::loadVehicles(const char *fName) {
   }
   // TODO: add vehicles on _streets from file
 }
-
+/// \brief set the system temperature
+/// \param temperature
 void Graph::setTemperature(double const temperature) {
   if (temperature < 0)
     throw std::invalid_argument("Temperature must be positive.\n");
@@ -409,10 +417,16 @@ void Graph::updateTransMatrix() {
     vehicle->setTransMatrix(matrix);
   }
 }
-
+/// \brief Updates the state of the system
+/// Updates the state of the system by moving vehicles using dijkstra's
+/// algorithm \param reinsert if true, vehicles are reinserted in the streets
+/// from their origin
 void Graph::evolve(bool reinsert) { this->_evolve(reinsert); }
+/// \brief Updates the state of the system reinserting vehicles
+/// Updates the state of the system by moving vehicles using dijkstra's
+/// algorithm and reinserting vehicles in the streets from their origin
 void Graph::evolve() { this->_evolve(true); }
-
+/// \brief Print the transition matrix
 void Graph::printMatrix() const noexcept {
   for (auto const &row : _adjMatrix) {
     for (auto const it : row) {
@@ -421,7 +435,7 @@ void Graph::printMatrix() const noexcept {
     std::cout << '\n';
   }
 }
-
+/// \brief Print informations about the system
 void Graph::print(bool const printGraph) const noexcept {
   std::cout << "-------------------------" << '\n';
   std::cout << "NETWORK INFORMATIONS\n";
@@ -463,7 +477,9 @@ void Graph::print(bool const printGraph) const noexcept {
   }
   std::cout << "-------------------------" << '\n';
 }
-
+/// \brief Print information of every street
+/// Print information of every street like index, origin, destination, number of
+/// vehicles and input velocity
 void Graph::printStreets() const noexcept {
   int i = 0;
   for (auto const &street : _streets) {

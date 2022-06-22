@@ -1,6 +1,10 @@
 #ifndef VEHICLE_TYPE_HPP
 #define VEHICLE_TYPE_HPP
 
+//! VehicleType class
+
+//! This class is used to represent a vehicle type.
+
 #include <vector>
 
 class VehicleType {
@@ -14,7 +18,7 @@ public:
 
   int getSource() const noexcept;
   int getDestination() const noexcept;
-  void setTransMatrix(std::vector<std::vector<double>> &);
+  void setTransMatrix(std::vector<std::vector<double>> &); //!< set the transition matrix
   std::vector<std::vector<double>> const &getTransMatrix() const;
 };
 
