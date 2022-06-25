@@ -36,16 +36,17 @@ private:
                                                   // street
 
 public:
-  Graph(const char *);               //!< import from file (only matrix)
-  Graph(const char *, const char *); //!< import from file (matrix + coordinates)
+  Graph(const char *); //!< import from file (only matrix)
+  Graph(const char *,
+        const char *); //!< import from file (matrix + coordinates)
   ~Graph() = default;
 
-  void addVehicle(int);            //!< add a vehicle of a type in _vehicles
-  void addVehicle(int, int);       //!< add a vehicle of a type in _vehicles on a
-                                   //!< street
-  void addRndmVehicles(int);       //!< add vehicles of random type in _vehicles
-  void addVehiclesUniformly(int);  //!< add vehicles uniformly on the streets
-  void loadVehicles(const char *); //!< load vehicles in the network
+  void addVehicle(int);           //!< add a vehicle of a type in _vehicles
+  void addVehicle(int, int);      //!< add a vehicle of a type in _vehicles on a
+                                  //!< street
+  void addRndmVehicles(int);      //!< add vehicles of random type in _vehicles
+  void addVehiclesUniformly(int); //!< add vehicles uniformly on the streets
+  void loadVehicles(const char *);   //!< load vehicles in the network
   void setTemperature(double const); //!< set the temperature of the network
   void updateTransMatrix(); //!< create all the transition matrices for all
                             //!< vehicle types
@@ -59,16 +60,16 @@ public:
       noexcept; //!< print streets on terminal with nodes and number of vehicles
 
   void fprint(bool const) const noexcept; //!< print network info on file
-  void
-  fprintVisual(std::string const &) const noexcept; //!< print file for visual.py
+  void fprintVisual(
+      std::string const &) const noexcept; //!< print file for visual.py
   void fprintHistogram(std::string const &, std::string const &, int const,
                        std::string const &) const noexcept; // print histograms
   void fprintDistribution(
       std::string const &,
       std::string const &) const; //!< print graphs whit format y \t x
-  void
-  fprintTimeDistribution(std::string const &, std::string const &,
-                         double const) const; //!< print graphs whit format y \t t
+  void fprintTimeDistribution(
+      std::string const &, std::string const &,
+      double const) const; //!< print graphs whit format y \t t
   void
   fprintActualState(std::string const &,
                     std::string const &) const noexcept; //!< print actual state

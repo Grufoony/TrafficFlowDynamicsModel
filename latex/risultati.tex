@@ -16,7 +16,7 @@ Anche da un punto di vista pratico risulta pi\`u realistico supporre che i veico
 \section{Reticolo omogeneo}
 Si consideri ora un network composto da 120 nodi disposti in un reticolo 10x12.
 \begin{figure}
-    \includegraphics[scale=0.25, trim={2cm 5cm 10cm 5cm},clip]{./img/network.png}
+    \includegraphics[scale=0.25, trim={2cm 5cm 10cm 5cm},clip]{./data/img/network.png}
     \caption[Network omogeneo]{Network omogeneo.}
     \label{fig:network_homo}
 \end{figure}
@@ -369,6 +369,12 @@ Dopo 50 minuti da inizio simulazione, ossia quando vi \`e ancora uno stato di tr
     mark=no,
     line width = 1.25pt
     ] plot file {./temp_data/3000_t.dat};
+    \addplot[
+        domain=0:100,
+        smooth,
+        color=red,
+        line width=1.5pt
+    ] {0.165*e^(-(x-19.7)^2/(2*(9.64)^2))};
     \end{axis}
     \end{tikzpicture}
     \caption[Distribuzione del tempo di percorrenza con traffico libero]{\emph{Distribuzione del tempo di percorrenza con traffico libero.}}

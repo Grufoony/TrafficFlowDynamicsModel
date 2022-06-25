@@ -13,7 +13,7 @@ double constexpr V_MIN = 75e-2; // minimum velocity
 /// \param lenght The lenght of the street.
 /// \param index The index of the street.
 Street::Street(int src, int dst, double lenght, int index) {
-  if (!(l > 0))
+  if (!(lenght > 0))
     throw std::invalid_argument("Error in Street.\n");
   if (index < 0)
     throw std::invalid_argument("Error in Street.\n");

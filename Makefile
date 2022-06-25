@@ -30,6 +30,7 @@ debug:
 	clang-format -i ./source/Street.hpp
 	clang-format -i ./source/Graph.cpp
 	clang-format -i ./source/Graph.hpp
+	clang-format -i ./utils/macro.cpp
 	clear
 	g++ -std=c++17 -O3 ./source/main.cpp ./source/Graph.cpp ./source/Street.cpp ./source/Vehicle.cpp ./source/VehicleType.cpp -o test.wsl -Wall -Wextra -fsanitize=address
 visual:

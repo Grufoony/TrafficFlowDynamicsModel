@@ -25,9 +25,12 @@ public:
   ~Vehicle() = default;
 
   static void addVehicleType(int, int); //!< add a vehicle type in _vehicleType
-  static void addVehicleType(const char *); //!< add many vehicle types in _vehicleType from file
-  static std::shared_ptr<VehicleType> getVehicleType(int const); //!< get a vehicle type from _vehicleType
-  static int getNVehicleType(); //!< get the number of vehicle types in _vehicleType
+  static void addVehicleType(
+      const char *); //!< add many vehicle types in _vehicleType from file
+  static std::shared_ptr<VehicleType>
+  getVehicleType(int const); //!< get a vehicle type from _vehicleType
+  static int
+  getNVehicleType(); //!< get the number of vehicle types in _vehicleType
 
   std::shared_ptr<VehicleType> getVehicleType() const noexcept;
   int getType()

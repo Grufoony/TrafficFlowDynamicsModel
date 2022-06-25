@@ -18,7 +18,8 @@ public:
 
   int getSource() const noexcept;
   int getDestination() const noexcept;
-  void setTransMatrix(std::vector<std::vector<double>> &); //!< set the transition matrix
+  void setTransMatrix(
+      std::vector<std::vector<double>> &); //!< set the transition matrix
   std::vector<std::vector<double>> const &getTransMatrix() const;
 };
 

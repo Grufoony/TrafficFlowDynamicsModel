@@ -525,7 +525,7 @@ void Graph::fprintHistogram(std::string const &out_folder,
                             std::string const &format) const noexcept {
   std::ofstream fOut;
   if (opt == "density") {
-    auto out = out_folder + std::to_string(_time) + "den.dat";
+    auto out = out_folder + std::to_string(_time) + "_den.dat";
     fOut.open(out);
     int n;
     for (int i = 0; i < nBins + 1; ++i) {
@@ -539,9 +539,10 @@ void Graph::fprintHistogram(std::string const &out_folder,
     fOut << (nBins + 1.) * (1. / nBins);
   } else if (opt == "traveltime") {
     double binSize = 6e3 / nBins;
-    auto out = "./temp_data/" + std::to_string(_time) + "_t.dat";
-    fOut.open(out);
+    auto out = "./temp_data/" + std::to_string(_time);
     if (format == "latex") {
+      out += "_t.dat";
+      fOut.open(out);
       int j;
       std::vector<double> N;
       for (int i = 0; i < nBins + 1; ++i) {
@@ -565,6 +566,8 @@ void Graph::fprintHistogram(std::string const &out_folder,
         ++j;
       }
     } else if (format == "root") {
+      out += "_root.dat";
+      fOut.open(out);
       for (auto const &vehicle : _vehicles) {
         if (vehicle->getPosition() == vehicle->getDestination()) {
           fOut << vehicle->getTimeTraveled() / 60 << '\n';
