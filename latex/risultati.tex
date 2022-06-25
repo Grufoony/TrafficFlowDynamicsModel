@@ -374,7 +374,7 @@ Dopo 50 minuti da inizio simulazione, ossia quando vi \`e ancora uno stato di tr
         smooth,
         color=red,
         line width=1.5pt
-    ] {0.165*e^(-(x-19.7)^2/(2*(9.64)^2))};
+    ] {0.177299*e^(-(x-19.849)^2/(2*(8.88775)^2))};
     \end{axis}
     \end{tikzpicture}
     \caption[Distribuzione del tempo di percorrenza con traffico libero]{\emph{Distribuzione del tempo di percorrenza con traffico libero.}}
@@ -395,7 +395,13 @@ Continuando a caricare il sistema ci si aspetta che un numero sempre maggiore di
     ybar interval,
     mark=no,
     line width = 1.25pt
-    ] plot file {./data/travel_time/6000_t.dat};
+    ] plot file {./temp_data/6000_t.dat};
+    \addplot[
+        domain=0:100,
+        smooth,
+        color=red,
+        line width=1.5pt
+    ] {0.113858*e^(-(x-21.9126)^2/(2*(14.7712)^2))};
     \end{axis}
     \end{tikzpicture}
     \caption[Distribuzione del tempo di percorrenza con traffico]{\emph{Distribuzione del tempo di percorrenza con traffico.}}
@@ -417,7 +423,13 @@ L'andamento della frequenza, riportato in Fig. \ref{fig:frequency_congested_flow
     ybar interval,
     mark=no,
     line width = 1.25pt
-    ] plot file {./data/travel_time/12100_t.dat};
+    ] plot file {./temp_data/11400_t.dat};
+    \addplot[
+        domain=0:100,
+        smooth,
+        color=red,
+        line width=1.5pt
+    ] {0.0551253*e^(-(x-55.86)^2/(2*(17.0398)^2))+0.0650764*e^(-(x-12.8479)^2/(2*(10.3336)^2))};
     \end{axis}
     \end{tikzpicture}
     \caption[Distribuzione del tempo di percorrenza con traffico congestionato]{\emph{Distribuzione del tempo di percorrenza con traffico congestionato.}}

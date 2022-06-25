@@ -12,19 +12,19 @@ void macro() {
 
   std::ifstream fIn;
   double data;
-  fIn.open("../temp_data/3000_t.dat");
+  fIn.open("../temp_data/3000_root.dat");
   while (fIn >> data) {
     h1->Fill(data);
   }
   fIn.close();
   h1->Scale(1. / h1->Integral(), "nosw2");
-  fIn.open("../temp_data/5200_t.dat");
+  fIn.open("../temp_data/5200_root.dat");
   while (fIn >> data) {
     h2->Fill(data);
   }
   fIn.close();
   h2->Scale(1. / h2->Integral(), "nosw2");
-  fIn.open("../temp_data/10900_t.dat");
+  fIn.open("../temp_data/11400_root.dat");
   while (fIn >> data) {
     h3->Fill(data);
   }
