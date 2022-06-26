@@ -58,12 +58,13 @@ Nell'arco temporale in cui la densit\`a \`e stabile ci si aspetta un regime di t
 L'ipotesi \`e verificata in Fig. \ref{fig:nStreet_density_constant_homo} dove, graficando il numero di strade in funzione della densit\`a a 2 h, si pu\`o notare come la quasi totalit\`a di esse abbia densit\`a minima.
 \begin{figure}[H]
     \centering
-    \begin{tikzpicture}[scale=0.25]
+    \begin{tikzpicture}
     \begin{axis}[ybar interval,
+    every tick label/.append style={font=\tiny},
     area style,
-    width = 2\textwidth,
-    height = 1.5\textwidth,
-    xlabel = {Densit\`a di veicoli},
+    width = 0.75\textwidth,
+    height = 0.50\textwidth,
+    xlabel = {Densit\`a (veh/km)},
     ylabel = {Frequenza},]
     \addplot+[
     ybar interval,
@@ -161,7 +162,7 @@ Una volta caricato il sistema ci si aspetta che la distribuzione di veicoli nell
     ] plot file {./data/peaked_homo/2700.dat};
     \end{axis}
     \end{tikzpicture}
-    \caption[Distribuzione delle strade non congestionate per un reticolo omogeneo.]{\emph{Distribuzione delle strade congestionate per un reticolo omogeneo.}}
+    \caption[Distribuzione delle strade congestionate per un reticolo omogeneo.]{\emph{Distribuzione delle strade congestionate per un reticolo omogeneo.}}
     \label{fig:nStreet_density_peaked_homo}
 \end{figure}
 In Fig. \ref{fig:nStreet_density_peaked_homo} \`e visibile il diagramma caratteristico della congestione, in cui sono presenti, come atteso, un gran numero di strade vuote e altrettante sature.
