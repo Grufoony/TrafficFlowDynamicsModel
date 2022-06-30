@@ -477,9 +477,9 @@ void Graph::print(bool const printGraph) const noexcept {
   }
   std::cout << "-------------------------" << '\n';
 }
-/// \brief Print information of every street
+/// \brief Print information of every street.
 /// Print information of every street like index, origin, destination, number of
-/// vehicles and input velocity
+/// vehicles and input velocity.
 void Graph::printStreets() const noexcept {
   int i = 0;
   for (auto const &street : _streets) {
@@ -492,7 +492,9 @@ void Graph::printStreets() const noexcept {
     ++i;
   }
 }
-
+/// \brief Print information of the network.
+/// \param printGraph if true, prints the graph.
+/// Print information of the network like number of nodes, number of streets and the graph.
 void Graph::fprint(const bool printGraph) const noexcept {
   std::ofstream fOut;
   fOut.open("network_info.txt");
@@ -502,10 +504,11 @@ void Graph::fprint(const bool printGraph) const noexcept {
   std::cout.rdbuf(rdbufBackup);
   fOut.close();
 }
-
-void Graph::fprintVisual(std::string const &out_folder) const noexcept {
+/// \brief Print network's data in a format readable by the script visual.py.
+/// \param outFolder folder where the data file will be saved.
+void Graph::fprintVisual(std::string const &outFolder) const noexcept {
   std::ofstream fOut;
-  auto out = out_folder + std::to_string(_time) + ".dat";
+  auto out = outFolder + std::to_string(_time) + ".dat";
   fOut.open(out);
   auto const rdbufBackup = std::cout.rdbuf();
   std::cout.rdbuf(fOut.rdbuf());
@@ -519,13 +522,21 @@ void Graph::fprintVisual(std::string const &out_folder) const noexcept {
   std::cout.rdbuf(rdbufBackup);
   fOut.close();
 }
-
-void Graph::fprintHistogram(std::string const &out_folder,
+/// \brief Print some network's data in a elegible format.
+/// \param outFolder folder where the data file will be saved.
+/// \param opt is used to select wich data print. In particolar you can choose between the following options:
+/// - "density" to print the histogram of the vehicle density on the streets.
+/// - "traveltime" to print the histogram of the travel time of the vehicles.
+/// \param nBins is the number of bins used to create the histogram.
+/// \param format is the format of the data. In particolar you can choose between the following options:
+/// - "latex" to print the data in a format readable by latex.
+/// - "root" to print the data in a format readable by root.
+void Graph::fprintHistogram(std::string const &outFolder,
                             std::string const &opt, int const nBins,
                             std::string const &format) const noexcept {
   std::ofstream fOut;
   if (opt == "density") {
-    auto out = out_folder + std::to_string(_time) + "_den.dat";
+    auto out = outFolder + std::to_string(_time) + "_den.dat";
     fOut.open(out);
     int n;
     for (int i = 0; i < nBins + 1; ++i) {
