@@ -5,13 +5,14 @@ Nella sezione precedente si \`e costruito il modello ed \`e emerso come questo s
 Variando questi parametri \`e di fatto possibile ottenere risultati estremamente diversi tra di loro, permettendo lo svolgimento di pi\`u analisi.
 In particolare, si andr\`a ora a effettuate tre tipologie di studi dove la rete viene caricata in modo omogeneo (inserendo contemporaneamente lo stesso numero di veicoli su tutte le strade):
 \begin{itemize}
-    \item \emph{Carico costante}: il reticolo viene sottoposto ad un carico costante per un certo lasso di tempo;
-    \item \emph{Carico piccato}: il reticolo viene sovraccaricato nei primi istanti, in modo tale da creare una congestione. Successivamente la rete viene lasciata svuotare per studiarne il comportamento;
-    \item \emph{Carico periodico}: il reticolo viene caricato nel tempo con un andamento sinusoidale, volto a rappresentare le diverse fasi di carico a cui una normale rete stradale \`e soggetta nell'arco di una giornata;
+    \item \emph{carico costante}, ove il reticolo viene sottoposto ad un carico costante per un certo lasso di tempo;
+    \item \emph{carico piccato}, in cui il reticolo viene sovraccaricato nei primi istanti, in modo tale da creare una congestione. Successivamente la rete viene lasciata svuotare per studiarne il comportamento;
+    \item \emph{carico periodico}, dove il reticolo viene caricato nel tempo con un andamento sinusoidale, volto a rappresentare (grossolanamente) le diverse fasi di carico a cui una normale rete stradale \`e soggetta nell'arco di una giornata.
 \end{itemize}
 Il carico omogeneo non permette l'analisi del ruolo dei nodi sorgente i quali, salvo nei casi in cui i veicoli vengono reimmessi nella rete, perdono la loro funzione.
 Questa scelta \`e stata effettuata in quanto lo studio \`e focalizzato sulle congestioni, fenomeni sono difficilmente realizzabili con poche sorgenti e, nel caso, richiederebbero scale temporali non trascurabili rispetto alle scale temporali delle congestioni stesse.
-Anche da un punto di vista pratico risulta pi\`u realistico supporre che i veicoli si immettano omogeneamente sulle strade (ipotizzando zone residenziali) e tendano a muovere verso alcuni punti attrattori, che possono essere supermercati, centri sportivi, ecc.
+Anche da un punto di vista pratico risulta pi\`u realistico supporre che i veicoli si immettano omogeneamente sulle strade (ipotizzando zone residenziali) e tendano a muovere verso alcuni punti attrattori, che possono essere supermercati, centri sportivi, ecc.\\
+Una quarta e ultima analisi riguarda infine lo studio dei tempi di percorrenza, il cui scopo \`e di verificare gli andamenti previsti dalla teoria e in precedenza riportati in Fig. \ref{fig:frequency_distributions}.
 
 \section{Reticolo omogeneo}
 Si consideri ora un network composto da 120 nodi disposti in un reticolo 10x12.
@@ -26,8 +27,7 @@ Ogni strada ha lunghezza e velocit\`a massima fissate a 500 m e 50 km/h, rispett
 Si pongano ora la lunghezza media di un veicolo pari a 8 m, la velocit\`a minima su una strada pari a $\frac{1}{4}$ della velocit\`a massima e una probabilit\`a di errore dell'8\%.
 
 \subsection{Carico costante}
-Si vuole, come prima cosa, sottoporre il sistema ad un carico costante.
-In questo modo si dovrebbe evitare la formazione di congestioni, mantenendo una capacit\`a di trasporto.
+Si vuole, come prima cosa, sottoporre il sistema ad un carico costante: in questo modo si dovrebbe evitare la formazione di congestioni, mantenendo la capacit\`a di trasporto della rete stessa.
 Il sistema viene quindi sottoposto ad un carico costante di 250 veicoli immessi ogni 60 s, fino a un tempo di 3.33 h, per un tempo totale di 4.15 h, lasciandoli liberi di uscire dalla rete una volta giunti a destinazione.
 Ci si aspetta cos\`i una crescita iniziale della densit\`a media, la quale si mantiene costante fintantoch\'e nuovi veicoli vengono immessi nel sistema.
 L'obiettivo \`e, infatti, mantrenere complessivamente invariato il numero totale di veicoli presenti sulla rete, a meno di fluttuazioni.
@@ -271,7 +271,7 @@ Inoltre, il flusso medio del sistema tende a rimanere stabile a ridosso della co
 \subsection{Carico periodico}
 Si vuole ora sottoporre il sistema ad un carico realistico, quindi variabile nell'arco di una giornata.
 Per semplicit\`a si decide di trascurare il carico notturno, in quanto nella maggior parte dei casi lascia il sistema in uno stato di traffico completamente libero.
-Durante il giorno, invece, dalle acquisizioni reali si notano diversi picchi: il primo al mattino verso le ore 9:00, seguito da una lieve discesa, il secondo verso le 13:00, un po' meno marcato, e il terzo al rientro serale, alle 17:00.
+Durante il giorno, invece, si assuma una variazione periodica con diversi picchi: il primo al mattino verso le ore 9:00, seguito da una lieve discesa, il secondo verso le 13:00, un po' meno marcato, e il terzo al rientro serale, alle 17:00.
 Assumendo come orario di inizio simulazione le 5:45 del mattino, si immettano veicoli uniformemente nel sistema secondo la seguente funzione:
 \begin{equation}
     \Delta n(t) = A \left\lvert \sin\left(\frac{2\pi}{T}t\right) \right\rvert 
@@ -409,7 +409,7 @@ Continuando a caricare il sistema ci si aspetta che un numero sempre maggiore di
     \label{fig:frequency_flow}
 \end{figure}
 In questo caso il fit gaussiano non \`e soddisfacente. Infatti, questo riporta una media di $(22 \pm 20)$ min con una deviazione standard di $(15 \pm 18)$ min.
-Con questi risultati, la probabilit\`a di avere un tempo di percorrenza maggiore di 50 min \`e dello 0.03 \%, stima che contraddice evidentemnte i dati sperimentali.
+Con questi risultati, la probabilit\`a di avere un tempo di percorrenza maggiore di 50 min \`e dello 0.03\%, stima che contraddice i dati sperimentali riportanti uno 0.04\%.
 Infine, dopo 190 min da inizio simulazione il sistema risulta congestionato.
 L'andamento della frequenza, riportato in Fig. \ref{fig:frequency_congested_flow}, segue una distribuzione normale bimodale, in particolare la somma di due distribuzioni normali.
 \begin{figure}[H]
@@ -439,7 +439,7 @@ L'andamento della frequenza, riportato in Fig. \ref{fig:frequency_congested_flow
     \label{fig:frequency_congested_flow}
 \end{figure}
 I dati restituiti dal fit di entrambe le distribuzioni sono le medie $(13 \pm 30)$ min e $(56 \pm 44)$ min con deviazioni standard pari a $(10 \pm 40)$ min e $(17 \pm 37)$ min, rispettivamente.
-Complessivamente, si osserva come il tempo di percorrenza aumenti all'aumentare delle congestioni, passando dall'ordine della decina di minuti all'ordine dell'ora.
+Complessivamente, si osserva come i due picchi mettano in evidenza le due tipologie di individui distinguibili sulla rete: quelli ``fortunati'' che continuano a impiegare una media di un quarto d'ora per percorrere il loro tratto (ritrovandosi su strade non trafficate) e quelli ``sfortunati'' che tendono a impiegare quasi un'ora a causa delle congestioni sul percorso.
 
 \section{Discussione}
 L'analisi dei diagrammi fondamentali macroscopici condotta in diverse situazioni ha evidenziato una forte dipendenza tra i valori medi di flusso, velocit\`a e densit\`a.
@@ -454,9 +454,7 @@ La riduzione della capacit\`a di trasporto \`e associabile al rapido calo del fl
 Nella stessa figura si pu\`o notare la presenza di un ciclo di isteresi dovuto alla congestione stessa, che va a chiudersi una volta permesso al sistema di svuotarsi.
 Analogamente al caso precedente, nel caso di un carico periodico si osservano, in Fig. \ref{fig:hysteresys_periodic_homo}, tre cicli di isteresi differenti, ognuno corrisponente ad un diverso picco della densit\`a media (cfr Fig. \ref{fig:density_time_periodic_homo}).\\
 L'analisi dei tempi di percorrenza fornisce esiti sostanzialmente coerenti con la teoria di riferimento, nonostante la grande incertezza sui dati dovuta allo scarso numero di bin in cui sono stati suddivisi gli istogrammi.
-L'utilizzo di un numero pi\`u elevato di bin, tuttavia, avrebbe messo in evidenta fluttuazioni sui dati che non ne avrebbero permessa un'analisi corretta.
-Per questo motivo la validit\`a dei risultati ottentuti \`e considerabile qualitativamente valida.
-
+L'utilizzo di un numero pi\`u elevato di bin, tuttavia, avrebbe messo in evidenta fluttuazioni sui dati che non ne avrebbero permessa un'analisi corretta: per questo motivo i risultati ottenuti possono essere considerati qualitativamente validi.
 
 Nonostante il modello riproduca egregiamente numerose caratteristiche delle congestioni di traffico risulta sostanzialmente incompleto.
 Manca, ad esempio, la possibilit\`a di ricalcolare i \emph{best path} in base alle condizioni istantanee di traffico, oltre all'implementazione di alcune caratteristiche tipiche degli OVM (\emph{Optimal Velocity Model}) come la dipendenza della velocit\`a e della distanza di un veicolo in base al precedente.

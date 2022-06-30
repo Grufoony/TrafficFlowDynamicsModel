@@ -6,8 +6,8 @@ Si consideri ora un network generato dalla matrice di adiacenza simmetrica $\mat
 Alla matrice di adiacenza \`e associata una matrice dei pesi $\mathcal{S}_{ij} \geq 0$ che, associando un diverso peso ad ogni link, definisce la lunghezza delle strade.
 Su questo network si definiscano ora le classi di agenti $C_{1},\ldots,C_{k}$, ognuna delle quali caratterizzata da un nodo sorgente $s$ e destinazione $d$ e denotate come $C_{\alpha}(s,d)$.
 Ogni individuo dovr\`a, nel corso della simulazione, muovere tra i nodi $s\to d$ in modo da seguire la geodetica, ossia il percorso pi\`u breve.
-Il costo di un percorso, tuttavia, non viene calcolato sulla base della lunghezza: data la mobilit\`a dei veicoli, risulta pi\`u accurato considerando il tempo di percorrenza.
-A tale fine si definisca ora un'altra matrice dei pesi $\mathcal{V}_{ij} \geq 0$ rappresentante la velocit\`a massima alla quale un agente pu\`o andare su una determinata strada.
+Il costo di un percorso, tuttavia, non viene calcolato sulla base della lunghezza: data la mobilit\`a dei veicoli, risulta pi\`u accurato considerare il tempo di percorrenza.
+A tale fine si definisca ora un'ulteriore matrice dei pesi $\mathcal{V}_{ij} \geq 0$ rappresentante la velocit\`a massima alla quale un agente pu\`o andare su una determinata strada.
 L'elemento di matrice
 \begin{equation}
     \mathcal{T}_{ij}=
@@ -17,13 +17,13 @@ L'elemento di matrice
     \end{cases}
 \end{equation}
 rappresenta dunque il costo temporale associato al link $i \to j$.\\
-Discretizzando il tempo con un passo $\Delta t$, si \`e ora interessati a calcolareil costo di un percorso.
+Discretizzando il tempo con un passo $\Delta t$, si \`e ora interessati a calcolare il costo di un percorso.
 Considerando un path generico a $k$ step $A^{c} = \left\{a_{1} \to a_{2} \to \ldots \to a_{c}\right\}$, con $a_{0} = s$ e $a_{c} = d$, il costo del percorso \`e esprimibile come
 \begin{equation}
     G=c\Delta t
 \end{equation}
-dove $c \in \mathbb{N}$.
-Nel limite di individui non interagenti tra di loro \`e quindi possibile calcolare costo della geodetica, chiamata \emph{best path}, come
+dove $c \in \mathbb{N}$ rappresenta il numero di step temporali di lunghezza $\Delta t$.
+Nel limite di individui non interagenti tra di loro \`e possibile calcolare costo della geodetica, chiamata \emph{best path}, come
 \begin{equation}
     G_{\text{best}} = c_{\text{best}}\Delta t = \min_{A^{c}} \left\{\sum_{i=1}^{c-1}\mathcal{T}_{i,i+1}\right\}
     \label{eq:best_path}
