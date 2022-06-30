@@ -28,13 +28,13 @@ Nel limite di individui non interagenti tra di loro \`e quindi possibile calcola
     G_{\text{best}} = c_{\text{best}}\Delta t = \min_{A^{c}} \left\{\sum_{i=1}^{c-1}\mathcal{T}_{i,i+1}\right\}
     \label{eq:best_path}
 \end{equation}
-Questo limite risulta molto stringente, in quanto nella realt\`a ogni veicolo presente sulla strada \`e evidentemente influenzato dalla presenza degli altri.
+Questo limite risulta molto stringente, in quanto nella realt\`a ogni veicolo presente sulla strada \`e influenzato dalla presenza degli altri.
 Tuttavia, lo scopo del modello \`e l'analisi macroscopica delle congestioni, quindi dettagli microscopici come questo si sono potuti trascurare.
-Si assuma ora che gli agenti muovano sulla rete seguendo un moto stile random walk.
+Si assuma ora che gli agenti muovano sulla rete seguendo una dinamica tipo random walk.
 Per ogni classe di individui $C_{\alpha}$ \`e quindi necessario definire una matrice stocastica (di transizione) $\pi_{ij}^{\alpha}$ con le propriet\`a descritte nella sezione precedente.
 Nella realt\`a una strada ha una capacit\`a finita, intesa come numero massimo di veicoli presenti su di essa in un generico istante di tempo $t$.
-Tale vincolo viene implementato nel modello tramite l'introduzione di una densit\`a massima $\rho_{max}$ caratteristica di ogni strada: questa dipender\`a, naturalemente, sia dalla lunghezza della strada che dalla lunghezza dei veicoli cicolanti su di essa.
-Assumendo la lunghezza media dei veicoli sia un valore fissato $\bar{l}_v$ e la lunghezza di una strada generica sia $l_s$, la densit\`a massima \`e calcolabile come
+Tale vincolo viene implementato nel modello tramite l'introduzione di una densit\`a massima $\rho_{max}$ caratteristica di ogni strada: questa dipender\`a sia dalla lunghezza della strada stessa, sia dalla lunghezza dei veicoli cicolanti su di essa.
+Assumendo che la lunghezza media dei veicoli sia un valore fissato $\bar{l}_v$ e la lunghezza di una strada generica sia $l_s$, la densit\`a massima \`e calcolabile come
 \begin{equation}
     \rho_{max}=\frac{\bar{l}_v}{l_s}
     \label{eq:density}
@@ -97,8 +97,8 @@ Considerando ora un individuo generico appartente alla classe $C_{\alpha}$ si pr
             xmax=1,
             width = 0.7\textwidth,
             height = 0.5\textwidth,
-            xlabel = {Densità ($\frac{n}{n_{max}}$)},
-            ylabel = {Velocità},]
+            xlabel = {$\frac{\rho}{\rho_{max}}$},
+            ylabel = {$\frac{v}{v_{max}}$},]
         \addplot[
             domain = 0:1,
             smooth,
@@ -123,11 +123,5 @@ Questi sono:
     \item \emph{Flusso di veicoli immessi}, ossia il numero di veicoli immessi nella rete per unit\`a di tempo;
     \item \emph{Tempo di esecuzione}, il quale deve essere impostato in base al tipo di fenomeno che si vuole osservare.
 \end{itemize}
-Naturalmente la simulazione dipende dalle caratteristiche geometriche del sistema, come la rete stessa (inserita come matrice di adiacenza) e le classi di veicoli.
-
-\begin{itemize}
-    \item \emph{Lunghezza media dei veicoli}
-\end{itemize}
-
 
 \end{document}
