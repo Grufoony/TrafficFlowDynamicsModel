@@ -11,9 +11,6 @@ run2:
 test:
 	clear
 	./test.wsl ./data/matrix_old.dat ./data/vehicletype_old.dat 300 0 0
-rimini:
-	clear
-	./test.wsl ./data/rimini_matrix.dat ./data/vehicletype.dat 300 250 15001
 wsl:
 	clear
 	g++ -O3 ./main.cpp ./source/Graph.cpp ./source/Street.cpp ./source/Vehicle.cpp ./source/VehicleType.cpp -o test.wsl
