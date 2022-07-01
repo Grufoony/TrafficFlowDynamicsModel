@@ -591,7 +591,13 @@ void Graph::fprintHistogram(std::string const &outFolder,
   }
   fOut.close();
 }
-
+/// \brief Print some network's data distributions in a format readable by
+/// LaTeX. \param outFolder folder where the data file will be saved. \param opt
+/// is used to select wich data print. In particolar you can choose between the
+/// following options:
+/// - "u/q" to print the velocity/flux distribution
+/// - "q/k" to print the flow/capacity distribution
+/// - "u/k" to print the velocity/capacity distribution
 void Graph::fprintDistribution(std::string const &outFolder,
                                std::string const &opt) const {
   std::ofstream fOut;
@@ -625,7 +631,13 @@ void Graph::fprintDistribution(std::string const &outFolder,
   }
   fOut.close();
 }
-
+/// \brief Print some network's data in a format readable by LaTeX.
+/// \param outFolder folder where the data file will be saved.
+/// \param opt is used to select wich data print. In particolar you can choose
+/// between the following options:
+/// - "k" to append the mean capacity of the network to the file k-t.dat
+/// - "q" to append the mean flow of the network to the file q-t.dat
+/// - "u" to append the mean velocity of the network to the file u-t.dat
 void Graph::fprintTimeDistribution(std::string const &outFolder,
                                    std::string const &opt,
                                    double const timeZero) const {
@@ -665,7 +677,12 @@ void Graph::fprintTimeDistribution(std::string const &outFolder,
   }
   fOut.close();
 }
-
+/// \brief Print the means of some network's data in a format readable by LaTeX.
+/// \param outFolder folder where the data file will be saved.
+/// \param opt is used to select wich data print. In particolar you can choose
+/// between the following options:
+/// - "q/k" to print the mean flow/capacity
+/// - "u/k" to print the mean velocity/capacity
 void Graph::fprintActualState(std::string const &outFolder,
                               std::string const &opt) const noexcept {
   std::ofstream fOut;
