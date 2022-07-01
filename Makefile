@@ -1,4 +1,4 @@
-.PHONY: run run1 run2 wsl debug windows visual test periodictest rimini
+.PHONY: run run1 run2 wsl debug windows visual test periodictest rimini docs
 run:
 	clear
 	./test.wsl ./data/matrix.dat ./data/vehicletype.dat 300 200 15001
@@ -36,3 +36,6 @@ debug:
 visual:
 	clear
 	python3 ./utils/visual.py
+docs:
+	clear
+	doxygen Doxyfile
