@@ -494,7 +494,8 @@ void Graph::printStreets() const noexcept {
 }
 /// \brief Print information of the network.
 /// \param printGraph if true, prints the graph.
-/// Print information of the network like number of nodes, number of streets and the graph.
+/// Print information of the network like number of nodes, number of streets and
+/// the graph.
 void Graph::fprint(const bool printGraph) const noexcept {
   std::ofstream fOut;
   fOut.open("network_info.txt");
@@ -524,11 +525,13 @@ void Graph::fprintVisual(std::string const &outFolder) const noexcept {
 }
 /// \brief Print some network's data in a elegible format.
 /// \param outFolder folder where the data file will be saved.
-/// \param opt is used to select wich data print. In particolar you can choose between the following options:
+/// \param opt is used to select wich data print. In particolar you can choose
+/// between the following options:
 /// - "density" to print the histogram of the vehicle density on the streets.
 /// - "traveltime" to print the histogram of the travel time of the vehicles.
 /// \param nBins is the number of bins used to create the histogram.
-/// \param format is the format of the data. In particolar you can choose between the following options:
+/// \param format is the format of the data. In particolar you can choose
+/// between the following options:
 /// - "latex" to print the data in a format readable by latex.
 /// - "root" to print the data in a format readable by root.
 void Graph::fprintHistogram(std::string const &outFolder,

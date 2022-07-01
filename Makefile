@@ -21,7 +21,7 @@ windows:
 	clear
 	x86_64-w64-mingw32-g++ -O3 main.cpp Graph.cpp Street.cpp Vehicle.cpp VehicleType.cpp -o test.exe
 debug:
-	clang-format -i ./source/main.cpp
+	clang-format -i ./main.cpp
 	clang-format -i ./source/Vehicle.cpp
 	clang-format -i ./source/Vehicle.hpp
 	clang-format -i ./source/VehicleType.cpp
