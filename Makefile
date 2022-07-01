@@ -7,7 +7,7 @@ run0:
 	./test.wsl ./data/matrix.dat ./data/vehicletype.dat 300 250 15001
 run1:
 	clear
-	./test.wsl ./data/matrix.dat ./data/vehicletype.dat 300 30000 6301
+	./test.wsl ./data/matrix.dat ./data/vehicletype.dat 300 25000 6301
 run2:
 	clear
 	./test.wsl ./data/matrix.dat ./data/vehicletype.dat 300 2100 32400 55000
