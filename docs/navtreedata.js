@@ -26,8 +26,9 @@ var NAVTREE =
 [
   [ "Traffic Flow Dynamics Model", "index.html", [
     [ "Abstract", "index.html#autotoc_md1", null ],
-    [ "Compiling", "index.html#autotoc_md2", null ],
-    [ "Data", "index.html#autotoc_md3", null ],
+    [ "Download", "index.html#autotoc_md2", null ],
+    [ "Compiling", "index.html#autotoc_md3", null ],
+    [ "Data", "index.html#autotoc_md4", null ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],

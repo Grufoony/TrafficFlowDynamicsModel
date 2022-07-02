@@ -93,17 +93,21 @@ Abstract</h1>
 <p><em>Italiano</em></p>
 <p>A partire dagli anni ’50 furono sviluppati numerosi modelli con l’intento di studiare i fenomeni connessi al traffico. Alcuni di questi modelli riuscirono non solo a spiegare i fenomeni per i quali erano stati ideati ma misero in evidenza altre caratteristiche tipiche dei sistemi dinamici, come la presenza di cicli di isteresi e cambiamenti nella distribuzione dei tempi di percorrenza in situazioni di congestione. Questo lavoro si propone di verificare la validità di un modello semplificato ideato per evidenziare i comportamenti tipici di un sistema di traffico, in particolare le congestioni che si vengono a creare sulla rete stradale. Tale modello viene implementato per mezzo della libreria C++ <b>Traffic Flow Dynamics Model</b>. Ai fini dello studio vengono utilizzati i Diagrammi Fondamentali Macroscopici, particolari diagrammi che mettono in relazione gli osservabili principali di un network stradale quali velocità, densità e flusso. Variando il carico immesso nella rete stradale è stato possibile studiare il sistema in diversi regimi: carico costante, carico piccato e carico periodico. Mediante questi studi sono emerse diverse proprietà tipiche di ogni regime e, per alcuni di essi, è stata verificate e giustificate la presenza di uno o più cicli di isteresi. In ultimo è stata effettuata una breve analisi ad-hoc volta a evidenziare i cambiamenti nella distrubuzione dei tempi di percorrenza in relazione al regime di traffico considerato.</p>
 <h1><a class="anchor" id="autotoc_md2"></a>
+Download</h1>
+<p>You can obtain the library downloading the <em>source</em> dir from the repository.</p>
+<p>Otherwise, you can directly download a release.</p>
+<h1><a class="anchor" id="autotoc_md3"></a>
 Compiling</h1>
 <p>Once created the main file, you can simply compile the source code using the Makefile. You can compile the program for a linux distribution </p><pre class="fragment">$ make wsl
 </pre><p> or for a windows distibution </p><pre class="fragment">$ make windows
-</pre> <h1><a class="anchor" id="autotoc_md3"></a>
+</pre> <h1><a class="anchor" id="autotoc_md4"></a>
 Data</h1>
 <p>Once run the simulation you can print data in two formats:</p>
 <ol type="1">
-<li><b>latex</b>, wich prints data in a format readable by the package <b>pgfplots</b> of LaTeX;</li>
-<li><b>root</b>, wich prints data in a format readable by the C++ framework Root, developed by Cern.</li>
+<li><b>latex</b>, wich prints data in a format readable by the package <em>pgfplots</em> of LaTeX;</li>
+<li><b>root</b>, wich prints data in a format readable by the C++ framework <em>Root</em>, developed by Cern.</li>
 </ol>
-<p>There is also a way to visualize the network in which the streets change color based on their vehicle density. To do that there is a Python script, <b>visual.py</b> that prints a PNG file of an arbitrary instant of time. With this script you can also merge differents PNG files into a unique GIF file, obtaining an output like this: <img src="./data/img/evolution.gif" alt="" width="50%" height="50%" class="inline"/> </p>
+<p>There is also a way to visualize the network in which the streets change color based on their vehicle density. To do that there is a Python script, <em>visual.py</em> that prints a PNG file of an arbitrary instant of time. With this script you can also merge differents PNG files into a unique GIF file, obtaining an output like this: <img src="./data/img/evolution.gif" alt="" width="50%" height="50%" class="inline"/> </p>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->
