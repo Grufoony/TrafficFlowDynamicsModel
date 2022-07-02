@@ -96,7 +96,15 @@ Abstract</h1>
 Compiling</h1>
 <p>Once created the main file, you can simply compile the source code using the Makefile. You can compile the program for a linux distribution </p><pre class="fragment">$ make wsl
 </pre><p> or for a windows distibution </p><pre class="fragment">$ make windows
-</pre> </div></div><!-- PageDoc -->
+</pre> <h1><a class="anchor" id="autotoc_md3"></a>
+Data</h1>
+<p>Once run the simulation you can print data in two formats:</p>
+<ol type="1">
+<li><b>latex</b>, wich prints data in a format readable by the package <b>pgfplots</b> of LaTeX;</li>
+<li><b>root</b>, wich prints data in a format readable by the C++ framework Root, developed by Cern.</li>
+</ol>
+<p>There is also a way to visualize the network in which the streets change color based on their vehicle density. To do that there is a Python script, <b>visual.py</b> that prints a PNG file of an arbitrary instant of time. With this script you can also merge differents PNG files into a unique GIF file, obtaining an output like this: <img src="./data/img/evolution.gif" alt="" width="50%" height="50%" class="inline"/> </p>
+</div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
