@@ -23,6 +23,11 @@ di essi, è stata verificate e giustificate la presenza di uno o più cicli di i
 ultimo è stata effettuata una breve analisi ad-hoc volta a evidenziare i cambiamenti nella
 distrubuzione dei tempi di percorrenza in relazione al regime di traffico considerato.
 
+## Download
+You can obtain the library downloading the *source* dir from the repository.
+
+Otherwise, you can directly download a release.
+
 ## Compiling
 Once created the main file, you can simply compile the source code using the Makefile.
 You can compile the program for a linux distribution
@@ -36,10 +41,10 @@ or for a windows distibution
 ## Data
 Once run the simulation you can print data in two formats:
 
-1. **latex**, wich prints data in a format readable by the package __pgfplots__ of LaTeX;
-2. **root**, wich prints data in a format readable by the C++ framework Root, developed by Cern.
+1. **latex**, wich prints data in a format readable by the package *pgfplots* of LaTeX;
+2. **root**, wich prints data in a format readable by the C++ framework *Root*, developed by Cern.
 
 There is also a way to visualize the network in which the streets change color based on their vehicle density.
-To do that there is a Python script, __visual.py__ that prints a PNG file of an arbitrary instant of time.
+To do that there is a Python script, *visual.py* that prints a PNG file of an arbitrary instant of time.
 With this script you can also merge differents PNG files into a unique GIF file, obtaining an output like this:
 <img src="./data/img/evolution.gif" width="50%" height="50%"/>
