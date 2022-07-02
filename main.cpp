@@ -116,6 +116,9 @@ int main(int argc, char **argv) {
         g.fprintHistogram(DATA_FOLDER, "traveltime", 20, "latex");
         g.fprintHistogram(DATA_FOLDER, "traveltime", 20, "root");
       }
+      if (t == 3000 || t == 5200 || t == 11400) {
+        g.fprintVisual("./temp_img/data/");
+      }
       // constant analysis
       if (t < 12e3 && t % 60 == 0 && t != 0) {
         g.addVehiclesUniformly(dVehicle / 1.125);
