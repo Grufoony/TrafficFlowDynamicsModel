@@ -32,3 +32,14 @@ You can compile the program for a linux distribution
 or for a windows distibution
 
     $ make windows
+
+## Data
+Once run the simulation you can print data in two formats:
+
+1. **latex**, wich prints data in a format readable by the package __pgfplots__ of LaTeX;
+2. **root**, wich prints data in a format readable by the C++ framework Root, developed by Cern.
+
+There is also a way to visualize the network in which the streets change color based on their vehicle density.
+To do that there is a Python script, __visual.py__ that prints a PNG file of an arbitrary instant of time.
+With this script you can also merge differents PNG files into a unique GIF file, obtaining an output like this:
+![Evolution](https://github.com/Grufoony/TrafficFlowDynamicsModel/blob/main/data/img/evolution.gif)
