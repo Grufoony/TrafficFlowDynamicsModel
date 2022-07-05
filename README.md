@@ -1,5 +1,5 @@
 # Traffic Flow Dynamics Model
-![proglang](https://img.shields.io/badge/c%2B%2B-v17-blue) [![license](https://img.shields.io/badge/license-GPL--3.0-yellow)](https://github.com/Grufoony/TrafficFlowDynamicsModel/blob/main/LICENSE.md) [![docs](https://img.shields.io/docsrs/regex)](https://grufoony.github.io/TrafficFlowDynamicsModel/)
+[![proglang](https://img.shields.io/badge/c%2B%2B-v17-blue)](https://en.cppreference.com/w/cpp/17) [![license](https://img.shields.io/badge/license-GPL--3.0-yellow)](https://github.com/Grufoony/TrafficFlowDynamicsModel/blob/main/LICENSE.md) [![docs](https://img.shields.io/docsrs/regex)](https://grufoony.github.io/TrafficFlowDynamicsModel/)
 
 A C++ library for generating traffic flow dynamics data using a reference model.
 
