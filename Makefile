@@ -1,4 +1,4 @@
-.PHONY: run run1 run2 wsl debug windows visual test periodictest rimini docs
+.PHONY: run run0 run1 run2 wsl debug windows visual docs
 run:
 	clear
 	./test.wsl ./data/matrix.dat ./data/vehicletype.dat 300 200 15001
