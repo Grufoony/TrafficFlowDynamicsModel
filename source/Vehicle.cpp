@@ -11,7 +11,7 @@ Vehicle::Vehicle(int type) {
     _index = type;
     _position = getVehicleType()->getSource();
   } else {
-    throw std::runtime_error("Error in Vehicle: VehicleType does not exist.\n");
+    throw std::invalid_argument("Vehicle::Vehicle: type out of range.\n");
   }
 }
 /// \brief Add a vehicle type in _vehicleType.
@@ -25,7 +25,7 @@ void Vehicle::addVehicleType(const char *fName) {
   data.open(fName);
   int src, dst, n = 0;
   if (!data) {
-    throw std::runtime_error("VehicleType file does not exist.\n");
+    throw std::runtime_error("Vehicle::addVehicleType: file not found.\n");
   }
   while (data >> src) {
     ++n;
@@ -40,7 +40,7 @@ void Vehicle::addVehicleType(const char *fName) {
           std::make_shared<VehicleType>(VehicleType(src, dst)));
     }
   } else {
-    throw std::runtime_error("VehicleType file is empty.\n");
+    throw std::runtime_error("Vehicle::addVehicleType: file empty.\n");
   }
   data.close();
 }
@@ -48,7 +48,7 @@ void Vehicle::addVehicleType(const char *fName) {
 /// \return A pointer to the vehicle type object.
 std::shared_ptr<VehicleType> Vehicle::getVehicleType(int const index) {
   if (index < 0 || index > getNVehicleType() - 1)
-    throw std::invalid_argument("Error in getVehicleType.\n");
+    throw std::invalid_argument("Vehicle::getVehicleType: index out of range.\n");
   return _vehicleType.at(index);
 }
 /// \brief Get the vehicle type.
@@ -61,7 +61,7 @@ int Vehicle::getNVehicleType() { return static_cast<int>(_vehicleType.size()); }
 
 void Vehicle::setPosition(int pos) {
   if (pos < 0)
-    throw std::invalid_argument("Error in setPosition.\n");
+    throw std::invalid_argument("Vehicle::setPosition: pos out of range.\n");
   _previousPosition = _position;
   _position = pos;
 }
@@ -71,7 +71,7 @@ void Vehicle::setStreet(int street) { _street = street; }
 int Vehicle::getStreet() const { return _street; }
 void Vehicle::setTimePenalty(int time) {
   if (time < 0)
-    throw std::invalid_argument("Error in setTimePenalty.\n");
+    throw std::invalid_argument("Vehicle::setTimePenalty: time must be greater than 0.\n");
   _timePenalty = time;
 }
 int Vehicle::getDestination() const {
@@ -80,7 +80,7 @@ int Vehicle::getDestination() const {
 int Vehicle::getTimePenalty() const { return _timePenalty; }
 void Vehicle::setVelocity(double vel) {
   if (vel < 0)
-    throw std::invalid_argument("Error in setVelocity.\n");
+    throw std::invalid_argument("Vehicle ::setVelocity: vel must be greater than 0.\n");
   _velocity = vel;
 }
 double Vehicle::getVelocity() const { return _velocity; }

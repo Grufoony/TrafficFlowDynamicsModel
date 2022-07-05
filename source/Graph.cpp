@@ -233,7 +233,7 @@ Graph::Graph(const char *fName) {
   // set database's dimension
   data.open(fName);
   if (!data) {
-    throw std::runtime_error("Matrix file does not exist.\n");
+    throw std::runtime_error("Graph::Graph: file not found.\n");
   }
   double x;
   bool b;
@@ -325,7 +325,7 @@ Graph::Graph(const char *fName) {
 /// \param type vehicle type
 void Graph::addVehicle(int type) {
   if (type < 0 || !(type < Vehicle::getNVehicleType()))
-    throw std::runtime_error("Invalid vehicle type.\n");
+    throw std::runtime_error("Graph::addVehicle: invalid vehicle type.\n");
   _vehicles.push_back(std::make_shared<Vehicle>(Vehicle(type)));
 }
 /// \brief Adds a fixed number of vehicles with random types
@@ -334,7 +334,7 @@ void Graph::addVehicle(int type) {
 void Graph::addRndmVehicles(int nVehicles) {
   if (nVehicles < 0)
     throw std::invalid_argument(
-        "Number of vehicles randomly added must be positive.");
+        "Graph::addRndmVehicles: nVehicles must be positive.\n");
   std::random_device dev;
   std::mt19937 rng(dev());
   std::uniform_int_distribution<> dist(0, Vehicle::getNVehicleType() - 1);
@@ -349,7 +349,7 @@ void Graph::addRndmVehicles(int nVehicles) {
 void Graph::addVehiclesUniformly(int nVehicles) {
   if (nVehicles < 0)
     throw std::invalid_argument(
-        "Number of vehicles uniformly added must be positive.");
+        "Graph::addVehiclesUniformly: Number of vehicles must be positive.\n");
   std::random_device dev;
   std::mt19937 rng(dev());
   std::uniform_int_distribution<> dist(0,
@@ -376,7 +376,8 @@ void Graph::loadVehicles(const char *fName) {
 /// \param temperature
 void Graph::setTemperature(double const temperature) {
   if (temperature < 0)
-    throw std::invalid_argument("Temperature must be positive.\n");
+    throw std::invalid_argument("Graph::setTemperature: temperature must be "
+                                "positive.\n");
   _temperature = temperature;
 }
 
@@ -536,7 +537,9 @@ void Graph::fprintVisual(std::string const &outFolder) const noexcept {
 /// - "root" to print the data in a format readable by root.
 void Graph::fprintHistogram(std::string const &outFolder,
                             std::string const &opt, int const nBins,
-                            std::string const &format) const noexcept {
+                            std::string const &format) const {
+  if (nBins < 1)
+    throw std::invalid_argument("Graph::fprintHistogram: nBins must be > 0.\n");
   std::ofstream fOut;
   if (opt == "density") {
     auto out = outFolder + std::to_string(_time) + "_den.dat";
@@ -588,6 +591,9 @@ void Graph::fprintHistogram(std::string const &outFolder,
         }
       }
     }
+  } else {
+    throw std::invalid_argument("Graph::fprintHistogram: opt must be "
+                                "density or traveltime.\n");
   }
   fOut.close();
 }
@@ -628,6 +634,8 @@ void Graph::fprintDistribution(std::string const &outFolder,
         fOut << street->getVehicleDensity() * 1e3 << '\t' << meanV * 3.6
              << '\n';
     }
+  } else {
+    throw std::invalid_argument("Graph::fprintDistribution: Invalid option.\n");
   }
   fOut.close();
 }
@@ -674,6 +682,9 @@ void Graph::fprintTimeDistribution(std::string const &outFolder,
     }
     meanVelocity /= _streets.size();
     fOut << _time / 3.6e3 + timeZero << '\t' << meanVelocity << '\n';
+  } else {
+    throw std::invalid_argument("Graph::fprintTimeDistribution: Invalid "
+                                "option.\n");
   }
   fOut.close();
 }
@@ -684,7 +695,7 @@ void Graph::fprintTimeDistribution(std::string const &outFolder,
 /// - "q/k" to print the mean flow/capacity
 /// - "u/k" to print the mean velocity/capacity
 void Graph::fprintActualState(std::string const &outFolder,
-                              std::string const &opt) const noexcept {
+                              std::string const &opt) const {
   std::ofstream fOut;
   if (opt == "q/k") {
     auto meanDensity = 0.;
@@ -721,6 +732,8 @@ void Graph::fprintActualState(std::string const &outFolder,
     auto out = outFolder + "u-k.dat";
     fOut.open(out, std::ios_base::app);
     fOut << meanDensity << '\t' << meanVelocity << '\n';
+  } else {
+    throw std::invalid_argument("Graph::fprintActualState: Invalid option.\n");
   }
   fOut.close();
 }

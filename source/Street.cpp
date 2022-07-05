@@ -14,9 +14,9 @@ double constexpr V_MIN = 75e-2; // minimum velocity
 /// \param index The index of the street.
 Street::Street(int src, int dst, double lenght, int index) {
   if (!(lenght > 0))
-    throw std::invalid_argument("Error in Street.\n");
+    throw std::invalid_argument("Street::Street: lenght must be positive.\n");
   if (index < 0)
-    throw std::invalid_argument("Error in Street.\n");
+    throw std::invalid_argument("Street::Street: index must be positive.\n");
   _src = src;
   _dst = dst;
   _lenght = lenght;
@@ -50,7 +50,7 @@ int Street::getNVehicles() const noexcept { return _nVehicles; }
 /// \param vMax The maximum velocity.
 void Street::setVMax(double v) {
   if (v < 0)
-    throw std::invalid_argument("Error in setVMax.\n");
+    throw std::invalid_argument("Street::setVMax: vMax must be positive.\n");
   _vMax = v;
 }
 /// \brief Get the input velocity.
@@ -81,4 +81,6 @@ void Street::addVehicle(std::shared_ptr<Vehicle> vehicle) {
   vehicle->setPosition(_dst);
   ++_nVehicles;
 }
-void Street::remVehicle() { --_nVehicles; }
+void Street::remVehicle() { --_nVehicles;
+if(_nVehicles < 0) throw std::runtime_error("Street::remVehicle: nVehicles < 0.\n");
+}

@@ -16,7 +16,7 @@ void VehicleType::setTransMatrix(std::vector<std::vector<double>> &matrix) {
   int n = matrix.size();
   if (n == 0)
     throw std::runtime_error(
-        "Error in setTransMatrix: matrix has dimension 0.\n");
+        "VehicleType::setTransMatrix: matrix is empty.\n");
   for (int i = 0; i < n; ++i) {
     std::vector<double> temp;
     for (int j = 0; j < n; ++j) {
@@ -28,6 +28,6 @@ void VehicleType::setTransMatrix(std::vector<std::vector<double>> &matrix) {
 std::vector<std::vector<double>> const &VehicleType::getTransMatrix() const {
   if (_transMatrix.size() == 0)
     throw std::runtime_error(
-        "Error in getTransMatrix: _transMatrix has dimension 0.\n");
+        "VehicleType::getTransMatrix: matrix is empty");
   return _transMatrix;
 }

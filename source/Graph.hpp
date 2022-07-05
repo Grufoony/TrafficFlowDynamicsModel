@@ -63,16 +63,15 @@ public:
   void fprintVisual(
       std::string const &) const noexcept; //!< print file for visual.py
   void fprintHistogram(std::string const &, std::string const &, int const,
-                       std::string const &) const noexcept; // print histograms
+                       std::string const &) const; // print histograms
   void fprintDistribution(
       std::string const &,
       std::string const &) const; //!< print graphs whit format y \t x
   void fprintTimeDistribution(
       std::string const &, std::string const &,
       double const) const; //!< print graphs whit format y \t t
-  void
-  fprintActualState(std::string const &,
-                    std::string const &) const noexcept; //!< print actual state
+  void fprintActualState(std::string const &,
+                         std::string const &) const; //!< print actual state
 
   void save(const char *) const noexcept; // TODO: save network in file
 
