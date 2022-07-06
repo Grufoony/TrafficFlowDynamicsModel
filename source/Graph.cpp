@@ -551,7 +551,8 @@ void Graph::fprintHistogram(std::string const &outFolder,
                           return street->getDensity() >= i * (1. / nBins) &&
                                  street->getDensity() < (i + 1) * (1. / nBins);
                         });
-      fOut << std::setprecision(3) << i * (1. / nBins) << '\t' << n << '\n';
+      fOut << std::setprecision(3) << i * (1. / nBins) << '\t'
+           << static_cast<double>(n) / _streets.size() << '\n';
     }
     fOut << (nBins + 1.) * (1. / nBins);
   } else if (opt == "traveltime") {
