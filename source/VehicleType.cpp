@@ -15,8 +15,7 @@ int VehicleType::getDestination() const noexcept { return _trip[1]; }
 void VehicleType::setTransMatrix(std::vector<std::vector<double>> &matrix) {
   int n = matrix.size();
   if (n == 0)
-    throw std::runtime_error(
-        "VehicleType::setTransMatrix: matrix is empty.\n");
+    throw std::runtime_error("VehicleType::setTransMatrix: matrix is empty.\n");
   for (int i = 0; i < n; ++i) {
     std::vector<double> temp;
     for (int j = 0; j < n; ++j) {
@@ -27,7 +26,6 @@ void VehicleType::setTransMatrix(std::vector<std::vector<double>> &matrix) {
 }
 std::vector<std::vector<double>> const &VehicleType::getTransMatrix() const {
   if (_transMatrix.size() == 0)
-    throw std::runtime_error(
-        "VehicleType::getTransMatrix: matrix is empty");
+    throw std::runtime_error("VehicleType::getTransMatrix: matrix is empty");
   return _transMatrix;
 }

@@ -104,33 +104,33 @@ int main(int argc, char **argv) {
     for (int t = 0; t < std::stoi(argv[5]); ++t) {
       printLoadingBar(t, std::stoi(argv[5]));
       if (t % 100 == 0) {
-        // g.fprintHistogram(DATA_FOLDER, "density", 15);
-        // g.fprintDistribution(DATA_FOLDER, "u/q");
-        // g.fprintDistribution(DATA_FOLDER, "q/k");
-        // g.fprintDistribution(DATA_FOLDER, "u/k");
-        // g.fprintActualState(DATA_FOLDER, "q/k");
-        // g.fprintActualState(DATA_FOLDER, "u/k");
+        // g.fprintHistogram(DATA_FOLDER, "density", 10, "latex");
+        g.fprintDistribution(DATA_FOLDER, "u/q");
+        g.fprintDistribution(DATA_FOLDER, "q/k");
+        g.fprintDistribution(DATA_FOLDER, "u/k");
+        g.fprintActualState(DATA_FOLDER, "q/k");
+        g.fprintActualState(DATA_FOLDER, "u/k");
         g.fprintTimeDistribution(DATA_FOLDER, "k", 0.);
         g.fprintTimeDistribution(DATA_FOLDER, "q", 0.);
-        g.fprintTimeDistribution(DATA_FOLDER, "u", 0.);
-        g.fprintHistogram(DATA_FOLDER, "traveltime", 20, "latex");
-        g.fprintHistogram(DATA_FOLDER, "traveltime", 20, "root");
+        // g.fprintTimeDistribution(DATA_FOLDER, "u", 0.);
+        // g.fprintHistogram(DATA_FOLDER, "traveltime", 20, "latex");
+        // g.fprintHistogram(DATA_FOLDER, "traveltime", 20, "root");
       }
-      if (t == 3000 || t == 5200 || t == 11400) {
-        g.fprintVisual("./temp_img/data/");
-      }
-      // constant analysis
-      if (t < 12e3 && t % 60 == 0 && t != 0) {
-        g.addVehiclesUniformly(dVehicle / 1.125);
-        g.addRndmVehicles(dVehicle);
-      }
-      // peaked analysis
-      // if (t < 500 && t % 50 == 0 && t != 0) {
-      //   g.addVehiclesUniformly(dVehicle / 10);
+      // if (t == 3000 || t == 5200 || t == 11400) {
+      //   g.fprintVisual("./temp_img/data/");
       // }
-      if (t == 0) {
-        g.fprintVisual(IMG_FOLDER);
+      // constant analysis
+      // if (t < 12e3 && t % 60 == 0 && t != 0) {
+      //   g.addVehiclesUniformly(dVehicle / 1.125);
+      //   g.addRndmVehicles(dVehicle);
+      // }
+      // peaked analysis
+      if (t < 500 && t % 50 == 0 && t != 0) {
+        g.addVehiclesUniformly(dVehicle / 10);
       }
+      // if (t == 0) {
+      //   g.fprintVisual(IMG_FOLDER);
+      // }
       // if (t % 240 == 0 && t != 0) {
       //   g.test();
       // }
@@ -141,12 +141,12 @@ int main(int argc, char **argv) {
       //   g.evolve(false);
       // }
       // peaked analysis
-      // if (t < 0.4e4) {
-      //   g.evolve();
-      // } else {
-      //   g.evolve(false);
-      // }
-      g.evolve(false);
+      if (t < 0.4e4) {
+        g.evolve();
+      } else {
+        g.evolve(false);
+      }
+      // g.evolve(false);
     }
     break;
 

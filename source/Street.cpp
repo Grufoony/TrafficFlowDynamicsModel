@@ -81,6 +81,8 @@ void Street::addVehicle(std::shared_ptr<Vehicle> vehicle) {
   vehicle->setPosition(_dst);
   ++_nVehicles;
 }
-void Street::remVehicle() { --_nVehicles;
-if(_nVehicles < 0) throw std::runtime_error("Street::remVehicle: nVehicles < 0.\n");
+void Street::remVehicle() {
+  --_nVehicles;
+  if (_nVehicles < 0)
+    throw std::runtime_error("Street::remVehicle: nVehicles < 0.\n");
 }

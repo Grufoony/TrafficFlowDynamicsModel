@@ -48,7 +48,8 @@ void Vehicle::addVehicleType(const char *fName) {
 /// \return A pointer to the vehicle type object.
 std::shared_ptr<VehicleType> Vehicle::getVehicleType(int const index) {
   if (index < 0 || index > getNVehicleType() - 1)
-    throw std::invalid_argument("Vehicle::getVehicleType: index out of range.\n");
+    throw std::invalid_argument(
+        "Vehicle::getVehicleType: index out of range.\n");
   return _vehicleType.at(index);
 }
 /// \brief Get the vehicle type.
@@ -71,7 +72,8 @@ void Vehicle::setStreet(int street) { _street = street; }
 int Vehicle::getStreet() const { return _street; }
 void Vehicle::setTimePenalty(int time) {
   if (time < 0)
-    throw std::invalid_argument("Vehicle::setTimePenalty: time must be greater than 0.\n");
+    throw std::invalid_argument(
+        "Vehicle::setTimePenalty: time must be greater than 0.\n");
   _timePenalty = time;
 }
 int Vehicle::getDestination() const {
@@ -80,7 +82,8 @@ int Vehicle::getDestination() const {
 int Vehicle::getTimePenalty() const { return _timePenalty; }
 void Vehicle::setVelocity(double vel) {
   if (vel < 0)
-    throw std::invalid_argument("Vehicle ::setVelocity: vel must be greater than 0.\n");
+    throw std::invalid_argument(
+        "Vehicle ::setVelocity: vel must be greater than 0.\n");
   _velocity = vel;
 }
 double Vehicle::getVelocity() const { return _velocity; }
