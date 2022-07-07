@@ -10,7 +10,7 @@ In particolare, si andr\`a ora a effettuate tre tipologie di studi dove la rete 
     \item \emph{carico periodico}, dove il reticolo viene caricato nel tempo con un andamento sinusoidale, volto a rappresentare (grossolanamente) le diverse fasi di carico a cui una normale rete stradale \`e soggetta nell'arco di una giornata.
 \end{itemize}
 Il carico omogeneo non permette l'analisi del ruolo dei nodi sorgente i quali, salvo nei casi in cui i veicoli vengono reimmessi nella rete, perdono la loro funzione.
-Questa scelta \`e stata effettuata in quanto lo studio \`e focalizzato sulle congestioni, fenomeni sono difficilmente realizzabili con poche sorgenti e, nel caso, richiederebbero scale temporali non trascurabili rispetto alle scale temporali delle congestioni stesse.
+Questa scelta \`e stata effettuata in quanto lo studio \`e focalizzato sulle congestioni, fenomeni che sono difficilmente realizzabili con poche sorgenti e, nel caso, richiederebbero scale temporali non trascurabili rispetto alle scale temporali delle congestioni stesse.
 Anche da un punto di vista pratico risulta pi\`u realistico supporre che i veicoli si immettano omogeneamente sulle strade (ipotizzando zone residenziali) e tendano a muovere verso alcuni punti attrattori, che possono essere supermercati, centri sportivi, ecc.\\
 Una quarta e ultima analisi riguarda infine lo studio dei tempi di percorrenza, il cui scopo \`e di verificare gli andamenti previsti dalla teoria e in precedenza riportati in Fig. \ref{fig:frequency_distributions}.
 Di questa, sono inoltre riportati in Appendice \ref{appendix:visual} delle rappresentazioni della rete stradale per favorire la visualizzazione dei fenomeni.
@@ -265,7 +265,7 @@ Lo scarico del sistema avviene gradualmente e prevede un ritorno alla stabilit\`
     \label{fig:hysteresys_peaked_homo}
 \end{figure}
 Si pu\`o notare come sia il flusso che la densit\`a crescano fino a un punto critico nel quale si ha un calo drastico del flusso stesso dovuto all'eccessiva presenza di veicoli sulle strade.
-Il sistema risulta qui congestionato e perde la capacit\`a di trasporto.
+Il sistema risulta quindi congestionato e perde la capacit\`a di trasporto.
 In particolare, il massimo del flusso si ha durante la fase di carico mentre, alla fine della stessa, il sovraccarico ha gi\`a apportato modifiche al sistema, riducendone il flusso medio (cfr. Fig. \ref{fig:peaked_homo}).
 Inoltre, il flusso medio del sistema tende a rimanere stabile a ridosso della congestione, a differenza della densit\`a media che risulta gi\`a in diminuzione grazie alla fuoriuscita dei primi veicoli dalla rete.
 
@@ -280,7 +280,7 @@ Assumendo come orario di inizio simulazione le 5:45 del mattino, si immettano ve
 con $A = 2200$ veh e $T = 32400$ s.
 In questo caso, non vi \`e accumulo di veicoli: in ogni istante i veicoli che giungono a destinazione vengono eliminati.
 Per rendere meno marcato il secondo picco si riduce l'ampiezza in salita di un fattore 1.125, dal primo minimo al secondo massimo.
-Ci si aspetta in questo modo che, avendo la funzione tre picchi, il sistema compia tre cicli di caricamento e scaricamento.
+Ci si aspetta in questo modo che, avendo la funzione tre picchi, il sistema compia tre cicli di carico e scarico.
 \begin{figure}[H]
     \centering
     \begin{tikzpicture}
@@ -397,7 +397,7 @@ Continuando a caricare il sistema ci si aspetta che un numero sempre maggiore di
     ybar interval,
     mark=no,
     line width = 1.25pt
-    ] plot file {./data/travel_time/5200_t.dat};
+    ] plot file {./temp_data/5300_t.dat};
     \addplot[
         domain=0:100,
         smooth,
