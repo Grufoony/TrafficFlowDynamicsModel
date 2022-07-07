@@ -18,7 +18,7 @@ L'elemento di matrice
 \end{equation}
 rappresenta dunque il costo temporale associato al link $i \to j$.\\
 Discretizzando il tempo con un passo $\Delta t$, si \`e ora interessati a calcolare il costo di un percorso.
-Considerando un path generico a $k$ step $A^{c} = \left\{a_{1} \to a_{2} \to \ldots \to a_{c}\right\}$, con $a_{0} = s$ e $a_{c} = d$, il costo del percorso \`e esprimibile come
+Considerando un path generico a $c$ step $A^{c} = \left\{a_{1} \to a_{2} \to \ldots \to a_{c}\right\}$, con $a_{0} = s$ e $a_{c} = d$, il costo del percorso \`e esprimibile come
 \begin{equation}
     G=c\Delta t
 \end{equation}
@@ -33,7 +33,7 @@ Tuttavia, lo scopo del modello \`e l'analisi macroscopica delle congestioni, qui
 Si assuma ora che gli agenti muovano sulla rete seguendo una dinamica tipo random walk.
 Per ogni classe di individui $C_{\alpha}$ \`e quindi necessario definire una matrice stocastica (di transizione) $\pi_{ij}^{\alpha}$ con le propriet\`a descritte nella sezione precedente.
 Nella realt\`a una strada ha una capacit\`a finita, intesa come numero massimo di veicoli presenti su di essa in un generico istante di tempo $t$.
-Tale vincolo viene implementato nel modello tramite l'introduzione di una densit\`a massima $\rho_{max}$ caratteristica di ogni strada: questa dipender\`a sia dalla lunghezza della strada stessa, sia dalla lunghezza dei veicoli cicolanti su di essa.
+Tale vincolo viene implementato nel modello tramite l'introduzione di una densit\`a massima $\rho_{max}$ caratteristica di ogni strada: questa dipender\`a sia dalla lunghezza della strada stessa, sia dalla lunghezza dei veicoli circolanti su di essa.
 Assumendo che la lunghezza media dei veicoli sia un valore fissato $\bar{l}_v$ e la lunghezza di una strada generica sia $l_s$, la densit\`a massima \`e calcolabile come
 \begin{equation}
     \rho_{max}=\frac{\bar{l}_v}{l_s}
@@ -43,7 +43,7 @@ Si osservi come il valore di $l_s$ sia sempre noto, essendo un elemento della ma
 
 \section{Algoritmo di evoluzione}
 \`E ora necessario definire come i veicoli muovano effettivamente sul network.
-La probabilit\`a di transizione di osgni classe $\pi_{ij}^{\alpha}$ viene assegnata nel modo seguente:
+La probabilit\`a di transizione di ogni classe $\pi_{ij}^{\alpha}$ viene assegnata nel modo seguente:
 \begin{itemize}
     \item fissato il nodo di partenza $i$ si inizia a scorrere sul passo successivo nel nodo $j$;
     \item se il nodo $j$ si trova sul percorso $G_{\text{best}}$, definito dall'Eq. (\ref{eq:best_path}), allora viene assegnato un peso $\pi_{ij}=1$;
@@ -75,7 +75,7 @@ Inoltre, per $T \to \infty$ l'evoluzione del sistema diventa equivalente ad un r
 \end{figure}
 Considerando ora un individuo generico appartente alla classe $C_{\alpha}$ si procede nel modo seguente:
 \begin{itemize}
-    \item si controlla se sia in grado di muoversi, quindi se $c = 0$. In caso negativo si sconta uno step temporale $c = c -1$ e si prosegue con gli altri veicoli;
+    \item si controlla se sia in grado di muoversi, quindi se possegga una penalit\`a temporale. In caso negativo si sconta uno step temporale ($c = c -1$) e si prosegue con gli altri veicoli;
     \item in caso affermativo, il passo successivo sarà deciso stocasticamente dalla matrice $\pi_{ij}^{\alpha}$;
     \item se la strada di arrivo \`e piena si perde uno step temporale, altrimenti l'individuo si immette sulla strada che connette i nodi $i \to j$ regolando la sua velocit\`a secondo la legge 
     \begin{equation}
@@ -118,7 +118,7 @@ Questi sono:
     \item \emph{Lunghezza media dei veicoli}, rappresentata dal parametro $\bar{l}_v$ presente in Eq. (\ref{eq:density}).
         Si nota immediatamente come la densit\`a massima sulle strade dipenda da esso e, di conseguenza, anche flusso e densit\`a (cfr. Eq. (\ref{fig:greenshield}));
     \item Coefficiente $k$ della temperatura statistica, rappresenta il grado di crescita delle fluttuazioni statistiche presenti nel sistema;
-    \item \emph{Velocit\`a minima su una strada}, rappresenta la velocit\`a corrispondente alla densit\`a massima, come espresso in Eq. (\ref{eq:velocity}).
+    \item \emph{Velocit\`a massima su una strada}, rappresenta la velocit\`a corrispondente alla densit\`a minima, come espresso in Eq. (\ref{eq:velocity}).
         Da questa dipender\`a naturalmente l'evoluzione temporale del sistema stesso;
     \item \emph{Flusso di veicoli immessi}, ossia il numero di veicoli immessi nella rete per unit\`a di tempo;
     \item \emph{Tempo di esecuzione}, il quale deve essere impostato in base al tipo di fenomeno che si vuole osservare.
