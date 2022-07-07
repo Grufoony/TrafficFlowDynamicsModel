@@ -397,7 +397,7 @@ Continuando a caricare il sistema ci si aspetta che un numero sempre maggiore di
     ybar interval,
     mark=no,
     line width = 1.25pt
-    ] plot file {./temp_data/5300_t.dat};
+    ] plot file {./data/travel_time/5200_t.dat};
     \addplot[
         domain=0:100,
         smooth,
@@ -409,8 +409,8 @@ Continuando a caricare il sistema ci si aspetta che un numero sempre maggiore di
     \caption[Distribuzione del tempo di percorrenza con traffico]{\emph{Distribuzione del tempo di percorrenza con traffico.}}
     \label{fig:frequency_flow}
 \end{figure}
-In questo caso il fit gaussiano non \`e soddisfacente. Infatti, questo riporta una media di $(22 \pm 20)$ min con una deviazione standard di $(15 \pm 18)$ min.
-Con questi risultati, la probabilit\`a di avere un tempo di percorrenza maggiore di 50 min \`e dello 0.03\%, stima che contraddice i dati sperimentali riportanti uno 0.04\%.
+In questo caso il fit gaussiano non \`e del tutto soddisfacente. Infatti, questo riporta una media di $(22 \pm 20)$ min con una deviazione standard di $(15 \pm 18)$ min.
+Con questi risultati, la probabilit\`a di avere un tempo di percorrenza maggiore di 50 min \`e dello 0.03\%, mentre i dati sperimentali riportano uno 0.04\%; tale fluttuazione \`e rilevante al fine dell'analisi successiva.
 Infine, dopo 190 min da inizio simulazione il sistema risulta congestionato.
 L'andamento della frequenza, riportato in Fig. \ref{fig:frequency_congested_flow}, segue una distribuzione normale bimodale, in particolare la somma di due distribuzioni normali.
 \begin{figure}[H]
@@ -458,7 +458,7 @@ L'analisi dei tempi di percorrenza fornisce esiti sostanzialmente coerenti con l
 L'utilizzo di un numero pi\`u elevato di bin, tuttavia, avrebbe messo in evidenza fluttuazioni sui dati che non ne avrebbero permessa un'analisi corretta: per questo motivo i risultati ottenuti possono essere considerati qualitativamente validi.
 
 Nonostante il modello riproduca egregiamente numerose caratteristiche delle congestioni di traffico risulta sostanzialmente incompleto.
-Manca, ad esempio, la possibilit\`a di ricalcolare i \emph{best path} in base alle condizioni istantanee di traffico, oltre all'implementazione di alcune caratteristiche tipiche degli OVM (\emph{Optimal Velocity Model}) come la dipendenza della velocit\`a e della distanza di un veicolo in base a quella del veicolo che lo precede.
-Ulteriori studi potrebbero essere svolti per verificare come queste revisioni impattino sui DFM, anche prese singolarmente.
+Manca, ad esempio, la possibilit\`a di ricalcolare i \emph{best path} in base alle condizioni istantanee di traffico e l'implementazione di alcune caratteristiche tipiche degli OVM (\emph{Optimal Velocity Model}) come la dipendenza della velocit\`a e della distanza di un veicolo in base a quella del veicolo che lo precede e l'accelerazione dei veicoli stessi.
+Ulteriori studi potrebbero essere svolti per verificare come una o pi\`u queste revisioni impattino sui DFM.
 
 \end{document}
