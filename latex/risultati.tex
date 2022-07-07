@@ -31,7 +31,7 @@ Si pongano ora la lunghezza media di un veicolo pari a 8 m, la velocit\`a minima
 Si vuole, come prima cosa, sottoporre il sistema ad un carico costante: in questo modo si dovrebbe evitare la formazione di congestioni, mantenendo la capacit\`a di trasporto della rete stessa.
 Il sistema viene quindi sottoposto ad un carico costante di 250 veicoli immessi ogni 60 s, fino a un tempo di 3.33 h, per un tempo totale di 4.15 h, lasciandoli liberi di uscire dalla rete una volta giunti a destinazione.
 Ci si aspetta cos\`i una crescita iniziale della densit\`a media, la quale si mantiene costante fintantoch\'e nuovi veicoli vengono immessi nel sistema.
-L'obiettivo \`e, infatti, mantrenere complessivamente invariato il numero totale di veicoli presenti sulla rete, a meno di fluttuazioni.
+L'obiettivo \`e, infatti, mantenere complessivamente invariato il numero totale di veicoli presenti sulla rete, a meno di fluttuazioni.
 \begin{figure}[H]
     \centering
     \begin{tikzpicture}
@@ -453,12 +453,12 @@ La mancata formazione di congestioni non ha, inoltre, permesso la formazione di 
 Una volta sottoposto ad un carico piccato, infatti, il sistema si \`e congestionato, riducendo la propria capacit\`a di trasporto.
 La riduzione della capacit\`a di trasporto \`e associabile al rapido calo del flusso medio osservabile in Fig. \ref{fig:hysteresys_peaked_homo}.
 Nella stessa figura si pu\`o notare la presenza di un ciclo di isteresi dovuto alla congestione stessa, che va a chiudersi una volta permesso al sistema di svuotarsi.
-Analogamente al caso precedente, nel caso di un carico periodico si osservano, in Fig. \ref{fig:hysteresys_periodic_homo}, tre cicli di isteresi differenti, ognuno corrisponente ad un diverso picco della densit\`a media (cfr Fig. \ref{fig:density_time_periodic_homo}).\\
+Analogamente al caso precedente, nel caso di un carico periodico si osservano, in Fig. \ref{fig:hysteresys_periodic_homo}, tre cicli di isteresi differenti, ognuno corrispondente ad un diverso picco della densit\`a media (cfr Fig. \ref{fig:density_time_periodic_homo}).\\
 L'analisi dei tempi di percorrenza fornisce esiti sostanzialmente coerenti con la teoria di riferimento, nonostante la grande incertezza sui dati dovuta allo scarso numero di bin in cui sono stati suddivisi gli istogrammi.
-L'utilizzo di un numero pi\`u elevato di bin, tuttavia, avrebbe messo in evidenta fluttuazioni sui dati che non ne avrebbero permessa un'analisi corretta: per questo motivo i risultati ottenuti possono essere considerati qualitativamente validi.
+L'utilizzo di un numero pi\`u elevato di bin, tuttavia, avrebbe messo in evidenza fluttuazioni sui dati che non ne avrebbero permessa un'analisi corretta: per questo motivo i risultati ottenuti possono essere considerati qualitativamente validi.
 
 Nonostante il modello riproduca egregiamente numerose caratteristiche delle congestioni di traffico risulta sostanzialmente incompleto.
 Manca, ad esempio, la possibilit\`a di ricalcolare i \emph{best path} in base alle condizioni istantanee di traffico, oltre all'implementazione di alcune caratteristiche tipiche degli OVM (\emph{Optimal Velocity Model}) come la dipendenza della velocit\`a e della distanza di un veicolo in base a quella del veicolo che lo precede.
-Ulteriori studi potrebbero essere svolti per vericare come queste revisioni impattino sui DFM, anche prese singolarmente.
+Ulteriori studi potrebbero essere svolti per verificare come queste revisioni impattino sui DFM, anche prese singolarmente.
 
 \end{document}
