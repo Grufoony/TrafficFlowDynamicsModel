@@ -104,7 +104,7 @@ In particolare, si nota come il grafico sia effettivamente una retta, il che imp
 \end{figure}
 
 \section{Carico piccato}
-Si inserisca ora nel sistema un totale di 25000 veicoli, suddivisi in 2500 veicoli ogni 50 s, consentendone la fuoriuscita dal reticolo solo dopo 67 min, in modo tale da lasciare al sistema tempo per stabilizzarsi.
+Si inserisca ora nel sistema un totale di 25000 veicoli, suddivisi in 2500 veicoli ogni 50 s, consentendone la fuoriuscita dal reticolo solo dopo 67 min, in modo tale da lasciare al sistema tempo per giungere ad uno stato di equilibrio.
 Si osserva cos\`i in Fig. \ref{fig:peaked_homo} un picco iniziale della densit\`a media (sovraccarico del sistema) e come questa rimanga stabile fino a circa 1 h da inizio simulazione, poi inizi a diminuire.
 \begin{figure}[H]
     \centering
@@ -145,7 +145,7 @@ Si osserva cos\`i in Fig. \ref{fig:peaked_homo} un picco iniziale della densit\`
     \caption[Densit\`a media per un reticolo omogeneo sovraccaricato]{\emph{Densit\`a media per un reticolo omogeneo sovraccaricato.}}
     \label{fig:peaked_homo}
 \end{figure}
-Una volta caricato il sistema ci si aspetta che la distribuzione di veicoli nelle strade non resti omogenea nel tempo: gli agenti presenti sul sistema tenderanno ad occupare le strade costituenti i loro \emph{best path} e a lasciare vuote quelle pi\`u lontane da essi.
+Una volta stabilizzato il sistema ci si aspetta che la distribuzione di veicoli nelle strade non resti omogenea nel tempo: gli agenti presenti sul sistema tenderanno ad occupare le strade costituenti i loro \emph{best path} e a lasciare vuote quelle pi\`u lontane da essi.
 \begin{figure}[H]
     \centering
     \begin{tikzpicture}
@@ -167,7 +167,7 @@ Una volta caricato il sistema ci si aspetta che la distribuzione di veicoli nell
     \label{fig:nStreet_density_peaked_homo}
 \end{figure}
 In Fig. \ref{fig:nStreet_density_peaked_homo} \`e visibile il diagramma caratteristico della congestione, in cui sono presenti, come atteso, un gran numero di strade vuote e altrettante sature.
-In questo istante di tempo, pari a 1.75 h da inizio simulazione, ci si aspetta dunque che i diagrammi fondamentali siano confrontabili con quelli in Fig. \ref{fig:greenshield}: questa ipotesi \`e confermata dalla Fig. \ref{fig:DMF_peaked_homo}.
+In questo istante di tempo, pari a 1.61 h da inizio simulazione, ci si aspetta dunque che i diagrammi fondamentali siano confrontabili con quelli in Fig. \ref{fig:greenshield}: questa ipotesi \`e confermata dalla Fig. \ref{fig:DMF_peaked_homo}.
 \begin{figure}[H]
     \begin{tikzpicture}[scale=0.6]
     \begin{axis}[
@@ -224,7 +224,7 @@ In questo istante di tempo, pari a 1.75 h da inizio simulazione, ci si aspetta d
     \caption[DFM per una congestione]{\emph{Diagrammi fondamentali macroscopici di una congestione in un reticolo omogeneo.}}
     \label{fig:DMF_peaked_homo}
 \end{figure}
-Secondo la teoria dei flussi di traffico, un sistema congestionato tende a risolvere la congestione in modo differente da come questa si \`e formata: questo fenomeno causa la formazione di un ciclo di isteresi.
+Secondo la teoria dei flussi di traffico, un sistema congestionato tende a risolvere la congestione in modo differente da come questa si \`e formata e questo fenomeno causa la formazione di un ciclo di isteresi.
 Lo scarico del sistema avviene gradualmente e prevede un ritorno alla stabilit\`a lungo una traiettoria differente rispetto alla fase di carico: tale differenza \`e visibile in Fig. \ref{fig:hysteresys_peaked_homo}.
 \begin{figure}[H]
     \begin{tikzpicture}[scale=0.6]
