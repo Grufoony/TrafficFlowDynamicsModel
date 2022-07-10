@@ -1,20 +1,20 @@
-.PHONY: run run0 run1 run2 wsl debug windows visual docs
-run:
+.PHONY: traveltime constant peaked periodic linux debug windows visual docs
+traveltime:
 	clear
 	./test.wsl ./data/matrix.dat ./data/vehicletype.dat 300 200 15001
-run0:
+constant:
 	clear
 	./test.wsl ./data/matrix.dat ./data/vehicletype.dat 300 250 15001
-run1:
+peaked:
 	clear
 	./test.wsl ./data/matrix.dat ./data/vehicletype.dat 300 25000 12000
-run2:
+periodic:
 	clear
 	./test.wsl ./data/matrix.dat ./data/vehicletype.dat 300 2100 32400 55000
 test:
 	clear
 	./test.wsl ./data/matrix_old.dat ./data/vehicletype_old.dat 300 0 0
-wsl:
+linux:
 	clear
 	g++ -O3 ./main.cpp ./source/Graph.cpp ./source/Street.cpp ./source/Vehicle.cpp ./source/VehicleType.cpp -o test.wsl
 windows:
