@@ -28,6 +28,16 @@
 
 \graphicspath{{data/img/}{./}} % Specifies where to look for included images (trailing slash required)
 
+\usepackage{subcaption}
+\usepackage{hyperref}
+\usepackage{float}
+\floatplacement{figure}{H}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepgfplotslibrary{groupplots}
+\pgfplotsset{compat=1.18}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+
 \usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule for better rules in tables
 
 %----------------------------------------------------------------------------------------
@@ -166,35 +176,156 @@
 	\titlepage % Output the title slide, automatically created using the text entered in the PRESENTATION INFORMATION block above
 \end{frame}
 
-%----------------------------------------------------------------------------------------
-%	TABLE OF CONTENTS SLIDE
-%----------------------------------------------------------------------------------------
-
-% The table of contents outputs the sections and subsections that appear in your presentation, specified with the standard \section and \subsection commands. You may either display all sections and subsections on one slide with \tableofcontents, or display each section at a time on subsequent slides with \tableofcontents[pausesections]. The latter is useful if you want to step through each section and mention what you will discuss.
 
 \begin{frame}
-	\frametitle{Congestioni} % Slide title, remove this command for no title
+	\frametitle{Congestioni su network} % Slide title, remove this command for no title
 	
-	% \tableofcontents % Output the table of contents (all sections on one slide)
-	%\tableofcontents[pausesections] % Output the table of contents (break sections up across separate slides)
+	\begin{itemize}
+		\item le congestioni sono una diminuzione della qualit\`a del trasporto che avviene quando un nodo della rete \`e attraversato da pi\`u veicoli di quanti ne possa sostenere
+	\end{itemize}
+	\begin{figure}
+		\includegraphics[width=\linewidth]{daganzo.jpg}
+		\caption{\emph{Diagrammi Fondamentali Macroscopici. A sinistra, una previsione teorica, a destra, un diagramma sperimentale.}}
+	\end{figure}
 \end{frame}
 
 
 \begin{frame}
-	\frametitle{Modello} % Slide title, remove this command for no title
+	\frametitle{Modello: dinamica su strada} % Slide title, remove this command for no title
+
+	\begin{itemize}
+		\item velocit\`a assegnata nell'immissione sulla strada secondo la formula
+			\begin{equation}
+				v(t) = v_{max}\left(1-k\frac{\rho(t)}{\rho_{max}}\right)
+			\end{equation}
+		\item ogni ciclo di evoluzione la velocit\`a viene riassegnata in base alla densit\`a di veicoli istantanea della strada
+		\item a partire dalla velocit\`a viene calcolato il tempo di percorrenza, assegnato ad ogni veicolo come \emph{penalit\`a temporale}
+	\end{itemize}
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Modello: dinamica agli incroci} % Slide title, remove this command for no title
+
+	\begin{itemize}
+		\item se la \emph{penalit\`a temporale} \`e nulla si \`e giunti ad un incrocio
+		\item in base al \emph{best path} viene scelta la prossima strada in cui immettersi, in particolare:
+			\begin{enumerate}
+				\item se vuota, il veicolo si immette e gli viene assegnata una nuova velocit\`a
+				\item se piena, il veicolo rimane fermo all'incrocio e ``perde'' un ciclo
+			\end{enumerate}
+	\end{itemize}
 	
 \end{frame}
 
 
 \begin{frame}
-	\frametitle{Rete Stradale} % Slide title, remove this command for no title
+	\frametitle{Rete stradale e domanda di mobilit\`a} % Slide title, remove this command for no title
+
+	\begin{figure}
+		\includegraphics[width=.75\linewidth]{free_flow.png}
+		\caption{Rete stradale.}
+	\end{figure}
 	
 \end{frame}
 
 
 \begin{frame}
-	\frametitle{Esempio: carico piccato} % Slide title, remove this command for no title
+	\frametitle{Discussione degli osservabili} % Slide title, remove this command for no title
+
+	\begin{figure}[H]
+		\begin{tikzpicture}[scale=0.69]
+			\begin{axis}[ybar interval,
+			every tick label/.append style={font=\tiny},
+			area style,
+			width = 0.75\textwidth,
+			height = 0.50\textwidth,
+			xlabel = {$\frac{\rho}{\rho_{max}}$},
+			ylabel = {Frequenza},]
+			\addplot+[
+			ybar interval,
+			mark=no,
+			line width = 1.25pt
+			] plot file {./data/constant_homo/7200_den.dat};
+			\addplot[
+			domain=0:1.1,
+			smooth,
+			color=green,
+			line width=1.5pt
+			] {0.8546*exp(-(7.86*x))};
+			\end{axis}
+		\end{tikzpicture}
+		\begin{tikzpicture}[scale=0.69]
+			\begin{axis}[ybar interval,
+			every tick label/.append style={font=\tiny},
+			area style,
+			width = 0.75\textwidth,
+			height = 0.50\textwidth,
+			xlabel = {$\frac{\rho}{\rho_{max}}$},
+			ylabel = {Frequenza},]
+			\addplot+[
+			ybar interval,
+			mark=no,
+			line width = 1.25pt
+			] plot file {./data/peaked_homo/5800_den.dat};
+			\addplot[
+			domain=0:0.8,
+			smooth,
+			color=green,
+			line width=1.5pt
+			] {0.3239*exp(-(3.7*x))};
+			\addplot[
+			domain=0.8:1.1,
+			smooth,
+			color=red,
+			line width=1.5pt
+			] {3*10^(-8)*exp(14.484*x)};
+			\end{axis}
+		\end{tikzpicture}
+		\caption{\emph{Frequenza delle strade in base al rapporto tra densit\`a e densit\`a massima. Sono riportate le distribuzioni per sistemi non congestionati (sinistra) e congestionati (destra).}}
+		\end{figure}
 	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Isteresi}
+
+	\begin{figure}[H]
+		\begin{tikzpicture}[scale=0.65]
+			\begin{axis}[
+			grid = both,
+			major grid style = {lightgray},
+			minor grid style = {lightgray!25},
+			width = 0.75\textwidth,
+			height = 0.5\textwidth,
+			ylabel near ticks,
+			xlabel near ticks,
+			xlabel = {Densità (veh/km)},
+			ylabel = {Flusso (veh/h)},]
+			\addplot[
+			mark size=0.69,
+			draw=black,
+			mark=o] file {./data/peaked_homo/q-k.dat};
+			\end{axis}
+		\end{tikzpicture}
+		\begin{tikzpicture}[scale=0.65]
+			\begin{axis}[
+			grid = both,
+			major grid style = {lightgray},
+			minor grid style = {lightgray!25},
+			width = 0.75\textwidth,
+			height = 0.5\textwidth,
+			xlabel near ticks,
+			xlabel = {Tempo (h)},]
+			\addplot[
+			mark size=0.69,
+			draw=black,
+			mark=o] file {./data/peaked_homo/q-t.dat};
+			\end{axis}
+			\end{tikzpicture}
+		\caption{\emph{Flusso medio della rete in relazione alla densit\`a media e al tempo.}}
+		\end{figure}
+
 \end{frame}
 
 %----------------------------------------------------------------------------------------
@@ -211,283 +342,283 @@
 	\end{center}
 \end{frame}
 
-%----------------------------------------------------------------------------------------
+% %----------------------------------------------------------------------------------------
 
-%----------------------------------------------------------------------------------------
-%	PRESENTATION BODY SLIDES
-%----------------------------------------------------------------------------------------
+% %----------------------------------------------------------------------------------------
+% %	PRESENTATION BODY SLIDES
+% %----------------------------------------------------------------------------------------
 
-\section{Text Examples} % Sections are added in order to organize your presentation into discrete blocks, all sections and subsections are automatically output to the table of contents as an overview of the talk but NOT output in the presentation as separate slides
+% \section{Text Examples} % Sections are added in order to organize your presentation into discrete blocks, all sections and subsections are automatically output to the table of contents as an overview of the talk but NOT output in the presentation as separate slides
 
-%------------------------------------------------
+% %------------------------------------------------
 
-\subsection{Paragraphs and Lists}
-
-\begin{frame}
-	\frametitle{Paragraphs of Text}
-	
-	Sed iaculis \alert{dapibus gravida}. Morbi sed tortor erat, nec interdum arcu. Sed id lorem lectus. Quisque viverra augue id sem ornare non aliquam nibh tristique. Aenean in ligula nisl. Nulla sed tellus ipsum. Donec vestibulum ligula non lorem vulputate fermentum accumsan neque mollis.
-	
-	\bigskip % Vertical whitespace
-	
-	% Quote example
-	\begin{quote}
-		Sed diam enim, sagittis nec condimentum sit amet, ullamcorper sit amet libero. Aliquam vel dui orci, a porta odio.\\
-		--- Someone, somewhere\ldots
-	\end{quote}
-	
-	\bigskip % Vertical whitespace
-	
-	Nullam id suscipit ipsum. Aenean lobortis commodo sem, ut commodo leo gravida vitae. Pellentesque vehicula ante iaculis arcu pretium rutrum eget sit amet purus. Integer ornare nulla quis neque ultrices lobortis.
-\end{frame}
-
-%------------------------------------------------
-
-\begin{frame}
-	\frametitle{Lists}
-	\framesubtitle{Bullet Points and Numbered Lists} % Optional subtitle
-	
-	\begin{itemize}
-		\item Lorem ipsum dolor sit amet, consectetur adipiscing elit
-		\item Aliquam blandit faucibus nisi, sit amet dapibus enim tempus
-		\begin{itemize}
-			\item Lorem ipsum dolor sit amet, consectetur adipiscing elit
-			\item Nam cursus est eget velit posuere pellentesque
-		\end{itemize}
-		\item Nulla commodo, erat quis gravida posuere, elit lacus lobortis est, quis porttitor odio mauris at libero
-	\end{itemize}
-	
-	\bigskip % Vertical whitespace
-	
-	\begin{enumerate}
-		\item Nam cursus est eget velit posuere pellentesque
-		\item Vestibulum faucibus velit a augue condimentum quis convallis nulla gravida 
-	\end{enumerate}
-\end{frame}
-
-%------------------------------------------------
-
-\subsection{Blocks}
-
-\begin{frame}
-	\frametitle{Blocks of Highlighted Text}
-	
-	\begin{block}{Block Title}
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lectus nisl, ultricies in feugiat rutrum, porttitor sit amet augue.
-	\end{block}
-	
-	\begin{exampleblock}{Example Block Title}
-		Aliquam ut tortor mauris. Sed volutpat ante purus, quis accumsan.
-	\end{exampleblock}
-	
-	\begin{alertblock}{Alert Block Title}
-		Pellentesque sed tellus purus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
-	\end{alertblock}
-	
-	\begin{block}{} % Block without title
-		Suspendisse tincidunt sagittis gravida. Curabitur condimentum, enim sed venenatis rutrum, ipsum neque consectetur orci.
-	\end{block}
-\end{frame}
-
-%------------------------------------------------
-
-\subsection{Columns}
-
-\begin{frame}
-	\frametitle{Multiple Columns}
-	\framesubtitle{Subtitle} % Optional subtitle
-	
-	\begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
-		\begin{column}{0.45\textwidth} % Left column width
-			\textbf{Heading}
-			\begin{enumerate}
-				\item Statement
-				\item Explanation
-				\item Example
-			\end{enumerate}
-		\end{column}
-		\begin{column}{0.5\textwidth} % Right column width
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lectus nisl, ultricies in feugiat rutrum, porttitor sit amet augue. Aliquam ut tortor mauris. Sed volutpat ante purus, quis accumsan dolor.
-		\end{column}
-	\end{columns}
-\end{frame}
-
-%------------------------------------------------
-
-\section{Table and Figure Examples}
-
-\subsection{Table}
-
-\begin{frame}
-	\frametitle{Table}
-	\framesubtitle{Subtitle} % Optional subtitle
-	
-	\begin{table}
-		\begin{tabular}{l l l}
-			\toprule
-			\textbf{Treatments} & \textbf{Response 1} & \textbf{Response 2}\\
-			\midrule
-			Treatment 1 & 0.0003262 & 0.562 \\
-			Treatment 2 & 0.0015681 & 0.910 \\
-			Treatment 3 & 0.0009271 & 0.296 \\
-			\bottomrule
-		\end{tabular}
-		\caption{Table caption}
-	\end{table}
-\end{frame}
-
-%------------------------------------------------
-
-\subsection{Figure}
+% \subsection{Paragraphs and Lists}
 
 % \begin{frame}
-% 	\frametitle{Figure}
+% 	\frametitle{Paragraphs of Text}
 	
-% 	\begin{figure}
-% 		\includegraphics[width=0.8\linewidth]{creodocs_logo.pdf}
-% 		\caption{Creodocs logo.}
-% 	\end{figure}
+% 	Sed iaculis \alert{dapibus gravida}. Morbi sed tortor erat, nec interdum arcu. Sed id lorem lectus. Quisque viverra augue id sem ornare non aliquam nibh tristique. Aenean in ligula nisl. Nulla sed tellus ipsum. Donec vestibulum ligula non lorem vulputate fermentum accumsan neque mollis.
+	
+% 	\bigskip % Vertical whitespace
+	
+% 	% Quote example
+% 	\begin{quote}
+% 		Sed diam enim, sagittis nec condimentum sit amet, ullamcorper sit amet libero. Aliquam vel dui orci, a porta odio.\\
+% 		--- Someone, somewhere\ldots
+% 	\end{quote}
+	
+% 	\bigskip % Vertical whitespace
+	
+% 	Nullam id suscipit ipsum. Aenean lobortis commodo sem, ut commodo leo gravida vitae. Pellentesque vehicula ante iaculis arcu pretium rutrum eget sit amet purus. Integer ornare nulla quis neque ultrices lobortis.
 % \end{frame}
 
-%------------------------------------------------
+% %------------------------------------------------
 
-\section{Mathematics}
-
-\begin{frame}
-	\frametitle{Definitions \& Examples}
+% \begin{frame}
+% 	\frametitle{Lists}
+% 	\framesubtitle{Bullet Points and Numbered Lists} % Optional subtitle
 	
-	\begin{definition}
-		A \alert{prime number} is a number that has exactly two divisors.
-	\end{definition}
+% 	\begin{itemize}
+% 		\item Lorem ipsum dolor sit amet, consectetur adipiscing elit
+% 		\item Aliquam blandit faucibus nisi, sit amet dapibus enim tempus
+% 		\begin{itemize}
+% 			\item Lorem ipsum dolor sit amet, consectetur adipiscing elit
+% 			\item Nam cursus est eget velit posuere pellentesque
+% 		\end{itemize}
+% 		\item Nulla commodo, erat quis gravida posuere, elit lacus lobortis est, quis porttitor odio mauris at libero
+% 	\end{itemize}
 	
-	\smallskip % Vertical whitespace
+% 	\bigskip % Vertical whitespace
 	
-	\begin{example}
-		\begin{itemize}
-			\item 2 is prime (two divisors: 1 and 2).
-			\item 3 is prime (two divisors: 1 and 3).
-			\item 4 is not prime (\alert{three} divisors: 1, 2, and 4).
-		\end{itemize}
-	\end{example}
+% 	\begin{enumerate}
+% 		\item Nam cursus est eget velit posuere pellentesque
+% 		\item Vestibulum faucibus velit a augue condimentum quis convallis nulla gravida 
+% 	\end{enumerate}
+% \end{frame}
+
+% %------------------------------------------------
+
+% \subsection{Blocks}
+
+% \begin{frame}
+% 	\frametitle{Blocks of Highlighted Text}
 	
-	\smallskip % Vertical whitespace
+% 	\begin{block}{Block Title}
+% 		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lectus nisl, ultricies in feugiat rutrum, porttitor sit amet augue.
+% 	\end{block}
 	
-	You can also use the \texttt{theorem}, \texttt{lemma}, \texttt{proof} and \texttt{corollary} environments.
-\end{frame}
-
-%------------------------------------------------
-
-\begin{frame}
-	\frametitle{Theorem, Corollary \& Proof}
+% 	\begin{exampleblock}{Example Block Title}
+% 		Aliquam ut tortor mauris. Sed volutpat ante purus, quis accumsan.
+% 	\end{exampleblock}
 	
-	\begin{theorem}[Mass--energy equivalence]
-		$E = mc^2$
-	\end{theorem}
+% 	\begin{alertblock}{Alert Block Title}
+% 		Pellentesque sed tellus purus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+% 	\end{alertblock}
 	
-	\begin{corollary}
-		$x + y = y + x$
-	\end{corollary}
+% 	\begin{block}{} % Block without title
+% 		Suspendisse tincidunt sagittis gravida. Curabitur condimentum, enim sed venenatis rutrum, ipsum neque consectetur orci.
+% 	\end{block}
+% \end{frame}
+
+% %------------------------------------------------
+
+% \subsection{Columns}
+
+% \begin{frame}
+% 	\frametitle{Multiple Columns}
+% 	\framesubtitle{Subtitle} % Optional subtitle
 	
-	\begin{proof}
-		$\omega + \phi = \epsilon$
-	\end{proof}
-\end{frame}
+% 	\begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
+% 		\begin{column}{0.45\textwidth} % Left column width
+% 			\textbf{Heading}
+% 			\begin{enumerate}
+% 				\item Statement
+% 				\item Explanation
+% 				\item Example
+% 			\end{enumerate}
+% 		\end{column}
+% 		\begin{column}{0.5\textwidth} % Right column width
+% 			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lectus nisl, ultricies in feugiat rutrum, porttitor sit amet augue. Aliquam ut tortor mauris. Sed volutpat ante purus, quis accumsan dolor.
+% 		\end{column}
+% 	\end{columns}
+% \end{frame}
 
-%------------------------------------------------
+% %------------------------------------------------
 
-\begin{frame}
-	\frametitle{Equation}
+% \section{Table and Figure Examples}
 
-	\begin{equation}
-		\cos^3 \theta =\frac{1}{4}\cos\theta+\frac{3}{4}\cos 3\theta
-	\end{equation}
-\end{frame}
+% \subsection{Table}
 
-%------------------------------------------------
-
-\begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
-	\frametitle{Verbatim}
+% \begin{frame}
+% 	\frametitle{Table}
+% 	\framesubtitle{Subtitle} % Optional subtitle
 	
-	\begin{example}[Theorem Slide Code]
-		\begin{verbatim}
-			\begin{frame}
-				\frametitle{Theorem}
-				\begin{theorem}[Mass--energy equivalence]
-					$E = mc^2$
-				\end{theorem}
-		\end{frame}\end{verbatim} % Must be on the same line
-	\end{example}
-\end{frame}
+% 	\begin{table}
+% 		\begin{tabular}{l l l}
+% 			\toprule
+% 			\textbf{Treatments} & \textbf{Response 1} & \textbf{Response 2}\\
+% 			\midrule
+% 			Treatment 1 & 0.0003262 & 0.562 \\
+% 			Treatment 2 & 0.0015681 & 0.910 \\
+% 			Treatment 3 & 0.0009271 & 0.296 \\
+% 			\bottomrule
+% 		\end{tabular}
+% 		\caption{Table caption}
+% 	\end{table}
+% \end{frame}
 
-%------------------------------------------------
+% %------------------------------------------------
 
-\begin{frame}
-	Slide without title.
-\end{frame}
+% \subsection{Figure}
 
-%------------------------------------------------
-
-\section{Referencing}
-
-\begin{frame}
-	\frametitle{Citing References}
+% % \begin{frame}
+% % 	\frametitle{Figure}
 	
-	An example of the \texttt{\textbackslash cite} command to cite within the presentation:
-	
-	\bigskip % Vertical whitespace
-	
-	This statement requires citation \cite{p1,p2}.
-\end{frame}
+% % 	\begin{figure}
+% % 		\includegraphics[width=0.8\linewidth]{creodocs_logo.pdf}
+% % 		\caption{Creodocs logo.}
+% % 	\end{figure}
+% % \end{frame}
 
-%------------------------------------------------
+% %------------------------------------------------
 
-\begin{frame} % Use [allowframebreaks] to allow automatic splitting across slides if the content is too long
-	\frametitle{References}
+% \section{Mathematics}
+
+% \begin{frame}
+% 	\frametitle{Definitions \& Examples}
 	
-	\begin{thebibliography}{99} % Beamer does not support BibTeX so references must be inserted manually as below, you may need to use multiple columns and/or reduce the font size further if you have many references
-		\footnotesize % Reduce the font size in the bibliography
+% 	\begin{definition}
+% 		A \alert{prime number} is a number that has exactly two divisors.
+% 	\end{definition}
+	
+% 	\smallskip % Vertical whitespace
+	
+% 	\begin{example}
+% 		\begin{itemize}
+% 			\item 2 is prime (two divisors: 1 and 2).
+% 			\item 3 is prime (two divisors: 1 and 3).
+% 			\item 4 is not prime (\alert{three} divisors: 1, 2, and 4).
+% 		\end{itemize}
+% 	\end{example}
+	
+% 	\smallskip % Vertical whitespace
+	
+% 	You can also use the \texttt{theorem}, \texttt{lemma}, \texttt{proof} and \texttt{corollary} environments.
+% \end{frame}
+
+% %------------------------------------------------
+
+% \begin{frame}
+% 	\frametitle{Theorem, Corollary \& Proof}
+	
+% 	\begin{theorem}[Mass--energy equivalence]
+% 		$E = mc^2$
+% 	\end{theorem}
+	
+% 	\begin{corollary}
+% 		$x + y = y + x$
+% 	\end{corollary}
+	
+% 	\begin{proof}
+% 		$\omega + \phi = \epsilon$
+% 	\end{proof}
+% \end{frame}
+
+% %------------------------------------------------
+
+% \begin{frame}
+% 	\frametitle{Equation}
+
+% 	\begin{equation}
+% 		\cos^3 \theta =\frac{1}{4}\cos\theta+\frac{3}{4}\cos 3\theta
+% 	\end{equation}
+% \end{frame}
+
+% %------------------------------------------------
+
+% \begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
+% 	\frametitle{Verbatim}
+	
+% 	\begin{example}[Theorem Slide Code]
+% 		\begin{verbatim}
+% 			\begin{frame}
+% 				\frametitle{Theorem}
+% 				\begin{theorem}[Mass--energy equivalence]
+% 					$E = mc^2$
+% 				\end{theorem}
+% 		\end{frame}\end{verbatim} % Must be on the same line
+% 	\end{example}
+% \end{frame}
+
+% %------------------------------------------------
+
+% \begin{frame}
+% 	Slide without title.
+% \end{frame}
+
+% %------------------------------------------------
+
+% \section{Referencing}
+
+% \begin{frame}
+% 	\frametitle{Citing References}
+	
+% 	An example of the \texttt{\textbackslash cite} command to cite within the presentation:
+	
+% 	\bigskip % Vertical whitespace
+	
+% 	This statement requires citation \cite{p1,p2}.
+% \end{frame}
+
+% %------------------------------------------------
+
+% \begin{frame} % Use [allowframebreaks] to allow automatic splitting across slides if the content is too long
+% 	\frametitle{References}
+	
+% 	\begin{thebibliography}{99} % Beamer does not support BibTeX so references must be inserted manually as below, you may need to use multiple columns and/or reduce the font size further if you have many references
+% 		\footnotesize % Reduce the font size in the bibliography
 		
-		\bibitem[Smith, 2022]{p1}
-			John Smith (2022)
-			\newblock Publication title
-			\newblock \emph{Journal Name} 12(3), 45 -- 678.
+% 		\bibitem[Smith, 2022]{p1}
+% 			John Smith (2022)
+% 			\newblock Publication title
+% 			\newblock \emph{Journal Name} 12(3), 45 -- 678.
 			
-		\bibitem[Kennedy, 2023]{p2}
-			Annabelle Kennedy (2023)
-			\newblock Publication title
-			\newblock \emph{Journal Name} 12(3), 45 -- 678.
-	\end{thebibliography}
-\end{frame}
+% 		\bibitem[Kennedy, 2023]{p2}
+% 			Annabelle Kennedy (2023)
+% 			\newblock Publication title
+% 			\newblock \emph{Journal Name} 12(3), 45 -- 678.
+% 	\end{thebibliography}
+% \end{frame}
 
-%----------------------------------------------------------------------------------------
-%	ACKNOWLEDGMENTS SLIDE
-%----------------------------------------------------------------------------------------
+% %----------------------------------------------------------------------------------------
+% %	ACKNOWLEDGMENTS SLIDE
+% %----------------------------------------------------------------------------------------
 
-\begin{frame}
-	\frametitle{Acknowledgements}
+% \begin{frame}
+% 	\frametitle{Acknowledgements}
 	
-	\begin{columns}[t] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
-		\begin{column}{0.45\textwidth} % Left column width
-			\textbf{Smith Lab}
-			\begin{itemize}
-				\item Alice Smith
-				\item Devon Brown
-			\end{itemize}
-			\textbf{Cook Lab}
-			\begin{itemize}
-				\item Margaret
-				\item Jennifer
-				\item Yuan
-			\end{itemize}
-		\end{column}		
-		\begin{column}{0.5\textwidth} % Right column width
-			\textbf{Funding}
-			\begin{itemize}
-				\item British Royal Navy
-				\item Norwegian Government
-			\end{itemize}
-		\end{column}
-	\end{columns}
-\end{frame}
+% 	\begin{columns}[t] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
+% 		\begin{column}{0.45\textwidth} % Left column width
+% 			\textbf{Smith Lab}
+% 			\begin{itemize}
+% 				\item Alice Smith
+% 				\item Devon Brown
+% 			\end{itemize}
+% 			\textbf{Cook Lab}
+% 			\begin{itemize}
+% 				\item Margaret
+% 				\item Jennifer
+% 				\item Yuan
+% 			\end{itemize}
+% 		\end{column}		
+% 		\begin{column}{0.5\textwidth} % Right column width
+% 			\textbf{Funding}
+% 			\begin{itemize}
+% 				\item British Royal Navy
+% 				\item Norwegian Government
+% 			\end{itemize}
+% 		\end{column}
+% 	\end{columns}
+% \end{frame}
 
 \end{document} 
