@@ -667,7 +667,7 @@ void Graph::fprintTimeDistribution(std::string const &outFolder,
     auto meanDensity = 0.;
     auto meanVelocity = 0.;
     for (auto const &street : _streets) {
-      meanDensity += street->getVehicleDensity();
+      meanDensity += street->getVehicleDensity() * 1e3;
       meanVelocity += this->_getStreetMeanVelocity(street->getIndex()) * 3.6;
     }
     meanDensity /= _streets.size();
