@@ -154,15 +154,15 @@
 %	PRESENTATION INFORMATION
 %----------------------------------------------------------------------------------------
 
-\title[Short Title]{Modelli di traffico per la formazione della congestione su una rete stradale} % The short title in the optional parameter appears at the bottom of every slide, the full title in the main parameter is only on the title page
+\title[]{Modelli di traffico per la formazione della congestione su una rete stradale} % The short title in the optional parameter appears at the bottom of every slide, the full title in the main parameter is only on the title page
 
 % \subtitle{Optional Subtitle} % Presentation subtitle, remove this command if a subtitle isn't required
 
-\author[Gregorio Berselli]{Gregorio Berselli \\ Prof. Armando Bazzani \and Dott. Alessandro Fabbri} % Presenter name(s), the optional parameter can contain a shortened version to appear on the bottom of every slide, while the main parameter will appear on the title slide
+\author[Gregorio Berselli]{Gregorio Berselli \\[5mm] Prof. Armando Bazzani \and Dott. Alessandro Fabbri} % Presenter name(s), the optional parameter can contain a shortened version to appear on the bottom of every slide, while the main parameter will appear on the title slide
 
 \institute[UniBO]{Universit\`a di Bologna \\ \smallskip \textit{gregorio.berselli@studio.unibo.it}} % Your institution, the optional parameter can be used for the institution shorthand and will appear on the bottom of every slide after author names, while the required parameter is used on the title slide and can include your email address or additional information on separate lines
 
-\date[22 luglio 2022]{International Symposium of Explorers \\ 22 luglio 2022} % Presentation date or conference/meeting name, the optional parameter can contain a shortened version to appear on the bottom of every slide, while the required parameter value is output to the title slide
+\date[22 luglio 2022]{II Appello \\ 22 luglio 2022} % Presentation date or conference/meeting name, the optional parameter can contain a shortened version to appear on the bottom of every slide, while the required parameter value is output to the title slide
 
 %----------------------------------------------------------------------------------------
 
@@ -179,16 +179,28 @@
 
 \begin{frame}
 	\frametitle{Congestioni su network} % Slide title, remove this command for no title
-	
-	\begin{itemize}
-		\item le congestioni sono una diminuzione della qualit\`a del trasporto che avviene quando un nodo della rete \`e attraversato da pi\`u veicoli di quanti ne possa sostenere
-	\end{itemize}
-	\begin{figure}
-		\includegraphics[width=\linewidth]{daganzo.jpg}
-		\caption{\emph{Diagrammi Fondamentali Macroscopici. A sinistra, una previsione teorica, a destra, un diagramma sperimentale.}}
-	\end{figure}
+	Le congestioni sono una diminuzione della qualit\`a del trasporto che avviene quando un nodo della rete \`e attraversato da pi\`u veicoli di quanti ne possa sostenere.
+	Effetti delle congestioni sono la diminuzione della velocit\`a, l'aumento dei tempi di percorrenza e la formazione di code.
+	% \begin{figure}
+	% 	\includegraphics[width=\linewidth]{daganzo.jpg}
+	% 	\caption{\emph{Diagrammi Fondamentali Macroscopici. A sinistra, una previsione teorica, a destra, un diagramma sperimentale.}}
+	% \end{figure}
 \end{frame}
 
+\begin{frame}{Diagrammi Fondamentali Macroscopici}
+	\begin{columns}[c]
+		\begin{column}{.5\textwidth}
+			\begin{figure}
+				\includegraphics[width=.9\linewidth]{daganzo2.jpg}
+				\caption{\emph{DFM sperimentali.}}
+				\end{figure}		\end{column}
+		\begin{column}{.5\textwidth}
+			In figura sono riportati i DFM sperimentali di Daganzo.
+			In particolare, il diagramma in alto riporta un punto ogni 5 minuti e verifica l'esistenza di un DFM.
+			Il diagramma in basso, invece, rappresenta le bande di deviazione standard sul campione di dati.
+		\end{column}	
+	\end{columns}
+\end{frame}
 
 \begin{frame}
 	\frametitle{Modello: dinamica su strada} % Slide title, remove this command for no title
@@ -221,11 +233,31 @@
 
 \begin{frame}
 	\frametitle{Rete stradale e domanda di mobilit\`a} % Slide title, remove this command for no title
-
-	\begin{figure}
-		\includegraphics[width=.75\linewidth]{free_flow.png}
-		\caption{Rete stradale.}
-	\end{figure}
+	\begin{columns}[c]
+	\begin{column}{.5\textwidth}
+		\centering
+		\begin{figure}
+			\includegraphics[width=\textwidth]{free_flow.png}
+			\caption{Rete stradale.}
+		\end{figure}
+	\end{column}
+	\begin{column}{.5\textwidth}
+		\begin{block}{Parametri}
+			\begin{itemize}
+				\item lunghezza strade: 500 m
+				\item lunghezza veicoli: 8 m
+				\item numero di incroci: 112
+				\item numero di strade: 436
+				\item velocit\`a massima: 50 km/h (per ogni strada)
+				\item velocit\`a minima: 25\% della velocit\`a massima
+			\end{itemize}
+			
+		\end{block}
+		
+	\end{column}
+		
+	\end{columns}
+	
 	
 \end{frame}
 
@@ -241,7 +273,8 @@
 			width = 0.75\textwidth,
 			height = 0.50\textwidth,
 			xlabel = {$\frac{\rho}{\rho_{max}}$},
-			ylabel = {Frequenza},]
+			ylabel = {Frequenza},
+			ymax=1,]
 			\addplot+[
 			ybar interval,
 			mark=no,
@@ -252,7 +285,7 @@
 			smooth,
 			color=green,
 			line width=1.5pt
-			] {0.8546*exp(-(7.86*x))};
+			] {4.9178*exp(-(19.19*x))};
 			\end{axis}
 		\end{tikzpicture}
 		\begin{tikzpicture}[scale=0.69]
@@ -261,8 +294,7 @@
 			area style,
 			width = 0.75\textwidth,
 			height = 0.50\textwidth,
-			xlabel = {$\frac{\rho}{\rho_{max}}$},
-			ylabel = {Frequenza},]
+			xlabel = {$\frac{\rho}{\rho_{max}}$},]
 			\addplot+[
 			ybar interval,
 			mark=no,
@@ -338,7 +370,7 @@
 		
 		\bigskip\bigskip % Vertical whitespace
 		
-		{\LARGE Questions? Comments?}
+		{\LARGE Grazie per l'attenione}
 	\end{center}
 \end{frame}
 
