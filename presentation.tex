@@ -179,8 +179,9 @@
 
 \begin{frame}
 	\frametitle{Congestioni su network} % Slide title, remove this command for no title
-	Le congestioni sono una diminuzione della qualit\`a del trasporto che avviene quando un nodo della rete \`e attraversato da pi\`u veicoli di quanti ne possa sostenere.
-	Effetti delle congestioni sono la diminuzione della velocit\`a, l'aumento dei tempi di percorrenza e la formazione di code.
+	Diminuzione della qualit\`a del trasporto del network che avviene quando uno o pi\`u nodi sono attraversati da pi\`u \emph{entit\`a} di quante ne possano sostenere.
+
+	Nel caso di un sistema di traffico gli effetti tipici delle congestioni comportano la diminuzione della velocit\`a, l'aumento dei tempi di percorrenza e la formazione di code.
 	% \begin{figure}
 	% 	\includegraphics[width=\linewidth]{daganzo.jpg}
 	% 	\caption{\emph{Diagrammi Fondamentali Macroscopici. A sinistra, una previsione teorica, a destra, un diagramma sperimentale.}}
@@ -199,7 +200,9 @@
 			In particolare, il diagramma in alto riporta un punto ogni 5 minuti e verifica l'esistenza di un DFM.
 			Il diagramma in basso, invece, rappresenta le bande di deviazione standard sul campione di dati.
 			\begin{block}{Relazione fondamentale}
-				$\Phi=\rho v$
+				\begin{equation*}
+					\Phi=\rho v
+				\end{equation*}
 			\end{block}
 		\end{column}	
 	\end{columns}
@@ -209,12 +212,12 @@
 	\frametitle{Modello: dinamica su strada} % Slide title, remove this command for no title
 
 	\begin{itemize}
-		\item velocit\`a assegnata nell'immissione sulla strada secondo la formula
-			\begin{equation}
+		\item velocit\`a assegnata nell'immissione sulla strada
+			\begin{equation*}
 				v(t) = v_{max}\left(1-k\frac{\rho(t)}{\rho_{max}}\right)
-			\end{equation}
-		\item ogni ciclo di evoluzione la velocit\`a viene riassegnata in base alla densit\`a di veicoli istantanea della strada
+			\end{equation*}
 		\item a partire dalla velocit\`a viene calcolato il tempo di percorrenza, assegnato ad ogni veicolo come \emph{penalit\`a temporale}
+		\item ad  ogni ciclo di evoluzione la velocit\`a viene riassegnata in base alla densit\`a di veicoli istantanea della strada
 	\end{itemize}
 	
 \end{frame}
@@ -249,7 +252,7 @@
 			\begin{itemize}
 				\item lunghezza strade: 500 m
 				\item lunghezza veicoli: 8 m
-				\item numero di incroci: 112
+				\item numero di incroci: 120
 				\item numero di strade: 436
 				\item velocit\`a massima: 50 km/h (per ogni strada)
 				\item velocit\`a minima: 25\% della velocit\`a massima
@@ -267,7 +270,7 @@
 
 \begin{frame}
 	\frametitle{Discussione degli osservabili} % Slide title, remove this command for no title
-	Confronto tra regimi differenti.
+	Confronto tra distribuzioni in regimi differenti.
 	\begin{figure}[H]
 		\begin{tikzpicture}[scale=0.69]
 			\begin{axis}[ybar interval,
