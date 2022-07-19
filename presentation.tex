@@ -158,9 +158,9 @@
 
 % \subtitle{Optional Subtitle} % Presentation subtitle, remove this command if a subtitle isn't required
 
-\author[Gregorio Berselli]{Gregorio Berselli \\[5mm] Prof. Armando Bazzani \and Dott. Alessandro Fabbri} % Presenter name(s), the optional parameter can contain a shortened version to appear on the bottom of every slide, while the main parameter will appear on the title slide
+\author[Gregorio Berselli]{Gregorio Berselli} % Presenter name(s), the optional parameter can contain a shortened version to appear on the bottom of every slide, while the main parameter will appear on the title slide
 
-\institute[UniBO]{Universit\`a di Bologna \\ \smallskip \textit{gregorio.berselli@studio.unibo.it}} % Your institution, the optional parameter can be used for the institution shorthand and will appear on the bottom of every slide after author names, while the required parameter is used on the title slide and can include your email address or additional information on separate lines
+\institute[UniBO]{Laurea in Fisica \\ \smallskip Universit\`a di Bologna} % Your institution, the optional parameter can be used for the institution shorthand and will appear on the bottom of every slide after author names, while the required parameter is used on the title slide and can include your email address or additional information on separate lines
 
 \date[22 luglio 2022]{22 luglio 2022} % Presentation date or conference/meeting name, the optional parameter can contain a shortened version to appear on the bottom of every slide, while the required parameter value is output to the title slide
 
@@ -174,56 +174,61 @@
 
 \begin{frame}
 	\titlepage % Output the title slide, automatically created using the text entered in the PRESENTATION INFORMATION block above
+	\begin{columns}[c]
+		\begin{column}{0.55\textwidth}
+			
+		\end{column}
+		\begin{column}{0.45\textwidth}
+			\scriptsize
+			Relatore: Prof. Armando Bazzani \\ \smallskip
+			Correlatore: Dott. Alessandro Fabbri
+		\end{column}
+	\end{columns}
 \end{frame}
 
 
 \begin{frame}
-	\frametitle{Congestioni su network} % Slide title, remove this command for no title
-	Diminuzione della qualit\`a del trasporto del network che avviene quando uno o pi\`u nodi sono attraversati da pi\`u \emph{entit\`a} di quante ne possano sostenere.
-
-	Nel caso di un sistema di traffico gli effetti tipici delle congestioni comportano la diminuzione della velocit\`a, l'aumento dei tempi di percorrenza e la formazione di code.
-	% \begin{figure}
-	% 	\includegraphics[width=\linewidth]{daganzo.jpg}
-	% 	\caption{\emph{Diagrammi Fondamentali Macroscopici. A sinistra, una previsione teorica, a destra, un diagramma sperimentale.}}
-	% \end{figure}
+	\frametitle{Congestioni su network}
+	\begin{block}{Definizione}
+		Diminuzione della qualit\`a del trasporto del network.
+	\end{block}
+	\vspace{10mm}
+	PROBLEMA: studio della dinamica della formazione di congestioni su network\\ \smallskip
+	IDEA: modello di simulazione
 \end{frame}
 
 \begin{frame}{Diagrammi Fondamentali Macroscopici}
 	\begin{columns}[c]
-		\begin{column}{.5\textwidth}
+		\begin{column}{.6\textwidth}
 			\begin{figure}
-				\includegraphics[width=.9\linewidth]{daganzo2.jpg}
-				\caption{\emph{DFM sperimentali.}}
-				\end{figure}		\end{column}
-		\begin{column}{.5\textwidth}
-			In figura sono riportati i DFM sperimentali di Daganzo.
-			In particolare, il diagramma in alto riporta un punto ogni 5 minuti e verifica l'esistenza di un DFM.
-			Il diagramma in basso, invece, rappresenta le bande di deviazione standard sul campione di dati.
+				\includegraphics[width=.83\linewidth]{daganzo2.jpg}
+			\end{figure}
+		\end{column}
+		\begin{column}{.4\textwidth}
 			\begin{block}{Relazione fondamentale}
 				\begin{equation*}
 					\Phi=\rho v
 				\end{equation*}
 			\end{block}
+			Figura tratta da: \\ \emph{Existence of urban-scale macroscopic fundamental
+			diagrams: Some experimental findings}.
 		\end{column}	
 	\end{columns}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Modello: dinamica su strada} % Slide title, remove this command for no title
-
-	\begin{itemize}
-		\item velocit\`a assegnata nell'immissione sulla strada
-			\begin{equation*}
-				v(t) = v_{max}\left(1-k\frac{\rho(t)}{\rho_{max}}\right)
-			\end{equation*}
-		\item a partire dalla velocit\`a viene calcolato il tempo di percorrenza, assegnato ad ogni veicolo come \emph{penalit\`a temporale}
-		\item ad  ogni ciclo di evoluzione la velocit\`a viene riassegnata in base alla densit\`a di veicoli istantanea della strada
-	\end{itemize}
-	
+	\frametitle{Modello - Dinamica su strada}
+	\begin{block}{Velocit\`a di immissione}
+		\begin{equation*}
+			v(t) = v_{max}\left(1-k\frac{\rho(t)}{\rho_{max}}\right)
+		\end{equation*}
+	\end{block}
+	\vspace{10mm}
+	La densit\`a stabilisce il \emph{tempo di percorrenza}.	
 \end{frame}
 
 \begin{frame}
-	\frametitle{Modello: dinamica agli incroci} % Slide title, remove this command for no title
+	\frametitle{Modello - Dinamica agli incroci}
 
 	\begin{itemize}
 		\item se la \emph{penalit\`a temporale} \`e nulla si \`e giunti ad un incrocio
@@ -238,16 +243,8 @@
 
 
 \begin{frame}
-	\frametitle{Rete stradale e domanda di mobilit\`a} % Slide title, remove this command for no title
-	\begin{columns}[c]
-	\begin{column}{.5\textwidth}
-		\centering
-		\begin{figure}
-			\includegraphics[width=\textwidth, trim={12.5cm 5cm 10cm 5cm},clip]{free_flow.png}
-			\caption{Rete stradale.}
-		\end{figure}
-	\end{column}
-	\begin{column}{.5\textwidth}
+	\frametitle{Simulazioni} % Slide title, remove this command for no title
+	
 		\begin{block}{Parametri}
 			\begin{itemize}
 				\item lunghezza strade: 500 m
@@ -258,19 +255,20 @@
 				\item velocit\`a minima: 25\% della velocit\`a massima
 			\end{itemize}
 			
-		\end{block}
-		
-	\end{column}
-		
-	\end{columns}
-	
-	
+		\end{block}	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Rete stradale e domanda di mobilit\`a} % Slide title, remove this command for no title
+	\centering
+	\begin{figure}
+		\includegraphics[width=.8\textwidth, trim={12.5cm 8cm 10cm 8cm},clip]{free_flow.png}
+	\end{figure}
 \end{frame}
 
 
 \begin{frame}
-	\frametitle{Discussione degli osservabili} % Slide title, remove this command for no title
-	Confronto tra distribuzioni in regimi differenti.
+	\frametitle{Distribuzioni della congestione in diversi regimi}
 	\begin{figure}[H]
 		\begin{tikzpicture}[scale=0.69]
 			\begin{axis}[ybar interval,
@@ -278,7 +276,7 @@
 			area style,
 			width = 0.75\textwidth,
 			height = 0.50\textwidth,
-			xlabel = {$\frac{\rho}{\rho_{max}}$},
+			xlabel = {$\rho$ / $\rho_{max}$},
 			ylabel = {Frequenza},
 			ymax=1,]
 			\addplot+[
@@ -300,7 +298,7 @@
 			area style,
 			width = 0.75\textwidth,
 			height = 0.50\textwidth,
-			xlabel = {$\frac{\rho}{\rho_{max}}$},]
+			xlabel = {$\rho$ / $\rho_{max}$},]
 			\addplot+[
 			ybar interval,
 			mark=no,
@@ -320,7 +318,7 @@
 			] {3*10^(-8)*exp(14.484*x)};
 			\end{axis}
 		\end{tikzpicture}
-		\caption{\emph{Frequenza delle strade in base al rapporto tra densit\`a e densit\`a massima. Sono riportate le distribuzioni per sistemi non congestionati (sinistra) e congestionati (destra).}}
+		\caption{\emph{Distribuzione rapporto densit\`a / densit\`a massima per sistema non congestionato (sinistra) e congestionato (destra) con interpolazioni esponenziali.}}
 		\end{figure}
 	
 \end{frame}
