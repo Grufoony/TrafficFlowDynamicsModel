@@ -297,7 +297,7 @@
 			smooth,
 			color=green,
 			line width=1.5pt
-			] {4.9178*exp(-(19.19*x))};
+			] {0.6551*exp(-(6.98*(x+0.05)))};
 			\end{axis}
 		\end{tikzpicture}
 		\begin{tikzpicture}[scale=0.69]
@@ -318,13 +318,13 @@
 			smooth,
 			color=green,
 			line width=1.5pt
-			] {0.3239*exp(-(3.7*x))};
+			] {0.3239*exp(-(3.7*(x+0.05)))};
 			\addplot[
 			domain=0.8:1.1,
 			smooth,
 			color=red,
 			line width=1.5pt
-			] {3*10^(-8)*exp(14.484*x)};
+			] {3*10^(-8)*exp(14.484*(x+0.05))};
 			\end{axis}
 		\end{tikzpicture}
 		\caption{\emph{Distribuzione rapporto densit\`a / densit\`a massima per sistema non congestionato (sinistra) e congestionato (destra) con interpolazioni esponenziali.}}
@@ -349,8 +349,16 @@
 			ylabel = {Flusso (veh/h)},]
 			\addplot[
 			mark size=0.69,
-			draw=black,
-			mark=o] file {./data/peaked_homo/q-t.dat};
+			draw=green,
+			mark=o] file {./data/peaked_homo/q-t_load.dat};
+			\addplot[
+			mark size=0.69,
+			draw=red,
+			mark=o] file {./data/peaked_homo/q-t_unload.dat};
+			\addplot[
+			mark size=0.69,
+			draw=green,
+			mark=o] file {./data/peaked_homo/q-t_unload2.dat};
 			\end{axis}
 			\end{tikzpicture}
 		\begin{tikzpicture}[scale=0.63]
@@ -365,8 +373,16 @@
 			xlabel = {Densità (veh/km)},]
 			\addplot[
 			mark size=0.69,
-			draw=black,
-			mark=o] file {./data/peaked_homo/q-k.dat};
+			draw=green,
+			mark=o] file {./data/peaked_homo/q-k_load.dat};
+			\addplot[
+			mark size=0.69,
+			draw=red,
+			mark=o] file {./data/peaked_homo/q-k_unload.dat};
+			\addplot[
+			mark size=0.69,
+			draw=green,
+			mark=o] file {./data/peaked_homo/q-k_unload2.dat};
 			\end{axis}
 		\end{tikzpicture}
 		\caption{\emph{Variazione del flusso medio nel tempo (sinistra) e diagramma temporale flusso/densit\`a (destra).}}
@@ -438,8 +454,16 @@
 			ylabel = {Flusso (veh/h)},]
 			\addplot[
 			mark size=0.69,
-			draw=black,
-			mark=o] file {./data/peaked_homo/q-t.dat};
+			draw=green,
+			mark=o] file {./data/peaked_homo/q-t_load.dat};
+			\addplot[
+			mark size=0.69,
+			draw=red,
+			mark=o] file {./data/peaked_homo/q-t_unload.dat};
+			\addplot[
+			mark size=0.69,
+			draw=green,
+			mark=o] file {./data/peaked_homo/q-t_unload2.dat};
 			\end{axis}
 			\end{tikzpicture}
 		\caption{\emph{Variazione del flusso medio nel tempo.}}
@@ -453,5 +477,64 @@
 		\includegraphics[width=.8\textwidth, trim={12.5cm 8cm 10cm 8cm},clip]{congested_flow.png}
 	\end{figure}
 \end{frame}
+
+% \begin{frame}
+% 	\frametitle{Distribuzioni della congestione in diversi regimi - Log Scale}
+% 	\begin{figure}[H]
+% 		\begin{tikzpicture}[scale=0.69]
+% 			\begin{axis}[ybar interval,
+% 			every tick label/.append style={font=\tiny},
+% 			area style,
+% 			width = 0.75\textwidth,
+% 			height = 0.75\textwidth,
+% 			xlabel = {$\rho$ / $\rho_{max}$},
+% 			ylabel = {Frequenza},
+% 			ymode=log,
+% 			log origin=infty,]
+% 			\addplot+[
+% 			ybar interval,
+% 			mark=no,
+% 			line width = 1.25pt
+% 			] plot file {./data/constant_homo/7200_den.dat};
+% 			\addplot[
+% 			domain=0:1.1,
+% 			smooth,
+% 			color=green,
+% 			line width=1.5pt
+% 			] {0.6551*exp(-(6.98*x))};
+% 			\end{axis}
+% 		\end{tikzpicture}
+% 		\begin{tikzpicture}[scale=0.69]
+% 			\begin{axis}[ybar interval,
+% 			every tick label/.append style={font=\tiny},
+% 			area style,
+% 			width = 0.75\textwidth,
+% 			height = 0.75\textwidth,
+% 			xlabel = {$\rho$ / $\rho_{max}$},
+% 			ymode=log,
+% 			log origin=infty,]
+% 			\addplot+[
+% 			ybar interval,
+% 			mark=no,
+% 			line width = 1.25pt
+% 			] plot file {./data/peaked_homo/5800_den.dat};
+% 			\addplot[
+% 			domain=0:0.8,
+% 			smooth,
+% 			color=green,
+% 			line width=1.5pt
+% 			] {0.3239*exp(-(3.7*x))};
+% 			\addplot[
+% 			domain=0.8:1.1,
+% 			smooth,
+% 			color=red,
+% 			line width=1.5pt
+% 			] {3*10^(-8)*exp(14.484*x)};
+% 			\end{axis}
+% 		\end{tikzpicture}
+% 		\caption{\emph{Distribuzione rapporto densit\`a / densit\`a massima per sistema non congestionato (sinistra) e congestionato (destra) con interpolazioni esponenziali.}}
+% 		\end{figure}
+	
+% \end{frame}
 
 \end{document} 
