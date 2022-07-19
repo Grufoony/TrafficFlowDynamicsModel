@@ -210,6 +210,7 @@
 					\Phi=\rho v
 				\end{equation*}
 			\end{block}
+			\vspace{10mm}
 			Figura tratta da: \\ \emph{Existence of urban-scale macroscopic fundamental
 			diagrams: Some experimental findings}.
 		\end{column}	
@@ -218,6 +219,9 @@
 
 \begin{frame}
 	\frametitle{Modello - Dinamica su strada}
+	\begin{figure}
+		\includegraphics[width=.33\textwidth]{cars.jpg}
+	\end{figure}
 	\begin{block}{Velocit\`a di immissione}
 		\begin{equation*}
 			v(t) = v_{max}\left(1-k\frac{\rho(t)}{\rho_{max}}\right)
@@ -229,10 +233,12 @@
 
 \begin{frame}
 	\frametitle{Modello - Dinamica agli incroci}
-
+	\begin{figure}
+		\includegraphics[width=.4\textwidth]{intersection.png}
+	\end{figure}
 	\begin{itemize}
-		\item se la \emph{penalit\`a temporale} \`e nulla si \`e giunti ad un incrocio
-		\item in base al \emph{best path} viene scelta la prossima strada in cui immettersi, in particolare:
+		\item Se la \emph{penalit\`a temporale} \`e nulla si \`e giunti ad un incrocio
+		\item In base al \emph{best path} viene scelta la prossima strada in cui immettersi, in particolare:
 			\begin{enumerate}
 				\item se vuota, il veicolo si immette e gli viene assegnata una nuova velocit\`a
 				\item se piena, il veicolo rimane fermo all'incrocio e ``perde'' un ciclo
@@ -247,12 +253,13 @@
 	
 		\begin{block}{Parametri}
 			\begin{itemize}
-				\item lunghezza strade: 500 m
-				\item lunghezza veicoli: 8 m
-				\item numero di incroci: 120
-				\item numero di strade: 436
-				\item velocit\`a massima: 50 km/h (per ogni strada)
-				\item velocit\`a minima: 25\% della velocit\`a massima
+				\item Lunghezza strade: 500 m
+				\item Lunghezza veicoli: 8 m
+				\item Numero di incroci: 120
+				\item Numero di strade: 436
+				\item Veicoli immessi: $\sim 10^4$
+				\item Velocit\`a massima: 50 km/h (per ogni strada)
+				\item Velocit\`a minima: 25\% della velocit\`a massima
 			\end{itemize}
 			
 		\end{block}	
@@ -324,10 +331,27 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Isteresi}
-	Fenomeno per il quale la curva di carico differisce da quella di scarico.
+	\frametitle{Fenomeno di isteresi}
+	Congestione: diminuzione repentina del flusso \bigskip
 	\begin{figure}[H]
-		\begin{tikzpicture}[scale=0.65]
+		\begin{tikzpicture}[scale=0.63]
+			\begin{axis}[
+			grid = both,
+			major grid style = {lightgray},
+			minor grid style = {lightgray!25},
+			width = 0.75\textwidth,
+			height = 0.5\textwidth,
+			xlabel near ticks,
+			xmax = 0.5,
+			xlabel = {Tempo (h)},
+			ylabel = {Flusso (veh/h)},]
+			\addplot[
+			mark size=0.69,
+			draw=black,
+			mark=o] file {./data/peaked_homo/q-t.dat};
+			\end{axis}
+			\end{tikzpicture}
+		\begin{tikzpicture}[scale=0.63]
 			\begin{axis}[
 			grid = both,
 			major grid style = {lightgray},
@@ -336,32 +360,34 @@
 			height = 0.5\textwidth,
 			ylabel near ticks,
 			xlabel near ticks,
-			xlabel = {Densità (veh/km)},
-			ylabel = {Flusso (veh/h)},]
+			xlabel = {Densità (veh/km)},]
 			\addplot[
 			mark size=0.69,
 			draw=black,
 			mark=o] file {./data/peaked_homo/q-k.dat};
 			\end{axis}
 		\end{tikzpicture}
-		\begin{tikzpicture}[scale=0.65]
-			\begin{axis}[
-			grid = both,
-			major grid style = {lightgray},
-			minor grid style = {lightgray!25},
-			width = 0.75\textwidth,
-			height = 0.5\textwidth,
-			xlabel near ticks,
-			xlabel = {Tempo (h)},]
-			\addplot[
-			mark size=0.69,
-			draw=black,
-			mark=o] file {./data/peaked_homo/q-t.dat};
-			\end{axis}
-			\end{tikzpicture}
-		\caption{\emph{Flusso medio della rete in relazione alla densit\`a media e al tempo.}}
+		\caption{\emph{Variazione del flusso medio nel tempo (sinistra) e diagramma temporale flusso/densit\`a (destra).}}
 		\end{figure}
+\end{frame}
 
+\begin{frame}
+	\frametitle{Conclusioni}
+	\begin{block}{Riscontri positivi}
+		\begin{itemize}
+			\item Evidenziate le principali dinamiche
+			\item Congestioni \emph{localizzate} nello spazio
+		\end{itemize}
+	\end{block}
+
+	\bigskip \bigskip
+
+	\begin{block}{Necessit\`a}
+		\begin{itemize}
+			\item Rete pi\`u realistica da inserire
+			\item Confronto con dati reali
+		\end{itemize}
+	\end{block}
 \end{frame}
 
 %----------------------------------------------------------------------------------------
@@ -370,11 +396,24 @@
 
 \begin{frame}[plain] % The optional argument 'plain' hides the headline and footline
 	\begin{center}
-		{\Huge Fine}
+		{\Huge Grazie per l'attenzione}
 		
 		\bigskip\bigskip % Vertical whitespace
 		
-		{\LARGE Grazie per l'attenzione}
+		{\LARGE Riferimenti principali:}
+		
+		\bigskip
+		\small
+
+		Nikolas Geroliminis, Carlos F. Daganzo ``Existence of urban-scale macroscopic fundamental diagrams: Some experimental findings.'' (2008), https://doi.org/10.1016/j.trb.2008.02.002.
+		
+		\bigskip
+		
+		Gazis, Denos C. ``The origins of traffic theory.''(2002): 69-77.
+		
+		\bigskip
+		
+		Park, S., Rakha, H. and Guo, F. ``Calibration issues for multistate model of travel time reliability.'' (2010).
 	\end{center}
 \end{frame}
 
