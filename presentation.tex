@@ -270,7 +270,7 @@
 	\frametitle{Rete stradale e domanda di mobilit\`a} % Slide title, remove this command for no title
 	\centering
 	\begin{figure}
-		\includegraphics[width=.8\textwidth, trim={12.5cm 8cm 10cm 8cm},clip]{free_flow.png}
+		\includegraphics[width=.8\textwidth]{example.png}
 	\end{figure}
 \end{frame}
 
@@ -283,10 +283,10 @@
 			every tick label/.append style={font=\tiny},
 			area style,
 			width = 0.75\textwidth,
-			height = 0.50\textwidth,
+			height = 0.75\textwidth,
 			xlabel = {$\rho$ / $\rho_{max}$},
 			ylabel = {Frequenza},
-			ymax=1,]
+			ymax=0.8,]
 			\addplot+[
 			ybar interval,
 			mark=no,
@@ -305,8 +305,9 @@
 			every tick label/.append style={font=\tiny},
 			area style,
 			width = 0.75\textwidth,
-			height = 0.50\textwidth,
-			xlabel = {$\rho$ / $\rho_{max}$},]
+			height = 0.75\textwidth,
+			xlabel = {$\rho$ / $\rho_{max}$},
+			ymax=0.8,]
 			\addplot+[
 			ybar interval,
 			mark=no,
@@ -416,6 +417,41 @@
 		
 		Park, S., Rakha, H. and Guo, F. ``Calibration issues for multistate model of travel time reliability.'' (2010).
 	\end{center}
+\end{frame}
+
+\begin{frame}[plain]{}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Evoluzione temporale completa}
+	\centering
+	\begin{figure}[H]
+		\begin{tikzpicture}[]
+			\begin{axis}[
+			grid = both,
+			major grid style = {lightgray},
+			minor grid style = {lightgray!25},
+			width = 0.75\textwidth,
+			height = 0.5\textwidth,
+			xlabel near ticks,
+			xlabel = {Tempo (h)},
+			ylabel = {Flusso (veh/h)},]
+			\addplot[
+			mark size=0.69,
+			draw=black,
+			mark=o] file {./data/peaked_homo/q-t.dat};
+			\end{axis}
+			\end{tikzpicture}
+		\caption{\emph{Variazione del flusso medio nel tempo.}}
+		\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Sistema congestionato}
+	\centering
+	\begin{figure}
+		\includegraphics[width=.8\textwidth, trim={12.5cm 8cm 10cm 8cm},clip]{congested_flow.png}
+	\end{figure}
 \end{frame}
 
 \end{document} 
