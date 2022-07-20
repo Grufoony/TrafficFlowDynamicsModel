@@ -189,13 +189,13 @@
 
 
 \begin{frame}
-	\frametitle{Congestioni su network}
+	\frametitle{Congestioni su network stradale}
 	\begin{block}{Definizione}
 		Diminuzione della qualit\`a del trasporto del network.
 	\end{block}
 	\vspace{10mm}
-	PROBLEMA: studio della dinamica di formazione delle congestioni su network\\ \smallskip
-	IDEA: modello di simulazione
+	PROBLEMA: studio della dinamica di formazione delle congestioni su network stradale\\ \smallskip
+	IDEA: modello di simulazione di un network stradale basato su una dinamica di optimal velocity e una dinamica di incrocio
 \end{frame}
 
 \begin{frame}{Diagrammi Fondamentali Macroscopici}
@@ -212,14 +212,14 @@
 				\end{equation*}
 			\end{block}
 			\vspace{10mm}
-			Figura tratta da: \\ \emph{Existence of urban-scale macroscopic fundamental
+			Referenza: \\ \emph{Existence of urban-scale macroscopic fundamental
 			diagrams: Some experimental findings}.
 		\end{column}	
 	\end{columns}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Modello - Dinamica su strada}
+	\frametitle{Modello - Dinamica veicolare: optimal velocity}
 	\begin{figure}
 		\includegraphics[width=.33\textwidth]{cars.jpg}
 	\end{figure}
@@ -242,7 +242,7 @@
 		\item In base al \emph{best path} viene scelta la prossima strada in cui immettersi, in particolare:
 			\begin{enumerate}
 				\item se vuota, il veicolo si immette e gli viene assegnata una nuova velocit\`a
-				\item se piena, il veicolo rimane fermo all'incrocio e ``perde'' un ciclo
+				\item se piena, il veicolo rimane fermo all'incrocio e ``perde'' uno step temporale
 			\end{enumerate}
 	\end{itemize}
 	
@@ -252,7 +252,7 @@
 \begin{frame}
 	\frametitle{Simulazioni} % Slide title, remove this command for no title
 	
-		\begin{block}{Parametri}
+		\begin{block}{Parametri del modello}
 			\begin{itemize}
 				\item Lunghezza strade: 500 m
 				\item Lunghezza veicoli: 8 m
@@ -270,8 +270,10 @@
 	\frametitle{Rete stradale e domanda di mobilit\`a} % Slide title, remove this command for no title
 	\centering
 	\begin{figure}
-		\includegraphics[width=.8\textwidth]{example.png}
+		\includegraphics[width=.75\textwidth]{example.png}
 	\end{figure}
+	\scriptsize
+	Scala cromatica da verde scuro (densit\`a nulla) a rosso scuro (densit\`a massima)
 \end{frame}
 
 
@@ -327,16 +329,17 @@
 			] {3*10^(-8)*exp(14.484*(x+0.05))};
 			\end{axis}
 		\end{tikzpicture}
-		\caption{\emph{Distribuzione rapporto densit\`a / densit\`a massima per sistema non congestionato (sinistra) e congestionato (destra) con interpolazioni esponenziali.}}
+		\caption{\emph{Distribuzione rapporto densit\`a / densit\`a massima per network non congestionato (sinistra) e congestionato (destra) con interpolazioni esponenziali.}}
 		\end{figure}
 	
 \end{frame}
 
 \begin{frame}
 	\frametitle{Fenomeno di isteresi}
-	Congestione: diminuzione repentina del flusso \bigskip
+	Congestione: diminuzione repentina del flusso medio \bigskip
 	\begin{figure}[H]
 		\begin{tikzpicture}[scale=0.63]
+			\definecolor{dkgreen}{cmyk}{0.5,0.1,0.5,0.4};
 			\begin{axis}[
 			grid = both,
 			major grid style = {lightgray},
@@ -348,20 +351,24 @@
 			xlabel = {Tempo (h)},
 			ylabel = {Flusso (veh/h)},]
 			\addplot[
-			mark size=0.69,
-			draw=green,
-			mark=o] file {./data/peaked_homo/q-t_load.dat};
+			mark size=1,
+			draw=dkgreen,
+			mark=o,
+			style=very thick] file {./data/peaked_homo/q-t_load.dat};
 			\addplot[
-			mark size=0.69,
+			mark size=1,
 			draw=red,
-			mark=o] file {./data/peaked_homo/q-t_unload.dat};
+			mark=o,
+			style=very thick] file {./data/peaked_homo/q-t_unload.dat};
 			\addplot[
-			mark size=0.69,
-			draw=green,
-			mark=o] file {./data/peaked_homo/q-t_unload2.dat};
+			mark size=1,
+			draw=dkgreen,
+			mark=o,
+			style=very thick] file {./data/peaked_homo/q-t_unload2.dat};
 			\end{axis}
 			\end{tikzpicture}
 		\begin{tikzpicture}[scale=0.63]
+			\definecolor{dkgreen}{cmyk}{0.5,0.1,0.5,0.4};
 			\begin{axis}[
 			grid = both,
 			major grid style = {lightgray},
@@ -372,17 +379,20 @@
 			xlabel near ticks,
 			xlabel = {Densità (veh/km)},]
 			\addplot[
-			mark size=0.69,
-			draw=green,
-			mark=o] file {./data/peaked_homo/q-k_load.dat};
+			mark size=1,
+			draw=dkgreen,
+			mark=o,
+			style=very thick] file {./data/peaked_homo/q-k_load.dat};
 			\addplot[
-			mark size=0.69,
+			mark size=1,
 			draw=red,
-			mark=o] file {./data/peaked_homo/q-k_unload.dat};
+			mark=o,
+			style=very thick] file {./data/peaked_homo/q-k_unload.dat};
 			\addplot[
-			mark size=0.69,
-			draw=green,
-			mark=o] file {./data/peaked_homo/q-k_unload2.dat};
+			mark size=1,
+			draw=dkgreen,
+			mark=o,
+			style=very thick] file {./data/peaked_homo/q-k_unload2.dat};
 			\end{axis}
 		\end{tikzpicture}
 		\caption{\emph{Variazione del flusso medio nel tempo (sinistra) e diagramma temporale flusso/densit\`a (destra).}}
@@ -442,7 +452,8 @@
 	\frametitle{Evoluzione temporale completa}
 	\centering
 	\begin{figure}[H]
-		\begin{tikzpicture}[]
+		\begin{tikzpicture}
+			\definecolor{dkgreen}{cmyk}{0.5,0.1,0.5,0.4};
 			\begin{axis}[
 			grid = both,
 			major grid style = {lightgray},
@@ -453,17 +464,20 @@
 			xlabel = {Tempo (h)},
 			ylabel = {Flusso (veh/h)},]
 			\addplot[
-			mark size=0.69,
-			draw=green,
-			mark=o] file {./data/peaked_homo/q-t_load.dat};
+			mark size=1,
+			draw=dkgreen,
+			mark=o,
+			style=very thick] file {./data/peaked_homo/q-t_load.dat};
 			\addplot[
-			mark size=0.69,
+			mark size=1,
 			draw=red,
-			mark=o] file {./data/peaked_homo/q-t_unload.dat};
+			mark=o,
+			style=very thick] file {./data/peaked_homo/q-t_unload.dat};
 			\addplot[
-			mark size=0.69,
-			draw=green,
-			mark=o] file {./data/peaked_homo/q-t_unload2.dat};
+			mark size=1,
+			draw=dkgreen,
+			mark=o,
+			style=very thick] file {./data/peaked_homo/q-t_unload2.dat};
 			\end{axis}
 			\end{tikzpicture}
 		\caption{\emph{Variazione del flusso medio nel tempo.}}
@@ -478,63 +492,63 @@
 	\end{figure}
 \end{frame}
 
-% \begin{frame}
-% 	\frametitle{Distribuzioni della congestione in diversi regimi - Log Scale}
-% 	\begin{figure}[H]
-% 		\begin{tikzpicture}[scale=0.69]
-% 			\begin{axis}[ybar interval,
-% 			every tick label/.append style={font=\tiny},
-% 			area style,
-% 			width = 0.75\textwidth,
-% 			height = 0.75\textwidth,
-% 			xlabel = {$\rho$ / $\rho_{max}$},
-% 			ylabel = {Frequenza},
-% 			ymode=log,
-% 			log origin=infty,]
-% 			\addplot+[
-% 			ybar interval,
-% 			mark=no,
-% 			line width = 1.25pt
-% 			] plot file {./data/constant_homo/7200_den.dat};
-% 			\addplot[
-% 			domain=0:1.1,
-% 			smooth,
-% 			color=green,
-% 			line width=1.5pt
-% 			] {0.6551*exp(-(6.98*x))};
-% 			\end{axis}
-% 		\end{tikzpicture}
-% 		\begin{tikzpicture}[scale=0.69]
-% 			\begin{axis}[ybar interval,
-% 			every tick label/.append style={font=\tiny},
-% 			area style,
-% 			width = 0.75\textwidth,
-% 			height = 0.75\textwidth,
-% 			xlabel = {$\rho$ / $\rho_{max}$},
-% 			ymode=log,
-% 			log origin=infty,]
-% 			\addplot+[
-% 			ybar interval,
-% 			mark=no,
-% 			line width = 1.25pt
-% 			] plot file {./data/peaked_homo/5800_den.dat};
-% 			\addplot[
-% 			domain=0:0.8,
-% 			smooth,
-% 			color=green,
-% 			line width=1.5pt
-% 			] {0.3239*exp(-(3.7*x))};
-% 			\addplot[
-% 			domain=0.8:1.1,
-% 			smooth,
-% 			color=red,
-% 			line width=1.5pt
-% 			] {3*10^(-8)*exp(14.484*x)};
-% 			\end{axis}
-% 		\end{tikzpicture}
-% 		\caption{\emph{Distribuzione rapporto densit\`a / densit\`a massima per sistema non congestionato (sinistra) e congestionato (destra) con interpolazioni esponenziali.}}
-% 		\end{figure}
+\begin{frame}
+	\frametitle{Distribuzioni della congestione in diversi regimi - Log Scale}
+	\begin{figure}[H]
+		\begin{tikzpicture}[scale=0.69]
+			\begin{axis}[ybar interval,
+			every tick label/.append style={font=\tiny},
+			area style,
+			width = 0.75\textwidth,
+			height = 0.75\textwidth,
+			xlabel = {$\rho$ / $\rho_{max}$},
+			ylabel = {Frequenza},
+			ymode=log,
+			log origin=infty,]
+			\addplot+[
+			ybar interval,
+			mark=no,
+			line width = 1.25pt
+			] plot file {./data/constant_homo/7200_den.dat};
+			\addplot[
+			domain=0:1.1,
+			smooth,
+			color=green,
+			line width=1.5pt
+			] {0.6551*exp(-(6.98*(x+0.05)))};
+			\end{axis}
+		\end{tikzpicture}
+		\begin{tikzpicture}[scale=0.69]
+			\begin{axis}[ybar interval,
+			every tick label/.append style={font=\tiny},
+			area style,
+			width = 0.75\textwidth,
+			height = 0.75\textwidth,
+			xlabel = {$\rho$ / $\rho_{max}$},
+			ymode=log,
+			log origin=infty,]
+			\addplot+[
+			ybar interval,
+			mark=no,
+			line width = 1.25pt
+			] plot file {./data/peaked_homo/5800_den.dat};
+			\addplot[
+			domain=0:0.8,
+			smooth,
+			color=green,
+			line width=1.5pt
+			] {0.3239*exp(-(3.7*(x+0.05)))};
+			\addplot[
+			domain=0.8:1.1,
+			smooth,
+			color=red,
+			line width=1.5pt
+			] {3*10^(-8)*exp(14.484*(x+0.05))};
+			\end{axis}
+		\end{tikzpicture}
+		\caption{\emph{Distribuzione rapporto densit\`a / densit\`a massima per sistema non congestionato (sinistra) e congestionato (destra) con interpolazioni esponenziali.}}
+		\end{figure}
 	
-% \end{frame}
+\end{frame}
 
 \end{document} 
