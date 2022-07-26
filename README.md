@@ -5,6 +5,25 @@ A C++ library for generating traffic flow dynamics data using a reference model.
 
 This project is part of a three-year thesis work for the Physics course at the Alma Mater Studiorum - University of Bologna.
 
+## Table of contents
+1. [Citing](#citing)
+2. [Abstract](#abstract)
+3. [Download](#download)
+4. [Compiling](#compiling)
+5. [Data](#data)
+
+## Citing
+If you use my code, please cite my work:
+
+Berselli, Gregorio  (2022) Modelli di traffico per la formazione della congestione su una rete stradale. [Laurea], Università di Bologna, Corso di Studio in Fisica [L-DM270] <http://amslaurea.unibo.it/view/cds/CDS9244/> 
+
+    @phdthesis{amslaurea26332,
+    author = {Gregorio Berselli},
+    title = {Modelli di traffico per la formazione della congestione su una rete stradale},
+    url = {http://amslaurea.unibo.it/26332/},
+    year = {2022}
+    }
+
 ## Abstract
 
 *English*

@@ -90,20 +90,38 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <p>A C++ library for generating traffic flow dynamics data using a reference model.</p>
 <p>This project is part of a three-year thesis work for the Physics course at the Alma Mater Studiorum - University of Bologna.</p>
 <h1><a class="anchor" id="autotoc_md1"></a>
+Table of contents</h1>
+<ol type="1">
+<li><a href="#citing">Citing</a></li>
+<li><a href="#abstract">Abstract</a></li>
+<li><a href="#download">Download</a></li>
+<li><a href="#compiling">Compiling</a></li>
+<li><a href="#data">Data</a></li>
+</ol>
+<h1><a class="anchor" id="autotoc_md2"></a>
+Citing</h1>
+<p>If you use my code, please cite my work:</p>
+<p>Berselli, Gregorio (2022) Modelli di traffico per la formazione della congestione su una rete stradale. [Laurea], Università di Bologna, Corso di Studio in Fisica [L-DM270] <a href="http://amslaurea.unibo.it/view/cds/CDS9244/">http://amslaurea.unibo.it/view/cds/CDS9244/</a> </p><pre class="fragment">@phdthesis{amslaurea26332,
+author = {Gregorio Berselli},
+title = {Modelli di traffico per la formazione della congestione su una rete stradale},
+url = {http://amslaurea.unibo.it/26332/},
+year = {2022}
+}
+</pre> <h1><a class="anchor" id="autotoc_md3"></a>
 Abstract</h1>
 <p><em>English</em></p>
 <p>Beginning in the 1950s, numerous models were developed with the intent of studying the traffic related phenomena. Some of them managed not only to explain the phenomena for which they were designed but highlighted other typical characteristics of dynamical systems, such as the presence of hysteresis loops and changes in distribution of travel times in congestion situations. This work aims to verify the validity of a simplified model designed for highlight the typical behaviors of a traffic system, in particular congestions that are created on the road network. This model is implemented by the C ++ <b>Traffic Flow Dynamics Model</b> library. For the analisys, the study uses Macroscopic Fundamental Diagrams, particular diagrams that relate the main observables of a road network such as velocity, density and flow. By varying the load introduced into the road network it is possible to study the system in different regimes: constant load, peaked load and periodic load. Through these studies, different properties typical of each regimen emerged and, for some of these, the presence of one or more hysteresis cycles has been verified and justified. Lastly, a brief ad-hoc analysis was carried out aimed at highlighting the changes in the distribution of travel times in relation to the traffic regime considered.</p>
 <p><em>Italiano</em></p>
 <p>A partire dagli anni ’50 furono sviluppati numerosi modelli con l’intento di studiare i fenomeni connessi al traffico. Alcuni di essi riuscirono non solo a spiegare i fenomeni per i quali erano stati ideati ma misero in evidenza altre caratteristiche tipiche dei sistemi dinamici, come la presenza di cicli di isteresi e cambiamenti nella distribuzione dei tempi di percorrenza in situazioni di congestione. Questo lavoro si propone di verificare la validità di un modello semplificato ideato per evidenziare i comportamenti tipici di un sistema di traffico, in particolare le congestioni che si vengono a creare sulla rete stradale. Tale modello viene implementato per mezzo della libreria C++ <b>Traffic Flow Dynamics Model</b>. Ai fini dello studio vengono utilizzati i Diagrammi Fondamentali Macroscopici, particolari diagrammi che mettono in relazione gli osservabili principali di un network stradale quali velocità, densità e flusso. Variando il carico immesso nella rete stradale è stato possibile studiare il sistema in diversi regimi: carico costante, carico piccato e carico periodico. Mediante questi studi sono emerse diverse proprietà tipiche di ogni regime e, per alcuni di essi, è stata verificata e giustificata la presenza di uno o più cicli di isteresi. In ultimo è stata effettuata una breve analisi ad-hoc volta a evidenziare i cambiamenti nella distrubuzione dei tempi di percorrenza in relazione al regime di traffico considerato.</p>
-<h1><a class="anchor" id="autotoc_md2"></a>
+<h1><a class="anchor" id="autotoc_md4"></a>
 Download</h1>
 <p>You can obtain the library downloading the <em>source</em> dir from the repository.</p>
 <p>Otherwise, you can directly download a release.</p>
-<h1><a class="anchor" id="autotoc_md3"></a>
+<h1><a class="anchor" id="autotoc_md5"></a>
 Compiling</h1>
 <p>Once created the main file, you can simply compile the source code using the Makefile. You can compile the program for a linux distribution </p><pre class="fragment">$ make linux
 </pre><p> or for a windows distibution </p><pre class="fragment">$ make windows
-</pre> <h1><a class="anchor" id="autotoc_md4"></a>
+</pre> <h1><a class="anchor" id="autotoc_md6"></a>
 Data</h1>
 <p>Once run the simulation you can print data in two formats:</p>
 <ol type="1">
