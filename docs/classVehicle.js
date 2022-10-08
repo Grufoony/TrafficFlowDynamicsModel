@@ -9,7 +9,6 @@ var classVehicle =
     [ "getTimePenalty", "classVehicle.html#a220f8d39d7153a07a7d1ff3ee8c845df", null ],
     [ "getTimeTraveled", "classVehicle.html#a3e87d9518e0814f5ab5a672823bb3e19", null ],
     [ "getType", "classVehicle.html#a27ce8af4e758254b0698165d0b11dce6", null ],
-    [ "getVehicleType", "classVehicle.html#a5ae299a8e9cf9973e91a1b26da8ec8c2", null ],
     [ "getVelocity", "classVehicle.html#a2a0124da5f070cc68f69c46b0df3949a", null ],
     [ "incrementTimeTraveled", "classVehicle.html#a36f6af8fa08f48f2fe1d47d31b1d880b", null ],
     [ "resetTimeTraveled", "classVehicle.html#ad00b82b07d6c8d92706e0d36efe520f5", null ],
