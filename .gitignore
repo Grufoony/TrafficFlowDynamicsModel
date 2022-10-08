@@ -8,6 +8,7 @@
 *.wsl
 /source/html/*
 /source/latex/*
+test*
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
