@@ -140,8 +140,11 @@ void Graph::_evolve(bool reinsert) {
   std::uniform_real_distribution<> dist(0., 1.);
   // cicling through all the vehicles
   for (auto const &vehicle : _vehicles) {
-    auto const &trans_vec = vehicle->getVehicleType()->getTransMatrix().at(
-        vehicle->getPosition()); // obtain the line with trans probabilities
+    auto const &trans_vec =
+        Vehicle::getVehicleType(vehicle->getType())
+            ->getTransMatrix()
+            .at(vehicle->getPosition()); // obtain the line with trans
+                                         // probabilities
     auto threshold = 0.;
     auto const p = dist(rng);
     auto timePenalty = vehicle->getTimePenalty();

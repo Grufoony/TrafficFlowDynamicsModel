@@ -9,7 +9,7 @@ std::vector<std::shared_ptr<VehicleType>> Vehicle::_vehicleType;
 Vehicle::Vehicle(int type) {
   if (type < static_cast<int>(_vehicleType.size())) {
     _index = type;
-    _position = getVehicleType()->getSource();
+    _position = Vehicle::getVehicleType(this->getType())->getSource();
   } else {
     throw std::invalid_argument("Vehicle::Vehicle: type out of range.\n");
   }
@@ -52,11 +52,6 @@ std::shared_ptr<VehicleType> Vehicle::getVehicleType(int const index) {
         "Vehicle::getVehicleType: index out of range.\n");
   return _vehicleType.at(index);
 }
-/// \brief Get the vehicle type.
-/// \return A pointer to the vehicle type object of this istance.
-std::shared_ptr<VehicleType> Vehicle::getVehicleType() const noexcept {
-  return _vehicleType.at(_index);
-}
 int Vehicle::getType() const noexcept { return _index; }
 int Vehicle::getNVehicleType() { return static_cast<int>(_vehicleType.size()); }
 
@@ -77,7 +72,7 @@ void Vehicle::setTimePenalty(int time) {
   _timePenalty = time;
 }
 int Vehicle::getDestination() const {
-  return getVehicleType()->getDestination();
+  return Vehicle::getVehicleType(this->getType())->getDestination();
 }
 int Vehicle::getTimePenalty() const { return _timePenalty; }
 void Vehicle::setVelocity(double vel) {
