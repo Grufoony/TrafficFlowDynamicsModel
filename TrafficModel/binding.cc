@@ -11,7 +11,7 @@
 
 namespace py = pybind11;
 
-PYBIND11_MODULE(Graph,m) {
+PYBIND11_MODULE(TrafficModel,m) {
 	m.doc() = "A library for generating traffic flow dynamics data.";
 
 	// Graph class
@@ -74,8 +74,8 @@ PYBIND11_MODULE(Graph,m) {
 		.def(py::init<int>())
 		.def_static("addVehicleType", static_cast<void (*)(int,int)>(&Vehicle::addVehicleType))
 		.def_static("addVehicleType", static_cast<void (*)(const char *)>(&Vehicle::addVehicleType))
-		.def_static("getVehicleType", static_cast<std::shared_ptr<VehicleType> (*)(int const)>(&Vehicle::getVehicleType))
-		.def("getVehicleType", static_cast<const std::shared_ptr<VehicleType> (Vehicle::*)()>(&Vehicle::getVehicleType)) noexcept 
+		.def_static("getVehicleType", &Vehicle::getVehicleType)
+		.def("getType", &Vehicle::getType) 
 		.def("getNVehicleType",&Vehicle::getNVehicleType)
 		.def("getType",&Vehicle::getType)
 		.def("getPosition",&Vehicle::getPosition)

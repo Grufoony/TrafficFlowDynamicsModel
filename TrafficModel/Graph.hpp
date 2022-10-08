@@ -23,16 +23,12 @@ private:
   double _meanTimeTraveled = 0.; // mean time traveled by vehicles
   int _nVehiclesToDst = 0;       // number of vehicles to destination
 
-  int _minDistance(
-      int const,
-      int const) const; // algorithm for min distance between two nodes
+  int _minDistance(int, int) const; // algorithm for min distance between two nodes
   std::vector<int>
-  _nextStep(int const,
-            int const); // next step for the destination (min. distance)
+  _nextStep(int, int); // next step for the destination (min. distance)
   void _evolve(bool);   // evolve the vehicle's position
-  int _findStreet(int const,
-                  int const) const; // find street with origin and destination
-  double _getStreetMeanVelocity(int const) const; // get the mean velocity of a
+  int _findStreet(int, int) const; // find street with origin and destination
+  double _getStreetMeanVelocity(int) const; // get the mean velocity of a
                                                   // street
 
 public:

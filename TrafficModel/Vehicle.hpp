@@ -25,14 +25,10 @@ public:
   ~Vehicle() = default;
 
   static void addVehicleType(int, int); //!< add a vehicle type in _vehicleType
-  static void addVehicleType(
-      const char *); //!< add many vehicle types in _vehicleType from file
-  static std::shared_ptr<VehicleType>
-  getVehicleType(int const); //!< get a vehicle type from _vehicleType
-  static int
-  getNVehicleType(); //!< get the number of vehicle types in _vehicleType
-  int getType()
-      const noexcept; // return the index of the vehicle type in _vehicleType
+  static void addVehicleType(const char *); //!< add many vehicle types in _vehicleType from file
+  static std::shared_ptr<VehicleType> getVehicleType(int const); //!< get a vehicle type from _vehicleType
+  static int getNVehicleType(); //!< get the number of vehicle types in _vehicleType
+  int getType() const noexcept; // return the index of the vehicle type in _vehicleType
   void setPosition(int);
   int getPosition() const;
   int getPreviousPosition() const;
