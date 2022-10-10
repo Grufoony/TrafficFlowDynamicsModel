@@ -32,8 +32,6 @@ private:
 
 public:
   Graph(const char *); //!< import from file (only matrix)
-  Graph(const char *,
-        const char *); //!< import from file (matrix + coordinates)
   ~Graph() = default;
 
   void addVehicle(int);           //!< add a vehicle of a type in _vehicles
