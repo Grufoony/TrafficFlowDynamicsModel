@@ -17,7 +17,7 @@ Vehicle::Vehicle(int type) {
 /// \brief Add a vehicle type in _vehicleType.
 /// \param src The source node.
 /// \param dst The destination node.
-void Vehicle::addVehicleType(int src, int dst) {
+void Vehicle::addVehicleType(uint8_t src, uint8_t dst) {
   _vehicleType.push_back(std::make_shared<VehicleType>(VehicleType(src, dst)));
 }
 void Vehicle::addVehicleType(const char *fName) {
@@ -55,14 +55,14 @@ std::shared_ptr<VehicleType> Vehicle::getVehicleType(int const index) {
 int Vehicle::getType() const noexcept { return _index; }
 int Vehicle::getNVehicleType() { return static_cast<int>(_vehicleType.size()); }
 
-void Vehicle::setPosition(int pos) {
+void Vehicle::setPosition(uint8_t pos) {
   if (pos < 0)
     throw std::invalid_argument("Vehicle::setPosition: pos out of range.\n");
   _previousPosition = _position;
   _position = pos;
 }
-int Vehicle::getPosition() const { return _position; }
-int Vehicle::getPreviousPosition() const { return _previousPosition; }
+uint8_t Vehicle::getPosition() const { return _position; }
+uint8_t Vehicle::getPreviousPosition() const { return _previousPosition; }
 void Vehicle::setStreet(int street) { _street = street; }
 int Vehicle::getStreet() const { return _street; }
 void Vehicle::setTimePenalty(int time) {
@@ -71,7 +71,7 @@ void Vehicle::setTimePenalty(int time) {
         "Vehicle::setTimePenalty: time must be greater than 0.\n");
   _timePenalty = time;
 }
-int Vehicle::getDestination() const {
+uint8_t Vehicle::getDestination() const {
   return Vehicle::getVehicleType(this->getType())->getDestination();
 }
 int Vehicle::getTimePenalty() const { return _timePenalty; }

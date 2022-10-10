@@ -13,8 +13,8 @@ private:
   double _lenght;   // lenght of the street
   int _maxCapacity; // maximum capacity of vehicles
   int _nVehicles;   // number of vehicles on the street
-  int _src;         // source node
-  int _dst;         // destination node
+  uint8_t _src;         // source node
+  uint8_t _dst;         // destination node
   int _nLanes;      // number of lanes
   double _vMax;     // max velocity for that street
   int _index;       // index of the street (it's used to identify the street)

@@ -24,8 +24,7 @@ private:
   int _nVehiclesToDst = 0;       // number of vehicles to destination
 
   int _minDistance(int, int) const; // algorithm for min distance between two nodes
-  std::vector<int>
-  _nextStep(int, int); // next step for the destination (min. distance)
+  std::vector<int> _nextStep(int, int); // next step for the destination (min. distance)
   void _evolve(bool);   // evolve the vehicle's position
   int _findStreet(int, int) const; // find street with origin and destination
   double _getStreetMeanVelocity(int) const; // get the mean velocity of a
@@ -38,7 +37,6 @@ public:
   ~Graph() = default;
 
   void addVehicle(int);           //!< add a vehicle of a type in _vehicles
-  void addVehicle(int, int);      //!< add a vehicle of a type in _vehicles on a
                                   //!< street
   void addRndmVehicles(int);      //!< add vehicles of random type in _vehicles
   void addVehiclesUniformly(int); //!< add vehicles uniformly on the streets
