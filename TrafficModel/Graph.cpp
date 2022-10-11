@@ -271,60 +271,6 @@ Graph::Graph(const char *fName) {
   }
 }
 
-// Graph::Graph(const char *fName, const char *fCoordinates) {
-//   _n = 0;
-//   std::ifstream data;
-//   // set database's dimension
-//   data.open(fCoordinates);
-//   if (!data) {
-//     throw std::runtime_error("Coordinates file does not exist.\n");
-//   }
-//   double x;
-//   bool b;
-//   while (data >> x) {
-//     ++_n;
-//   }
-//   data.close();
-//   _n = _n / 2;
-
-//   // import coordinates
-//   data.open(fCoordinates);
-//   for (int u = 0; u < 2; ++u) {
-//     std::vector<double> temp;
-//     for (int v = 0; v < _n; ++v) {
-//       data >> x;
-//       temp.push_back(x);
-//     }
-//     _nodesCoordinates.push_back(temp);
-//   }
-//   data.close();
-
-//   // import adj matrix from file
-//   std::cout << "Importing adjacency matrix from file..." << '\n';
-//   data.open(fName);
-//   if (!data) {
-//     throw std::runtime_error("Matrix file does not exist.\n");
-//   }
-//   int streetIndex = 0;
-//   for (int u = 0; u < _n; ++u) {
-//     std::vector<double> temp;
-//     for (int v = 0; v < _n; ++v) {
-//       data >> x;
-//       b = x > 0;
-//       temp.push_back(x);
-//       if (b) {
-//         _streets.push_back(
-//             std::make_shared<Street>(Street(u, v, x, streetIndex)));
-//         ++streetIndex;
-//       }
-//     }
-//     _adjMatrix.push_back(temp);
-//   }
-//   data.close();
-//   std::cout << "Done." << '\n';
-// }
-/// \brief Adds a vehicle with defined type
-///  Adds a vehicle with defined type starting at its origin
 /// \param type vehicle type
 void Graph::addVehicle(int type) {
   if (type < 0 || !(type < Vehicle::getNVehicleType()))

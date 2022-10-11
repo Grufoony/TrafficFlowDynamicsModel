@@ -6,7 +6,7 @@ std::vector<std::shared_ptr<VehicleType>> Vehicle::_vehicleType;
 
 /// \brief Create a new Vehicle object.
 /// \param type The index of the vehicle type in _vehicleType.
-Vehicle::Vehicle(int type) {
+Vehicle::Vehicle(uint8_t type) {
   if (type < static_cast<int>(_vehicleType.size())) {
     _index = type;
     _position = Vehicle::getVehicleType(this->getType())->getSource();
@@ -17,13 +17,13 @@ Vehicle::Vehicle(int type) {
 /// \brief Add a vehicle type in _vehicleType.
 /// \param src The source node.
 /// \param dst The destination node.
-void Vehicle::addVehicleType(uint8_t src, uint8_t dst) {
+void Vehicle::addVehicleType(uint16_t src, uint16_t dst) {
   _vehicleType.push_back(std::make_shared<VehicleType>(VehicleType(src, dst)));
 }
 void Vehicle::addVehicleType(const char *fName) {
   std::fstream data;
   data.open(fName);
-  int src, dst, n = 0;
+  uint16_t src, dst, n = 0;
   if (!data) {
     throw std::runtime_error("Vehicle::addVehicleType: file not found.\n");
   }
@@ -46,23 +46,23 @@ void Vehicle::addVehicleType(const char *fName) {
 }
 /// \brief Get the vehicle type.
 /// \return A pointer to the vehicle type object.
-std::shared_ptr<VehicleType> Vehicle::getVehicleType(int const index) {
+std::shared_ptr<VehicleType> Vehicle::getVehicleType(uint8_t const index) {
   if (index < 0 || index > getNVehicleType() - 1)
     throw std::invalid_argument(
         "Vehicle::getVehicleType: index out of range.\n");
   return _vehicleType.at(index);
 }
-int Vehicle::getType() const noexcept { return _index; }
-int Vehicle::getNVehicleType() { return static_cast<int>(_vehicleType.size()); }
+uint8_t Vehicle::getType() const noexcept { return _index; }
+uint8_t Vehicle::getNVehicleType() { return static_cast<int>(_vehicleType.size()); }
 
-void Vehicle::setPosition(uint8_t pos) {
+void Vehicle::setPosition(uint16_t pos) {
   if (pos < 0)
     throw std::invalid_argument("Vehicle::setPosition: pos out of range.\n");
   _previousPosition = _position;
   _position = pos;
 }
-uint8_t Vehicle::getPosition() const { return _position; }
-uint8_t Vehicle::getPreviousPosition() const { return _previousPosition; }
+uint16_t Vehicle::getPosition() const { return _position; }
+uint16_t Vehicle::getPreviousPosition() const { return _previousPosition; }
 void Vehicle::setStreet(int street) { _street = street; }
 int Vehicle::getStreet() const { return _street; }
 void Vehicle::setTimePenalty(int time) {
@@ -71,7 +71,7 @@ void Vehicle::setTimePenalty(int time) {
         "Vehicle::setTimePenalty: time must be greater than 0.\n");
   _timePenalty = time;
 }
-uint8_t Vehicle::getDestination() const {
+uint16_t Vehicle::getDestination() const {
   return Vehicle::getVehicleType(this->getType())->getDestination();
 }
 int Vehicle::getTimePenalty() const { return _timePenalty; }
