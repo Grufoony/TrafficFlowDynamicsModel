@@ -9,6 +9,7 @@
 /source/html/*
 /source/latex/*
 test*
+*.so
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
