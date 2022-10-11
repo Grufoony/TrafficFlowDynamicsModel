@@ -11,15 +11,13 @@
 
 namespace py = pybind11;
 
-PYBIND11_MODULE(Graph,m) {
+PYBIND11_MODULE(TrafficModel,m) {
 	m.doc() = "A library for generating traffic flow dynamics data.";
 
 	// Graph class
 	py::class_<Graph>(m,"Graph")
 		.def(py::init<const char *>())
-		.def(py::init<const char *, const char *>())
 		.def("addVehicle", static_cast<void (Graph::*)(int)>(&Graph::addVehicle))
-		.def("addVehicle", static_cast<void (Graph::*)(int,int)>(&Graph::addVehicle))
 		.def("addRndmVehicles", &Graph::addRndmVehicles)
 		.def("addVehiclesUniformly", &Graph::addVehiclesUniformly)
 		.def("loadVehicles", &Graph::loadVehicles)
@@ -37,12 +35,6 @@ PYBIND11_MODULE(Graph,m) {
 		.def("fprintActualState", &Graph::fprintActualState)
 		.def("save", &Graph::save)
 		.def("test", &Graph::test);
-		//.def("_minDistance", [](Graph const& g, int a, int b)
-		//	{ return g._minDistance(a,b) } )
-		//.def("_nextStep", &Graph::_nextStep)
-		//.def("_evolve", &Graph::_evolve)
-		//.def("_findStreet", &Graph::_findStreet)
-		//.def("_getStreetMeanVelocity", &Graph::_getStreetMeanVelocity)
 
 	// Street class
 	py::class_<Street>(m,"Street")
@@ -72,10 +64,10 @@ PYBIND11_MODULE(Graph,m) {
 	// Vehicle class
 	py::class_<Vehicle>(m,"Vehicle")
 		.def(py::init<int>())
-		.def_static("addVehicleType", static_cast<void (*)(int,int)>(&Vehicle::addVehicleType))
+		.def_static("addVehicleType", static_cast<void (*)(uint8_t,uint8_t)>(&Vehicle::addVehicleType))
 		.def_static("addVehicleType", static_cast<void (*)(const char *)>(&Vehicle::addVehicleType))
-		.def_static("getVehicleType", static_cast<std::shared_ptr<VehicleType> (*)(int const)>(&Vehicle::getVehicleType))
-		.def("getVehicleType", static_cast<const std::shared_ptr<VehicleType> (Vehicle::*)()>(&Vehicle::getVehicleType)) noexcept 
+		.def_static("getVehicleType", &Vehicle::getVehicleType)
+		.def("getType", &Vehicle::getType) 
 		.def("getNVehicleType",&Vehicle::getNVehicleType)
 		.def("getType",&Vehicle::getType)
 		.def("getPosition",&Vehicle::getPosition)

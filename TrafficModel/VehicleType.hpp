@@ -9,17 +9,16 @@
 
 class VehicleType {
 private:
-  int _trip[2];                                  // 0=source, 1=destination
+	uint16_t _trip[2]; // 0=source, 1=destination
   std::vector<std::vector<double>> _transMatrix; // transition matrix
 
 public:
-  VehicleType(int, int);
+  VehicleType(uint16_t, uint16_t);
   ~VehicleType() = default;
 
-  int getSource() const noexcept;
-  int getDestination() const noexcept;
-  void setTransMatrix(
-      std::vector<std::vector<double>> &); //!< set the transition matrix
+  uint16_t getSource() const noexcept;
+  uint16_t getDestination() const noexcept;
+  void setTransMatrix(std::vector<std::vector<double>> &); //!< set the transition matrix
   std::vector<std::vector<double>> const &getTransMatrix() const;
 };
 
