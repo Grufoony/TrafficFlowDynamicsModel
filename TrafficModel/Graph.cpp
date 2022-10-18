@@ -43,10 +43,12 @@ void normalizeMat(std::vector<std::vector<double>> &mat) {
 int Graph::_minDistance(int const src, int const dst) const {
   std::vector<int> dist; // The output array. dist.at(i) will hold the shortest
   // distance from src to i
+  dist.reserve(_n);
 
   std::vector<bool>
       sptSet; // sptSet.at(i) will be true if vertex i is included in shortest
   // path tree or shortest distance from src to i is finalized
+  sptSet.reserve(_n);
 
   // Initialize all distances as INFINITE and stpSet as false
   for (int i = 0; i < _n; ++i)
@@ -252,6 +254,7 @@ Graph::Graph(const char *fName) {
   int streetIndex = 0;
   for (int u = 0; u < _n; ++u) {
     std::vector<bool> temp;
+    temp.reserve(_n);
     for (int v = 0; v < _n; ++v) {
       data >> x;
       b = x > 0;
@@ -338,9 +341,11 @@ void Graph::updateTransMatrix() {
     auto const vehicle = Vehicle::getVehicleType(index);
     int const dst = vehicle->getDestination();
     std::vector<std::vector<double>> matrix;
+    matrix.reserve(_n);
     // initialize matrix at 0
     for (int i = 0; i < _n; ++i) {
       std::vector<double> temp;
+      temp.reserve(_n);
       for (int j = 0; j < _n; ++j) {
         temp.push_back(0.);
       }

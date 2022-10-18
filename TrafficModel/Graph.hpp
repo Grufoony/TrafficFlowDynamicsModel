@@ -23,10 +23,14 @@ private:
   double _meanTimeTraveled = 0.; // mean time traveled by vehicles
   int _nVehiclesToDst = 0;       // number of vehicles to destination
 
-  int _minDistance(int const, int const) const; // algorithm for min distance between two nodes
-  std::vector<int> _nextStep(int const, int const); // next step for the destination (min. distance)
+  int _minDistance(int const, int const)
+      const; // algorithm for min distance between two nodes
+  std::vector<int>
+  _nextStep(int const,
+            int const); // next step for the destination (min. distance)
   void _evolve(bool);   // evolve the vehicle's position
-  int _findStreet(int const, int const) const; // find street with origin and destination
+  int _findStreet(int const,
+                  int const) const; // find street with origin and destination
   double _getStreetMeanVelocity(int const) const; // get the mean velocity of a
                                                   // street
 
@@ -34,11 +38,11 @@ public:
   Graph(const char *); //!< import from file (only matrix)
   ~Graph() = default;
 
-  void addVehicle(int);           //!< add a vehicle of a type in _vehicles
-                                  //!< street
-  void addRndmVehicles(int);      //!< add vehicles of random type in _vehicles
-  void addVehiclesUniformly(int); //!< add vehicles uniformly on the streets
-  void loadVehicles(const char *);   //!< load vehicles in the network
+  void addVehicle(int);            //!< add a vehicle of a type in _vehicles
+                                   //!< street
+  void addRndmVehicles(int);       //!< add vehicles of random type in _vehicles
+  void addVehiclesUniformly(int);  //!< add vehicles uniformly on the streets
+  void loadVehicles(const char *); //!< load vehicles in the network
   void setTemperature(double const); //!< set the temperature of the network
   void updateTransMatrix(); //!< create all the transition matrices for all
                             //!< vehicle types
