@@ -10,6 +10,8 @@
 /source/latex/*
 test*
 *.so
+/dist/
+*-info
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
