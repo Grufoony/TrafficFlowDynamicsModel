@@ -97,6 +97,7 @@ Table of contents</h1>
 <li><a href="#download">Download</a></li>
 <li><a href="#compiling">Compiling</a></li>
 <li><a href="#data">Data</a></li>
+<li><a href="#Pybinding">Use on Python</a></li>
 </ol>
 <h1><a class="anchor" id="autotoc_md2"></a>
 Citing</h1>
@@ -119,8 +120,8 @@ Download</h1>
 <p>Otherwise, you can directly download a release.</p>
 <h1><a class="anchor" id="autotoc_md5"></a>
 Compiling</h1>
-<p>Once created the main file, you can simply compile the source code using the Makefile. You can compile the program for a linux distribution </p><pre class="fragment">$ make linux
-</pre><p> or for a windows distibution </p><pre class="fragment">$ make windows
+<p>Once created the main file, you can simply compile the source code using the Makefile. You can compile the program for a linux distribution </p><pre class="fragment">make linux
+</pre><p> or for a windows distibution </p><pre class="fragment">make windows
 </pre> <h1><a class="anchor" id="autotoc_md6"></a>
 Data</h1>
 <p>Once run the simulation you can print data in two formats:</p>
@@ -129,8 +130,13 @@ Data</h1>
 <li><b>root</b>, wich prints data in a format readable by the C++ framework <em>Root</em>, developed by Cern.</li>
 </ol>
 <p>There is also a way to visualize the network in which the streets change color based on their vehicle density. To do that there is a Python script, <em>visual.py</em> that prints a PNG file of an arbitrary instant of time. With this script you can also merge differents PNG files into a unique GIF file, obtaining an output like this:</p>
-<p><img src="./data/img/evolution.gif" alt="" width="50%" height="50%" class="inline"/> </p>
-</div></div><!-- PageDoc -->
+<p><img src="./data/img/evolution.gif" alt="" width="50%" height="50%" class="inline"/></p>
+<h1><a class="anchor" id="autotoc_md7"></a>
+Pybinding</h1>
+<p>You can also run the library on Python keeping the optimization level given by C++. To make this you have to make the Pybinding of the code on your personal environment.</p>
+<p>To do so, in the main folder run the following commands: </p><pre class="fragment">python3 setup.py sdist
+pip install .
+</pre> </div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

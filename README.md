@@ -11,6 +11,7 @@ This project is part of a three-year thesis work for the Physics course at the A
 3. [Download](#download)
 4. [Compiling](#compiling)
 5. [Data](#data)
+6. [Use on Python](#Pybinding)
 
 ## Citing
 If you use my code, please cite my work:
@@ -72,11 +73,11 @@ Otherwise, you can directly download a release.
 Once created the main file, you can simply compile the source code using the Makefile.
 You can compile the program for a linux distribution
 
-    $ make linux
+    make linux
 
 or for a windows distibution
 
-    $ make windows
+    make windows
 
 ## Data
 Once run the simulation you can print data in two formats:
@@ -89,3 +90,12 @@ To do that there is a Python script, *visual.py* that prints a PNG file of an ar
 With this script you can also merge differents PNG files into a unique GIF file, obtaining an output like this:
 
 <img src="./data/img/evolution.gif" width="50%" height="50%"/>
+
+## Pybinding
+You can also run the library on Python keeping the optimization level given by C++.
+To make this you have to make the Pybinding of the code on your personal environment.
+
+To do so, in the main folder run the following commands:
+
+    python3 setup.py sdist
+    pip install .
