@@ -17,6 +17,7 @@ void VehicleType::setTransMatrix(std::vector<std::vector<double>> &matrix) {
   if (n == 0)
     throw std::runtime_error("VehicleType::setTransMatrix: matrix is empty.\n");
   _transMatrix.clear();
+  _transMatrix.reserve(n);
   for (auto const &row : matrix) {
     std::vector<double> temp;
     temp.reserve(n);
@@ -25,6 +26,7 @@ void VehicleType::setTransMatrix(std::vector<std::vector<double>> &matrix) {
     }
     _transMatrix.push_back(temp);
   }
+  _transMatrix.shrink_to_fit();
 }
 std::vector<std::vector<double>> const &VehicleType::getTransMatrix() const {
   if (_transMatrix.size() == 0)

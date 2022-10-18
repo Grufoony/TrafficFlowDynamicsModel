@@ -268,6 +268,7 @@ Graph::Graph(const char *fName) {
     _adjMatrix.push_back(temp);
   }
   data.close();
+  _adjMatrix.shrink_to_fit();
   std::cout << "Done." << '\n';
   for (int i = 0; i < static_cast<int>(_streets.size()); ++i) {
     _vehiclesOnStreet.push_back(0);
