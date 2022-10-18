@@ -16,12 +16,12 @@ void VehicleType::setTransMatrix(std::vector<std::vector<double>> &matrix) {
   int n = matrix.size();
   if (n == 0)
     throw std::runtime_error("VehicleType::setTransMatrix: matrix is empty.\n");
-  for(auto const& row : matrix) {
-		std::vector<double> temp;
-		for(auto const& el : row) {
-			temp.push_back(el);
-		}
-		_transMatrix.push_back(temp);
+  for (auto const &row : matrix) {
+    std::vector<double> temp;
+    for (auto const &el : row) {
+      temp.push_back(el);
+    }
+    _transMatrix.push_back(temp);
   }
 }
 std::vector<std::vector<double>> const &VehicleType::getTransMatrix() const {

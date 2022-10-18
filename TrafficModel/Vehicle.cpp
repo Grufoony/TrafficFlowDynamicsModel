@@ -46,16 +46,18 @@ void Vehicle::addVehicleType(const char *fName) {
 }
 /// \brief Get the vehicle type.
 /// \return A pointer to the vehicle type object.
-std::shared_ptr<VehicleType> Vehicle::getVehicleType(uint8_t const index) {
+std::shared_ptr<VehicleType> Vehicle::getVehicleType(int8_t const index) {
   if (index < 0 || index > getNVehicleType() - 1)
     throw std::invalid_argument(
         "Vehicle::getVehicleType: index out of range.\n");
   return _vehicleType.at(index);
 }
 uint8_t Vehicle::getType() const noexcept { return _index; }
-uint8_t Vehicle::getNVehicleType() { return static_cast<int>(_vehicleType.size()); }
+uint8_t Vehicle::getNVehicleType() {
+  return static_cast<int>(_vehicleType.size());
+}
 
-void Vehicle::setPosition(uint16_t pos) {
+void Vehicle::setPosition(int16_t pos) {
   if (pos < 0)
     throw std::invalid_argument("Vehicle::setPosition: pos out of range.\n");
   _previousPosition = _position;

@@ -5,11 +5,12 @@
 
 //! This class is used to represent a vehicle type.
 
+#include <cstdint>
 #include <vector>
 
 class VehicleType {
 private:
-	uint16_t _trip[2]; // 0=source, 1=destination
+  uint16_t _trip[2];                             // 0=source, 1=destination
   std::vector<std::vector<double>> _transMatrix; // transition matrix
 
 public:
@@ -18,7 +19,8 @@ public:
 
   uint16_t getSource() const noexcept;
   uint16_t getDestination() const noexcept;
-  void setTransMatrix(std::vector<std::vector<double>> &); //!< set the transition matrix
+  void setTransMatrix(
+      std::vector<std::vector<double>> &); //!< set the transition matrix
   std::vector<std::vector<double>> const &getTransMatrix() const;
 };
 
