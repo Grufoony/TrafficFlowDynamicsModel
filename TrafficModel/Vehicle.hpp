@@ -22,6 +22,11 @@ private:
 
 public:
   Vehicle(uint8_t); //!< create a vehicle of a type in _vehicleType
+  Vehicle(const Vehicle &v)
+      : _index(v._index), _position(v._position),
+        _previousPosition(v._previousPosition), _street(v._street),
+        _timePenalty(v._timePenalty), _velocity(v._velocity),
+        _timeTraveled(v._timeTraveled) {}
   ~Vehicle() = default;
 
   static void addVehicleType(uint16_t,
