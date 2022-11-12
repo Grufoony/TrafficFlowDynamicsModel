@@ -50,7 +50,7 @@ std::shared_ptr<VehicleType> Vehicle::getVehicleType(int8_t const index) {
   if (index < 0 || index > getNVehicleType() - 1)
     throw std::invalid_argument(
         "Vehicle::getVehicleType: index out of range.\n");
-  return _vehicleType.at(index);
+  return _vehicleType[index];
 }
 uint8_t Vehicle::getType() const noexcept { return _index; }
 uint8_t Vehicle::getNVehicleType() {

@@ -18,8 +18,8 @@ int minDistance(std::vector<int> const &dist, std::vector<bool> const &sptSet,
   int min = std::numeric_limits<int>::max(), min_index = -1;
 
   for (int v = 0; v < _n; ++v)
-    if (!sptSet.at(v) && dist.at(v) <= min)
-      min = dist.at(v), min_index = v;
+    if (!sptSet[v] && dist[v] <= min)
+      min = dist[v], min_index = v;
 
   return min_index;
 }
@@ -55,7 +55,7 @@ int Graph::_minDistance(int const src, int const dst) const {
     dist.push_back(std::numeric_limits<int>::max()), sptSet.push_back(false);
 
   // Distance of source vertex from itself is always 0
-  dist.at(src) = 0;
+  dist[src] = 0;
 
   // Find shortest path for all vertices
   for (int count = 0; count < _n - 1; ++count) {
@@ -64,7 +64,7 @@ int Graph::_minDistance(int const src, int const dst) const {
     int u = minDistance(dist, sptSet, _n);
 
     // Mark the picked vertex as processed
-    sptSet.at(u) = true;
+    sptSet[u] = true;
 
     // Update dist value of the adjacent vertices of the picked vertex.
     for (int v = 0; v < _n; ++v) {
@@ -75,18 +75,17 @@ int Graph::_minDistance(int const src, int const dst) const {
 
       // auto lenght = _adjMatrix.at(u).at(v);
       int time = 0;
-      if (_adjMatrix.at(u).at(v)) {
-        auto weight = _streets.at(_findStreet(u, v))->getLenght();
+      if (_adjMatrix[u][v]) {
+        auto weight = _streets[_findStreet(u, v)]->getLenght();
         weight /= this->_getStreetMeanVelocity(_findStreet(u, v));
         time = static_cast<int>(weight);
       }
-      if (!sptSet.at(v) && time &&
-          dist.at(u) != std::numeric_limits<int>::max() &&
-          dist.at(u) + time < dist.at(v))
-        dist.at(v) = dist.at(u) + time;
+      if (!sptSet[v] && time && dist[u] != std::numeric_limits<int>::max() &&
+          dist[u] + time < dist[v])
+        dist[v] = dist[u] + time;
     }
   }
-  return dist.at(dst);
+  return dist[dst];
 }
 
 std::vector<int> Graph::_nextStep(int const src, int const dst) {
@@ -95,7 +94,7 @@ std::vector<int> Graph::_nextStep(int const src, int const dst) {
   std::vector<int> _nextStep;
   for (int i = 0; i < static_cast<int>(row.size()); ++i) {
     if (row.at(i)) {
-      auto weight = _streets.at(_findStreet(src, i))->getLenght();
+      auto weight = _streets[_findStreet(src, i)]->getLenght();
       weight /= this->_getStreetMeanVelocity(_findStreet(src, i));
       auto time = static_cast<int>(weight);
       if (_minDistance(i, dst) == (min - time))
@@ -133,7 +132,7 @@ void Graph::_evolve(bool reinsert) {
   // keep in memory the previous state of the streets
   int i = 0;
   for (auto const &street : _streets) {
-    _vehiclesOnStreet.at(i) = street->getNVehicles();
+    _vehiclesOnStreet[i] = street->getNVehicles();
     i++;
   }
   // random initializations
@@ -153,10 +152,10 @@ void Graph::_evolve(bool reinsert) {
     vehicle->incrementTimeTraveled();
     if (timePenalty > 0) { // check if the vehicle can move
       // if the vahicle cannot move checks if the vehicle could go faster
-      auto streetLenght = _streets.at(vehicle->getStreet())->getLenght();
+      auto streetLenght = _streets[vehicle->getStreet()]->getLenght();
       auto oldTime = static_cast<int>(streetLenght / vehicle->getVelocity());
       auto newTime = static_cast<int>(
-          streetLenght / _streets.at(vehicle->getStreet())->getInputVelocity());
+          streetLenght / _streets[vehicle->getStreet()]->getInputVelocity());
       auto dTime = newTime - oldTime;
       if (dTime < 0) {
         if ((timePenalty + dTime) > 0) {
@@ -165,7 +164,7 @@ void Graph::_evolve(bool reinsert) {
           vehicle->setTimePenalty(0);
         }
         vehicle->setVelocity(
-            _streets.at(vehicle->getStreet())->getInputVelocity());
+            _streets[vehicle->getStreet()]->getInputVelocity());
       } else {
         vehicle->setTimePenalty(timePenalty - 1);
       }
@@ -176,7 +175,7 @@ void Graph::_evolve(bool reinsert) {
             vehicle->getDestination()) { // check if the vehicle is at the
                                          // destination
           if (!(vehicle->getStreet() < 0)) {
-            _streets.at(vehicle->getStreet())->remVehicle();
+            _streets[vehicle->getStreet()]->remVehicle();
             vehicle->setStreet(-1);
           }
         } else if (prob > std::numeric_limits<double>::epsilon()) {
@@ -185,14 +184,14 @@ void Graph::_evolve(bool reinsert) {
             // street update
             int streetIndex =
                 _findStreet(vehicle->getPosition(), i); // next street index
-            if (!(_streets.at(streetIndex)->isFull()) &&
+            if (!(_streets[streetIndex]->isFull()) &&
                 !(vehicle->getPreviousPosition() ==
                   streetIndex)) { // check if i can move on (street not full)
               if (!(vehicle->getStreet() <
                     0)) { // check if the vehicle is on a street
-                _streets.at(vehicle->getStreet())->remVehicle();
+                _streets[vehicle->getStreet()]->remVehicle();
               }
-              _streets.at(streetIndex)->addVehicle(vehicle);
+              _streets[streetIndex]->addVehicle(vehicle);
               break;
             } else {
               vehicle->setVelocity(0.);
@@ -224,7 +223,7 @@ double Graph::_getStreetMeanVelocity(int const streetIndex) const {
     }
   }
   if (i == 0) {
-    return _streets.at(streetIndex)->getVMax();
+    return _streets[streetIndex]->getVMax();
   } else {
     return vCum / i;
   }
@@ -310,10 +309,10 @@ void Graph::addVehiclesUniformly(int nVehicles) {
   for (int i = 0; i < nVehicles; ++i) {
     this->addRndmVehicles(1);
     int index = dist(rng);
-    while (_streets.at(index)->isFull()) {
+    while (_streets[index]->isFull()) {
       index = dist(rng);
     }
-    _streets.at(index)->addVehicle(_vehicles.back());
+    _streets[index]->addVehicle(_vehicles.back());
   }
 }
 
@@ -416,8 +415,8 @@ void Graph::print(bool const printGraph) const noexcept {
     for (auto const &row : _adjMatrix) {
       std::cout << i;
       if (!(_nodesCoordinates.empty())) {
-        std::cout << " (" << _nodesCoordinates.at(0).at(i) << ','
-                  << _nodesCoordinates.at(1).at(i) << ") ";
+        std::cout << " (" << _nodesCoordinates[0][i] << ','
+                  << _nodesCoordinates[1][i] << ") ";
       }
       std::cout << "-->";
       int j = 0;
