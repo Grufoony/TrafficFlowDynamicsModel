@@ -31,12 +31,7 @@ void printTransMatrices() {
                  "--------";
     std::cout << "From " << Vehicle::getVehicleType(i)->getSource() << " to "
               << Vehicle::getVehicleType(i)->getDestination() << '\n';
-    for (auto temp : Vehicle::getVehicleType(i)->getTransMatrix()) {
-      for (auto it : temp) {
-        std::cout << std::setprecision(2) << it << '\t';
-      }
-      std::cout << '\n';
-    }
+    Vehicle::getVehicleType(i)->getTransMatrix().print();
   }
 }
 

@@ -31,6 +31,7 @@ debug:
 	clang-format -i ./TrafficModel/Graph.cpp
 	clang-format -i ./TrafficModel/Graph.hpp
 	clang-format -i ./utils/macro.cpp
+	clang-format -i ./TrafficModel/SparseMatrix.hpp
 	clear
 	g++ -std=c++17 -O3 ./main.cpp ./TrafficModel/Graph.cpp ./TrafficModel/Street.cpp ./TrafficModel/Vehicle.cpp ./TrafficModel/VehicleType.cpp -o test.wsl -Wall -Wextra -fsanitize=address
 visual:

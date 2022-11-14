@@ -5,13 +5,14 @@
 
 //! This class is used to represent a vehicle type.
 
+#include "SparseMatrix.hpp"
 #include <cstdint>
 #include <vector>
 
 class VehicleType {
 private:
-  uint16_t _trip[2];                             // 0=source, 1=destination
-  std::vector<std::vector<double>> _transMatrix; // transition matrix
+  uint16_t _trip[2];                 // 0=source, 1=destination
+  SparseMatrix<double> _transMatrix; // transition matrix
 
 public:
   VehicleType(uint16_t, uint16_t);
@@ -19,9 +20,8 @@ public:
 
   uint16_t getSource() const noexcept;
   uint16_t getDestination() const noexcept;
-  void setTransMatrix(
-      std::vector<std::vector<double>> &); //!< set the transition matrix
-  std::vector<std::vector<double>> const &getTransMatrix() const;
+  void setTransMatrix(SparseMatrix<double> &); //!< set the transition matrix
+  SparseMatrix<double> const &getTransMatrix() const;
 };
 
 #endif

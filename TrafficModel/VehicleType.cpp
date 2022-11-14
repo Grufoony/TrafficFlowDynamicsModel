@@ -12,23 +12,10 @@ uint16_t VehicleType::getSource() const noexcept { return _trip[0]; }
 uint16_t VehicleType::getDestination() const noexcept { return _trip[1]; }
 /// \brief Set the transition matrix.
 /// \param transMatrix The transition matrix.
-void VehicleType::setTransMatrix(std::vector<std::vector<double>> &matrix) {
-  int n = matrix.size();
-  if (n == 0)
-    throw std::runtime_error("VehicleType::setTransMatrix: matrix is empty.\n");
-  _transMatrix.clear();
-  _transMatrix.reserve(n);
-  for (auto const &row : matrix) {
-    std::vector<double> temp;
-    temp.reserve(n);
-    for (auto const &el : row) {
-      temp.push_back(el);
-    }
-    _transMatrix.push_back(temp);
-  }
-  _transMatrix.shrink_to_fit();
+void VehicleType::setTransMatrix(SparseMatrix<double> &matrix) {
+  this->_transMatrix = matrix;
 }
-std::vector<std::vector<double>> const &VehicleType::getTransMatrix() const {
+SparseMatrix<double> const &VehicleType::getTransMatrix() const {
   if (_transMatrix.size() == 0)
     throw std::runtime_error("VehicleType::getTransMatrix: matrix is empty");
   return _transMatrix;

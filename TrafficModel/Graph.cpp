@@ -5,6 +5,7 @@
 #include <iomanip>
 #include <iostream>
 #include <limits>
+#include <map>
 #include <random>
 #include <stdexcept>
 #include <string>
@@ -34,9 +35,17 @@ void normalizeVec(std::vector<double> &vec) {
     it = it / sum;
 }
 
-void normalizeMat(std::vector<std::vector<double>> &mat) {
-  for (auto &it : mat)
-    normalizeVec(it);
+void normalizeMat(SparseMatrix<double> &mat) {
+  for (int i = 0; i < mat.getRowDim(); ++i) {
+    double sum = 0.;
+    auto const &vec = mat.getRow(i);
+    for (auto it : vec)
+      sum += it.second;
+    if (static_cast<int>(sum) != 0) {
+      for (auto &it : vec)
+        mat.insert_or_assign(i, it.first, mat(i, it.first) / sum);
+    }
+  }
 }
 
 // using Dijkstra to calculate distance
@@ -75,7 +84,7 @@ int Graph::_minDistance(int const src, int const dst) const {
 
       // auto lenght = _adjMatrix.at(u).at(v);
       int time = 0;
-      if (_adjMatrix[u][v]) {
+      if (_adjMatrix.exists(u, v)) {
         auto weight = _streets[_findStreet(u, v)]->getLenght();
         weight /= this->_getStreetMeanVelocity(_findStreet(u, v));
         time = static_cast<int>(weight);
@@ -89,17 +98,14 @@ int Graph::_minDistance(int const src, int const dst) const {
 }
 
 std::vector<int> Graph::_nextStep(int const src, int const dst) {
-  auto const &row = _adjMatrix.at(src);
   auto const min = _minDistance(src, dst);
   std::vector<int> _nextStep;
-  for (int i = 0; i < static_cast<int>(row.size()); ++i) {
-    if (row.at(i)) {
-      auto weight = _streets[_findStreet(src, i)]->getLenght();
-      weight /= this->_getStreetMeanVelocity(_findStreet(src, i));
-      auto time = static_cast<int>(weight);
-      if (_minDistance(i, dst) == (min - time))
-        _nextStep.push_back(i);
-    }
+  for (auto const &el : _adjMatrix.getRow(src)) {
+    auto weight = _streets[_findStreet(src, el.first)]->getLenght();
+    weight /= this->_getStreetMeanVelocity(_findStreet(src, el.first));
+    auto time = static_cast<int>(weight);
+    if (_minDistance(el.first, dst) == (min - time))
+      _nextStep.push_back(el.first);
   }
   return _nextStep;
 }
@@ -141,11 +147,6 @@ void Graph::_evolve(bool reinsert) {
   std::uniform_real_distribution<> dist(0., 1.);
   // cicling through all the vehicles
   for (auto const &vehicle : _vehicles) {
-    auto const &trans_vec =
-        Vehicle::getVehicleType(vehicle->getType())
-            ->getTransMatrix()
-            .at(vehicle->getPosition()); // obtain the line with trans
-                                         // probabilities
     auto threshold = 0.;
     auto const p = dist(rng);
     auto timePenalty = vehicle->getTimePenalty();
@@ -169,8 +170,9 @@ void Graph::_evolve(bool reinsert) {
         vehicle->setTimePenalty(timePenalty - 1);
       }
     } else {
-      for (int i = 0; i < _n; ++i) {
-        auto prob = trans_vec.at(i);
+      for (auto const &prob : Vehicle::getVehicleType(vehicle->getType())
+                                  ->getTransMatrix()
+                                  .getRow(vehicle->getPosition())) {
         if (vehicle->getPosition() ==
             vehicle->getDestination()) { // check if the vehicle is at the
                                          // destination
@@ -178,12 +180,12 @@ void Graph::_evolve(bool reinsert) {
             _streets[vehicle->getStreet()]->remVehicle();
             vehicle->setStreet(-1);
           }
-        } else if (prob > std::numeric_limits<double>::epsilon()) {
-          threshold += prob;
+        } else {
+          threshold += prob.second;
           if (p < threshold) {
             // street update
-            int streetIndex =
-                _findStreet(vehicle->getPosition(), i); // next street index
+            int streetIndex = _findStreet(vehicle->getPosition(),
+                                          prob.first); // next street index
             if (!(_streets[streetIndex]->isFull()) &&
                 !(vehicle->getPreviousPosition() ==
                   streetIndex)) { // check if i can move on (street not full)
@@ -246,28 +248,25 @@ Graph::Graph(const char *fName) {
   }
   data.close();
   _n = std::sqrt(_n);
+  _adjMatrix = SparseMatrix<bool>(_n, _n);
 
   // import adj matrix from file
   std::cout << "Importing adjacency matrix from file..." << '\n';
   data.open(fName);
   int streetIndex = 0;
   for (int u = 0; u < _n; ++u) {
-    std::vector<bool> temp;
-    temp.reserve(_n);
     for (int v = 0; v < _n; ++v) {
       data >> x;
       b = x > 0;
-      temp.push_back(b);
       if (b) {
+        _adjMatrix.insert(u, v, true);
         _streets.push_back(
             std::make_shared<Street>(Street(u, v, x, streetIndex)));
         ++streetIndex;
       }
     }
-    _adjMatrix.push_back(temp);
   }
   data.close();
-  _adjMatrix.shrink_to_fit();
   std::cout << "Done." << '\n';
   for (int i = 0; i < static_cast<int>(_streets.size()); ++i) {
     _vehiclesOnStreet.push_back(0);
@@ -340,31 +339,21 @@ void Graph::updateTransMatrix() {
   for (int index = 0; index < Vehicle::getNVehicleType(); ++index) {
     auto const vehicle = Vehicle::getVehicleType(index);
     int const dst = vehicle->getDestination();
-    std::vector<std::vector<double>> matrix;
-    matrix.reserve(_n);
-    // initialize matrix at 0
-    for (int i = 0; i < _n; ++i) {
-      std::vector<double> temp;
-      temp.reserve(_n);
-      for (int j = 0; j < _n; ++j) {
-        temp.push_back(0.);
-      }
-      matrix.push_back(temp);
-    }
+    SparseMatrix<double> matrix(this->_adjMatrix.getRowDim(),
+                                this->_adjMatrix.getColDim());
     // setting to 1 the probabilities of correct movements
     for (int i = 0; i < _n; ++i) {
       auto path = _nextStep(i, dst);
       if (path.size() > 0) {
         for (auto &it : path)
-          matrix.at(i).at(it) = 1.;
+          matrix.insert(i, it, 1.);
       }
     }
     // setting noise
     for (int i = 0; i < _n; ++i) {
       for (int j = 0; j < _n; ++j) {
-        if (_adjMatrix.at(i).at(j) > std::numeric_limits<double>::epsilon() &&
-            matrix.at(i).at(j) < 0.1) {
-          matrix.at(i).at(j) = noise;
+        if (_adjMatrix.exists(i, j) && matrix(i, j) < 0.1) {
+          matrix.insert_or_assign(i, j, noise);
         }
       }
     }
@@ -382,14 +371,7 @@ void Graph::evolve(bool reinsert) { this->_evolve(reinsert); }
 /// algorithm and reinserting vehicles in the streets from their origin
 void Graph::evolve() { this->_evolve(true); }
 /// \brief Print the transition matrix
-void Graph::printMatrix() const noexcept {
-  for (auto const &row : _adjMatrix) {
-    for (auto const it : row) {
-      std::cout << std::setprecision(2) << it << '\t';
-    }
-    std::cout << '\n';
-  }
-}
+void Graph::printMatrix() noexcept { _adjMatrix.print(); }
 /// \brief Print informations about the system
 void Graph::print(bool const printGraph) const noexcept {
   std::cout << "-------------------------" << '\n';
@@ -411,23 +393,18 @@ void Graph::print(bool const printGraph) const noexcept {
   std::cout << "Streets: " << _streets.size() << '\n';
   if (printGraph) {
     std::cout << "Input graph:\n";
-    int i = 0;
-    for (auto const &row : _adjMatrix) {
+    for (int i = 0; i < _adjMatrix.getRowDim(); ++i) {
+      auto const &row = _adjMatrix.getRow(i);
       std::cout << i;
       if (!(_nodesCoordinates.empty())) {
         std::cout << " (" << _nodesCoordinates[0][i] << ','
                   << _nodesCoordinates[1][i] << ") ";
       }
       std::cout << "-->";
-      int j = 0;
       for (auto const it : row) {
-        if (it > std::numeric_limits<double>::epsilon()) {
-          std::cout << '\t' << j;
-        }
-        ++j;
+        std::cout << '\t' << it.second;
       }
       std::cout << '\n';
-      ++i;
     }
   }
   std::cout << "-------------------------" << '\n';

@@ -5,6 +5,7 @@
 
 //!  This class is used to represent a graph.
 
+#include "SparseMatrix.hpp"
 #include "Street.hpp"
 #include "Vehicle.hpp"
 #include <memory>
@@ -12,7 +13,7 @@
 
 class Graph {
 private:
-  std::vector<std::vector<bool>> _adjMatrix;          // adjacency matrix
+  SparseMatrix<bool> _adjMatrix;
   std::vector<std::vector<double>> _nodesCoordinates; // coordinates matrix
   std::vector<std::shared_ptr<Street>> _streets;      // streets in the network
   std::vector<std::shared_ptr<Vehicle>> _vehicles;    // vehicles in the network
@@ -50,7 +51,7 @@ public:
                             //!< needed
   void evolve();            //!< evolve the network with reinsertion (default)
 
-  void printMatrix() const noexcept;     //!< print adjency matrix on terminal
+  void printMatrix() noexcept;           //!< print adjency matrix on terminal
   void print(bool const) const noexcept; //!< print network info on terminal
   void printStreets() const
       noexcept; //!< print streets on terminal with nodes and number of vehicles
