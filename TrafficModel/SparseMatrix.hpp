@@ -44,7 +44,7 @@ public:
     _matrix.insert_or_assign(i * _cols + j, value);
   };
   void erase(int i, int j) {
-    _matrix.count(i * _cols + j)
+    _matrix.find(i * _cols + j) != _matrix.end()
         ? _matrix.erase(i * _cols + j)
         : throw std::out_of_range("Index out of range");
   };
@@ -84,8 +84,8 @@ public:
   void print() const noexcept {
     for (int i = 0; i < _rows; ++i) {
       for (int j = 0; j < _cols; ++j) {
-        _matrix.count(i * _cols + j) ? std::cout << _matrix.at(i * _cols + j)
-                                     : std::cout << 0;
+        auto const &it = _matrix.find(i * _cols + j);
+        it != _matrix.end() ? std::cout << it->second : std::cout << 0;
         std::cout << '\t';
       }
       std::cout << '\n';
@@ -95,8 +95,8 @@ public:
     std::ofstream file(fName);
     for (int i = 0; i < _rows; ++i) {
       for (int j = 0; j < _cols; ++j) {
-        _matrix.count(i * _cols + j) ? file << _matrix.at(i * _cols + j)
-                                     : file << 0;
+        auto const &it = _matrix.find(i * _cols + j);
+        it != _matrix.end() ? file << it->second : file << 0;
         file << '\t';
       }
       file << '\n';
@@ -108,11 +108,8 @@ public:
     if (i >= _rows || j >= _cols || i < 0 || j < 0) {
       throw std::out_of_range("Index out of range");
     }
-    if (_matrix.count(i * _cols + j)) {
-      return _matrix.at(i * _cols + j);
-    } else {
-      return defaultReturn;
-    }
+    auto const &it = _matrix.find(i * _cols + j);
+    return it != _matrix.end() ? it->second : defaultReturn;
   }
   SparseMatrix &operator=(const SparseMatrix &other) {
     this->_rows = other._rows;
