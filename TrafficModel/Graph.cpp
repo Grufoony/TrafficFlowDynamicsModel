@@ -191,36 +191,26 @@ void Graph::_evolve(bool reinsert) {
         vehicle->setStreet(-1);
       }
     } else {
-      auto const &trans_vec =
-          Vehicle::getVehicleType(vehicle->getType())
-              ->getTransMatrix()
-              .getRow(vehicle->getPosition()); // obtain the line with trans
-                                               // probabilities
-      for (int i = 0; i < _n; ++i) {
-        auto const &it = trans_vec.find(i);
-        auto prob = 0.;
-        if (it != trans_vec.end()) {
-          prob = trans_vec.at(i);
-        }
-        if (prob > std::numeric_limits<double>::epsilon()) {
-          threshold += prob;
-          if (p < threshold) {
-            // street update
-            int streetIndex =
-                _findStreet(vehicle->getPosition(), i); // next street index
-            if (!(_streets.at(streetIndex)->isFull()) &&
-                !(vehicle->getPreviousPosition() ==
-                  streetIndex)) { // check if i can move on (street not full)
-              if (!(vehicle->getStreet() <
-                    0)) { // check if the vehicle is on a street
-                _streets.at(vehicle->getStreet())->remVehicle();
-              }
-              _streets.at(streetIndex)->addVehicle(vehicle);
-              break;
-            } else {
-              vehicle->setVelocity(0.);
+      for (auto const &probMap : Vehicle::getVehicleType(vehicle->getType())
+                                     ->getTransMatrix()
+                                     .getRow(vehicle->getPosition())) {
+        threshold += probMap.second;
+        if (p < threshold) {
+          // street update
+          int streetIndex = _findStreet(vehicle->getPosition(),
+                                        probMap.first); // next street index
+          if (!(_streets.at(streetIndex)->isFull()) &&
+              !(vehicle->getPreviousPosition() ==
+                streetIndex)) { // check if i can move on (street not full)
+            if (!(vehicle->getStreet() <
+                  0)) { // check if the vehicle is on a street
+              _streets.at(vehicle->getStreet())->remVehicle();
             }
+            _streets.at(streetIndex)->addVehicle(vehicle);
+          } else {
+            vehicle->setVelocity(0.);
           }
+          break;
         }
       }
     }
