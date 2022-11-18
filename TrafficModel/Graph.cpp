@@ -12,16 +12,20 @@
 
 double constexpr TEMP_NORM = 273.15e-6;
 
+std::random_device GlobalDev;
+std::mt19937 GlobalRNG(GlobalDev());
+
 // function for dijkstra
 int minDistance(std::vector<int> const &dist, std::vector<bool> const &sptSet,
                 int const _n) {
   // Initialize min value
   int min = std::numeric_limits<int>::max(), min_index = -1;
 
-  for (int v = 0; v < _n; ++v)
-    if (!sptSet[v] && dist[v] <= min)
+  for (int v = 0; v < _n; ++v) {
+    if (!sptSet[v] && dist[v] <= min) {
       min = dist[v], min_index = v;
-
+    }
+  }
   return min_index;
 }
 
@@ -33,6 +37,16 @@ void normalizeVec(std::vector<double> &vec) {
     return;
   for (auto &it : vec)
     it = it / sum;
+}
+
+void normalizeVec(std::map<int, double> &vec) {
+  double sum = 0.;
+  for (auto it : vec)
+    sum += it.second;
+  if (static_cast<int>(sum) != 0) {
+    for (auto &it : vec)
+      vec.insert_or_assign(it.first, it.second / sum);
+  }
 }
 
 void normalizeMat(SparseMatrix<double> &mat) {
@@ -141,17 +155,17 @@ void Graph::_evolve(bool reinsert) {
     _vehiclesOnStreet[i] = street->getNVehicles();
     i++;
   }
-  // random initializations
-  std::random_device dev;
-  std::mt19937 rng(dev());
   std::uniform_real_distribution<> dist(0., 1.);
   // cicling through all the vehicles
   for (auto const &vehicle : _vehicles) {
     auto threshold = 0.;
-    auto const p = dist(rng);
+    auto const p = dist(GlobalRNG);
     auto timePenalty = vehicle->getTimePenalty();
     vehicle->incrementTimeTraveled();
-    if (timePenalty > 0) { // check if the vehicle can move
+    if (timePenalty > 0 &&
+        vehicle->getVelocity() >
+            std::numeric_limits<double>::epsilon()) { // check if the vehicle
+                                                      // can move
       // if the vahicle cannot move checks if the vehicle could go faster
       auto streetLenght = _streets[vehicle->getStreet()]->getLenght();
       auto oldTime = static_cast<int>(streetLenght / vehicle->getVelocity());
@@ -170,30 +184,38 @@ void Graph::_evolve(bool reinsert) {
         vehicle->setTimePenalty(timePenalty - 1);
       }
     } else {
-      for (auto const &prob : Vehicle::getVehicleType(vehicle->getType())
-                                  ->getTransMatrix()
-                                  .getRow(vehicle->getPosition())) {
+      auto const &trans_vec =
+          Vehicle::getVehicleType(vehicle->getType())
+              ->getTransMatrix()
+              .getRow(vehicle->getPosition()); // obtain the line with trans
+                                               // probabilities
+      for (int i = 0; i < _n; ++i) {
+        auto const &it = trans_vec.find(i);
+        auto prob = 0.;
+        if (it != trans_vec.end()) {
+          prob = trans_vec.at(i);
+        }
         if (vehicle->getPosition() ==
             vehicle->getDestination()) { // check if the vehicle is at the
                                          // destination
           if (!(vehicle->getStreet() < 0)) {
-            _streets[vehicle->getStreet()]->remVehicle();
+            _streets.at(vehicle->getStreet())->remVehicle();
             vehicle->setStreet(-1);
           }
-        } else {
-          threshold += prob.second;
+        } else if (prob > std::numeric_limits<double>::epsilon()) {
+          threshold += prob;
           if (p < threshold) {
             // street update
-            int streetIndex = _findStreet(vehicle->getPosition(),
-                                          prob.first); // next street index
-            if (!(_streets[streetIndex]->isFull()) &&
+            int streetIndex =
+                _findStreet(vehicle->getPosition(), i); // next street index
+            if (!(_streets.at(streetIndex)->isFull()) &&
                 !(vehicle->getPreviousPosition() ==
                   streetIndex)) { // check if i can move on (street not full)
               if (!(vehicle->getStreet() <
                     0)) { // check if the vehicle is on a street
-                _streets[vehicle->getStreet()]->remVehicle();
+                _streets.at(vehicle->getStreet())->remVehicle();
               }
-              _streets[streetIndex]->addVehicle(vehicle);
+              _streets.at(streetIndex)->addVehicle(vehicle);
               break;
             } else {
               vehicle->setVelocity(0.);
@@ -286,11 +308,9 @@ void Graph::addRndmVehicles(int nVehicles) {
   if (nVehicles < 0)
     throw std::invalid_argument(
         "Graph::addRndmVehicles: nVehicles must be positive.\n");
-  std::random_device dev;
-  std::mt19937 rng(dev());
   std::uniform_int_distribution<> dist(0, Vehicle::getNVehicleType() - 1);
   for (int i = 0; i < nVehicles; ++i) {
-    int index = dist(rng);
+    int index = dist(GlobalRNG);
     this->addVehicle(index);
   }
 }
@@ -301,15 +321,13 @@ void Graph::addVehiclesUniformly(int nVehicles) {
   if (nVehicles < 0)
     throw std::invalid_argument(
         "Graph::addVehiclesUniformly: Number of vehicles must be positive.\n");
-  std::random_device dev;
-  std::mt19937 rng(dev());
   std::uniform_int_distribution<> dist(0,
                                        static_cast<int>(_streets.size() - 1));
   for (int i = 0; i < nVehicles; ++i) {
     this->addRndmVehicles(1);
-    int index = dist(rng);
+    int index = dist(GlobalRNG);
     while (_streets[index]->isFull()) {
-      index = dist(rng);
+      index = dist(GlobalRNG);
     }
     _streets[index]->addVehicle(_vehicles.back());
   }
@@ -402,7 +420,7 @@ void Graph::print(bool const printGraph) const noexcept {
       }
       std::cout << "-->";
       for (auto const it : row) {
-        std::cout << '\t' << it.second;
+        std::cout << '\t' << it.first;
       }
       std::cout << '\n';
     }
