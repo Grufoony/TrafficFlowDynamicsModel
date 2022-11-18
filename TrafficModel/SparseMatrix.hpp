@@ -19,6 +19,21 @@ public:
         : _rows = rows,
           _cols = cols;
   };
+  SparseMatrix(const char *fName) {
+    std::ifstream file(fName);
+    if (!file.is_open())
+      throw std::invalid_argument("SparseMatrix: file not found");
+    file >> _rows >> _cols;
+    int pos;
+    T value;
+    while (file >> pos >> value) {
+      if (pos < 0 || pos > (_rows * _cols) - 1)
+        throw std::invalid_argument("SparseMatrix: index out of bounds");
+      _matrix.insert({pos, value});
+    }
+
+    file.close();
+  }
   SparseMatrix(SparseMatrix const &other) {
     this->_rows = other._rows;
     this->_cols = other._cols;
@@ -92,6 +107,14 @@ public:
     }
   }
   void save(const char *fName) const {
+    std::ofstream file(fName);
+    file << _rows << '\t' << _cols << '\n';
+    for (auto const &it : _matrix) {
+      file << it.first << '\t' << it.second << '\n';
+    }
+    file.close();
+  }
+  void saveAsMatrix(const char *fName) const {
     std::ofstream file(fName);
     for (int i = 0; i < _rows; ++i) {
       for (int j = 0; j < _cols; ++j) {
