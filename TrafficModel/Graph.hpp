@@ -56,6 +56,7 @@ public:
   void printStreets() const
       noexcept; //!< print streets on terminal with nodes and number of vehicles
 
+  void fprintMatrix(char const *);        //!< print adjency matrix on file
   void fprint(bool const) const noexcept; //!< print network info on file
   void fprintVisual(
       std::string const &) const noexcept; //!< print file for visual.py

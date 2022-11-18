@@ -432,6 +432,8 @@ void Graph::printStreets() const noexcept {
     ++i;
   }
 }
+
+void Graph::fprintMatrix(const char *fName) { _adjMatrix.save(fName); }
 /// \brief Print information of the network.
 /// \param printGraph if true, prints the graph.
 /// Print information of the network like number of nodes, number of streets and
