@@ -183,6 +183,13 @@ void Graph::_evolve(bool reinsert) {
       } else {
         vehicle->setTimePenalty(timePenalty - 1);
       }
+    } else if (vehicle->getPosition() ==
+               vehicle->getDestination()) { // check if the vehicle is at the
+                                            // destination
+      if (!(vehicle->getStreet() < 0)) {
+        _streets.at(vehicle->getStreet())->remVehicle();
+        vehicle->setStreet(-1);
+      }
     } else {
       auto const &trans_vec =
           Vehicle::getVehicleType(vehicle->getType())
@@ -195,14 +202,7 @@ void Graph::_evolve(bool reinsert) {
         if (it != trans_vec.end()) {
           prob = trans_vec.at(i);
         }
-        if (vehicle->getPosition() ==
-            vehicle->getDestination()) { // check if the vehicle is at the
-                                         // destination
-          if (!(vehicle->getStreet() < 0)) {
-            _streets.at(vehicle->getStreet())->remVehicle();
-            vehicle->setStreet(-1);
-          }
-        } else if (prob > std::numeric_limits<double>::epsilon()) {
+        if (prob > std::numeric_limits<double>::epsilon()) {
           threshold += prob;
           if (p < threshold) {
             // street update
