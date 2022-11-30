@@ -1,3 +1,11 @@
+///////////////////////////////////////////////////////////////////////////////
+// SPARSE MATRIX CLASS v 1.0
+// by Grufoony https://github.com/Grufoony
+///////////////////////////////////////////////////////////////////////////////
+// This class implements a sparse matrix.  The matrix is stored in a
+// compressed row format.
+///////////////////////////////////////////////////////////////////////////////
+
 #ifndef SparseMatrix_hpp
 #define SparseMatrix_hpp
 
@@ -5,6 +13,8 @@
 #include <iostream>
 #include <stdexcept>
 #include <unordered_map>
+#include <vector>
+#include <type_traits>
 
 template <typename T> class SparseMatrix {
   std::unordered_map<int, T> _matrix = {};
@@ -40,6 +50,8 @@ public:
     this->_matrix = other._matrix;
   };
 
+  std::unordered_map<int,bool> const& getMatrix() { return _matrix; }
+
   void insert(int i, int j, T value) {
     if (i >= _rows || j >= _cols || i < 0 || j < 0) {
       throw std::out_of_range("Index out of range");
@@ -66,6 +78,16 @@ public:
   void clear() noexcept { _matrix.clear(); };
   bool exists(int i, int j) const noexcept {
     return _matrix.count(i * _cols + j);
+  };
+  std::vector<int> getDegreeVector() {
+    if(_rows != _cols || !std::is_same<T, bool>::value) {
+      throw std::runtime_error("SparseMatrix: getDegreeVector only works on square boolean matrices");
+    }
+    std::vector<int> degreeVector(_rows, 0);
+    for (auto &i : _matrix) {
+      degreeVector[i.first / _cols]++;
+    }
+    return degreeVector;
   };
 
   std::unordered_map<int, T> getRow(int index) const {
