@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['vehicle_67',['Vehicle',['../classVehicle.html#a18fea85ff7231d0934548287d0b8b1d4',1,'Vehicle']]],
-  ['vehicletype_68',['VehicleType',['../classVehicleType.html#a731c7210cd953925de291d8783ced304',1,'VehicleType']]]
+  ['vehicle_75',['Vehicle',['../classVehicle.html#a8757cf8948070c0718362414f32c0f47',1,'Vehicle']]],
+  ['vehicletype_76',['VehicleType',['../classVehicleType.html#a976e785641bd5a3b4ff2f65ca4caab2f',1,'VehicleType']]]
 ];

@@ -1,8 +1,11 @@
 var searchData=
 [
-  ['setnlanes_24',['setNLanes',['../classStreet.html#a71889584f1a2c7f3ff8eb70d53c282d7',1,'Street']]],
-  ['settemperature_25',['setTemperature',['../classGraph.html#a70222d1b1b30e79ff60d7d7fa8748055',1,'Graph']]],
-  ['settransmatrix_26',['setTransMatrix',['../classVehicleType.html#a450b8799f75b6af1c168d75dbd63d853',1,'VehicleType']]],
-  ['setvmax_27',['setVMax',['../classStreet.html#abe49b4d7450640c3f83c55fc682a86fd',1,'Street']]],
-  ['street_28',['Street',['../classStreet.html',1,'Street'],['../classStreet.html#a31893df9143712fbd50b105a022ec20e',1,'Street::Street()']]]
+  ['setnlanes_25',['setNLanes',['../classStreet.html#a71889584f1a2c7f3ff8eb70d53c282d7',1,'Street']]],
+  ['settemperature_26',['setTemperature',['../classGraph.html#a70222d1b1b30e79ff60d7d7fa8748055',1,'Graph']]],
+  ['settransmatrix_27',['setTransMatrix',['../classVehicleType.html#a62e646af421e7cbc5ef6f0f261fe6aaf',1,'VehicleType']]],
+  ['setvmax_28',['setVMax',['../classStreet.html#abe49b4d7450640c3f83c55fc682a86fd',1,'Street']]],
+  ['sparsematrix_29',['SparseMatrix',['../classSparseMatrix.html',1,'']]],
+  ['sparsematrix_3c_20bool_20_3e_30',['SparseMatrix&lt; bool &gt;',['../classSparseMatrix.html',1,'']]],
+  ['sparsematrix_3c_20double_20_3e_31',['SparseMatrix&lt; double &gt;',['../classSparseMatrix.html',1,'']]],
+  ['street_32',['Street',['../classStreet.html',1,'Street'],['../classStreet.html#a31893df9143712fbd50b105a022ec20e',1,'Street::Street()']]]
 ];

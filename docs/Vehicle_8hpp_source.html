@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Traffic Flow Dynamics Model: source/Vehicle.hpp Source File</title>
+<title>Traffic Flow Dynamics Model: src/Vehicle.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -98,55 +98,61 @@ $(document).ready(function(){initNavTree('Vehicle_8hpp_source.html',''); initRes
 <div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="classVehicle.html">   12</a></span>&#160;<span class="keyword">class </span><a class="code" href="classVehicle.html">Vehicle</a> {</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">private</span>:</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;  <span class="keyword">static</span> std::vector&lt;std::shared_ptr&lt;VehicleType&gt;&gt; _vehicleType;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  <span class="keywordtype">int</span> _index;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;  <span class="keywordtype">int</span> _position;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  <span class="keywordtype">int</span> _previousPosition = -1;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  uint8_t _index;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;  uint16_t _position;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  int16_t _previousPosition = -1;</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  <span class="keywordtype">int</span> _street = -1;</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  <span class="keywordtype">int</span> _timePenalty = 0;</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  <span class="keywordtype">double</span> _velocity = 0.;</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  <span class="keywordtype">int</span> _timeTraveled = 0;</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <a class="code" href="classVehicle.html#a18fea85ff7231d0934548287d0b8b1d4">Vehicle</a>(<span class="keywordtype">int</span>); </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  ~<a class="code" href="classVehicle.html">Vehicle</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classVehicle.html#ac80a8ab13560a09ac042906ddd9369cb">addVehicleType</a>(<span class="keywordtype">int</span>, <span class="keywordtype">int</span>); </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classVehicle.html#ac80a8ab13560a09ac042906ddd9369cb">addVehicleType</a>(</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;      <span class="keyword">const</span> <span class="keywordtype">char</span> *); </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <span class="keyword">static</span> std::shared_ptr&lt;VehicleType&gt;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <a class="code" href="classVehicle.html#a791111a5af7d4bcbfd28ddc331e613b2">getVehicleType</a>(<span class="keywordtype">int</span> <span class="keyword">const</span>); </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">int</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <a class="code" href="classVehicle.html#a395a9fe1a85ad99d767d011f83b1f81a">getNVehicleType</a>(); </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <span class="keywordtype">int</span> getType()</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;      <span class="keyword">const</span> noexcept; <span class="comment">// return the index of the vehicle type in _vehicleType</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <span class="keywordtype">void</span> setPosition(<span class="keywordtype">int</span>);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <span class="keywordtype">int</span> getPosition() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="keywordtype">int</span> getPreviousPosition() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="keywordtype">void</span> setStreet(<span class="keywordtype">int</span>);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="keywordtype">int</span> getStreet() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <span class="keywordtype">int</span> getDestination() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="keywordtype">void</span> setTimePenalty(<span class="keywordtype">int</span>);</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  <span class="keywordtype">int</span> getTimePenalty() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <span class="keywordtype">void</span> setVelocity(<span class="keywordtype">double</span>);</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <span class="keywordtype">double</span> getVelocity() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classVehicle.html#a36f6af8fa08f48f2fe1d47d31b1d880b">incrementTimeTraveled</a>();</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <span class="keywordtype">int</span> getTimeTraveled() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <span class="keywordtype">void</span> resetTimeTraveled();</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;};</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <a class="code" href="classVehicle.html#a8757cf8948070c0718362414f32c0f47">Vehicle</a>(uint8_t); </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <a class="code" href="classVehicle.html#a8757cf8948070c0718362414f32c0f47">Vehicle</a>(<span class="keyword">const</span> <a class="code" href="classVehicle.html">Vehicle</a> &amp;v)</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;      : _index(v._index), _position(v._position),</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        _previousPosition(v._previousPosition), _street(v._street),</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        _timePenalty(v._timePenalty), _velocity(v._velocity),</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        _timeTraveled(v._timeTraveled) {}</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  ~<a class="code" href="classVehicle.html">Vehicle</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classVehicle.html#aba83253a0f4cb6373be216c8702b1c47">addVehicleType</a>(uint16_t,</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;                             uint16_t); </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classVehicle.html#aba83253a0f4cb6373be216c8702b1c47">addVehicleType</a>(</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;      <span class="keyword">const</span> <span class="keywordtype">char</span> *); </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <span class="keyword">static</span> std::shared_ptr&lt;VehicleType&gt;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <a class="code" href="classVehicle.html#a22a26924b63685e3c18366a0d4ca434a">getVehicleType</a>(int8_t <span class="keyword">const</span>); </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="keyword">static</span> uint8_t</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <a class="code" href="classVehicle.html#a90acb78aef5d58ffaa9f23cf2ed7795c">getNVehicleType</a>(); </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  uint8_t getType()</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;      <span class="keyword">const</span> noexcept; <span class="comment">// return the index of the vehicle type in _vehicleType</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="keywordtype">void</span> setPosition(int16_t);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  uint16_t getPosition() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  uint16_t getPreviousPosition() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <span class="keywordtype">void</span> setStreet(<span class="keywordtype">int</span>);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <span class="keywordtype">int</span> getStreet() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  uint16_t getDestination() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <span class="keywordtype">void</span> setTimePenalty(<span class="keywordtype">int</span>);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <span class="keywordtype">int</span> getTimePenalty() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="keywordtype">void</span> setVelocity(<span class="keywordtype">double</span>);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <span class="keywordtype">double</span> getVelocity() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classVehicle.html#a36f6af8fa08f48f2fe1d47d31b1d880b">incrementTimeTraveled</a>();</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <span class="keywordtype">int</span> getTimeTraveled() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <span class="keywordtype">void</span> resetTimeTraveled();</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;};</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclassVehicle_html"><div class="ttname"><a href="classVehicle.html">Vehicle</a></div><div class="ttdoc">Vehicle class.</div><div class="ttdef"><b>Definition:</b> Vehicle.hpp:12</div></div>
-<div class="ttc" id="aclassVehicle_html_a18fea85ff7231d0934548287d0b8b1d4"><div class="ttname"><a href="classVehicle.html#a18fea85ff7231d0934548287d0b8b1d4">Vehicle::Vehicle</a></div><div class="ttdeci">Vehicle(int)</div><div class="ttdoc">create a vehicle of a type in _vehicleType</div><div class="ttdef"><b>Definition:</b> Vehicle.cpp:9</div></div>
-<div class="ttc" id="aclassVehicle_html_a36f6af8fa08f48f2fe1d47d31b1d880b"><div class="ttname"><a href="classVehicle.html#a36f6af8fa08f48f2fe1d47d31b1d880b">Vehicle::incrementTimeTraveled</a></div><div class="ttdeci">void incrementTimeTraveled()</div><div class="ttdoc">Increment the time traveled by the vehicle.</div><div class="ttdef"><b>Definition:</b> Vehicle.cpp:86</div></div>
-<div class="ttc" id="aclassVehicle_html_a395a9fe1a85ad99d767d011f83b1f81a"><div class="ttname"><a href="classVehicle.html#a395a9fe1a85ad99d767d011f83b1f81a">Vehicle::getNVehicleType</a></div><div class="ttdeci">static int getNVehicleType()</div><div class="ttdoc">get the number of vehicle types in _vehicleType</div><div class="ttdef"><b>Definition:</b> Vehicle.cpp:56</div></div>
-<div class="ttc" id="aclassVehicle_html_a791111a5af7d4bcbfd28ddc331e613b2"><div class="ttname"><a href="classVehicle.html#a791111a5af7d4bcbfd28ddc331e613b2">Vehicle::getVehicleType</a></div><div class="ttdeci">static std::shared_ptr&lt; VehicleType &gt; getVehicleType(int const)</div><div class="ttdoc">get a vehicle type from _vehicleType</div><div class="ttdef"><b>Definition:</b> Vehicle.cpp:49</div></div>
-<div class="ttc" id="aclassVehicle_html_ac80a8ab13560a09ac042906ddd9369cb"><div class="ttname"><a href="classVehicle.html#ac80a8ab13560a09ac042906ddd9369cb">Vehicle::addVehicleType</a></div><div class="ttdeci">static void addVehicleType(int, int)</div><div class="ttdoc">add a vehicle type in _vehicleType</div><div class="ttdef"><b>Definition:</b> Vehicle.cpp:20</div></div>
+<div class="ttc" id="aclassVehicle_html_a22a26924b63685e3c18366a0d4ca434a"><div class="ttname"><a href="classVehicle.html#a22a26924b63685e3c18366a0d4ca434a">Vehicle::getVehicleType</a></div><div class="ttdeci">static std::shared_ptr&lt; VehicleType &gt; getVehicleType(int8_t const)</div><div class="ttdoc">get a vehicle type from _vehicleType</div><div class="ttdef"><b>Definition:</b> Vehicle.cpp:49</div></div>
+<div class="ttc" id="aclassVehicle_html_a36f6af8fa08f48f2fe1d47d31b1d880b"><div class="ttname"><a href="classVehicle.html#a36f6af8fa08f48f2fe1d47d31b1d880b">Vehicle::incrementTimeTraveled</a></div><div class="ttdeci">void incrementTimeTraveled()</div><div class="ttdoc">Increment the time traveled by the vehicle.</div><div class="ttdef"><b>Definition:</b> Vehicle.cpp:88</div></div>
+<div class="ttc" id="aclassVehicle_html_a8757cf8948070c0718362414f32c0f47"><div class="ttname"><a href="classVehicle.html#a8757cf8948070c0718362414f32c0f47">Vehicle::Vehicle</a></div><div class="ttdeci">Vehicle(uint8_t)</div><div class="ttdoc">create a vehicle of a type in _vehicleType</div><div class="ttdef"><b>Definition:</b> Vehicle.cpp:9</div></div>
+<div class="ttc" id="aclassVehicle_html_a90acb78aef5d58ffaa9f23cf2ed7795c"><div class="ttname"><a href="classVehicle.html#a90acb78aef5d58ffaa9f23cf2ed7795c">Vehicle::getNVehicleType</a></div><div class="ttdeci">static uint8_t getNVehicleType()</div><div class="ttdoc">get the number of vehicle types in _vehicleType</div><div class="ttdef"><b>Definition:</b> Vehicle.cpp:56</div></div>
+<div class="ttc" id="aclassVehicle_html_aba83253a0f4cb6373be216c8702b1c47"><div class="ttname"><a href="classVehicle.html#aba83253a0f4cb6373be216c8702b1c47">Vehicle::addVehicleType</a></div><div class="ttdeci">static void addVehicleType(uint16_t, uint16_t)</div><div class="ttdoc">add a vehicle type in _vehicleType</div><div class="ttdef"><b>Definition:</b> Vehicle.cpp:20</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><b>Vehicle.hpp</b></li>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><b>Vehicle.hpp</b></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>

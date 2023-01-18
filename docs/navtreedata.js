@@ -31,13 +31,24 @@ var NAVTREE =
     [ "Download", "index.html#autotoc_md4", null ],
     [ "Compiling", "index.html#autotoc_md5", null ],
     [ "Data", "index.html#autotoc_md6", null ],
-    [ "Pybinding", "index.html#autotoc_md7", null ]
+    [ "Pybinding", "index.html#autotoc_md7", null ],
+    [ "Classes", "annotated.html", [
+      [ "Class List", "annotated.html", "annotated_dup" ],
+      [ "Class Index", "classes.html", null ],
+      [ "Class Members", "functions.html", [
+        [ "All", "functions.html", null ],
+        [ "Functions", "functions_func.html", null ]
+      ] ]
+    ] ],
+    [ "Files", "files.html", [
+      [ "File List", "files.html", "files_dup" ]
+    ] ]
   ] ]
 ];
 
 var NAVTREEINDEX =
 [
-"index.html"
+"Graph_8hpp_source.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
