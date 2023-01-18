@@ -9,14 +9,12 @@
 #include "VehicleType.cpp"
 #include "VehicleType.hpp"
 
-namespace py = pybind11;
-
 PYBIND11_MODULE(TrafficModel,m) {
 	m.doc() = "A library for generating traffic flow dynamics data.";
 
 	// Graph class
-	py::class_<Graph>(m,"Graph")
-		.def(py::init<const char *>())
+	pybind11::class_<Graph>(m,"Graph")
+		.def(pybind11::init<const char *>())
 		.def("addVehicle", static_cast<void (Graph::*)(int)>(&Graph::addVehicle))
 		.def("addRndmVehicles", &Graph::addRndmVehicles)
 		.def("addVehiclesUniformly", &Graph::addVehiclesUniformly)
@@ -37,8 +35,8 @@ PYBIND11_MODULE(TrafficModel,m) {
 		.def("test", &Graph::test);
 
 	// Street class
-	py::class_<Street>(m,"Street")
-		.def(py::init<int,int,double,int>())
+	pybind11::class_<Street>(m,"Street")
+		.def(pybind11::init<int,int,double,int>())
 		.def("getOrigin",&Street::getOrigin)
 		.def("getDestination",&Street::getDestination)
 		.def("getIndex",&Street::getIndex)
@@ -55,15 +53,15 @@ PYBIND11_MODULE(TrafficModel,m) {
 		.def("remVehicle",&Street::remVehicle);
 
 	// VehicleType class
-	py::class_<VehicleType>(m,"VehicleType")
-		.def(py::init<int,int>())
+	pybind11::class_<VehicleType>(m,"VehicleType")
+		.def(pybind11::init<int,int>())
 		.def("getSource", &VehicleType::getSource)
 		.def("getDestination", &VehicleType::getDestination)
 		.def("setTransMatrix", &VehicleType::setTransMatrix);
 		
 	// Vehicle class
-	py::class_<Vehicle>(m,"Vehicle")
-		.def(py::init<int>())
+	pybind11::class_<Vehicle>(m,"Vehicle")
+		.def(pybind11::init<int>())
 		.def_static("addVehicleType", static_cast<void (*)(uint16_t,uint16_t)>(&Vehicle::addVehicleType))
 		.def_static("addVehicleType", static_cast<void (*)(const char *)>(&Vehicle::addVehicleType))
 		.def_static("getVehicleType", &Vehicle::getVehicleType)
@@ -81,11 +79,11 @@ PYBIND11_MODULE(TrafficModel,m) {
 		.def("getTimeTraveled",&Vehicle::getTimeTraveled)
 		.def("resetTimeTraveled",&Vehicle::resetTimeTraveled);
 
-	py::class_<SparseMatrix<bool>>(m, "SparseMatrix")
-      .def(py::init<>())
-      .def(py::init<int, int>())
-      .def(py::init<const char *>())
-      .def(py::init<SparseMatrix<bool> const &>())
+	pybind11::class_<SparseMatrix<bool>>(m, "SparseMatrix")
+      .def(pybind11::init<>())
+      .def(pybind11::init<int, int>())
+      .def(pybind11::init<const char *>())
+      .def(pybind11::init<SparseMatrix<bool> const &>())
       .def("insert", static_cast<void (SparseMatrix<bool>::*)(int, int, bool)>(
                          &SparseMatrix<bool>::insert))
       .def("insert", static_cast<void (SparseMatrix<bool>::*)(int, bool)>(

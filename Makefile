@@ -1,4 +1,4 @@
-.PHONY: traveltime constant peaked periodic linux debug windows visual docs
+.PHONY: traveltime constant peaked periodic linux debug windows visual docs binding
 traveltime:
 	clear
 	./test.wsl ./data/matrix.dat ./data/vehicletype.dat 300 200 15001
@@ -32,3 +32,6 @@ visual:
 docs:
 	clear
 	doxygen Doxyfile
+binding:
+	clear
+	./src/compile.sh

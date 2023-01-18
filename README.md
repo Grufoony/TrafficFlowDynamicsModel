@@ -95,7 +95,6 @@ With this script you can also merge differents PNG files into a unique GIF file,
 You can also run the library on Python keeping the optimization level given by C++.
 To make this you have to make the Pybinding of the code on your personal environment.
 
-To do so, in the main folder run the following commands:
+To do so, in the main folder you can just run:
 
-    python3 setup.py sdist
-    pip install .
+    make binding
