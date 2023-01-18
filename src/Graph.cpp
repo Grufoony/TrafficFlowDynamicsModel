@@ -98,7 +98,7 @@ int Graph::_minDistance(int const src, int const dst) const {
 
       // auto lenght = _adjMatrix.at(u).at(v);
       int time = 0;
-      if (_adjMatrix.exists(u, v)) {
+      if (_adjMatrix.contains(u, v)) {
         auto weight = _streets[_findStreet(u, v)]->getLenght();
         weight /= this->_getStreetMeanVelocity(_findStreet(u, v));
         time = static_cast<int>(weight);
@@ -360,7 +360,7 @@ void Graph::updateTransMatrix() {
     // setting noise
     for (int i = 0; i < _n; ++i) {
       for (int j = 0; j < _n; ++j) {
-        if (_adjMatrix.exists(i, j) && matrix(i, j) < 0.1) {
+        if (_adjMatrix.contains(i, j) && matrix(i, j) < 0.1) {
           matrix.insert_or_assign(i, j, noise);
         }
       }

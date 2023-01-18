@@ -1,5 +1,5 @@
-#include "./TrafficModel/Graph.hpp"
-#include "./TrafficModel/Vehicle.hpp"
+#include "./src/Graph.hpp"
+#include "./src/Vehicle.hpp"
 
 #include <chrono>
 #include <cmath>

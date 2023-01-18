@@ -16,24 +16,16 @@ test:
 	./test.wsl ./data/matrix_old.dat ./data/vehicletype_old.dat 300 0 0
 linux:
 	clear
-	g++ -O3 ./main.cpp ./TrafficModel/Graph.cpp ./TrafficModel/Street.cpp ./TrafficModel/Vehicle.cpp ./TrafficModel/VehicleType.cpp -o test.wsl
+	g++ -O3 ./main.cpp ./src/Graph.cpp ./src/Street.cpp ./src/Vehicle.cpp ./src/VehicleType.cpp -o test.wsl
 windows:
 	clear
 	x86_64-w64-mingw32-g++ -O3 main.cpp Graph.cpp Street.cpp Vehicle.cpp VehicleType.cpp -o test.exe
 debug:
-	clang-format -i ./main.cpp
-	clang-format -i ./TrafficModel/Vehicle.cpp
-	clang-format -i ./TrafficModel/Vehicle.hpp
-	clang-format -i ./TrafficModel/VehicleType.cpp
-	clang-format -i ./TrafficModel/VehicleType.hpp
-	clang-format -i ./TrafficModel/Street.cpp
-	clang-format -i ./TrafficModel/Street.hpp
-	clang-format -i ./TrafficModel/Graph.cpp
-	clang-format -i ./TrafficModel/Graph.hpp
-	clang-format -i ./utils/macro.cpp
-	clang-format -i ./TrafficModel/SparseMatrix.hpp
+	clang-format -i ./*.cpp
+	clang-format -i ./src/*.cpp
+	clang-format -i ./src/*.hpp
 	clear
-	g++ -std=c++17 -O3 ./main.cpp ./TrafficModel/Graph.cpp ./TrafficModel/Street.cpp ./TrafficModel/Vehicle.cpp ./TrafficModel/VehicleType.cpp -o test.wsl -Wall -Wextra -fsanitize=address
+	g++ -std=c++20 -O3 ./main.cpp ./src/Graph.cpp ./src/Street.cpp ./src/Vehicle.cpp ./src/VehicleType.cpp -o test.wsl -Wall -Wextra -fsanitize=address
 visual:
 	clear
 	python3 ./utils/visual.py
