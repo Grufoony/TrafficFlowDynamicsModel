@@ -1,5 +1,6 @@
 #include "VehicleType.hpp"
 #include <stdexcept>
+#include <string>
 
 /// \brief Create a new VehicleType object.
 /// \param src The source node.
@@ -16,7 +17,10 @@ void VehicleType::setTransMatrix(SparseMatrix<double> &matrix) {
   this->_transMatrix = matrix;
 }
 SparseMatrix<double> const &VehicleType::getTransMatrix() const {
-  if (_transMatrix.size() == 0)
-    throw std::runtime_error("VehicleType::getTransMatrix: matrix is empty");
+  if (_transMatrix.size() == 0) {
+    std::string msg = "VehicleType.cpp:" + std::to_string(__LINE__) + '\t' +
+                      "Transition matrix is empty.\n";
+    throw std::runtime_error(msg);
+  }
   return _transMatrix;
 }

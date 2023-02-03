@@ -96,10 +96,10 @@ int Graph::_minDistance(int const src, int const dst) const {
       // u to v, and total weight of path from src to v through u is
       // smaller than current value of dist.at(v)
 
-      // auto lenght = _adjMatrix.at(u).at(v);
+      // auto length = _adjMatrix.at(u).at(v);
       int time = 0;
       if (_adjMatrix.contains(u, v)) {
-        auto weight = _streets[_findStreet(u, v)]->getLenght();
+        auto weight = _streets[_findStreet(u, v)]->getLength();
         weight /= this->_getStreetMeanVelocity(_findStreet(u, v));
         time = static_cast<int>(weight);
       }
@@ -115,7 +115,7 @@ std::vector<int> Graph::_nextStep(int const src, int const dst) {
   auto const min = _minDistance(src, dst);
   std::vector<int> _nextStep;
   for (auto const &el : _adjMatrix.getRow(src)) {
-    auto weight = _streets[_findStreet(src, el.first)]->getLenght();
+    auto weight = _streets[_findStreet(src, el.first)]->getLength();
     weight /= this->_getStreetMeanVelocity(_findStreet(src, el.first));
     auto time = static_cast<int>(weight);
     if (_minDistance(el.first, dst) == (min - time))
@@ -167,10 +167,10 @@ void Graph::_evolve(bool reinsert) {
             std::numeric_limits<double>::epsilon()) { // check if the vehicle
                                                       // can move
       // if the vahicle cannot move checks if the vehicle could go faster
-      auto streetLenght = _streets[vehicle->getStreet()]->getLenght();
-      auto oldTime = static_cast<int>(streetLenght / vehicle->getVelocity());
+      auto streetLength = _streets[vehicle->getStreet()]->getLength();
+      auto oldTime = static_cast<int>(streetLength / vehicle->getVelocity());
       auto newTime = static_cast<int>(
-          streetLenght / _streets[vehicle->getStreet()]->getInputVelocity());
+          streetLength / _streets[vehicle->getStreet()]->getInputVelocity());
       auto dTime = newTime - oldTime;
       if (dTime < 0) {
         if ((timePenalty + dTime) > 0) {
@@ -244,14 +244,17 @@ double Graph::_getStreetMeanVelocity(int const streetIndex) const {
 }
 /// \brief Generate the graph from the matrix
 /// \param fName matrix file path
-Graph::Graph(const char *fName) {
+Graph::Graph(std::string fName) {
   _n = 0;
   std::ifstream data;
 
   // set database's dimension
   data.open(fName);
   if (!data) {
-    throw std::runtime_error("Graph::Graph: file not found.\n");
+    std::string msg = "Graph.cpp:" + std::to_string(__LINE__) + '\t' +
+                      "Matrix file not found in the given path: \'" + fName +
+                      " \'\n";
+    throw std::runtime_error(msg);
   }
   double x;
   bool b;
@@ -287,8 +290,11 @@ Graph::Graph(const char *fName) {
 
 /// \param type vehicle type
 void Graph::addVehicle(int type) {
-  if (type < 0 || !(type < Vehicle::getNVehicleType()))
-    throw std::runtime_error("Graph::addVehicle: invalid vehicle type.\n");
+  if (type < 0 || !(type < Vehicle::getNVehicleType())) {
+    std::string msg = "Graph.cpp:" + std::to_string(__LINE__) + '\t' +
+                      "Invalid vehicle type.\n";
+    throw std::runtime_error(msg);
+  }
   _vehicles.push_back(std::make_shared<Vehicle>(Vehicle(type)));
 }
 /// \brief Adds a fixed number of vehicles with random types

@@ -1,6 +1,7 @@
 #include "Vehicle.hpp"
 #include <fstream>
 #include <stdexcept>
+#include <string>
 
 std::vector<std::shared_ptr<VehicleType>> Vehicle::_vehicleType;
 
@@ -11,7 +12,9 @@ Vehicle::Vehicle(uint8_t type) {
     _index = type;
     _position = Vehicle::getVehicleType(this->getType())->getSource();
   } else {
-    throw std::invalid_argument("Vehicle::Vehicle: type out of range.\n");
+    std::string msg = "Vehicle.cpp:" + std::to_string(__LINE__) + '\t' +
+                      "Vehicle type index out of range.\n";
+    throw std::invalid_argument(msg);
   }
 }
 /// \brief Add a vehicle type in _vehicleType.
@@ -20,12 +23,15 @@ Vehicle::Vehicle(uint8_t type) {
 void Vehicle::addVehicleType(uint16_t src, uint16_t dst) {
   _vehicleType.push_back(std::make_shared<VehicleType>(VehicleType(src, dst)));
 }
-void Vehicle::addVehicleType(const char *fName) {
+void Vehicle::addVehicleType(std::string fName) {
   std::fstream data;
   data.open(fName);
   uint16_t src, dst, n = 0;
   if (!data) {
-    throw std::runtime_error("Vehicle::addVehicleType: file not found.\n");
+    std::string msg = "Vehicle.cpp:" + std::to_string(__LINE__) + '\t' +
+                      "Vehicle type file not found in the given path: \'" +
+                      fName + " \'\n";
+    throw std::runtime_error(msg);
   }
   while (data >> src) {
     ++n;
@@ -40,16 +46,20 @@ void Vehicle::addVehicleType(const char *fName) {
           std::make_shared<VehicleType>(VehicleType(src, dst)));
     }
   } else {
-    throw std::runtime_error("Vehicle::addVehicleType: file empty.\n");
+    std::string msg = "Vehicle.cpp:" + std::to_string(__LINE__) + '\t' +
+                      "Vehicle type file: \'" + fName + " \' is empty.\n";
+    throw std::runtime_error(msg);
   }
   data.close();
 }
 /// \brief Get the vehicle type.
 /// \return A pointer to the vehicle type object.
 std::shared_ptr<VehicleType> Vehicle::getVehicleType(int8_t const index) {
-  if (index < 0 || index > getNVehicleType() - 1)
-    throw std::invalid_argument(
-        "Vehicle::getVehicleType: index out of range.\n");
+  if (index < 0 || index > getNVehicleType() - 1) {
+    std::string msg = "Vehicle.cpp:" + std::to_string(__LINE__) + '\t' +
+                      "Index out of range.\n";
+    throw std::invalid_argument(msg);
+  }
   return _vehicleType[index];
 }
 uint8_t Vehicle::getType() const noexcept { return _index; }
@@ -58,8 +68,11 @@ uint8_t Vehicle::getNVehicleType() {
 }
 
 void Vehicle::setPosition(int16_t pos) {
-  if (pos < 0)
-    throw std::invalid_argument("Vehicle::setPosition: pos out of range.\n");
+  if (pos < 0) {
+    std::string msg = "Vehicle.cpp:" + std::to_string(__LINE__) + '\t' +
+                      "Position must be positive.\n";
+    throw std::invalid_argument(msg);
+  }
   _previousPosition = _position;
   _position = pos;
 }
@@ -68,9 +81,11 @@ uint16_t Vehicle::getPreviousPosition() const { return _previousPosition; }
 void Vehicle::setStreet(int street) { _street = street; }
 int Vehicle::getStreet() const { return _street; }
 void Vehicle::setTimePenalty(int time) {
-  if (time < 0)
-    throw std::invalid_argument(
-        "Vehicle::setTimePenalty: time must be greater than 0.\n");
+  if (time < 0) {
+    std::string msg = "Vehicle.cpp:" + std::to_string(__LINE__) + '\t' +
+                      "Time must be positive.\n";
+    throw std::invalid_argument(msg);
+  }
   _timePenalty = time;
 }
 uint16_t Vehicle::getDestination() const {
@@ -78,9 +93,11 @@ uint16_t Vehicle::getDestination() const {
 }
 int Vehicle::getTimePenalty() const { return _timePenalty; }
 void Vehicle::setVelocity(double vel) {
-  if (vel < 0)
-    throw std::invalid_argument(
-        "Vehicle ::setVelocity: vel must be greater than 0.\n");
+  if (vel < 0) {
+    std::string msg = "Vehicle.cpp:" + std::to_string(__LINE__) + '\t' +
+                      "Velocity must be positive.\n";
+    throw std::invalid_argument(msg);
+  }
   _velocity = vel;
 }
 double Vehicle::getVelocity() const { return _velocity; }

@@ -7,6 +7,7 @@
 
 #include "VehicleType.hpp"
 #include <memory>
+#include <string>
 #include <vector>
 
 class Vehicle {
@@ -32,7 +33,7 @@ public:
   static void addVehicleType(uint16_t,
                              uint16_t); //!< add a vehicle type in _vehicleType
   static void addVehicleType(
-      const char *); //!< add many vehicle types in _vehicleType from file
+      std::string); //!< add many vehicle types in _vehicleType from file
   static std::shared_ptr<VehicleType>
   getVehicleType(int8_t const); //!< get a vehicle type from _vehicleType
   static uint8_t

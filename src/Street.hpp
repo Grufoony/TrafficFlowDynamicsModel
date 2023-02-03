@@ -10,7 +10,7 @@
 
 class Street {
 private:
-  double _lenght;   // lenght of the street
+  double _length;   // length of the street
   int _maxCapacity; // maximum capacity of vehicles
   int _nVehicles;   // number of vehicles on the street
   uint16_t _src;    // source node
@@ -20,13 +20,13 @@ private:
   int _index;       // index of the street (it's used to identify the street)
 
 public:
-  Street(int, int, double, int); // src, dst, lenght, index
+  Street(int, int, double, int); // src, dst, length, index
   ~Street() = default;
 
   int getOrigin() const noexcept;
   int getDestination() const noexcept;
   int getIndex() const noexcept;
-  double getLenght() const noexcept;
+  double getLength() const noexcept;
   bool isFull() const noexcept;
   void setNLanes(int) noexcept;
   int getNVehicles() const noexcept;

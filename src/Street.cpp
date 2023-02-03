@@ -1,39 +1,45 @@
 #include "Street.hpp"
-
 #include <limits>
 #include <stdexcept>
+#include <string>
 
-double constexpr AVG_LENGHT =
+double constexpr AVG_LENGTH =
     8.;                         // if < 0 then there's no limit on the capacity
 double constexpr V_MIN = 75e-2; // minimum velocity
 
 /// \brief Create a new Street object.
 /// \param src The source node.
 /// \param dst The destination node.
-/// \param lenght The lenght of the street.
+/// \param length The length of the street.
 /// \param index The index of the street.
-Street::Street(int src, int dst, double lenght, int index) {
-  if (!(lenght > 0))
-    throw std::invalid_argument("Street::Street: lenght must be positive.\n");
-  if (index < 0)
-    throw std::invalid_argument("Street::Street: index must be positive.\n");
+Street::Street(int src, int dst, double length, int index) {
+  if (!(length > 0)) {
+    std::string msg = "Street.cpp:" + std::to_string(__LINE__) + '\t' +
+                      "Street length must be positive.\n";
+    throw std::invalid_argument(msg);
+  }
+  if (index < 0) {
+    std::string msg = "Street.cpp:" + std::to_string(__LINE__) + '\t' +
+                      "Street index must be positive.\n";
+    throw std::invalid_argument(msg);
+  }
   _src = src;
   _dst = dst;
-  _lenght = lenght;
+  _length = length;
   _nVehicles = 0;
   _nLanes = 1;
   _vMax = 13.9; // 13.9 m/s = 50 km/h
   _index = index;
-  if (AVG_LENGHT < 0) {
+  if (AVG_LENGTH < 0) {
     _maxCapacity = std::numeric_limits<int>::max();
   } else {
-    _maxCapacity = static_cast<int>(_lenght / AVG_LENGHT);
+    _maxCapacity = static_cast<int>(_length / AVG_LENGTH);
   }
 }
 int Street::getOrigin() const noexcept { return _src; }
 int Street::getDestination() const noexcept { return _dst; }
 int Street::getIndex() const noexcept { return _index; }
-double Street::getLenght() const noexcept { return _lenght; }
+double Street::getLength() const noexcept { return _length; }
 /// \brief Tells if the street is full.
 /// \return True if the street is full, false otherwise.
 bool Street::isFull() const noexcept {
@@ -49,8 +55,11 @@ int Street::getNVehicles() const noexcept { return _nVehicles; }
 /// \brief Set the maximum velocity.
 /// \param vMax The maximum velocity.
 void Street::setVMax(double v) {
-  if (v < 0)
-    throw std::invalid_argument("Street::setVMax: vMax must be positive.\n");
+  if (v < 0) {
+    std::string msg = "Street.cpp:" + std::to_string(__LINE__) + '\t' +
+                      "Max velocity must be positive.\n";
+    throw std::invalid_argument(msg);
+  }
   _vMax = v;
 }
 /// \brief Get the input velocity.
@@ -69,7 +78,7 @@ double Street::getDensity() const noexcept {
 }
 /// \brief Get the vehicle density of the street.
 double Street::getVehicleDensity() const noexcept {
-  return (_nVehicles / _lenght);
+  return (_nVehicles / _length);
 }
 /// \brief Add a vehicle to the street.
 /// Adds a vehicle to the street and changes the vehicle's parameters.
@@ -77,12 +86,15 @@ double Street::getVehicleDensity() const noexcept {
 void Street::addVehicle(std::shared_ptr<Vehicle> vehicle) {
   vehicle->setStreet(_index);
   vehicle->setVelocity(this->getInputVelocity());
-  vehicle->setTimePenalty(static_cast<int>(_lenght / vehicle->getVelocity()));
+  vehicle->setTimePenalty(static_cast<int>(_length / vehicle->getVelocity()));
   vehicle->setPosition(_dst);
   ++_nVehicles;
 }
 void Street::remVehicle() {
   --_nVehicles;
-  if (_nVehicles < 0)
-    throw std::runtime_error("Street::remVehicle: nVehicles < 0.\n");
+  if (_nVehicles < 0) {
+    std::string msg =
+        "Street.cpp:" + std::to_string(__LINE__) + '\t' + "nVehicles < 0.\n";
+    throw std::runtime_error(msg);
+  }
 }

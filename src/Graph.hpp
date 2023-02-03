@@ -9,6 +9,7 @@
 #include "Street.hpp"
 #include "Vehicle.hpp"
 #include <memory>
+#include <string>
 #include <vector>
 
 class Graph {
@@ -36,7 +37,7 @@ private:
                                                   // street
 
 public:
-  Graph(const char *); //!< import from file (only matrix)
+  Graph(std::string); //!< import from file (only matrix)
   ~Graph() = default;
 
   void addVehicle(int);            //!< add a vehicle of a type in _vehicles
