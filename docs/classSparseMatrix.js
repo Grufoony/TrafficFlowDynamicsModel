@@ -2,7 +2,7 @@ var classSparseMatrix =
 [
     [ "SparseMatrix", "classSparseMatrix.html#a6ebfea970e40ba01644c8a935654ba11", null ],
     [ "SparseMatrix", "classSparseMatrix.html#a60d0d81dccf54e68cbe4fb1ab063a6b2", null ],
-    [ "SparseMatrix", "classSparseMatrix.html#a8b52d696a37b341aae1093c161feb554", null ],
+    [ "SparseMatrix", "classSparseMatrix.html#a10cc3c1e770c5b93ff3cf6f5e0b054b7", null ],
     [ "SparseMatrix", "classSparseMatrix.html#ada3c28a7aa683d6b6fbba601c957218a", null ],
     [ "clear", "classSparseMatrix.html#ac25052c79cc4393b4d00aa64ee190187", null ],
     [ "contains", "classSparseMatrix.html#aa8e94601cf60f053996fa22cb5fedc8a", null ],
@@ -20,7 +20,7 @@ var classSparseMatrix =
     [ "operator()", "classSparseMatrix.html#aa33d577addaf30bf68c1724c1b2aa8e1", null ],
     [ "operator=", "classSparseMatrix.html#ad5051cd13b07f406a653b8a0cd993f0b", null ],
     [ "print", "classSparseMatrix.html#a8e23459b7efe7a525ad0e507e849b0cb", null ],
-    [ "save", "classSparseMatrix.html#a9dbe4212ccd31b310dd0884ed48c2426", null ],
-    [ "saveAsMatrix", "classSparseMatrix.html#aaa96ac20717c0417e6cb5fbf682f0747", null ],
+    [ "save", "classSparseMatrix.html#a388147b3c0f46fe0a6e59090148c0951", null ],
+    [ "saveAsMatrix", "classSparseMatrix.html#a8ff42cee8924a580c481b6ddd8e38059", null ],
     [ "size", "classSparseMatrix.html#ad804f54673a3dbc8d832eaeba2866630", null ]
 ];

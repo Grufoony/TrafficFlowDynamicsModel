@@ -1,10 +1,5 @@
 var searchData=
 [
-  ['fprint_49',['fprint',['../classGraph.html#a6901a7df0fce99e31187a08da40b35e5',1,'Graph']]],
-  ['fprintactualstate_50',['fprintActualState',['../classGraph.html#aec74b9b759332c52ed4127f11238b72f',1,'Graph']]],
-  ['fprintdistribution_51',['fprintDistribution',['../classGraph.html#a56f6748ea05bfd2ecd5c0d5079c9a7cf',1,'Graph']]],
-  ['fprinthistogram_52',['fprintHistogram',['../classGraph.html#aefe58e9230f9147dac42d4a58bd0987e',1,'Graph']]],
-  ['fprintmatrix_53',['fprintMatrix',['../classGraph.html#ab7c74fe77f8b5defc0687e2c0fbf54f8',1,'Graph']]],
-  ['fprinttimedistribution_54',['fprintTimeDistribution',['../classGraph.html#a999e5b444a490024b1bfde896857cc9c',1,'Graph']]],
-  ['fprintvisual_55',['fprintVisual',['../classGraph.html#ae5f2dd7b08b5e412719fca939370b4b1',1,'Graph']]]
+  ['erase_57',['erase',['../classSparseMatrix.html#ac5ca4be1ac9ef8facf3dabb757639bc3',1,'SparseMatrix']]],
+  ['evolve_58',['evolve',['../classGraph.html#a40dce401fb65fcd29e6ddc1ccaeb3127',1,'Graph::evolve(bool)'],['../classGraph.html#afe7ffc0c4f75e34ee27c83dcd9b7f82b',1,'Graph::evolve()']]]
 ];

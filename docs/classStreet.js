@@ -7,7 +7,7 @@ var classStreet =
     [ "getDestination", "classStreet.html#ae52572b6d133b0ae3441b9ced19ab982", null ],
     [ "getIndex", "classStreet.html#a450c27afc9fd0f6b46b25d929aa5a65e", null ],
     [ "getInputVelocity", "classStreet.html#a3d46d9af33caa59f1e25518624d5be52", null ],
-    [ "getLenght", "classStreet.html#adfce9c7a6b3813bac13d34fc9c473ae7", null ],
+    [ "getLength", "classStreet.html#ab7a0866bc86708c7c5b5918958404b19", null ],
     [ "getNVehicles", "classStreet.html#a2cd18c887ffddc3f339208cbd48a7341", null ],
     [ "getOrigin", "classStreet.html#adbcda4d948fa0ed62cdf60d8f20ddc5a", null ],
     [ "getVehicleDensity", "classStreet.html#a0c166cf2e397571bece279d86bb26fd9", null ],
