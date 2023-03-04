@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['fprint_7',['fprint',['../classGraph.html#a6901a7df0fce99e31187a08da40b35e5',1,'Graph']]],
+  ['fprint_7',['fprint',['../classGraph.html#a6901a7df0fce99e31187a08da40b35e5',1,'Graph::fprint()'],['../classSparseMatrix.html#afd8333f660bd7113ff17622d982f7389',1,'SparseMatrix::fprint()']]],
   ['fprintactualstate_8',['fprintActualState',['../classGraph.html#aec74b9b759332c52ed4127f11238b72f',1,'Graph']]],
   ['fprintdistribution_9',['fprintDistribution',['../classGraph.html#a56f6748ea05bfd2ecd5c0d5079c9a7cf',1,'Graph']]],
   ['fprinthistogram_10',['fprintHistogram',['../classGraph.html#aefe58e9230f9147dac42d4a58bd0987e',1,'Graph']]],

@@ -415,9 +415,7 @@ void Graph::print(bool const printGraph) const noexcept {
                   << _nodesCoordinates[1][i] << ") ";
       }
       std::cout << "-->";
-      for (auto const it : row) {
-        std::cout << '\t' << it.first;
-      }
+      row.print();
       std::cout << '\n';
     }
   }
@@ -439,7 +437,7 @@ void Graph::printStreets() const noexcept {
   }
 }
 
-void Graph::fprintMatrix(const char *fName) { _adjMatrix.save(fName); }
+void Graph::fprintMatrix(const char *fName) { _adjMatrix.fprint(fName); }
 /// \brief Print information of the network.
 /// \param printGraph if true, prints the graph.
 /// Print information of the network like number of nodes, number of streets and
