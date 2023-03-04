@@ -13,7 +13,6 @@
 \usepackage[style=ieee]{biblatex}
 \addbibresource{./latex/bibliography.bib}
 \usepackage{amsmath, amsthm, amssymb, amsfonts}
-\usepackage{subfiles}
 \usepackage{graphicx}
 \usepackage{csquotes}
 
@@ -120,27 +119,27 @@ In ultimo \`e stata effettuata una breve analisi ad-hoc volta a evidenziare i ca
 
 \chapter*{Introduzione}
 \addcontentsline{toc}{chapter}{Introduzione}
-\subfile{latex/introduzione}
+\input{latex/introduzione}
 
 \chapter{Fisica del traffico}
-\subfile{latex/fisica}
+\input{latex/fisica}
 
 \newpage
 \thispagestyle{empty}
 \mbox{}
 
 \chapter{Modelli di traffico}
-\subfile{latex/teoria}
+\input{latex/teoria}
 
 \newpage
 \thispagestyle{empty}
 \mbox{}
 
 \chapter{Costruzione del modello}
-\subfile{latex/modello}
+\input{latex/modello}
 
 \chapter{Risultati}
-\subfile{latex/risultati}
+\input{latex/risultati}
 
 \appendix
 
@@ -150,10 +149,10 @@ In ultimo \`e stata effettuata una breve analisi ad-hoc volta a evidenziare i ca
 
 \chapter{Esempi di matrici Laplaciane}
 \label{appendix:laplacian}
-\subfile{latex/matrici_laplaciane}
+\input{latex/matrici_laplaciane}
 \chapter{Visualizzazione del sistema}
 \label{appendix:visual}
-\subfile{latex/visual}
+\input{latex/visual}
 
 \newpage
 \thispagestyle{empty}
