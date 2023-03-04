@@ -89,7 +89,7 @@ There is also a way to visualize the network in which the streets change color b
 To do that there is a Python script, *visual.py* that prints a PNG file of an arbitrary instant of time.
 With this script you can also merge differents PNG files into a unique GIF file, obtaining an output like this:
 
-<img src="./data/img/evolution.gif" width="50%" height="50%"/>
+<img src="https://github.com/Grufoony/TrafficFlowDynamicsModel/blob/main/data/img/evolution.gif?raw=true" width="50%" height="50%"/>
 
 ## Pybinding
 You can also run the library on Python keeping the optimization level given by C++.
