@@ -8,7 +8,7 @@
 *.wsl
 /source/html/*
 /source/latex/*
-test*
+*.wsl
 *.so
 /dist/
 *-info
