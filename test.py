@@ -11,7 +11,7 @@ import glob
 
 def peaked():
     # Create a TrafficModel object
-    graph = TrafficModel.Graph("./data/encoded.dat")
+    graph = TrafficModel.Graph("./data/matrix.dat")
     Vehicle.addVehicleType("./data/vehicletype.dat")
     graph.setTemperature(300)
     graph.updateTransMatrix()
