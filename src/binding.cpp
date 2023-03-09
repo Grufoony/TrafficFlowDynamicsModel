@@ -98,9 +98,9 @@ PYBIND11_MODULE(TrafficModel, m) {
                &SparseMatrix<bool>::insert_or_assign))
       .def("erase", &SparseMatrix<bool>::erase)
       .def("clear", &SparseMatrix<bool>::clear)
-      .def("contains", static_cast<bool (SparseMatrix<bool>::*)(int, int)>(
+      .def("contains", static_cast<bool (SparseMatrix<bool>::*)(int, int) const>(
                            &SparseMatrix<bool>::contains))
-      .def("contains", static_cast<bool (SparseMatrix<bool>::*)(int)>(
+      .def("contains", static_cast<bool (SparseMatrix<bool>::*)(int) const>(
                            &SparseMatrix<bool>::contains))
       .def("getRow", &SparseMatrix<bool>::getRow)
       .def("getCol", &SparseMatrix<bool>::getCol)
