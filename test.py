@@ -6,6 +6,7 @@ matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 import os
 import glob
+import math
 
 def clear():
     files = glob.glob("./temp_data/*")
@@ -53,9 +54,25 @@ def peaked():
         else:
             graph.evolve(False)
 
+# Periodic analysis
+def periodic():
+    graph = TrafficModel.Graph("./data/matrix.dat")
+    Vehicle.addVehicleType("./data/vehicletype.dat")
+    graph.setTemperature(300)
+    graph.updateTransMatrix()
+    for t in tqdm(range(55000)):
+        if t % 900 == 0:
+            graph.fprintTimeDistribution("./temp_data/", "k", 0.)
+        if (t % 300 == 0) and (t < 32400 * 1.5):
+            vehicles = abs(2100 * math.sin(2 * math.pi * t / 32400))
+            if (t > 1.62e4) and (t < 2.43e4):
+                vehicles = vehicles * 1.125
+            graph.addVehiclesUniformly(int(vehicles))
+        graph.evolve(False)
+
 
 
 if __name__ == "__main__":
     clear()
-    constant()
+    periodic()
     plot()
