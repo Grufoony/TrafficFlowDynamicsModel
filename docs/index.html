@@ -111,7 +111,7 @@ year = {2022}
 </pre> <h1><a class="anchor" id="autotoc_md3"></a>
 Abstract</h1>
 <p><em>English</em></p>
-<p>Beginning in the 1950s, numerous models were developed with the intent of studying the traffic related phenomena. Some of them managed not only to explain the phenomena for which they were designed but highlighted other typical characteristics of dynamical systems, such as the presence of hysteresis loops and changes in distribution of travel times in congestion situations. This work aims to verify the validity of a simplified model designed for highlight the typical behaviors of a traffic system, in particular congestions that are created on the road network. This model is implemented by the C ++ <b>Traffic Flow Dynamics Model</b> library. For the analisys, the study uses Macroscopic Fundamental Diagrams, particular diagrams that relate the main observables of a road network such as velocity, density and flow. By varying the load introduced into the road network it is possible to study the system in different regimes: constant load, peaked load and periodic load. Through these studies, different properties typical of each regimen emerged and, for some of these, the presence of one or more hysteresis cycles has been verified and justified. Lastly, a brief ad-hoc analysis was carried out aimed at highlighting the changes in the distribution of travel times in relation to the traffic regime considered.</p>
+<p>Beginning in the 1950s, numerous models were developed with the intent of studying the traffic related phenomena. Some of them managed not only to explain the phenomena for which they were designed but highlighted other typical characteristics of dynamical systems, such as the presence of hysteresis loops and changes in distribution of travel times in congestion situations. This work aims to verify the validity of a simplified model designed for highlight the typical behaviors of a traffic system, in particular congestions that are created on the road network. This model is implemented by the C ++ <b>Traffic Flow Dynamics Model</b> library. For the analysis, the study uses Macroscopic Fundamental Diagrams, particular diagrams that relate the main observable of a road network such as velocity, density and flow. By varying the load introduced into the road network it is possible to study the system in different regimes: constant load, peaked load and periodic load. Through these studies, different properties typical of each regimen emerged and, for some of these, the presence of one or more hysteresis cycles has been verified and justified. Lastly, a brief ad-hoc analysis was carried out aimed at highlighting the changes in the distribution of travel times in relation to the traffic regime considered.</p>
 <p><em>Italiano</em></p>
 <p>A partire dagli anni ’50 furono sviluppati numerosi modelli con l’intento di studiare i fenomeni connessi al traffico. Alcuni di essi riuscirono non solo a spiegare i fenomeni per i quali erano stati ideati ma misero in evidenza altre caratteristiche tipiche dei sistemi dinamici, come la presenza di cicli di isteresi e cambiamenti nella distribuzione dei tempi di percorrenza in situazioni di congestione. Questo lavoro si propone di verificare la validità di un modello semplificato ideato per evidenziare i comportamenti tipici di un sistema di traffico, in particolare le congestioni che si vengono a creare sulla rete stradale. Tale modello viene implementato per mezzo della libreria C++ <b>Traffic Flow Dynamics Model</b>. Ai fini dello studio vengono utilizzati i Diagrammi Fondamentali Macroscopici, particolari diagrammi che mettono in relazione gli osservabili principali di un network stradale quali velocità, densità e flusso. Variando il carico immesso nella rete stradale è stato possibile studiare il sistema in diversi regimi: carico costante, carico piccato e carico periodico. Mediante questi studi sono emerse diverse proprietà tipiche di ogni regime e, per alcuni di essi, è stata verificata e giustificata la presenza di uno o più cicli di isteresi. In ultimo è stata effettuata una breve analisi ad-hoc volta a evidenziare i cambiamenti nella distrubuzione dei tempi di percorrenza in relazione al regime di traffico considerato.</p>
 <h1><a class="anchor" id="autotoc_md4"></a>
@@ -120,22 +120,23 @@ Download</h1>
 <p>Otherwise, you can directly download a release.</p>
 <h1><a class="anchor" id="autotoc_md5"></a>
 Compiling</h1>
-<p>Once created the main file, you can simply compile the source code using the Makefile. You can compile the program for a linux distribution </p><pre class="fragment">make linux
-</pre><p> or for a windows distibution </p><pre class="fragment">make windows
-</pre> <h1><a class="anchor" id="autotoc_md6"></a>
+<p>Once created the main file, you can simply compile the source code using the Makefile. You can compile the program for a Linux distribution </p><pre class="fragment">make linux
+</pre><p> or for a windows distribution </p><pre class="fragment">make windows
+</pre><p> You can also run the library on Python keeping the optimization level given by C++. To make this you have to make the binding of the code on your personal environment.</p>
+<p>To do so, in the main folder you can just run: </p><pre class="fragment">./build.sh
+</pre> <h2><a class="anchor" id="autotoc_md6"></a>
+Testing</h2>
+<p>You can test the goodness of the compilation by running the script <em>test.py</em>, once you've chosen which analysis you want to try. The output of an analysis are not unique, but if you do the standard analysis the file provides you would obtain similar result as the one in the thesis.</p>
+<h1><a class="anchor" id="autotoc_md7"></a>
 Data</h1>
 <p>Once run the simulation you can print data in two formats:</p>
 <ol type="1">
-<li><b>latex</b>, wich prints data in a format readable by the package <em>pgfplots</em> of LaTeX;</li>
-<li><b>root</b>, wich prints data in a format readable by the C++ framework <em>Root</em>, developed by Cern.</li>
+<li><b>latex</b>, which prints data in a format readable by the package <em>pgfplots</em> of LaTeX;</li>
+<li><b>root</b>, which prints data in a format readable by the C++ framework <a href="https://root.cern/"><em>Root</em></a>, developed by CERN.</li>
 </ol>
-<p>There is also a way to visualize the network in which the streets change color based on their vehicle density. To do that there is a Python script, <em>visual.py</em> that prints a PNG file of an arbitrary instant of time. With this script you can also merge differents PNG files into a unique GIF file, obtaining an output like this:</p>
-<p><img src="https://github.com/Grufoony/TrafficFlowDynamicsModel/blob/main/data/img/evolution.gif?raw=true" alt="" width="50%" height="50%" class="inline"/></p>
-<h1><a class="anchor" id="autotoc_md7"></a>
-Pybinding</h1>
-<p>You can also run the library on Python keeping the optimization level given by C++. To make this you have to make the Pybinding of the code on your personal environment.</p>
-<p>To do so, in the main folder you can just run: </p><pre class="fragment">./build.sh
-</pre> </div></div><!-- PageDoc -->
+<p>There is also a way to visualize the network in which the streets change color based on their vehicle density. To do that there is a Python script, <em>visual.py</em> that prints a PNG file of an arbitrary instant of time. With this script you can also merge different PNG files into a unique GIF file, obtaining an output like this:</p>
+<p><img src="https://github.com/Grufoony/TrafficFlowDynamicsModel/blob/main/data/img/evolution.gif?raw=true" alt="" width="50%" height="50%" class="inline"/> </p>
+</div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

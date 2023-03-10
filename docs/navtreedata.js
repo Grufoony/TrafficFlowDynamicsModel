@@ -29,9 +29,10 @@ var NAVTREE =
     [ "Citing", "index.html#autotoc_md2", null ],
     [ "Abstract", "index.html#autotoc_md3", null ],
     [ "Download", "index.html#autotoc_md4", null ],
-    [ "Compiling", "index.html#autotoc_md5", null ],
-    [ "Data", "index.html#autotoc_md6", null ],
-    [ "Pybinding", "index.html#autotoc_md7", null ],
+    [ "Compiling", "index.html#autotoc_md5", [
+      [ "Testing", "index.html#autotoc_md6", null ]
+    ] ],
+    [ "Data", "index.html#autotoc_md7", null ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],

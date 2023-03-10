@@ -12,6 +12,8 @@ var classSparseMatrix =
     [ "contains", "classSparseMatrix.html#aa8e94601cf60f053996fa22cb5fedc8a", null ],
     [ "end", "classSparseMatrix.html#a768768507d860eb22ea442e0335addce", null ],
     [ "erase", "classSparseMatrix.html#ac5ca4be1ac9ef8facf3dabb757639bc3", null ],
+    [ "eraseColumn", "classSparseMatrix.html#afa897461687d58c72ca289111d6d9a9c", null ],
+    [ "eraseRow", "classSparseMatrix.html#ab807b4d2238096b3cd18591249985a8e", null ],
     [ "fprint", "classSparseMatrix.html#afd8333f660bd7113ff17622d982f7389", null ],
     [ "getCol", "classSparseMatrix.html#a30eafc06b0b8c0bec6180ed61a7cd137", null ],
     [ "getColDim", "classSparseMatrix.html#ac71b3d061c984d8dcb4aaf93cd9d17c2", null ],

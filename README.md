@@ -37,8 +37,8 @@ travel times in congestion situations.
 This work aims to verify the validity of a simplified model designed for
 highlight the typical behaviors of a traffic system, in particular congestions
 that are created on the road network. This model is implemented by the C ++ **Traffic Flow Dynamics Model** library.
-For the analisys, the study uses Macroscopic Fundamental Diagrams, particular
-diagrams that relate the main observables of a road network such as
+For the analysis, the study uses Macroscopic Fundamental Diagrams, particular
+diagrams that relate the main observable of a road network such as
 velocity, density and flow. By varying the load introduced into the road network it is possible to
 study the system in different regimes: constant load, peaked load and periodic load.
 Through these studies, different properties typical of each regimen emerged and, for some
@@ -71,30 +71,33 @@ Otherwise, you can directly download a release.
 
 ## Compiling
 Once created the main file, you can simply compile the source code using the Makefile.
-You can compile the program for a linux distribution
+You can compile the program for a Linux distribution
 
     make linux
 
-or for a windows distibution
+or for a windows distribution
 
     make windows
 
-## Data
-Once run the simulation you can print data in two formats:
-
-1. **latex**, wich prints data in a format readable by the package *pgfplots* of LaTeX;
-2. **root**, wich prints data in a format readable by the C++ framework *Root*, developed by Cern.
-
-There is also a way to visualize the network in which the streets change color based on their vehicle density.
-To do that there is a Python script, *visual.py* that prints a PNG file of an arbitrary instant of time.
-With this script you can also merge differents PNG files into a unique GIF file, obtaining an output like this:
-
-<img src="https://github.com/Grufoony/TrafficFlowDynamicsModel/blob/main/data/img/evolution.gif?raw=true" width="50%" height="50%"/>
-
-## Pybinding
 You can also run the library on Python keeping the optimization level given by C++.
-To make this you have to make the Pybinding of the code on your personal environment.
+To make this you have to make the binding of the code on your personal environment.
 
 To do so, in the main folder you can just run:
 
     ./build.sh
+
+### Testing
+You can test the goodness of the compilation by running the script _test.py_, once you've chosen which analysis you want to try.
+The output of an analysis are not unique, but if you do the standard analysis the file provides you would obtain similar result as the one in the thesis.
+
+## Data
+Once run the simulation you can print data in two formats:
+
+1. **latex**, which prints data in a format readable by the package *pgfplots* of LaTeX;
+2. **root**, which prints data in a format readable by the C++ framework [*Root*](https://root.cern/), developed by CERN.
+
+There is also a way to visualize the network in which the streets change color based on their vehicle density.
+To do that there is a Python script, *visual.py* that prints a PNG file of an arbitrary instant of time.
+With this script you can also merge different PNG files into a unique GIF file, obtaining an output like this:
+
+<img src="https://github.com/Grufoony/TrafficFlowDynamicsModel/blob/main/data/img/evolution.gif?raw=true" width="50%" height="50%"/>

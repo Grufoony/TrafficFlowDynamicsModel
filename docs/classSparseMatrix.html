@@ -120,6 +120,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac5ca4be1ac9ef8facf3dabb757639bc3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSparseMatrix.html#ac5ca4be1ac9ef8facf3dabb757639bc3">erase</a> (int i, int j)</td></tr>
 <tr class="memdesc:ac5ca4be1ac9ef8facf3dabb757639bc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">remove a value from the matrix  <a href="classSparseMatrix.html#ac5ca4be1ac9ef8facf3dabb757639bc3">More...</a><br /></td></tr>
 <tr class="separator:ac5ca4be1ac9ef8facf3dabb757639bc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab807b4d2238096b3cd18591249985a8e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSparseMatrix.html#ab807b4d2238096b3cd18591249985a8e">eraseRow</a> (int index)</td></tr>
+<tr class="memdesc:ab807b4d2238096b3cd18591249985a8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">remove a row from the matrix  <a href="classSparseMatrix.html#ab807b4d2238096b3cd18591249985a8e">More...</a><br /></td></tr>
+<tr class="separator:ab807b4d2238096b3cd18591249985a8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa897461687d58c72ca289111d6d9a9c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSparseMatrix.html#afa897461687d58c72ca289111d6d9a9c">eraseColumn</a> (int index)</td></tr>
+<tr class="memdesc:afa897461687d58c72ca289111d6d9a9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">remove a column from the matrix  <a href="classSparseMatrix.html#afa897461687d58c72ca289111d6d9a9c">More...</a><br /></td></tr>
+<tr class="separator:afa897461687d58c72ca289111d6d9a9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac25052c79cc4393b4d00aa64ee190187"><td class="memItemLeft" align="right" valign="top"><a id="ac25052c79cc4393b4d00aa64ee190187"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>clear</b> () noexcept</td></tr>
 <tr class="separator:ac25052c79cc4393b4d00aa64ee190187"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -489,6 +495,78 @@ template&lt;typename T &gt; </div>
   <table class="params">
     <tr><td class="paramname">i</td><td>row index </td></tr>
     <tr><td class="paramname">j</td><td>column index </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="afa897461687d58c72ca289111d6d9a9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa897461687d58c72ca289111d6d9a9c">&#9670;&nbsp;</a></span>eraseColumn()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classSparseMatrix.html">SparseMatrix</a>&lt; T &gt;::eraseColumn </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>index</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>remove a column from the matrix </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>column index </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ab807b4d2238096b3cd18591249985a8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab807b4d2238096b3cd18591249985a8e">&#9670;&nbsp;</a></span>eraseRow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classSparseMatrix.html">SparseMatrix</a>&lt; T &gt;::eraseRow </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>index</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>remove a row from the matrix </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>row index </td></tr>
   </table>
   </dd>
 </dl>
