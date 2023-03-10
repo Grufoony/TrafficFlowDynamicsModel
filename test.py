@@ -25,8 +25,21 @@ def plot():
     plt.plot(x, y)
     plt.show()
 
+def hist(filename):
+    file = open(filename, "r")
+    lines = file.readlines()
+    file.close()
+    x = []
+    y = []
+    for line in lines:
+        x.append(float(line.split()[0]))
+        y.append(float(line.split()[1]))
+    plt.bar(x, y)
+    plt.show()
+
 # Constant analysis
 def constant():
+    clear()
     graph = TrafficModel.Graph("./data/matrix.dat")
     Vehicle.addVehicleType("./data/vehicletype.dat")
     graph.setTemperature(300)
@@ -37,9 +50,11 @@ def constant():
         if (t < 12e3) and (t % 60 == 0) and (t != 0):
             graph.addVehiclesUniformly(250)
         graph.evolve(False)
+    plot()
 
 # Peaked analysis
 def peaked():
+    clear()
     graph = TrafficModel.Graph("./data/matrix.dat")
     Vehicle.addVehicleType("./data/vehicletype.dat")
     graph.setTemperature(300)
@@ -53,9 +68,11 @@ def peaked():
             graph.evolve()
         else:
             graph.evolve(False)
+    plot()
 
 # Periodic analysis
 def periodic():
+    clear()
     graph = TrafficModel.Graph("./data/matrix.dat")
     Vehicle.addVehicleType("./data/vehicletype.dat")
     graph.setTemperature(300)
@@ -69,10 +86,27 @@ def periodic():
                 vehicles = vehicles * 1.125
             graph.addVehiclesUniformly(int(vehicles))
         graph.evolve(False)
+    plot()
 
-
+# Traveltime analysis
+def traveltime():
+    clear()
+    graph = TrafficModel.Graph("./data/matrix.dat")
+    Vehicle.addVehicleType("./data/vehicletype.dat")
+    graph.setTemperature(300)
+    graph.updateTransMatrix()
+    for t in tqdm(range(15001)):
+        if t % 100 == 0:
+            graph.fprintHistogram("./temp_data/", "traveltime", 100, "latex")
+        if (t % 60 == 0) and (t != 0):
+            graph.addRndmVehicles(200)
+            graph.addVehiclesUniformly(int(200 / 1.125))
+        graph.evolve(False)
 
 if __name__ == "__main__":
-    clear()
-    periodic()
-    plot()
+    traveltime()
+    hist("./temp_data/3000_t.dat")
+    hist("./temp_data/6000_t.dat")
+    hist("./temp_data/9000_t.dat")
+    hist("./temp_data/12000_t.dat")
+    hist("./temp_data/15000_t.dat")
