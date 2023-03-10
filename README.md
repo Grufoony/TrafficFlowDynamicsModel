@@ -97,4 +97,4 @@ To make this you have to make the Pybinding of the code on your personal environ
 
 To do so, in the main folder you can just run:
 
-    make binding
+    ./build.sh

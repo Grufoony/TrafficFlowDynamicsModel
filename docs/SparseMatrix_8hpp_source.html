@@ -288,11 +288,11 @@ $(document).ready(function(){initNavTree('SparseMatrix_8hpp_source.html',''); in
 <div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> index = 0; index &lt; _rows; index++) {</div>
 <div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;      <span class="keyword">auto</span> row = this-&gt;<a class="code" href="classSparseMatrix.html#a9cd0410639a28758d55bada1923ceb06">getRow</a>(index);</div>
 <div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;      <span class="keywordtype">double</span> sum = 0.;</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;      <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;it : row.getMap()) {</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;      <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;it : row) {</div>
 <div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;        sum += std::abs(it.second);</div>
 <div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;      }</div>
 <div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;      sum &lt; std::numeric_limits&lt;double&gt;::epsilon() ? sum = 1. : sum = sum;</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;      <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;it : row.getMap()) {</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;      <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;it : row) {</div>
 <div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;        normRows.<a class="code" href="classSparseMatrix.html#a32f9cbc205790dacbdda6a5b343fca97">insert</a>(it.first + index * _cols, it.second / sum);</div>
 <div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;      }</div>
 <div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    }</div>
@@ -303,11 +303,11 @@ $(document).ready(function(){initNavTree('SparseMatrix_8hpp_source.html',''); in
 <div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> index = 0; index &lt; _cols; index++) {</div>
 <div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;      <span class="keyword">auto</span> col = this-&gt;<a class="code" href="classSparseMatrix.html#a30eafc06b0b8c0bec6180ed61a7cd137">getCol</a>(index);</div>
 <div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;      <span class="keywordtype">double</span> sum = 0.;</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;      <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;it : col.getMap()) {</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;      <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;it : col) {</div>
 <div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;        sum += std::abs(it.second);</div>
 <div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;      }</div>
 <div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;      sum &lt; std::numeric_limits&lt;double&gt;::epsilon() ? sum = 1. : sum = sum;</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;      <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;it : col.getMap()) {</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;      <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;it : col) {</div>
 <div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;        normCols.<a class="code" href="classSparseMatrix.html#a32f9cbc205790dacbdda6a5b343fca97">insert</a>(it.first + index * _rows, it.second / sum);</div>
 <div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;      }</div>
 <div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;    }</div>

@@ -32,6 +32,3 @@ visual:
 docs:
 	clear
 	doxygen Doxyfile
-binding:
-	clear
-	./src/compile.sh
