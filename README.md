@@ -11,7 +11,6 @@ This project is part of a three-year thesis work for the Physics course at the A
 3. [Download](#download)
 4. [Compiling](#compiling)
 5. [Data](#data)
-6. [Use on Python](#Pybinding)
 
 ## Citing
 If you use my code, please cite my work:
