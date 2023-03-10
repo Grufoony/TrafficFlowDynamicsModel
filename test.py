@@ -24,6 +24,19 @@ def plot():
     plt.plot(x, y)
     plt.show()
 
+# Constant analysis
+def constant():
+    graph = TrafficModel.Graph("./data/matrix.dat")
+    Vehicle.addVehicleType("./data/vehicletype.dat")
+    graph.setTemperature(300)
+    graph.updateTransMatrix()
+    for t in tqdm(range(15001)):
+        if t % 100 == 0:
+            graph.fprintTimeDistribution("./temp_data/", "k", 0.)
+        if (t < 12e3) and (t % 60 == 0) and (t != 0):
+            graph.addVehiclesUniformly(250)
+        graph.evolve(False)
+
 # Peaked analysis
 def peaked():
     graph = TrafficModel.Graph("./data/matrix.dat")
@@ -44,5 +57,5 @@ def peaked():
 
 if __name__ == "__main__":
     clear()
-    peaked()
+    constant()
     plot()
