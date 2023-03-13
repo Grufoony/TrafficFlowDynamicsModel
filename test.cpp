@@ -123,12 +123,12 @@ TEST_CASE("Boolean Matrix") {
     CHECK(m(1, 1));
     m = d;
     m.eraseColumn(0);
-    CHECK(m(1,1));
-    CHECK(m(2,0));
+    CHECK(m(1, 1));
+    CHECK(m(2, 0));
     m = d;
     m.eraseColumn(2);
-    CHECK(m(0,0));
-    CHECK(m(2,1));
+    CHECK(m(0, 0));
+    CHECK(m(2, 1));
   }
   SUBCASE("Degree vector") {
     SparseMatrix<bool> m(3, 3);

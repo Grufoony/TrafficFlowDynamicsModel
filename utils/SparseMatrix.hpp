@@ -1,9 +1,7 @@
 //! SparseMatrix class v1.6 by Grufoony
-//! https://github.com/Grufoony/miscellaneous
 
 //!  This class implements a sparse matrix. The matrix is stored in a compressed
-//!  row format. ++ 20 requiered. Docs at
-//!  https://grufoony.github.io/TrafficFlowDynamicsModel/classSparseMatrix.html.
+//!  row format. ++ 20 requiered.
 
 #ifndef SparseMatrix_hpp
 #define SparseMatrix_hpp

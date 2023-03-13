@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['evolve_42',['evolve',['../classGraph.html#a40dce401fb65fcd29e6ddc1ccaeb3127',1,'Graph::evolve(bool)'],['../classGraph.html#afe7ffc0c4f75e34ee27c83dcd9b7f82b',1,'Graph::evolve()']]]
+  ['contains_61',['contains',['../classSparseMatrix.html#a3b8f8a6072a84cfa05f056897904405b',1,'SparseMatrix::contains(int i, int j) const'],['../classSparseMatrix.html#ae870254f1d6742962d476b0d7aff2b2a',1,'SparseMatrix::contains(int const index) const']]]
 ];

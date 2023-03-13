@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['print_59',['print',['../classGraph.html#ac834408bc1a9fde2337f5446609d85f3',1,'Graph']]],
-  ['printmatrix_60',['printMatrix',['../classGraph.html#aa3f3b7c247427a7298b62c7e1970a6b4',1,'Graph']]],
-  ['printstreets_61',['printStreets',['../classGraph.html#a24036863a4d0dea1b58de661bba40be0',1,'Graph']]]
+  ['loadvehicles_89',['loadVehicles',['../classGraph.html#a5604e31f4b670574f37c1b6f16150b6d',1,'Graph']]]
 ];
