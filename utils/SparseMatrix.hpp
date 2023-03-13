@@ -191,7 +191,7 @@ public:
   /// \param i row index
   /// \param j column index
   bool contains(int i, int j) const {
-    if(i >= _rows || j >= _cols || i < 0 || j < 0) {
+    if (i >= _rows || j >= _cols || i < 0 || j < 0) {
       throw std::out_of_range("Index out of range");
     }
     return _matrix.contains(i * _cols + j);
@@ -199,11 +199,12 @@ public:
   /// \brief check if the element is non zero
   /// \param index index in vectorial form
   bool contains(int const index) const {
-    if(index < 0 || index > _rows * _cols - 1) {
+    if (index < 0 || index > _rows * _cols - 1) {
       throw std::out_of_range("Index out of range");
     }
     return _matrix.contains(index);
   };
+  int getNonZeroElements() const noexcept { return _matrix.size(); };
   SparseMatrix<int> getDegreeVector() {
     if (_rows != _cols) {
       throw std::runtime_error(
