@@ -284,6 +284,16 @@ public:
     std::advance(it, dist(rng));
     return *it;
   }
+  /// @brief get a random element from the matrix
+  /// @return a pair containing the row index and the value
+  std::pair<int, T> getRndElement() const {
+    auto it = _matrix.begin();
+    std::random_device dev;
+    std::mt19937 rng(dev());
+    auto dist = std::uniform_int_distribution<int>(0, _matrix.size() - 1);
+    std::advance(it, dist(rng));
+    return *it;
+  }
   /// @brief get a matrix of double with every row normalized to 1
   /// @return a matrix of double
   SparseMatrix<double> getNormRows() const {

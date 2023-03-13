@@ -22,6 +22,7 @@ var classSparseMatrix =
     [ "getNormCols", "classSparseMatrix.html#aea965be71eaf385d5326d911b6c4e222", null ],
     [ "getNormRows", "classSparseMatrix.html#a0e8677710d1ca5834b3b501dab6b6831", null ],
     [ "getRndColElement", "classSparseMatrix.html#ad20da4002bc4fee5c8227551ecc522e3", null ],
+    [ "getRndElement", "classSparseMatrix.html#a7f27579bd22c76455044d1337bd5ab36", null ],
     [ "getRndRowElement", "classSparseMatrix.html#aab6544032f5320f24b29312761f8f459", null ],
     [ "getRow", "classSparseMatrix.html#a9cd0410639a28758d55bada1923ceb06", null ],
     [ "getRowDim", "classSparseMatrix.html#a1057ebdc0fe71bf0f89c55fb2a0fa9ff", null ],
