@@ -182,7 +182,11 @@ public:
     --_cols;
     _matrix = new_matrix;
   };
-  void clear() noexcept { _matrix.clear(); };
+  void clear() noexcept {
+    _matrix.clear();
+    _rows = 0;
+    _cols = 0;
+  };
   /// \brief check if the element is non zero
   /// \param i row index
   /// \param j column index
