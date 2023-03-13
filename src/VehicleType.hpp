@@ -5,7 +5,7 @@
 
 //! This class is used to represent a vehicle type.
 
-#include "SparseMatrix.hpp"
+#include "../utils/SparseMatrix.hpp"
 #include <cstdint>
 #include <vector>
 

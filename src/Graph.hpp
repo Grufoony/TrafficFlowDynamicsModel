@@ -5,7 +5,7 @@
 
 //!  This class is used to represent a graph.
 
-#include "SparseMatrix.hpp"
+#include "../utils/SparseMatrix.hpp"
 #include "Street.hpp"
 #include "Vehicle.hpp"
 #include <memory>
