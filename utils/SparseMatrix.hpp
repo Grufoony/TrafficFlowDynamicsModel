@@ -39,13 +39,6 @@ public:
               : _rows = index,
                 _cols = 1;
   };
-  /// \brief SparseMatrix constructor
-  /// \param other other SparseMatrix
-  SparseMatrix(SparseMatrix const &other) {
-    this->_rows = other._rows;
-    this->_cols = other._cols;
-    this->_matrix = other._matrix;
-  };
 
   static void encode(std::string const &filename) {
     std::fstream file;
@@ -475,18 +468,6 @@ public:
       transpost.insert(it.first % _cols, it.first / _cols, it.second);
     }
     return transpost;
-  }
-  SparseMatrix &operator=(const SparseMatrix &other) {
-    this->_rows = other._rows;
-    this->_cols = other._cols;
-    this->_matrix = other._matrix;
-    return *this;
-  }
-  SparseMatrix &operator=(SparseMatrix &&other) {
-    this->_rows = other._rows;
-    this->_cols = other._cols;
-    this->_matrix = std::move(other._matrix);
-    return *this;
   }
   template <typename U> SparseMatrix &operator+=(const SparseMatrix<U> &other) {
     if (this->_rows != other._rows || this->_cols != other._cols) {
