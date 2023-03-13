@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['operator_2b_2b_33',['operator++',['../classSparseMatrix.html#a79d12d6cfcc81550c675ca5decdc0e3d',1,'SparseMatrix']]]
+  ['remvehicle_24',['remVehicle',['../classStreet.html#ac3ff4ad461cdde617571778827fdd906',1,'Street']]]
 ];

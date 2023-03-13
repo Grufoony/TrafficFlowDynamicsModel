@@ -88,11 +88,16 @@ To do so, in the main folder you can just run:
 ### Testing
 You can test the goodness of the compilation by running the script _test.py_, once you've chosen which analysis you want to try.
 The output of an analysis are not unique, but if you do the standard analysis the file provides you would obtain similar result as the one in the thesis.
+Furthermore, you can also test the SparseMatrix class by running
+
+    make test
+
+These test use [doctest](https://github.com/doctest/doctest).
 
 ## Data
 Once run the simulation you can print data in two formats:
 
-1. **latex**, which prints data in a format readable by the package *pgfplots* of LaTeX;
+1. **latex**, which prints data in a format readable by the package [*pgfplots*](https://pgfplots.sourceforge.net/) of LaTeX;
 2. **root**, which prints data in a format readable by the C++ framework [*Root*](https://root.cern/), developed by CERN.
 
 There is also a way to visualize the network in which the streets change color based on their vehicle density.

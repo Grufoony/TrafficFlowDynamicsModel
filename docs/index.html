@@ -125,12 +125,13 @@ Compiling</h1>
 <p>To do so, in the main folder you can just run: </p><pre class="fragment">./build.sh
 </pre> <h2><a class="anchor" id="autotoc_md6"></a>
 Testing</h2>
-<p>You can test the goodness of the compilation by running the script <em>test.py</em>, once you've chosen which analysis you want to try. The output of an analysis are not unique, but if you do the standard analysis the file provides you would obtain similar result as the one in the thesis.</p>
+<p>You can test the goodness of the compilation by running the script <em>test.py</em>, once you've chosen which analysis you want to try. The output of an analysis are not unique, but if you do the standard analysis the file provides you would obtain similar result as the one in the thesis. Furthermore, you can also test the SparseMatrix class by running </p><pre class="fragment">make test
+</pre><p> These test use <a href="https://github.com/doctest/doctest">doctest</a>.</p>
 <h1><a class="anchor" id="autotoc_md7"></a>
 Data</h1>
 <p>Once run the simulation you can print data in two formats:</p>
 <ol type="1">
-<li><b>latex</b>, which prints data in a format readable by the package <em>pgfplots</em> of LaTeX;</li>
+<li><b>latex</b>, which prints data in a format readable by the package <a href="https://pgfplots.sourceforge.net/"><em>pgfplots</em></a> of LaTeX;</li>
 <li><b>root</b>, which prints data in a format readable by the C++ framework <a href="https://root.cern/"><em>Root</em></a>, developed by CERN.</li>
 </ol>
 <p>There is also a way to visualize the network in which the streets change color based on their vehicle density. To do that there is a Python script, <em>visual.py</em> that prints a PNG file of an arbitrary instant of time. With this script you can also merge different PNG files into a unique GIF file, obtaining an output like this:</p>

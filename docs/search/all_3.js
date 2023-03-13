@@ -1,10 +1,9 @@
 var searchData=
 [
-  ['fprint_9',['fprint',['../classGraph.html#a6901a7df0fce99e31187a08da40b35e5',1,'Graph::fprint()'],['../classSparseMatrix.html#afd8333f660bd7113ff17622d982f7389',1,'SparseMatrix::fprint()']]],
-  ['fprintactualstate_10',['fprintActualState',['../classGraph.html#aec74b9b759332c52ed4127f11238b72f',1,'Graph']]],
-  ['fprintdistribution_11',['fprintDistribution',['../classGraph.html#a56f6748ea05bfd2ecd5c0d5079c9a7cf',1,'Graph']]],
-  ['fprinthistogram_12',['fprintHistogram',['../classGraph.html#aefe58e9230f9147dac42d4a58bd0987e',1,'Graph']]],
-  ['fprintmatrix_13',['fprintMatrix',['../classGraph.html#ab7c74fe77f8b5defc0687e2c0fbf54f8',1,'Graph']]],
-  ['fprinttimedistribution_14',['fprintTimeDistribution',['../classGraph.html#a999e5b444a490024b1bfde896857cc9c',1,'Graph']]],
-  ['fprintvisual_15',['fprintVisual',['../classGraph.html#ae5f2dd7b08b5e412719fca939370b4b1',1,'Graph']]]
+  ['getdensity_12',['getDensity',['../classStreet.html#aaba4ece5616a59881bcfffa4e6eeb1c4',1,'Street']]],
+  ['getinputvelocity_13',['getInputVelocity',['../classStreet.html#a3d46d9af33caa59f1e25518624d5be52',1,'Street']]],
+  ['getnvehicletype_14',['getNVehicleType',['../classVehicle.html#a90acb78aef5d58ffaa9f23cf2ed7795c',1,'Vehicle']]],
+  ['getvehicledensity_15',['getVehicleDensity',['../classStreet.html#a0c166cf2e397571bece279d86bb26fd9',1,'Street']]],
+  ['getvehicletype_16',['getVehicleType',['../classVehicle.html#a22a26924b63685e3c18366a0d4ca434a',1,'Vehicle']]],
+  ['graph_17',['Graph',['../classGraph.html',1,'Graph'],['../classGraph.html#a368622628d0a2f19cdfba3ee836418de',1,'Graph::Graph()']]]
 ];
