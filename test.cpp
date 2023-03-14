@@ -102,7 +102,7 @@ TEST_CASE("Boolean Matrix") {
     auto m = d;
     m.eraseRow(1);
     CHECK(m(0, 0));
-    CHECK(m(1, 0));
+    CHECK(m(1, 1));
     m = d;
     m.eraseRow(0);
     CHECK(m(0, 2));
