@@ -164,7 +164,7 @@ public:
     std::unordered_map<int, T> new_matrix = {};
     for (auto const &[key, value] : _matrix) {
       if (key % _cols < index) {
-        new_matrix.emplace(std::make_pair(key - key / _rows, value));
+        new_matrix.emplace(std::make_pair(key - key / _cols, value));
       } else {
         new_matrix.emplace(
             std::make_pair(key / _cols * (_cols - 1) + key % _cols - 1, value));
