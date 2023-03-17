@@ -3,9 +3,8 @@
 #include <stdexcept>
 #include <string>
 
-double constexpr AVG_LENGTH =
-    8.;                         // if < 0 then there's no limit on the capacity
-double constexpr V_MIN = 75e-2; // minimum velocity
+double Street::_avgLength = 8.;
+double Street::_vMin = 75e-2;
 
 /// \brief Create a new Street object.
 /// \param src The source node.
@@ -30,10 +29,10 @@ Street::Street(int src, int dst, double length, int index) {
   _nLanes = 1;
   _vMax = 13.9; // 13.9 m/s = 50 km/h
   _index = index;
-  if (AVG_LENGTH < 0) {
+  if (_avgLength < 0) {
     _maxCapacity = std::numeric_limits<int>::max();
   } else {
-    _maxCapacity = static_cast<int>(_length / AVG_LENGTH);
+    _maxCapacity = static_cast<int>(_length / _avgLength);
   }
 }
 int Street::getOrigin() const noexcept { return _src; }
@@ -67,7 +66,7 @@ void Street::setVMax(double v) {
 /// street.
 double Street::getInputVelocity() const noexcept { // linear decay
   return (_vMax *
-          (1 - (V_MIN * (static_cast<double>(_nVehicles) /
+          (1 - (_vMin * (static_cast<double>(_nVehicles) /
                          static_cast<double>((_nLanes * _maxCapacity))))));
 }
 double Street::getVMax() const noexcept { return _vMax; }
