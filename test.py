@@ -104,9 +104,10 @@ def traveltime():
         graph.evolve(False)
 
 if __name__ == "__main__":
-    traveltime()
-    hist("./temp_data/3000_t.dat")
-    hist("./temp_data/6000_t.dat")
-    hist("./temp_data/9000_t.dat")
-    hist("./temp_data/12000_t.dat")
-    hist("./temp_data/15000_t.dat")
+    peaked()
+    # traveltime()
+    # hist("./temp_data/3000_t.dat")
+    # hist("./temp_data/6000_t.dat")
+    # hist("./temp_data/9000_t.dat")
+    # hist("./temp_data/12000_t.dat")
+    # hist("./temp_data/15000_t.dat")
