@@ -18,8 +18,9 @@ private:
   int _nLanes;      // number of lanes
   double _vMax;     // max velocity for that street
   int _index;       // index of the street (it's used to identify the street)
-  static double _avgLength; // average length of a vehicle, if < 0 then there's no limit on the capacity
-  static double _vMin; // minimum velocity
+  static double _avgLength; // average length of a vehicle, if < 0 then there's
+                            // no limit on the capacity
+  static double _vMin;      // minimum velocity
 
 public:
   Street(int, int, double, int); // src, dst, length, index
