@@ -355,7 +355,7 @@ $(document).ready(function(){initNavTree('SparseMatrix_8hpp_source.html',''); in
 <div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;      }</div>
 <div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;      sum &lt; std::numeric_limits&lt;double&gt;::epsilon() ? sum = 1. : sum = sum;</div>
 <div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;      <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;it : col) {</div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;        normCols.<a class="code" href="classSparseMatrix.html#a32f9cbc205790dacbdda6a5b343fca97">insert</a>(it.first + index * _rows, it.second / sum);</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;        normCols.<a class="code" href="classSparseMatrix.html#a32f9cbc205790dacbdda6a5b343fca97">insert</a>(it.first * _cols + index, it.second / sum);</div>
 <div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;      }</div>
 <div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;    }</div>
 <div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;    <span class="keywordflow">return</span> normCols;</div>

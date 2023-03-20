@@ -170,4 +170,36 @@ TEST_CASE("Boolean Matrix") {
       CHECK(m.contains(e.first));
     }
   }
+  SUBCASE("Normalized Rows") {
+    SparseMatrix<bool> m(3, 3);
+    m.insert(0, 0, true);
+    m.insert(0, 1, true);
+    m.insert(0, 2, true);
+    m.insert(1, 1, true);
+    m.insert(1, 2, true);
+    m.insert(2, 1, true);
+    auto v = m.getNormRows();
+    CHECK(v(0, 0) - 1./3 < std::numeric_limits<double>::epsilon());
+    CHECK(v(1, 1) - 1./2 < std::numeric_limits<double>::epsilon());
+    CHECK(v(2, 1) - 1 < std::numeric_limits<double>::epsilon());
+    CHECK(v(0, 0) + v(0, 1) + v(0, 2) - 1 < std::numeric_limits<double>::epsilon());
+    CHECK(v(1, 0) + v(1, 1) + v(1, 2) - 1 < std::numeric_limits<double>::epsilon());
+    CHECK(v(2, 0) + v(2, 1) + v(2, 2) - 1 < std::numeric_limits<double>::epsilon());
+  }
+  SUBCASE("Normalized Columns") {
+    SparseMatrix<bool> m(3, 3);
+    m.insert(0, 0, true);
+    m.insert(0, 1, true);
+    m.insert(0, 2, true);
+    m.insert(1, 1, true);
+    m.insert(1, 2, true);
+    m.insert(2, 1, true);
+    auto v = m.getNormCols();
+    CHECK(v(0, 0) - 1 < std::numeric_limits<double>::epsilon());
+    CHECK(v(1, 1) - 1./3 < std::numeric_limits<double>::epsilon());
+    CHECK(v(2, 1) - 1./2 < std::numeric_limits<double>::epsilon());
+    CHECK(v(0, 0) + v(1, 0) + v(2, 0) - 1 < std::numeric_limits<double>::epsilon());
+    CHECK(v(0, 1) + v(1, 1) + v(2, 1) - 1 < std::numeric_limits<double>::epsilon());
+    CHECK(v(0, 2) + v(1, 2) + v(2, 2) - 1 < std::numeric_limits<double>::epsilon());
+  }
 }

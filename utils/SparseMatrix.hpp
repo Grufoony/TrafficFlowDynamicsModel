@@ -319,7 +319,7 @@ public:
       }
       sum < std::numeric_limits<double>::epsilon() ? sum = 1. : sum = sum;
       for (auto &it : col) {
-        normCols.insert(it.first + index * _rows, it.second / sum);
+        normCols.insert(it.first * _cols + index, it.second / sum);
       }
     }
     return normCols;
