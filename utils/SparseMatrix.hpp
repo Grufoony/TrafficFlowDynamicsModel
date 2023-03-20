@@ -16,14 +16,15 @@
 
 template <typename T> class SparseMatrix {
   std::unordered_map<int, T> _matrix = {};
-  int _rows, _cols;
+  int _rows = 0, _cols = 0;
   static constexpr T _defaultReturn = 0;
 
 public:
+  SparseMatrix() = default;
   /// \brief SparseMatrix constructor
   /// \param rows number of rows
   /// \param cols number of columns
-  SparseMatrix(int rows = 0, int cols = 0) {
+  SparseMatrix(int rows, int cols) {
     rows < 0 || cols < 0
         ? throw std::invalid_argument("SparseMatrix: rows and cols must be > 0")
         : _rows = rows,
