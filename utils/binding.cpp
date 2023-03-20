@@ -3,10 +3,10 @@
 #include <pybind11/stl.h>
 
 PYBIND11_MODULE(SparseMatrix, m) {
-    m.doc() = "A library for managing sparse matrices.";
+  m.doc() = "A library for managing sparse matrices.";
 
-    // SparseMatrix class
-    pybind11::class_<SparseMatrix<bool>>(m, "SparseMatrix")
+  // SparseMatrix class
+  pybind11::class_<SparseMatrix<bool>>(m, "SparseMatrix")
       .def(pybind11::init<>())
       .def(pybind11::init<int, int>())
       .def(pybind11::init<int>())
