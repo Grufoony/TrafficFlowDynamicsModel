@@ -104,33 +104,34 @@ $(document).ready(function(){initNavTree('Street_8hpp_source.html',''); initResi
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  <span class="keywordtype">int</span> _nLanes;      <span class="comment">// number of lanes</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  <span class="keywordtype">double</span> _vMax;     <span class="comment">// max velocity for that street</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  <span class="keywordtype">int</span> _index;       <span class="comment">// index of the street (it&#39;s used to identify the street)</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">double</span> _avgLength; <span class="comment">// average length of a vehicle, if &lt; 0 then there&#39;s no limit on the capacity</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">double</span> _vMin; <span class="comment">// minimum velocity</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <a class="code" href="classStreet.html#a31893df9143712fbd50b105a022ec20e">Street</a>(<span class="keywordtype">int</span>, <span class="keywordtype">int</span>, <span class="keywordtype">double</span>, <span class="keywordtype">int</span>); <span class="comment">// src, dst, length, index</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  ~<a class="code" href="classStreet.html">Street</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <span class="keywordtype">int</span> getOrigin() <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <span class="keywordtype">int</span> getDestination() <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <span class="keywordtype">int</span> getIndex() <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="keywordtype">double</span> getLength() <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="classStreet.html#aaa70bfead0e982578aed7058b3010115">isFull</a>() <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classStreet.html#a71889584f1a2c7f3ff8eb70d53c282d7">setNLanes</a>(<span class="keywordtype">int</span>) noexcept;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <span class="keywordtype">int</span> getNVehicles() <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classStreet.html#abe49b4d7450640c3f83c55fc682a86fd">setVMax</a>(<span class="keywordtype">double</span>);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <span class="keywordtype">double</span> <a class="code" href="classStreet.html#a3d46d9af33caa59f1e25518624d5be52">getInputVelocity</a>()</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;      <span class="keyword">const</span> noexcept; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="keywordtype">double</span> getVMax() <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="keywordtype">double</span> <a class="code" href="classStreet.html#aaba4ece5616a59881bcfffa4e6eeb1c4">getDensity</a>()</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;      <span class="keyword">const</span> noexcept; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <span class="keywordtype">double</span> <a class="code" href="classStreet.html#a0c166cf2e397571bece279d86bb26fd9">getVehicleDensity</a>()</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;      <span class="keyword">const</span> noexcept; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classStreet.html#a22c7ea3d9fffa9690106e686e3ce029d">addVehicle</a>(std::shared_ptr&lt;Vehicle&gt;); </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classStreet.html#ac3ff4ad461cdde617571778827fdd906">remVehicle</a>(); </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;};</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">double</span> _avgLength; <span class="comment">// average length of a vehicle, if &lt; 0 then there&#39;s</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;                            <span class="comment">// no limit on the capacity</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">double</span> _vMin;      <span class="comment">// minimum velocity</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  <a class="code" href="classStreet.html#a31893df9143712fbd50b105a022ec20e">Street</a>(<span class="keywordtype">int</span>, <span class="keywordtype">int</span>, <span class="keywordtype">double</span>, <span class="keywordtype">int</span>); <span class="comment">// src, dst, length, index</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  ~<a class="code" href="classStreet.html">Street</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <span class="keywordtype">int</span> getOrigin() <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <span class="keywordtype">int</span> getDestination() <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="keywordtype">int</span> getIndex() <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <span class="keywordtype">double</span> getLength() <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="classStreet.html#aaa70bfead0e982578aed7058b3010115">isFull</a>() <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classStreet.html#a71889584f1a2c7f3ff8eb70d53c282d7">setNLanes</a>(<span class="keywordtype">int</span>) noexcept;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keywordtype">int</span> getNVehicles() <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classStreet.html#abe49b4d7450640c3f83c55fc682a86fd">setVMax</a>(<span class="keywordtype">double</span>);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <span class="keywordtype">double</span> <a class="code" href="classStreet.html#a3d46d9af33caa59f1e25518624d5be52">getInputVelocity</a>()</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;      <span class="keyword">const</span> noexcept; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="keywordtype">double</span> getVMax() <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="keywordtype">double</span> <a class="code" href="classStreet.html#aaba4ece5616a59881bcfffa4e6eeb1c4">getDensity</a>()</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;      <span class="keyword">const</span> noexcept; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="keywordtype">double</span> <a class="code" href="classStreet.html#a0c166cf2e397571bece279d86bb26fd9">getVehicleDensity</a>()</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;      <span class="keyword">const</span> noexcept; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classStreet.html#a22c7ea3d9fffa9690106e686e3ce029d">addVehicle</a>(std::shared_ptr&lt;Vehicle&gt;); </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classStreet.html#ac3ff4ad461cdde617571778827fdd906">remVehicle</a>(); </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;};</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclassStreet_html"><div class="ttname"><a href="classStreet.html">Street</a></div><div class="ttdoc">Street class.</div><div class="ttdef"><b>Definition:</b> Street.hpp:11</div></div>
 <div class="ttc" id="aclassStreet_html_a0c166cf2e397571bece279d86bb26fd9"><div class="ttname"><a href="classStreet.html#a0c166cf2e397571bece279d86bb26fd9">Street::getVehicleDensity</a></div><div class="ttdeci">double getVehicleDensity() const noexcept</div><div class="ttdoc">get instant vehicle density for the stree</div><div class="ttdef"><b>Definition:</b> Street.cpp:79</div></div>
 <div class="ttc" id="aclassStreet_html_a22c7ea3d9fffa9690106e686e3ce029d"><div class="ttname"><a href="classStreet.html#a22c7ea3d9fffa9690106e686e3ce029d">Street::addVehicle</a></div><div class="ttdeci">void addVehicle(std::shared_ptr&lt; Vehicle &gt;)</div><div class="ttdoc">add a vehicle to the street</div><div class="ttdef"><b>Definition:</b> Street.cpp:85</div></div>

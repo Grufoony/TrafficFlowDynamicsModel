@@ -1,4 +1,4 @@
-//! SparseMatrix class v1.63 by Grufoony
+//! SparseMatrix class v1.6.4 by Grufoony
 
 //!  This class implements a sparse matrix. The matrix is stored in a compressed
 //!  row format. ++ 20 requiered.
@@ -11,6 +11,7 @@
 #include <random>
 #include <stdexcept>
 #include <string>
+#include <typeinfo>
 #include <unordered_map>
 #include <vector>
 
@@ -218,9 +219,8 @@ public:
     }
     auto strengthVector = SparseMatrix<double>(_rows, 1);
     for (auto &i : _matrix) {
-      strengthVector.insert_or_assign(i.first / _cols, 0,
-                                      strengthVector.at(i.first / _cols, 0) +
-                                          i.second);
+      strengthVector.insert_or_assign(
+          i.first / _cols, 0, strengthVector.at(i.first / _cols, 0) + i.second);
     }
     return strengthVector;
   };
@@ -362,6 +362,8 @@ public:
     auto const &it = _matrix.find(index);
     return it != _matrix.end() ? it->second : _defaultReturn;
   }
+
+  void symmetrize() { *this += this->operator++(); }
 
   /// @brief print the matrix in standard output
   void print() const noexcept {

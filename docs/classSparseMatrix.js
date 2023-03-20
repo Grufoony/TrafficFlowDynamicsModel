@@ -42,6 +42,7 @@ var classSparseMatrix =
     [ "operator-=", "classSparseMatrix.html#a69738ca91377eaccc2750d4e3f3f478a", null ],
     [ "print", "classSparseMatrix.html#a8e23459b7efe7a525ad0e507e849b0cb", null ],
     [ "size", "classSparseMatrix.html#ad804f54673a3dbc8d832eaeba2866630", null ],
+    [ "symmetrize", "classSparseMatrix.html#a658b90f87d261b4a42828f73ed2abf83", null ],
     [ "operator<<", "classSparseMatrix.html#a9609c062064d21c2cb7073d8ec1f92a9", null ],
     [ "operator>>", "classSparseMatrix.html#a640f3d834691bdde6d101e02f6453901", null ]
 ];

@@ -145,7 +145,7 @@ TEST_CASE("Boolean Matrix") {
     m.insert(0, 0, true);
     m.insert(1, 2, true);
     m.insert(2, 1, true);
-    for(int i = 0; i < 9; ++i) {
+    for (int i = 0; i < 9; ++i) {
       auto e = m.getRndElement();
       CHECK(m.contains(e.first));
     }
@@ -155,7 +155,7 @@ TEST_CASE("Boolean Matrix") {
     m.insert(0, 0, true);
     m.insert(1, 2, true);
     m.insert(2, 1, true);
-    for(int i = 0; i < 3; ++i) {
+    for (int i = 0; i < 3; ++i) {
       auto e = m.getRndRowElement(i);
       CHECK(m.contains(e.first));
     }
@@ -165,7 +165,7 @@ TEST_CASE("Boolean Matrix") {
     m.insert(0, 0, true);
     m.insert(1, 2, true);
     m.insert(2, 1, true);
-    for(int i = 0; i < 3; ++i) {
+    for (int i = 0; i < 3; ++i) {
       auto e = m.getRndColElement(i);
       CHECK(m.contains(e.first));
     }
@@ -179,12 +179,15 @@ TEST_CASE("Boolean Matrix") {
     m.insert(1, 2, true);
     m.insert(2, 1, true);
     auto v = m.getNormRows();
-    CHECK(v(0, 0) - 1./3 < std::numeric_limits<double>::epsilon());
-    CHECK(v(1, 1) - 1./2 < std::numeric_limits<double>::epsilon());
+    CHECK(v(0, 0) - 1. / 3 < std::numeric_limits<double>::epsilon());
+    CHECK(v(1, 1) - 1. / 2 < std::numeric_limits<double>::epsilon());
     CHECK(v(2, 1) - 1 < std::numeric_limits<double>::epsilon());
-    CHECK(v(0, 0) + v(0, 1) + v(0, 2) - 1 < std::numeric_limits<double>::epsilon());
-    CHECK(v(1, 0) + v(1, 1) + v(1, 2) - 1 < std::numeric_limits<double>::epsilon());
-    CHECK(v(2, 0) + v(2, 1) + v(2, 2) - 1 < std::numeric_limits<double>::epsilon());
+    CHECK(v(0, 0) + v(0, 1) + v(0, 2) - 1 <
+          std::numeric_limits<double>::epsilon());
+    CHECK(v(1, 0) + v(1, 1) + v(1, 2) - 1 <
+          std::numeric_limits<double>::epsilon());
+    CHECK(v(2, 0) + v(2, 1) + v(2, 2) - 1 <
+          std::numeric_limits<double>::epsilon());
   }
   SUBCASE("Normalized Columns") {
     SparseMatrix<bool> m(3, 3);
@@ -196,10 +199,27 @@ TEST_CASE("Boolean Matrix") {
     m.insert(2, 1, true);
     auto v = m.getNormCols();
     CHECK(v(0, 0) - 1 < std::numeric_limits<double>::epsilon());
-    CHECK(v(1, 1) - 1./3 < std::numeric_limits<double>::epsilon());
-    CHECK(v(2, 1) - 1./2 < std::numeric_limits<double>::epsilon());
-    CHECK(v(0, 0) + v(1, 0) + v(2, 0) - 1 < std::numeric_limits<double>::epsilon());
-    CHECK(v(0, 1) + v(1, 1) + v(2, 1) - 1 < std::numeric_limits<double>::epsilon());
-    CHECK(v(0, 2) + v(1, 2) + v(2, 2) - 1 < std::numeric_limits<double>::epsilon());
+    CHECK(v(1, 1) - 1. / 3 < std::numeric_limits<double>::epsilon());
+    CHECK(v(2, 1) - 1. / 2 < std::numeric_limits<double>::epsilon());
+    CHECK(v(0, 0) + v(1, 0) + v(2, 0) - 1 <
+          std::numeric_limits<double>::epsilon());
+    CHECK(v(0, 1) + v(1, 1) + v(2, 1) - 1 <
+          std::numeric_limits<double>::epsilon());
+    CHECK(v(0, 2) + v(1, 2) + v(2, 2) - 1 <
+          std::numeric_limits<double>::epsilon());
+  }
+  SUBCASE("Symmetrization") {
+    SparseMatrix<bool> m(3, 3);
+    m.insert(0, 0, true);
+    m.insert(0, 1, true);
+    m.insert(1, 2, true);
+    m.symmetrize();
+    for (int i = 0; i < 9; ++i) {
+      if (i != 4 && i != 8 && i != 2 && i != 6) {
+        CHECK(m.contains(i));
+      } else {
+        CHECK(!m.contains(i));
+      }
+    }
   }
 }
