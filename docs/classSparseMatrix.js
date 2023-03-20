@@ -1,7 +1,6 @@
 var classSparseMatrix =
 [
-    [ "SparseMatrix", "classSparseMatrix.html#a6ebfea970e40ba01644c8a935654ba11", null ],
-    [ "SparseMatrix", "classSparseMatrix.html#a60d0d81dccf54e68cbe4fb1ab063a6b2", null ],
+    [ "SparseMatrix", "classSparseMatrix.html#ac4fad387514e433531d4ea8dd35a5ca0", null ],
     [ "SparseMatrix", "classSparseMatrix.html#a84fb83fdf9040d1e75875915e2592883", null ],
     [ "at", "classSparseMatrix.html#a127f2e142cc877bae813e30f703d405f", null ],
     [ "at", "classSparseMatrix.html#ac7709c3a991fa12d4307547a1ac8d863", null ],
