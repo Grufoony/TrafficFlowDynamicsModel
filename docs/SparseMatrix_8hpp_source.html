@@ -221,7 +221,7 @@ $(document).ready(function(){initNavTree('SparseMatrix_8hpp_source.html',''); in
 <div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    std::unordered_map&lt;int, T&gt; new_matrix = {};</div>
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> <span class="keyword">const</span> &amp;[key, value] : _matrix) {</div>
 <div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;      <span class="keywordflow">if</span> (key % _cols &lt; index) {</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        new_matrix.emplace(std::make_pair(key - key / _rows, value));</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        new_matrix.emplace(std::make_pair(key - key / _cols, value));</div>
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;      } <span class="keywordflow">else</span> {</div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        new_matrix.emplace(</div>
 <div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;            std::make_pair(key / _cols * (_cols - 1) + key % _cols - 1, value));</div>

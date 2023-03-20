@@ -1,5 +1,4 @@
-import TrafficModel
-from TrafficModel import Vehicle
+import TrafficModel as tfdm
 from tqdm import tqdm
 import matplotlib
 matplotlib.use('TkAgg')
@@ -7,6 +6,7 @@ import matplotlib.pyplot as plt
 import os
 import glob
 import math
+import sys
 
 def clear():
     files = glob.glob("./temp_data/*")
@@ -40,8 +40,8 @@ def hist(filename):
 # Constant analysis
 def constant():
     clear()
-    graph = TrafficModel.Graph("./data/matrix.dat")
-    Vehicle.addVehicleType("./data/vehicletype.dat")
+    graph = tfdm.Graph("./data/matrix.dat")
+    tfdm.Vehicle.addVehicleType("./data/vehicletype.dat")
     graph.setTemperature(300)
     graph.updateTransMatrix()
     for t in tqdm(range(15001)):
@@ -55,8 +55,8 @@ def constant():
 # Peaked analysis
 def peaked():
     clear()
-    graph = TrafficModel.Graph("./data/matrix.dat")
-    Vehicle.addVehicleType("./data/vehicletype.dat")
+    graph = tfdm.Graph("./data/matrix.dat")
+    tfdm.Vehicle.addVehicleType("./data/vehicletype.dat")
     graph.setTemperature(300)
     graph.updateTransMatrix()
     for t in tqdm(range(12000)):
@@ -73,8 +73,8 @@ def peaked():
 # Periodic analysis
 def periodic():
     clear()
-    graph = TrafficModel.Graph("./data/matrix.dat")
-    Vehicle.addVehicleType("./data/vehicletype.dat")
+    graph = tfdm.Graph("./data/matrix.dat")
+    tfdm.Vehicle.addVehicleType("./data/vehicletype.dat")
     graph.setTemperature(300)
     graph.updateTransMatrix()
     for t in tqdm(range(55000)):
@@ -91,8 +91,8 @@ def periodic():
 # Traveltime analysis
 def traveltime():
     clear()
-    graph = TrafficModel.Graph("./data/matrix.dat")
-    Vehicle.addVehicleType("./data/vehicletype.dat")
+    graph = tfdm.Graph("./data/matrix.dat")
+    tfdm.Vehicle.addVehicleType("./data/vehicletype.dat")
     graph.setTemperature(300)
     graph.updateTransMatrix()
     for t in tqdm(range(15001)):
@@ -102,12 +102,20 @@ def traveltime():
             graph.addRndmVehicles(200)
             graph.addVehiclesUniformly(int(200 / 1.125))
         graph.evolve(False)
+    hist("./temp_data/3000_t.dat")
+    hist("./temp_data/6000_t.dat")
+    hist("./temp_data/9000_t.dat")
+    hist("./temp_data/12000_t.dat")
+    hist("./temp_data/15000_t.dat")
 
 if __name__ == "__main__":
-    peaked()
-    # traveltime()
-    # hist("./temp_data/3000_t.dat")
-    # hist("./temp_data/6000_t.dat")
-    # hist("./temp_data/9000_t.dat")
-    # hist("./temp_data/12000_t.dat")
-    # hist("./temp_data/15000_t.dat")
+    if len(sys.argv) > 1:
+        todo = sys.argv[1].lower()
+        if todo == "constant":
+            constant()
+        elif todo == "peaked":
+            peaked()
+        elif todo == "periodic":
+            periodic()
+        elif todo == "traveltime":
+            traveltime()

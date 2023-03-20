@@ -9,8 +9,9 @@ This project is part of a three-year thesis work for the Physics course at the A
 1. [Citing](#citing)
 2. [Abstract](#abstract)
 3. [Download](#download)
-4. [Compiling](#compiling)
-5. [Data](#data)
+4. [Testing](#testing)
+5. [Compiling](#compiling)
+6. [Data](#data)
 
 ## Citing
 If you use my code, please cite my work:
@@ -85,14 +86,18 @@ To do so, in the main folder you can just run:
 
     ./build.sh
 
-### Testing
-You can test the goodness of the compilation by running the script _test.py_, once you've chosen which analysis you want to try.
-The output of an analysis are not unique, but if you do the standard analysis the file provides you would obtain similar result as the one in the thesis.
-Furthermore, you can also test the SparseMatrix class by running
+## Testing
+You can test the goodness of the compilation by running the script _example.py_ which contains the analysis done in the thesis work.
+You can give the script an argument between _constant_, _peaked_, _periodic_, _traveltime_.
+One example may be
+
+    python3 example.py peaked
+
+Furthermore, you can also test the goodness of SparseMatrix class by running
 
     make test
 
-These test use [doctest](https://github.com/doctest/doctest).
+This last test uses [doctest](https://github.com/doctest/doctest).
 
 ## Data
 Once run the simulation you can print data in two formats:
