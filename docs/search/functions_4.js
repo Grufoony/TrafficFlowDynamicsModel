@@ -1,10 +1,9 @@
 var searchData=
 [
-  ['getcol_77',['getCol',['../classSparseMatrix.html#a30eafc06b0b8c0bec6180ed61a7cd137',1,'SparseMatrix']]],
-  ['getdegreevector_78',['getDegreeVector',['../classSparseMatrix.html#af5e5eefe29273f872f33ce06315c153b',1,'SparseMatrix']]],
-  ['getdensity_79',['getDensity',['../classStreet.html#aaba4ece5616a59881bcfffa4e6eeb1c4',1,'Street']]],
-  ['getinputvelocity_80',['getInputVelocity',['../classStreet.html#a3d46d9af33caa59f1e25518624d5be52',1,'Street']]],
-  ['getnonzeroelements_81',['getNonZeroElements',['../classSparseMatrix.html#a2b179f0af100ec5b3186fed121cee146',1,'SparseMatrix']]],
+  ['getcol_78',['getCol',['../classSparseMatrix.html#a30eafc06b0b8c0bec6180ed61a7cd137',1,'SparseMatrix']]],
+  ['getdegreevector_79',['getDegreeVector',['../classSparseMatrix.html#af5e5eefe29273f872f33ce06315c153b',1,'SparseMatrix']]],
+  ['getdensity_80',['getDensity',['../classStreet.html#aaba4ece5616a59881bcfffa4e6eeb1c4',1,'Street']]],
+  ['getinputvelocity_81',['getInputVelocity',['../classStreet.html#a3d46d9af33caa59f1e25518624d5be52',1,'Street']]],
   ['getnormcols_82',['getNormCols',['../classSparseMatrix.html#aea965be71eaf385d5326d911b6c4e222',1,'SparseMatrix']]],
   ['getnormrows_83',['getNormRows',['../classSparseMatrix.html#a0e8677710d1ca5834b3b501dab6b6831',1,'SparseMatrix']]],
   ['getnvehicletype_84',['getNVehicleType',['../classVehicle.html#a90acb78aef5d58ffaa9f23cf2ed7795c',1,'Vehicle']]],

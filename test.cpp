@@ -7,20 +7,20 @@ TEST_CASE("Boolean Matrix") {
     SparseMatrix<bool> m;
     CHECK(m.getRowDim() == 0);
     CHECK(m.getColDim() == 0);
-    CHECK(m.size() == 0);
+    CHECK(m.max_size() == 0);
   }
   SUBCASE("Constructor with dimensions") {
     SparseMatrix<bool> m(3, 3);
     CHECK(m.getRowDim() == 3);
     CHECK(m.getColDim() == 3);
-    CHECK(m.size() == 9);
+    CHECK(m.max_size() == 9);
     CHECK_THROWS(m(-1, -1));
   }
   SUBCASE("Constructor with dimension") {
     SparseMatrix<bool> m(3);
     CHECK(m.getRowDim() == 3);
     CHECK(m.getColDim() == 1);
-    CHECK(m.size() == 3);
+    CHECK(m.max_size() == 3);
     CHECK_THROWS(m(-1));
   }
   SUBCASE("Insertions") {
@@ -85,14 +85,14 @@ TEST_CASE("Boolean Matrix") {
   }
   SUBCASE("Get size") {
     SparseMatrix<bool> m(3, 3);
-    CHECK(m.size() == 9);
+    CHECK(m.max_size() == 9);
   }
   SUBCASE("Get number of non-zero elements") {
     SparseMatrix<bool> m(3, 3);
     m.insert(0, 0, true);
     m.insert(0, 1, true);
     m.insert(0, 2, true);
-    CHECK(m.getNonZeroElements() == 3);
+    CHECK(m.size() == 3);
   }
   SUBCASE("Erase row") {
     SparseMatrix<bool> d(3, 3);

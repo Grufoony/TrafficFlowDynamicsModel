@@ -1,4 +1,4 @@
-//! SparseMatrix class v1.62 by Grufoony
+//! SparseMatrix class v1.63 by Grufoony
 
 //!  This class implements a sparse matrix. The matrix is stored in a compressed
 //!  row format. ++ 20 requiered.
@@ -195,9 +195,6 @@ public:
     }
     return _matrix.contains(index);
   };
-  /// \brief get the number of non zero elements in the matrix
-  /// \return number of non zero elements
-  int getNonZeroElements() const noexcept { return _matrix.size(); };
   /// \brief get the input degree of all nodes
   /// \return a SparseMatrix vector with the input degree of all nodes
   SparseMatrix<int> getDegreeVector() {
@@ -304,7 +301,7 @@ public:
     auto it = _matrix.begin();
     std::random_device dev;
     std::mt19937 rng(dev());
-    auto dist = std::uniform_int_distribution<int>(0, _matrix.size() - 1);
+    auto dist = std::uniform_int_distribution<int>(0, this->size() - 1);
     std::advance(it, dist(rng));
     std::pair<int, T> res = *it;
     return res;
@@ -345,7 +342,12 @@ public:
   }
   int getRowDim() const noexcept { return this->_rows; }
   int getColDim() const noexcept { return this->_cols; }
-  int size() const noexcept { return this->_rows * this->_cols; }
+  /// \brief get the number of non zero elements in the matrix
+  /// \return number of non zero elements
+  int size() const noexcept { return _matrix.size(); };
+  /// \brief get the maximum number of elements in the matrix
+  /// \return maximum number of elements
+  int max_size() const noexcept { return this->_rows * this->_cols; }
   T at(int i, int j) const {
     if (i >= _rows || j >= _cols || i < 0 || j < 0) {
       throw std::out_of_range("Index out of range");
