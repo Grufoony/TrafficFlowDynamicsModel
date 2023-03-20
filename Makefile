@@ -1,4 +1,4 @@
-.PHONY: traveltime constant peaked periodic linux debug windows visual docs format
+.PHONY: traveltime constant peaked periodic linux debug windows visual docs
 traveltime:
 	clear
 	./test.wsl ./data/matrix.dat ./data/vehicletype.dat 300 200 15001
@@ -25,16 +25,14 @@ visual:
 	python3 ./utils/visual.py
 docs:
 	clear
+	clang-format -i ./*.cpp
+	clang-format -i ./src/*.cpp
+	clang-format -i ./src/*.hpp
+	clang-format -i ./utils/*.cpp
+	clang-format -i ./utils/*.hpp
 	doxygen Doxyfile
 test:
 	clear
 	g++ -std=c++20 -O3 ./test.cpp -o test.out
 	./test.out
 	rm -r ./test.out
-format:
-	clear
-	clang-format -i ./*.cpp
-	clang-format -i ./src/*.cpp
-	clang-format -i ./src/*.hpp
-	clang-format -i ./utils/*.cpp
-	clang-format -i ./utils/*.hpp
