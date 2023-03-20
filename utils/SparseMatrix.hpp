@@ -1,4 +1,4 @@
-//! SparseMatrix class v1.6 by Grufoony
+//! SparseMatrix class v1.61 by Grufoony
 
 //!  This class implements a sparse matrix. The matrix is stored in a compressed
 //!  row format. ++ 20 requiered.
@@ -258,15 +258,12 @@ public:
   std::pair<int, T> getRndRowElement(int index) const {
     if (index >= _rows || index < 0)
       throw std::out_of_range("Index out of range");
-    auto row = this->getRow(index);
+    auto const row = this->getRow(index);
     if (row.size() == 0)
       throw std::runtime_error("SparseMatrix: row is empty");
-    auto it = row.begin();
-    std::random_device dev;
-    std::mt19937 rng(dev());
-    auto dist = std::uniform_int_distribution<int>(0, row.size() - 1);
-    std::advance(it, dist(rng));
-    return *it;
+    std::pair<int, T> res = row.getRndElement();
+    res.first += index * _cols;
+    return res;
   }
   /// @brief get a random element from a column
   /// @param index column index
@@ -274,15 +271,13 @@ public:
   std::pair<int, T> getRndColElement(int index) const {
     if (index >= _cols || index < 0)
       throw std::out_of_range("Index out of range");
-    auto col = this->getCol(index);
+    auto const col = this->getCol(index);
     if (col.size() == 0)
       throw std::runtime_error("SparseMatrix: col is empty");
-    auto it = col.begin();
-    std::random_device dev;
-    std::mt19937 rng(dev());
-    auto dist = std::uniform_int_distribution<int>(0, col.size() - 1);
-    std::advance(it, dist(rng));
-    return *it;
+    std::pair<int, T> res = col.getRndElement();
+    res.first *= _cols;
+    res.first += index;
+    return res;
   }
   /// @brief get a random element from the matrix
   /// @return a pair containing the row index and the value
@@ -292,7 +287,8 @@ public:
     std::mt19937 rng(dev());
     auto dist = std::uniform_int_distribution<int>(0, _matrix.size() - 1);
     std::advance(it, dist(rng));
-    return *it;
+    std::pair<int, T> res = *it;
+    return res;
   }
   /// @brief get a matrix of double with every row normalized to 1
   /// @return a matrix of double

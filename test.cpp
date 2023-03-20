@@ -140,4 +140,34 @@ TEST_CASE("Boolean Matrix") {
     CHECK(v(1) == 1);
     CHECK(v(2) == 1);
   }
+  SUBCASE("Random Elements") {
+    SparseMatrix<bool> m(3, 3);
+    m.insert(0, 0, true);
+    m.insert(1, 2, true);
+    m.insert(2, 1, true);
+    for(int i = 0; i < 9; ++i) {
+      auto e = m.getRndElement();
+      CHECK(m.contains(e.first));
+    }
+  }
+  SUBCASE("Random Row") {
+    SparseMatrix<bool> m(3, 3);
+    m.insert(0, 0, true);
+    m.insert(1, 2, true);
+    m.insert(2, 1, true);
+    for(int i = 0; i < 3; ++i) {
+      auto e = m.getRndRowElement(i);
+      CHECK(m.contains(e.first));
+    }
+  }
+  SUBCASE("Random Column") {
+    SparseMatrix<bool> m(3, 3);
+    m.insert(0, 0, true);
+    m.insert(1, 2, true);
+    m.insert(2, 1, true);
+    for(int i = 0; i < 3; ++i) {
+      auto e = m.getRndColElement(i);
+      CHECK(m.contains(e.first));
+    }
+  }
 }
