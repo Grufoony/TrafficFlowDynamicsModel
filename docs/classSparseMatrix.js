@@ -1,6 +1,7 @@
 var classSparseMatrix =
 [
-    [ "SparseMatrix", "classSparseMatrix.html#ac4fad387514e433531d4ea8dd35a5ca0", null ],
+    [ "SparseMatrix", "classSparseMatrix.html#a6ebfea970e40ba01644c8a935654ba11", null ],
+    [ "SparseMatrix", "classSparseMatrix.html#a60d0d81dccf54e68cbe4fb1ab063a6b2", null ],
     [ "SparseMatrix", "classSparseMatrix.html#a84fb83fdf9040d1e75875915e2592883", null ],
     [ "at", "classSparseMatrix.html#a127f2e142cc877bae813e30f703d405f", null ],
     [ "at", "classSparseMatrix.html#ac7709c3a991fa12d4307547a1ac8d863", null ],
@@ -25,6 +26,7 @@ var classSparseMatrix =
     [ "getRndRowElement", "classSparseMatrix.html#aab6544032f5320f24b29312761f8f459", null ],
     [ "getRow", "classSparseMatrix.html#a9cd0410639a28758d55bada1923ceb06", null ],
     [ "getRowDim", "classSparseMatrix.html#a1057ebdc0fe71bf0f89c55fb2a0fa9ff", null ],
+    [ "getStrengthVector", "classSparseMatrix.html#a735028ac1c776ca9026732cf30da00a3", null ],
     [ "insert", "classSparseMatrix.html#a32f9cbc205790dacbdda6a5b343fca97", null ],
     [ "insert", "classSparseMatrix.html#a9944b09fc586a3df54215405a6b12736", null ],
     [ "insert_or_assign", "classSparseMatrix.html#a21af04efe82db384fb12f97e1b03b9e9", null ],

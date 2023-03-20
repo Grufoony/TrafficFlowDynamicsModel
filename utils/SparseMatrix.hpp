@@ -1,4 +1,4 @@
-//! SparseMatrix class v1.61 by Grufoony
+//! SparseMatrix class v1.62 by Grufoony
 
 //!  This class implements a sparse matrix. The matrix is stored in a compressed
 //!  row format. ++ 20 requiered.
@@ -195,7 +195,11 @@ public:
     }
     return _matrix.contains(index);
   };
+  /// \brief get the number of non zero elements in the matrix
+  /// \return number of non zero elements
   int getNonZeroElements() const noexcept { return _matrix.size(); };
+  /// \brief get the input degree of all nodes
+  /// \return a SparseMatrix vector with the input degree of all nodes
   SparseMatrix<int> getDegreeVector() {
     if (_rows != _cols) {
       throw std::runtime_error(
@@ -207,6 +211,21 @@ public:
                                     degreeVector.at(i.first / _cols, 0) + 1);
     }
     return degreeVector;
+  };
+  /// \brief get the strength of all nodes
+  /// \return a SparseMatrix vector with the strength of all nodes
+  SparseMatrix<double> getStrengthVector() {
+    if (_rows != _cols) {
+      throw std::runtime_error(
+          "SparseMatrix: getStrengthVector only works on square matrices");
+    }
+    auto strengthVector = SparseMatrix<double>(_rows, 1);
+    for (auto &i : _matrix) {
+      strengthVector.insert_or_assign(i.first / _cols, 0,
+                                      strengthVector.at(i.first / _cols, 0) +
+                                          i.second);
+    }
+    return strengthVector;
   };
   SparseMatrix<int> getLaplacian() {
     if (_rows != _cols) {
