@@ -48,8 +48,7 @@ public:
   void setTemperature(double const); //!< set the temperature of the network
   void updateTransMatrix(); //!< create all the transition matrices for all
                             //!< vehicle types
-  void evolve(bool);        //!< evolve the network and ask if reinsertion is
-                            //!< needed
+  void evolve(bool);        //!< evolve the network
   void evolve();            //!< evolve the network with reinsertion (default)
 
   void printMatrix() noexcept;           //!< print adjency matrix on terminal

@@ -242,8 +242,8 @@ double Graph::_getStreetMeanVelocity(int const streetIndex) const {
     return vCum / i;
   }
 }
-/// \brief Generate the graph from the matrix
-/// \param fName matrix file path
+/// @brief Generate the graph from the matrix
+/// @param fName matrix file path
 Graph::Graph(std::string fName) {
   _n = 0;
   std::ifstream data;
@@ -288,7 +288,7 @@ Graph::Graph(std::string fName) {
   }
 }
 
-/// \param type vehicle type
+/// @param type vehicle type
 void Graph::addVehicle(int type) {
   if (type < 0 || !(type < Vehicle::getNVehicleType())) {
     std::string msg = "Graph.cpp:" + std::to_string(__LINE__) + '\t' +
@@ -297,9 +297,9 @@ void Graph::addVehicle(int type) {
   }
   _vehicles.push_back(std::make_shared<Vehicle>(Vehicle(type)));
 }
-/// \brief Adds a fixed number of vehicles with random types
+/// @brief Adds a fixed number of vehicles with random types
 /// Adds a fixed number of vehicles with random types starting at their origin
-/// \param nVehicles number of vehicles
+/// @param nVehicles number of vehicles
 void Graph::addRndmVehicles(int nVehicles) {
   if (nVehicles < 0)
     throw std::invalid_argument(
@@ -310,9 +310,9 @@ void Graph::addRndmVehicles(int nVehicles) {
     this->addVehicle(index);
   }
 }
-/// \brief Adds a fixed number of vehicles with random types
+/// @brief Adds a fixed number of vehicles with random types
 /// Adds a fixed number of vehicles with random types uniformply distributed on
-/// the graph \param nVehicles number of vehicles
+/// the graph @param nVehicles number of vehicles
 void Graph::addVehiclesUniformly(int nVehicles) {
   if (nVehicles < 0)
     throw std::invalid_argument(
@@ -337,15 +337,18 @@ void Graph::loadVehicles(const char *fName) {
   }
   // TODO: add vehicles on _streets from file
 }
-/// \brief set the system temperature
-/// \param temperature
+/// @brief set the system temperature
+/// @param temperature
 void Graph::setTemperature(double const temperature) {
   if (temperature < 0)
     throw std::invalid_argument("Graph::setTemperature: temperature must be "
                                 "positive.\n");
   _temperature = temperature;
 }
-
+/// @brief update the transition matrix
+/// @details The transition matrix is updated according to the expected
+/// traveltime using Dijsktra's algorithm. It uses also temperature to
+/// simulate the effect of a noise.
 void Graph::updateTransMatrix() {
   // function for noise using a kelvin-like temperature normalization
   auto const noise = std::tanh(_temperature * TEMP_NORM);
@@ -375,18 +378,18 @@ void Graph::updateTransMatrix() {
     vehicle->setTransMatrix(matrix);
   }
 }
-/// \brief Updates the state of the system
-/// Updates the state of the system by moving vehicles using dijkstra's
-/// algorithm \param reinsert if true, vehicles are reinserted in the streets
+/// @brief Updates the state of the system
+/// @details Updates the state of the system by moving vehicles
+/// @param reinsert if true, vehicles are reinserted in the streets
 /// from their origin
 void Graph::evolve(bool reinsert) { this->_evolve(reinsert); }
-/// \brief Updates the state of the system reinserting vehicles
-/// Updates the state of the system by moving vehicles using dijkstra's
-/// algorithm and reinserting vehicles in the streets from their origin
+/// @brief Updates the state of the system reinserting vehicles
+/// Updates the state of the system by moving vehicles and reinserting them in
+/// the streets from their origin
 void Graph::evolve() { this->_evolve(true); }
-/// \brief Print the transition matrix
+/// @brief Print the transition matrix
 void Graph::printMatrix() noexcept { _adjMatrix.print(); }
-/// \brief Print informations about the system
+/// @brief Print informations about the system
 void Graph::print(bool const printGraph) const noexcept {
   std::cout << "-------------------------" << '\n';
   std::cout << "NETWORK INFORMATIONS\n";
@@ -421,7 +424,7 @@ void Graph::print(bool const printGraph) const noexcept {
   }
   std::cout << "-------------------------" << '\n';
 }
-/// \brief Print information of every street.
+/// @brief Print information of every street.
 /// Print information of every street like index, origin, destination, number of
 /// vehicles and input velocity.
 void Graph::printStreets() const noexcept {
@@ -438,8 +441,8 @@ void Graph::printStreets() const noexcept {
 }
 
 void Graph::fprintMatrix(const char *fName) { _adjMatrix.fprint(fName); }
-/// \brief Print information of the network.
-/// \param printGraph if true, prints the graph.
+/// @brief Print information of the network.
+/// @param printGraph if true, prints the graph.
 /// Print information of the network like number of nodes, number of streets and
 /// the graph.
 void Graph::fprint(const bool printGraph) const noexcept {
@@ -451,8 +454,8 @@ void Graph::fprint(const bool printGraph) const noexcept {
   std::cout.rdbuf(rdbufBackup);
   fOut.close();
 }
-/// \brief Print network's data in a format readable by the script visual.py.
-/// \param outFolder folder where the data file will be saved.
+/// @brief Print network's data in a format readable by the script visual.py.
+/// @param outFolder folder where the data file will be saved.
 void Graph::fprintVisual(std::string const &outFolder) const noexcept {
   std::ofstream fOut;
   auto out = outFolder + std::to_string(_time) + ".dat";
@@ -469,14 +472,14 @@ void Graph::fprintVisual(std::string const &outFolder) const noexcept {
   std::cout.rdbuf(rdbufBackup);
   fOut.close();
 }
-/// \brief Print some network's data in a elegible format.
-/// \param outFolder folder where the data file will be saved.
-/// \param opt is used to select wich data print. In particolar you can choose
+/// @brief Print some network's data in a elegible format.
+/// @param outFolder folder where the data file will be saved.
+/// @param opt is used to select wich data print. In particolar you can choose
 /// between the following options:
 /// - "density" to print the histogram of the vehicle density on the streets.
 /// - "traveltime" to print the histogram of the travel time of the vehicles.
-/// \param nBins is the number of bins used to create the histogram.
-/// \param format is the format of the data. In particolar you can choose
+/// @param nBins is the number of bins used to create the histogram.
+/// @param format is the format of the data. In particolar you can choose
 /// between the following options:
 /// - "latex" to print the data in a format readable by latex.
 /// - "root" to print the data in a format readable by root.
@@ -543,8 +546,8 @@ void Graph::fprintHistogram(std::string const &outFolder,
   }
   fOut.close();
 }
-/// \brief Print some network's data distributions in a format readable by
-/// LaTeX. \param outFolder folder where the data file will be saved. \param opt
+/// @brief Print some network's data distributions in a format readable by
+/// LaTeX. @param outFolder folder where the data file will be saved. @param opt
 /// is used to select wich data print. In particolar you can choose between the
 /// following options:
 /// - "u/q" to print the velocity/flux distribution
@@ -585,9 +588,9 @@ void Graph::fprintDistribution(std::string const &outFolder,
   }
   fOut.close();
 }
-/// \brief Print some network's data in a format readable by LaTeX.
-/// \param outFolder folder where the data file will be saved.
-/// \param opt is used to select wich data print. In particolar you can choose
+/// @brief Print some network's data in a format readable by LaTeX.
+/// @param outFolder folder where the data file will be saved.
+/// @param opt is used to select wich data print. In particolar you can choose
 /// between the following options:
 /// - "k" to append the mean capacity of the network to the file k-t.dat
 /// - "q" to append the mean flow of the network to the file q-t.dat
@@ -634,9 +637,9 @@ void Graph::fprintTimeDistribution(std::string const &outFolder,
   }
   fOut.close();
 }
-/// \brief Print the means of some network's data in a format readable by LaTeX.
-/// \param outFolder folder where the data file will be saved.
-/// \param opt is used to select wich data print. In particolar you can choose
+/// @brief Print the means of some network's data in a format readable by LaTeX.
+/// @param outFolder folder where the data file will be saved.
+/// @param opt is used to select wich data print. In particolar you can choose
 /// between the following options:
 /// - "q/k" to print the mean flow/capacity
 /// - "u/k" to print the mean velocity/capacity

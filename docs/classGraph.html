@@ -116,9 +116,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memdesc:a70222d1b1b30e79ff60d7d7fa8748055"><td class="mdescLeft">&#160;</td><td class="mdescRight">set the temperature of the network  <a href="classGraph.html#a70222d1b1b30e79ff60d7d7fa8748055">More...</a><br /></td></tr>
 <tr class="separator:a70222d1b1b30e79ff60d7d7fa8748055"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5abc2104b5ac818a1bea6254181cf838"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGraph.html#a5abc2104b5ac818a1bea6254181cf838">updateTransMatrix</a> ()</td></tr>
+<tr class="memdesc:a5abc2104b5ac818a1bea6254181cf838"><td class="mdescLeft">&#160;</td><td class="mdescRight">update the transition matrix  <a href="classGraph.html#a5abc2104b5ac818a1bea6254181cf838">More...</a><br /></td></tr>
 <tr class="separator:a5abc2104b5ac818a1bea6254181cf838"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a40dce401fb65fcd29e6ddc1ccaeb3127"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGraph.html#a40dce401fb65fcd29e6ddc1ccaeb3127">evolve</a> (bool)</td></tr>
-<tr class="memdesc:a40dce401fb65fcd29e6ddc1ccaeb3127"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the state of the system Updates the state of the system by moving vehicles using dijkstra's algorithm.  <a href="classGraph.html#a40dce401fb65fcd29e6ddc1ccaeb3127">More...</a><br /></td></tr>
+<tr class="memdesc:a40dce401fb65fcd29e6ddc1ccaeb3127"><td class="mdescLeft">&#160;</td><td class="mdescRight">evolve the network  <a href="classGraph.html#a40dce401fb65fcd29e6ddc1ccaeb3127">More...</a><br /></td></tr>
 <tr class="separator:a40dce401fb65fcd29e6ddc1ccaeb3127"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe7ffc0c4f75e34ee27c83dcd9b7f82b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classGraph.html#afe7ffc0c4f75e34ee27c83dcd9b7f82b">evolve</a> ()</td></tr>
 <tr class="memdesc:afe7ffc0c4f75e34ee27c83dcd9b7f82b"><td class="mdescLeft">&#160;</td><td class="mdescRight">evolve the network with reinsertion (default)  <a href="classGraph.html#afe7ffc0c4f75e34ee27c83dcd9b7f82b">More...</a><br /></td></tr>
@@ -288,7 +289,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>test</b> ()</td></tr>
 </div><div class="memdoc">
 
 <p>evolve the network with reinsertion (default) </p>
-<p>Updates the state of the system reinserting vehicles Updates the state of the system by moving vehicles using dijkstra's algorithm and reinserting vehicles in the streets from their origin. </p>
+<p>Updates the state of the system reinserting vehicles Updates the state of the system by moving vehicles and reinserting them in the streets from their origin. </p>
 
 </div>
 </div>
@@ -308,9 +309,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>test</b> ()</td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Updates the state of the system Updates the state of the system by moving vehicles using dijkstra's algorithm. </p>
-<p>evolve the network and ask if reinsertion is needed</p>
-<dl class="params"><dt>Parameters</dt><dd>
+<p>evolve the network </p>
+<p>Updates the state of the system.</p>
+<p>Updates the state of the system by moving vehicles </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">reinsert</td><td>if true, vehicles are reinserted in the streets from their origin </td></tr>
   </table>
@@ -708,7 +709,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>test</b> ()</td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>create all the transition matrices for all vehicle types </p>
+
+<p>update the transition matrix </p>
+<p>create all the transition matrices for all vehicle types</p>
+<p>The transition matrix is updated according to the expected traveltime using Dijsktra's algorithm. It uses also temperature to simulate the effect of a noise. </p>
 
 </div>
 </div>
