@@ -5,8 +5,8 @@
 
 std::vector<std::shared_ptr<VehicleType>> Vehicle::_vehicleType;
 
-/// \brief Create a new Vehicle object.
-/// \param type The index of the vehicle type in _vehicleType.
+/// @brief Create a new Vehicle object.
+/// @param type The index of the vehicle type in _vehicleType.
 Vehicle::Vehicle(uint8_t type) {
   if (type < static_cast<int>(_vehicleType.size())) {
     _index = type;
@@ -17,9 +17,9 @@ Vehicle::Vehicle(uint8_t type) {
     throw std::invalid_argument(msg);
   }
 }
-/// \brief Add a vehicle type in _vehicleType.
-/// \param src The source node.
-/// \param dst The destination node.
+/// @brief Add a vehicle type in _vehicleType.
+/// @param src The source node.
+/// @param dst The destination node.
 void Vehicle::addVehicleType(uint16_t src, uint16_t dst) {
   _vehicleType.push_back(std::make_shared<VehicleType>(VehicleType(src, dst)));
 }
@@ -52,8 +52,8 @@ void Vehicle::addVehicleType(std::string fName) {
   }
   data.close();
 }
-/// \brief Get the vehicle type.
-/// \return A pointer to the vehicle type object.
+/// @brief Get the vehicle type.
+/// @return A pointer to the vehicle type object.
 std::shared_ptr<VehicleType> Vehicle::getVehicleType(int8_t const index) {
   if (index < 0 || index > getNVehicleType() - 1) {
     std::string msg = "Vehicle.cpp:" + std::to_string(__LINE__) + '\t' +
@@ -101,7 +101,7 @@ void Vehicle::setVelocity(double vel) {
   _velocity = vel;
 }
 double Vehicle::getVelocity() const { return _velocity; }
-/// \brief Increment the time traveled by the vehicle.
+/// @brief Increment the time traveled by the vehicle.
 void Vehicle::incrementTimeTraveled() { ++_timeTraveled; }
 int Vehicle::getTimeTraveled() const { return _timeTraveled; }
 void Vehicle::resetTimeTraveled() { _timeTraveled = 0; }

@@ -2,17 +2,17 @@
 #include <stdexcept>
 #include <string>
 
-/// \brief Create a new VehicleType object.
-/// \param src The source node.
-/// \param dst The destination node.
+/// @brief Create a new VehicleType object.
+/// @param src The source node.
+/// @param dst The destination node.
 VehicleType::VehicleType(uint16_t src, uint16_t dst) {
   _trip[0] = src;
   _trip[1] = dst;
 }
 uint16_t VehicleType::getSource() const noexcept { return _trip[0]; }
 uint16_t VehicleType::getDestination() const noexcept { return _trip[1]; }
-/// \brief Set the transition matrix.
-/// \param transMatrix The transition matrix.
+/// @brief Set the transition matrix.
+/// @param transMatrix The transition matrix.
 void VehicleType::setTransMatrix(SparseMatrix<double> &matrix) {
   this->_transMatrix = matrix;
 }
