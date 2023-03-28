@@ -379,7 +379,17 @@ void Graph::updateTransMatrix() {
   }
 }
 /// @brief Updates the state of the system
-/// @details Updates the state of the system by moving vehicles
+/// @details Updates the state of the system by moving vehicles. The evolution
+/// algorithm, for all vehicles:
+/// - checks if a vehicle is able to move from its actual position, i.e. checks
+/// its time penalty. If it is not able to move then the penalty is decreased by
+/// one. If it is able the next step is randocmly choosen depending on the
+/// transition matrix.
+/// - if the destination street is full, then a time step is lost (like a STOP
+/// sign). Else, the vehicle enters the street with a velocity which depends on
+/// the veicle density of the street.
+/// - depending on the entering velocity, a new time penalty is assigned to the
+/// vehicle, of the form \f$\frac{L}{v(t)}\f$, with \f$L\f$ length of the street
 /// @param reinsert if true, vehicles are reinserted in the streets
 /// from their origin
 void Graph::evolve(bool reinsert) { this->_evolve(reinsert); }
