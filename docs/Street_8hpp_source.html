@@ -16,6 +16,13 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="theme.css" rel="stylesheet" type="text/css"/>
 </head>
@@ -133,15 +140,15 @@ $(document).ready(function(){initNavTree('Street_8hpp_source.html',''); initResi
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclassStreet_html"><div class="ttname"><a href="classStreet.html">Street</a></div><div class="ttdoc">Street class.</div><div class="ttdef"><b>Definition:</b> Street.hpp:11</div></div>
-<div class="ttc" id="aclassStreet_html_a0c166cf2e397571bece279d86bb26fd9"><div class="ttname"><a href="classStreet.html#a0c166cf2e397571bece279d86bb26fd9">Street::getVehicleDensity</a></div><div class="ttdeci">double getVehicleDensity() const noexcept</div><div class="ttdoc">get instant vehicle density for the stree</div><div class="ttdef"><b>Definition:</b> Street.cpp:79</div></div>
-<div class="ttc" id="aclassStreet_html_a22c7ea3d9fffa9690106e686e3ce029d"><div class="ttname"><a href="classStreet.html#a22c7ea3d9fffa9690106e686e3ce029d">Street::addVehicle</a></div><div class="ttdeci">void addVehicle(std::shared_ptr&lt; Vehicle &gt;)</div><div class="ttdoc">add a vehicle to the street</div><div class="ttdef"><b>Definition:</b> Street.cpp:85</div></div>
+<div class="ttc" id="aclassStreet_html_a0c166cf2e397571bece279d86bb26fd9"><div class="ttname"><a href="classStreet.html#a0c166cf2e397571bece279d86bb26fd9">Street::getVehicleDensity</a></div><div class="ttdeci">double getVehicleDensity() const noexcept</div><div class="ttdoc">get instant vehicle density for the stree</div><div class="ttdef"><b>Definition:</b> Street.cpp:82</div></div>
+<div class="ttc" id="aclassStreet_html_a22c7ea3d9fffa9690106e686e3ce029d"><div class="ttname"><a href="classStreet.html#a22c7ea3d9fffa9690106e686e3ce029d">Street::addVehicle</a></div><div class="ttdeci">void addVehicle(std::shared_ptr&lt; Vehicle &gt;)</div><div class="ttdoc">add a vehicle to the street</div><div class="ttdef"><b>Definition:</b> Street.cpp:88</div></div>
 <div class="ttc" id="aclassStreet_html_a31893df9143712fbd50b105a022ec20e"><div class="ttname"><a href="classStreet.html#a31893df9143712fbd50b105a022ec20e">Street::Street</a></div><div class="ttdeci">Street(int, int, double, int)</div><div class="ttdoc">Create a new Street object.</div><div class="ttdef"><b>Definition:</b> Street.cpp:14</div></div>
-<div class="ttc" id="aclassStreet_html_a3d46d9af33caa59f1e25518624d5be52"><div class="ttname"><a href="classStreet.html#a3d46d9af33caa59f1e25518624d5be52">Street::getInputVelocity</a></div><div class="ttdeci">double getInputVelocity() const noexcept</div><div class="ttdoc">get instant input velocity for the street</div><div class="ttdef"><b>Definition:</b> Street.cpp:67</div></div>
+<div class="ttc" id="aclassStreet_html_a3d46d9af33caa59f1e25518624d5be52"><div class="ttname"><a href="classStreet.html#a3d46d9af33caa59f1e25518624d5be52">Street::getInputVelocity</a></div><div class="ttdeci">double getInputVelocity() const noexcept</div><div class="ttdoc">get instant input velocity for the street</div><div class="ttdef"><b>Definition:</b> Street.cpp:70</div></div>
 <div class="ttc" id="aclassStreet_html_a71889584f1a2c7f3ff8eb70d53c282d7"><div class="ttname"><a href="classStreet.html#a71889584f1a2c7f3ff8eb70d53c282d7">Street::setNLanes</a></div><div class="ttdeci">void setNLanes(int) noexcept</div><div class="ttdoc">Set the number of lanes.</div><div class="ttdef"><b>Definition:</b> Street.cpp:49</div></div>
 <div class="ttc" id="aclassStreet_html_aaa70bfead0e982578aed7058b3010115"><div class="ttname"><a href="classStreet.html#aaa70bfead0e982578aed7058b3010115">Street::isFull</a></div><div class="ttdeci">bool isFull() const noexcept</div><div class="ttdoc">Tells if the street is full.</div><div class="ttdef"><b>Definition:</b> Street.cpp:44</div></div>
-<div class="ttc" id="aclassStreet_html_aaba4ece5616a59881bcfffa4e6eeb1c4"><div class="ttname"><a href="classStreet.html#aaba4ece5616a59881bcfffa4e6eeb1c4">Street::getDensity</a></div><div class="ttdeci">double getDensity() const noexcept</div><div class="ttdoc">get instant density for the street (in percentage)</div><div class="ttdef"><b>Definition:</b> Street.cpp:74</div></div>
+<div class="ttc" id="aclassStreet_html_aaba4ece5616a59881bcfffa4e6eeb1c4"><div class="ttname"><a href="classStreet.html#aaba4ece5616a59881bcfffa4e6eeb1c4">Street::getDensity</a></div><div class="ttdeci">double getDensity() const noexcept</div><div class="ttdoc">get instant density for the street (in percentage)</div><div class="ttdef"><b>Definition:</b> Street.cpp:77</div></div>
 <div class="ttc" id="aclassStreet_html_abe49b4d7450640c3f83c55fc682a86fd"><div class="ttname"><a href="classStreet.html#abe49b4d7450640c3f83c55fc682a86fd">Street::setVMax</a></div><div class="ttdeci">void setVMax(double)</div><div class="ttdoc">Set the maximum velocity.</div><div class="ttdef"><b>Definition:</b> Street.cpp:56</div></div>
-<div class="ttc" id="aclassStreet_html_ac3ff4ad461cdde617571778827fdd906"><div class="ttname"><a href="classStreet.html#ac3ff4ad461cdde617571778827fdd906">Street::remVehicle</a></div><div class="ttdeci">void remVehicle()</div><div class="ttdoc">remove a vehicle from the street</div><div class="ttdef"><b>Definition:</b> Street.cpp:92</div></div>
+<div class="ttc" id="aclassStreet_html_ac3ff4ad461cdde617571778827fdd906"><div class="ttname"><a href="classStreet.html#ac3ff4ad461cdde617571778827fdd906">Street::remVehicle</a></div><div class="ttdeci">void remVehicle()</div><div class="ttdoc">remove a vehicle from the street</div><div class="ttdef"><b>Definition:</b> Street.cpp:95</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

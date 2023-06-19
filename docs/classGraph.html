@@ -16,6 +16,13 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script>
+<script type="text/javascript" async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="theme.css" rel="stylesheet" type="text/css"/>
 </head>
@@ -311,12 +318,17 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>test</b> ()</td></tr>
 
 <p>evolve the network </p>
 <p>Updates the state of the system.</p>
-<p>Updates the state of the system by moving vehicles </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Updates the state of the system by moving vehicles. The evolution algorithm, for all vehicles:</p><ul>
+<li>checks if a vehicle is able to move from its actual position, i.e. checks its time penalty. If it is not able to move then the penalty is decreased by one. If it is able the next step is randocmly choosen depending on the transition matrix.</li>
+<li>if the destination street is full, then a time step is lost (like a STOP sign). Else, the vehicle enters the street with a velocity which depends on the veicle density of the street.</li>
+<li>depending on the entering velocity, a new time penalty is assigned to the vehicle, of the form \(\frac{L}{v(t)}\), with \(L\) length of the street <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">reinsert</td><td>if true, vehicles are reinserted in the streets from their origin </td></tr>
   </table>
   </dd>
 </dl>
+</li>
+</ul>
 
 </div>
 </div>
