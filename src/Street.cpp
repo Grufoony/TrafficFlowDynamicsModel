@@ -46,10 +46,14 @@ bool Street::isFull() const noexcept {
 }
 /// @brief Set the number of lanes.
 /// @param nLanes The number of lanes.
-void Street::setNLanes(int n) noexcept {
-  if (n > 0)
-    _nLanes = n;
+void Street::setNLanes(int n) {
+  std::string msg = "Street.cpp:" + std::to_string(__LINE__) + '\t' +
+                    "Number of lanes must be positive.\n";
+  n > 0 ? _nLanes = n : throw std::invalid_argument(msg);
 }
+int Street::getNLanes() const noexcept { return _nLanes; }
+/// @brief Get the number of vehicles on the street.
+/// @return The number of vehicles on the street.
 int Street::getNVehicles() const noexcept { return _nVehicles; }
 /// @brief Set the maximum velocity.
 /// @param vMax The maximum velocity.
@@ -72,6 +76,8 @@ double Street::getInputVelocity() const noexcept { // linear decay
           (1 - (_vMin * (static_cast<double>(_nVehicles) /
                          static_cast<double>((_nLanes * _maxCapacity))))));
 }
+/// @brief Get the maximum velocity.
+/// @return The maximum velocity.
 double Street::getVMax() const noexcept { return _vMax; }
 /// @brief Get the density of the street.
 double Street::getDensity() const noexcept {
@@ -93,10 +99,7 @@ void Street::addVehicle(std::shared_ptr<Vehicle> vehicle) {
   ++_nVehicles;
 }
 void Street::remVehicle() {
-  --_nVehicles;
-  if (_nVehicles < 0) {
-    std::string msg =
-        "Street.cpp:" + std::to_string(__LINE__) + '\t' + "nVehicles < 0.\n";
-    throw std::runtime_error(msg);
-  }
+  std::string msg =
+      "Street.cpp:" + std::to_string(__LINE__) + '\t' + "nVehicles < 0.\n";
+  _nVehicles > 0 ? --_nVehicles : throw std::runtime_error(msg);
 }

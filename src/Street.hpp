@@ -31,7 +31,8 @@ public:
   int getIndex() const noexcept;
   double getLength() const noexcept;
   bool isFull() const noexcept;
-  void setNLanes(int) noexcept;
+  void setNLanes(int);
+  int getNLanes() const noexcept;
   int getNVehicles() const noexcept;
   void setVMax(double);
   double getInputVelocity()
