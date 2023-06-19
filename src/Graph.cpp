@@ -610,36 +610,26 @@ void Graph::fprintTimeDistribution(std::string const &outFolder,
                                    double const timeZero) const {
   // timeZero in hours
   std::ofstream fOut;
+  auto meanDensity = 0.;
+  auto meanVelocity = 0.;
+  for (auto const &street : _streets) {
+    meanDensity += street->getVehicleDensity() * 1e3;
+    meanVelocity += this->_getStreetMeanVelocity(street->getIndex()) * 3.6;
+  }
+  meanDensity /= _streets.size();
+  meanVelocity /= _streets.size();
   if (opt == "k") {
     auto out = outFolder + "k-t.dat";
     fOut.open(out, std::ios_base::app);
-    auto meanDensity = 0.;
-    for (auto const &street : _streets) {
-      meanDensity += street->getVehicleDensity() * 1e3;
-    }
-    meanDensity /= _streets.size();
     fOut << _time / 3.6e3 + timeZero << '\t' << meanDensity << '\n';
   } else if (opt == "q") {
     auto out = outFolder + "q-t.dat";
     fOut.open(out, std::ios_base::app);
-    auto meanDensity = 0.;
-    auto meanVelocity = 0.;
-    for (auto const &street : _streets) {
-      meanDensity += street->getVehicleDensity() * 1e3;
-      meanVelocity += this->_getStreetMeanVelocity(street->getIndex()) * 3.6;
-    }
-    meanDensity /= _streets.size();
-    meanVelocity /= _streets.size();
     fOut << _time / 3.6e3 + timeZero << '\t' << meanDensity * meanVelocity
          << '\n';
   } else if (opt == "u") {
     auto out = outFolder + "u-t.dat";
     fOut.open(out, std::ios_base::app);
-    auto meanVelocity = 0.;
-    for (auto const &street : _streets) {
-      meanVelocity += this->_getStreetMeanVelocity(street->getIndex()) * 3.6;
-    }
-    meanVelocity /= _streets.size();
     fOut << _time / 3.6e3 + timeZero << '\t' << meanVelocity << '\n';
   } else {
     throw std::invalid_argument("Graph::fprintTimeDistribution: Invalid "
@@ -656,15 +646,16 @@ void Graph::fprintTimeDistribution(std::string const &outFolder,
 void Graph::fprintActualState(std::string const &outFolder,
                               std::string const &opt) const {
   std::ofstream fOut;
-  if (opt == "q/k") {
-    auto meanDensity = 0.;
-    auto meanVelocity = 0.;
-    for (auto const &street : _streets) {
-      meanDensity += street->getVehicleDensity() * 1e3;
-      meanVelocity += this->_getStreetMeanVelocity(street->getIndex()) * 3.6;
-    }
-    meanDensity /= _streets.size();
-    meanVelocity /= _streets.size();
+  // Compute mean density and velocity
+  auto meanDensity = 0.;
+  auto meanVelocity = 0.;
+  for (auto const &street : _streets) {
+    meanDensity += street->getVehicleDensity() * 1e3;
+    meanVelocity += this->_getStreetMeanVelocity(street->getIndex()) * 3.6;
+  }
+  meanDensity /= _streets.size();
+  meanVelocity /= _streets.size();
+  if (opt == "q/k") { // Print mean flow/density
     // auto variance = 0.;
     // for (auto const &street : _streets) {
     //   variance += (street->getVehicleDensity() * 1e3 - meanDensity) *
@@ -679,15 +670,7 @@ void Graph::fprintActualState(std::string const &outFolder,
     //           << this->_getStreetMeanVelocity(street->getIndex()) *
     //                  street->getVehicleDensity() * 3.6e3
     //           << '\n';
-  } else if (opt == "u/k") {
-    auto meanDensity = 0.;
-    auto meanVelocity = 0.;
-    for (auto const &street : _streets) {
-      meanDensity += street->getVehicleDensity() * 1e3;
-      meanVelocity += this->_getStreetMeanVelocity(street->getIndex()) * 3.6;
-    }
-    meanDensity /= _streets.size();
-    meanVelocity /= _streets.size();
+  } else if (opt == "u/k") { // Print mean velocity/density
     auto out = outFolder + "u-k.dat";
     fOut.open(out, std::ios_base::app);
     fOut << meanDensity << '\t' << meanVelocity << '\n';
@@ -697,23 +680,23 @@ void Graph::fprintActualState(std::string const &outFolder,
   fOut.close();
 }
 
-void Graph::save(const char *fileName) const noexcept {
-  std::ofstream fOut;
-  fOut.open(fileName);
-  // TODO: save network state on file
-  fOut.close();
-}
+// void Graph::save(const char *fileName) const noexcept {
+//   std::ofstream fOut;
+//   fOut.open(fileName);
+//   // TODO: save network state on file
+//   fOut.close();
+// }
 
-// funzione da eliminare (DEBUG)
-void Graph::test() {
-  // to root file
-  std::ofstream fOut;
-  auto out = "./temp_data/" + std::to_string(_time) + "_root.dat";
-  fOut.open(out);
-  for (auto const &vehicle : _vehicles) {
-    if (vehicle->getPosition() == vehicle->getDestination()) {
-      fOut << vehicle->getTimeTraveled() / 60 << '\n';
-    }
-  }
-  fOut.close();
-}
+// // funzione da eliminare (DEBUG)
+// void Graph::test() {
+//   // to root file
+//   std::ofstream fOut;
+//   auto out = "./temp_data/" + std::to_string(_time) + "_root.dat";
+//   fOut.open(out);
+//   for (auto const &vehicle : _vehicles) {
+//     if (vehicle->getPosition() == vehicle->getDestination()) {
+//       fOut << vehicle->getTimeTraveled() / 60 << '\n';
+//     }
+//   }
+//   fOut.close();
+// }

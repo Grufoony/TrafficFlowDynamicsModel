@@ -18,8 +18,6 @@ var classGraph =
     [ "print", "classGraph.html#ac834408bc1a9fde2337f5446609d85f3", null ],
     [ "printMatrix", "classGraph.html#aa3f3b7c247427a7298b62c7e1970a6b4", null ],
     [ "printStreets", "classGraph.html#a24036863a4d0dea1b58de661bba40be0", null ],
-    [ "save", "classGraph.html#aa9bd73ca87c521dfa47142f31932deda", null ],
     [ "setTemperature", "classGraph.html#a70222d1b1b30e79ff60d7d7fa8748055", null ],
-    [ "test", "classGraph.html#a64516282c804cd4b2029f8a8c6c2d968", null ],
     [ "updateTransMatrix", "classGraph.html#a5abc2104b5ac818a1bea6254181cf838", null ]
 ];

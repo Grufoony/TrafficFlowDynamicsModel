@@ -71,10 +71,10 @@ public:
   void fprintActualState(std::string const &,
                          std::string const &) const; //!< print actual state
 
-  void save(const char *) const noexcept; // TODO: save network in file
+  //   void save(const char *) const noexcept; // TODO: save network in file
 
   // funzione da eliminare che verrà usata per accedere alle private (DEBUG)
-  void test();
+  //   void test();
 };
 
 #endif
