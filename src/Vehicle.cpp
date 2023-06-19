@@ -77,7 +77,7 @@ void Vehicle::setPosition(int16_t pos) {
   _position = pos;
 }
 uint16_t Vehicle::getPosition() const { return _position; }
-uint16_t Vehicle::getPreviousPosition() const { return _previousPosition; }
+int16_t Vehicle::getPreviousPosition() const { return _previousPosition; }
 void Vehicle::setStreet(int street) { _street = street; }
 int Vehicle::getStreet() const { return _street; }
 void Vehicle::setTimePenalty(int time) {

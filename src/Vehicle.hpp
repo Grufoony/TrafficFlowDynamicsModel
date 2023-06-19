@@ -42,7 +42,7 @@ public:
       const noexcept; // return the index of the vehicle type in _vehicleType
   void setPosition(int16_t);
   uint16_t getPosition() const;
-  uint16_t getPreviousPosition() const;
+  int16_t getPreviousPosition() const;
   void setStreet(int);
   int getStreet() const;
   uint16_t getDestination() const;
