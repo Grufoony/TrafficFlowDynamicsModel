@@ -1,6 +1,8 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
-#include "./utils/SparseMatrix.hpp"
+#include "./src/Street.hpp"
+#include "./src/Vehicle.hpp"
 #include "./src/VehicleType.hpp"
+#include "./utils/SparseMatrix.hpp"
 #include "./utils/doctest.h"
 
 TEST_CASE("Boolean Matrix") {
@@ -290,5 +292,63 @@ TEST_CASE("VehicleType") {
     auto v2 = VehicleType(0, 1);
     // Check that an exception is thrown if the transition matrix is empty
     CHECK_THROWS(v2.getTransMatrix());
+  }
+}
+
+// Vehicle
+
+// Street
+
+TEST_CASE("Street") {
+  SUBCASE("Constructor and getters") {
+    // Create a street
+    Street s(0, 1, 10., 0);
+    // Check the values
+    CHECK(s.getOrigin() == 0);
+    CHECK(s.getDestination() == 1);
+    CHECK(s.getLength() == 10.);
+    CHECK(s.getIndex() == 0);
+    CHECK(!s.isFull());
+    CHECK(s.getNVehicles() == 0);
+    CHECK(s.getVMax() == 13.9); // default value
+    CHECK(s.getInputVelocity() == s.getVMax());
+    CHECK(s.getDensity() == 0.);
+    CHECK(s.getVehicleDensity() == 0.);
+    CHECK(s.getNLanes() == 1);
+  }
+  SUBCASE("NLanes") {
+    // Create a street
+    Street s(0, 1, 10., 0);
+    // Set the number of lanes
+    s.setNLanes(2);
+    // Check the number of lanes
+    CHECK(s.getNLanes() == 2);
+    // Check exceptions
+    CHECK_THROWS(s.setNLanes(-1));
+  }
+  SUBCASE("VMax") {
+    // Create a street
+    Street s(0, 1, 10., 0);
+    // Set the maximum velocity
+    s.setVMax(10.);
+    // Check the maximum velocity
+    CHECK(s.getVMax() == 10.);
+    // Check exceptions
+    CHECK_THROWS(s.setVMax(-1.));
+  }
+  SUBCASE("Add and remove vehicles") {
+    // Add a vehicle type
+    Vehicle::addVehicleType(0, 1);
+    // Create a street
+    Street s(0, 1, 10., 0);
+    // Add a vehicle
+    s.addVehicle(std::make_shared<Vehicle>(0));
+    // Check the number of vehicles
+    CHECK(s.getNVehicles() == 1);
+    // Remove a vehicle
+    s.remVehicle();
+    // Check the number of vehicles
+    CHECK(s.getNVehicles() == 0);
+    CHECK_THROWS(s.remVehicle());
   }
 }
