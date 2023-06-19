@@ -1,48 +1,66 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "./utils/SparseMatrix.hpp"
+#include "./src/VehicleType.hpp"
 #include "./utils/doctest.h"
 
 TEST_CASE("Boolean Matrix") {
   SUBCASE("Default constructor") {
+    // Create a boolean matrix
     SparseMatrix<bool> m;
+    // Check the dimensions
     CHECK(m.getRowDim() == 0);
     CHECK(m.getColDim() == 0);
     CHECK(m.max_size() == 0);
   }
   SUBCASE("Constructor with dimensions") {
+    // Create a boolean matrix
     SparseMatrix<bool> m(3, 3);
+    // Check the dimensions
     CHECK(m.getRowDim() == 3);
     CHECK(m.getColDim() == 3);
     CHECK(m.max_size() == 9);
-    CHECK_THROWS(m(-1, -1));
+    // Check exceptions
+    CHECK_THROWS(m(-1, 0));
+    CHECK_THROWS(m(0, -1));
   }
   SUBCASE("Constructor with dimension") {
+    // Create a boolean matrix
     SparseMatrix<bool> m(3);
+    // Check the dimensions
     CHECK(m.getRowDim() == 3);
     CHECK(m.getColDim() == 1);
     CHECK(m.max_size() == 3);
+    // Check exceptions
     CHECK_THROWS(m(-1));
   }
   SUBCASE("Insertions") {
+    // Create a boolean matrix
     SparseMatrix<bool> m(3, 3);
+    // Insert a true value
     m.insert(0, 0, true);
+    // Check all values
     CHECK(m(0, 0));
     for (int i = 1; i < 9; ++i) {
       CHECK(!m(i / 3, i % 3));
     }
+    // Check that an exception is thrown if the element is out of range
     CHECK_THROWS(m(-1, -1));
+    CHECK_THROWS(m(3, 1));
   }
   SUBCASE("Deletions") {
     SparseMatrix<bool> m(3, 3);
     m.insert(0, 0, true);
     m.erase(0, 0);
+    // Check if the value has been deleted
     CHECK(!m(0, 0));
   }
   SUBCASE("Clear") {
     SparseMatrix<bool> m(3, 3);
     m.insert(0, 0, true);
     m.clear();
+    // Check if the matrix is empty
     CHECK(m.size() == 0);
+    CHECK_THROWS(m(0, 0));
   }
   SUBCASE("Contains") {
     SparseMatrix<bool> m(3, 3);
@@ -53,6 +71,7 @@ TEST_CASE("Boolean Matrix") {
   }
   SUBCASE("Get row") {
     SparseMatrix<bool> m(3, 3);
+    // Create a row
     m.insert(0, 0, true);
     m.insert(0, 1, true);
     m.insert(0, 2, true);
@@ -65,6 +84,7 @@ TEST_CASE("Boolean Matrix") {
   }
   SUBCASE("Get column") {
     SparseMatrix<bool> m(3, 3);
+    // Create a column
     m.insert(0, 0, true);
     m.insert(1, 0, true);
     m.insert(2, 0, true);
@@ -96,11 +116,15 @@ TEST_CASE("Boolean Matrix") {
   }
   SUBCASE("Erase row") {
     SparseMatrix<bool> d(3, 3);
+    // Create a row
     d.insert(0, 0, true);
     d.insert(1, 2, true);
     d.insert(2, 1, true);
+    // Clone the matrix
     auto m = d;
+    // Erase the row (for each row)
     m.eraseRow(1);
+    // Check the values
     CHECK(m(0, 0));
     CHECK(m(1, 1));
     m = d;
@@ -111,6 +135,8 @@ TEST_CASE("Boolean Matrix") {
     m.eraseRow(2);
     CHECK(m(0, 0));
     CHECK(m(1, 2));
+    m.eraseRow(0);
+    CHECK(m(0, 2));
   }
   SUBCASE("Erase column") {
     SparseMatrix<bool> d(3, 3);
@@ -133,12 +159,15 @@ TEST_CASE("Boolean Matrix") {
   SUBCASE("Degree vector") {
     SparseMatrix<bool> m(3, 3);
     m.insert(0, 0, true);
+    m.insert(0, 1, true);
     m.insert(1, 2, true);
+    m.insert(2, 0, true);
     m.insert(2, 1, true);
+    m.insert(2, 2, true);
     auto v = m.getDegreeVector();
-    CHECK(v(0) == 1);
+    CHECK(v(0) == 2);
     CHECK(v(1) == 1);
-    CHECK(v(2) == 1);
+    CHECK(v(2) == 3);
   }
   SUBCASE("Random Elements") {
     SparseMatrix<bool> m(3, 3);
@@ -172,12 +201,14 @@ TEST_CASE("Boolean Matrix") {
   }
   SUBCASE("Normalized Rows") {
     SparseMatrix<bool> m(3, 3);
+    // Create a row
     m.insert(0, 0, true);
     m.insert(0, 1, true);
     m.insert(0, 2, true);
     m.insert(1, 1, true);
     m.insert(1, 2, true);
     m.insert(2, 1, true);
+    // Get the normalized rows
     auto v = m.getNormRows();
     CHECK(v(0, 0) - 1. / 3 < std::numeric_limits<double>::epsilon());
     CHECK(v(1, 1) - 1. / 2 < std::numeric_limits<double>::epsilon());
@@ -213,7 +244,9 @@ TEST_CASE("Boolean Matrix") {
     m.insert(0, 0, true);
     m.insert(0, 1, true);
     m.insert(1, 2, true);
+    // Symmetrize the matrix
     m.symmetrize();
+    // Check the values
     for (int i = 0; i < 9; ++i) {
       if (i != 4 && i != 8 && i != 2 && i != 6) {
         CHECK(m.contains(i));
@@ -221,5 +254,41 @@ TEST_CASE("Boolean Matrix") {
         CHECK(!m.contains(i));
       }
     }
+  }
+}
+
+// VehicleType
+
+TEST_CASE("VehicleType") {
+  SUBCASE("Constructor and getters") {
+    // Create a VehicleType with source 0 and destination 1
+    VehicleType v(0, 1);
+    CHECK(v.getSource() == 0);
+    CHECK(v.getDestination() == 1);
+  }
+  SUBCASE("Transition Matrix") {
+    // Create a VehicleType with source 0 and destination 1
+    VehicleType v(0, 1);
+    // Create a transition matrix
+    SparseMatrix<double> m(3, 3);
+    m.insert(0, 0, 0.5);
+    m.insert(0, 1, 0.5);
+    m.insert(1, 1, 0.5);
+    m.insert(1, 2, 0.5);
+    m.insert(2, 2, 1.);
+    // Set the transition matrix
+    v.setTransMatrix(m);
+    // Get the transition matrix
+    auto m2 = v.getTransMatrix();
+    // Check the transition matrix
+    CHECK(m2(0, 0) == 0.5);
+    CHECK(m2(0, 1) == 0.5);
+    CHECK(m2(1, 1) == 0.5);
+    CHECK(m2(1, 2) == 0.5);
+    CHECK(m2(2, 2) == 1.);
+    // Check exceptions
+    auto v2 = VehicleType(0, 1);
+    // Check that an exception is thrown if the transition matrix is empty
+    CHECK_THROWS(v2.getTransMatrix());
   }
 }
