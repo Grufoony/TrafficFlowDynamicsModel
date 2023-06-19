@@ -1,5 +1,11 @@
 #include <fstream>
 
+// Utility macro based on ROOT
+// Used to generate the histograms for the report
+// The histograms are saved in data/img
+// They are fitted and reffered to various distributions which one can find
+// during the phase transition
+
 void macro() {
   // Style Setting
   gStyle->SetOptStat(0);
