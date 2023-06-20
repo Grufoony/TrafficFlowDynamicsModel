@@ -304,7 +304,21 @@ TEST_CASE("Vehicle") {
     // Check the number of vehicle types
     CHECK(Vehicle::getNVehicleType() == 1);
     // Check exceptions
+    Vehicle::addVehicleType(3, 7);
+    CHECK(Vehicle::getNVehicleType() == 2);
     CHECK_THROWS(Vehicle::addVehicleType(0, 1));
+  }
+  SUBCASE("AddVehicleType from file") {
+    // Add vehicle types from file
+    Vehicle::addVehicleType("./data/vehicletype_old.dat");
+    // Check correct import
+    CHECK(Vehicle::getVehicleType(2)->getSource() == 0);
+    CHECK(Vehicle::getVehicleType(2)->getDestination() == 8);
+    CHECK(Vehicle::getVehicleType(3)->getSource() == 2);
+    CHECK(Vehicle::getVehicleType(3)->getDestination() == 6);
+    // Check exceptions
+    CHECK_THROWS(Vehicle::addVehicleType("./data/notExisting.txt"));
+    CHECK_THROWS(Vehicle::addVehicleType("./data/vehicletype_old.dat"));
   }
   SUBCASE("Constructor and getters") {
     // Create a vehicle
@@ -317,6 +331,12 @@ TEST_CASE("Vehicle") {
     CHECK(v.getTimePenalty() == 0);
     CHECK(v.getVelocity() == 0.);
     CHECK(v.getTimeTraveled() == 0);
+    CHECK(v.getDestination() == 1);
+  }
+  SUBCASE("Constructor") {
+    // Second type
+    Vehicle v2(1);
+    CHECK(v2.getDestination() == 7);
   }
   SUBCASE("Constructor exceptions") { CHECK_THROWS(Vehicle(12)); }
   SUBCASE("VehicleType") {
@@ -329,6 +349,71 @@ TEST_CASE("Vehicle") {
     // Check the vehicle type
     CHECK(vt.getSource() == Vehicle::getVehicleType(0)->getSource());
     CHECK(vt.getDestination() == Vehicle::getVehicleType(0)->getDestination());
+  }
+  SUBCASE("Position") {
+    auto v = Vehicle(1);
+    CHECK(v.getPosition() == 3); // default value
+    // Set the position
+    v.setPosition(10);
+    // Check the position
+    CHECK(v.getPosition() == 10);
+    // Check exceptions
+    CHECK_THROWS(v.setPosition(-1));
+  }
+  SUBCASE("Previous position") {
+    auto v = Vehicle(1);
+    CHECK(v.getPreviousPosition() == -1); // default value
+    // Set the previous position
+    v.setPosition(10);
+    // Check the previous position
+    CHECK(v.getPreviousPosition() == 3);
+  }
+  SUBCASE("Street") {
+    auto v = Vehicle(1);
+    CHECK(v.getStreet() == -1); // default value
+    // Set the street
+    v.setStreet(10);
+    // Check the street
+    CHECK(v.getStreet() == 10);
+  }
+  SUBCASE("Velocity") {
+    auto v = Vehicle(1);
+    CHECK(v.getVelocity() == 0.); // default value
+    // Set the velocity
+    v.setVelocity(10.);
+    // Check the velocity
+    CHECK(v.getVelocity() == 10.);
+    // Check exceptions
+    CHECK_THROWS(v.setVelocity(-1.));
+  }
+  SUBCASE("Time of travel") {
+    auto v = Vehicle(1);
+    CHECK(v.getTimeTraveled() == 0); // default value
+    // Increment the time of travel
+    v.incrementTimeTraveled();
+    // Check the time of travel
+    CHECK(v.getTimeTraveled() == 1);
+    // Reset the time of travel
+    v.resetTimeTraveled();
+    // Check the time of travel
+    CHECK(v.getTimeTraveled() == 0);
+  }
+  SUBCASE("Cycle for time of travel") {
+    auto v = Vehicle(3);
+    for (int i = 0; i < 10; ++i) {
+      v.incrementTimeTraveled();
+    }
+    CHECK(v.getTimeTraveled() == 10);
+  }
+  SUBCASE("Time penalty") {
+    auto v = Vehicle(1);
+    CHECK(v.getTimePenalty() == 0); // default value
+    // Set the time penalty
+    v.setTimePenalty(10);
+    // Check the time penalty
+    CHECK(v.getTimePenalty() == 10);
+    // Check exceptions
+    CHECK_THROWS(v.setTimePenalty(-1));
   }
 }
 
