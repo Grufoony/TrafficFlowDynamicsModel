@@ -297,6 +297,41 @@ TEST_CASE("VehicleType") {
 
 // Vehicle
 
+TEST_CASE("Vehicle") {
+  SUBCASE("AddVehicleType") {
+    // Add a vehicle type
+    Vehicle::addVehicleType(0, 1);
+    // Check the number of vehicle types
+    CHECK(Vehicle::getNVehicleType() == 1);
+    // Check exceptions
+    CHECK_THROWS(Vehicle::addVehicleType(0, 1));
+  }
+  SUBCASE("Constructor and getters") {
+    // Create a vehicle
+    Vehicle v(0);
+    // Check the default values
+    CHECK(v.getType() == 0);
+    CHECK(v.getPosition() == 0);
+    CHECK(v.getPreviousPosition() == -1);
+    CHECK(v.getStreet() == -1);
+    CHECK(v.getTimePenalty() == 0);
+    CHECK(v.getVelocity() == 0.);
+    CHECK(v.getTimeTraveled() == 0);
+  }
+  SUBCASE("Constructor exceptions") { CHECK_THROWS(Vehicle(12)); }
+  SUBCASE("VehicleType") {
+    auto v = Vehicle(0);
+    // Check the vehicle type
+    CHECK(v.getType() == 0);
+  }
+  SUBCASE("VehicleType return type") {
+    auto vt = VehicleType(0, 1);
+    // Check the vehicle type
+    CHECK(vt.getSource() == Vehicle::getVehicleType(0)->getSource());
+    CHECK(vt.getDestination() == Vehicle::getVehicleType(0)->getDestination());
+  }
+}
+
 // Street
 
 TEST_CASE("Street") {
@@ -337,8 +372,7 @@ TEST_CASE("Street") {
     CHECK_THROWS(s.setVMax(-1.));
   }
   SUBCASE("Add and remove vehicles") {
-    // Add a vehicle type
-    Vehicle::addVehicleType(0, 1);
+    // VehicleType is added in the Vehicle test
     // Create a street
     Street s(0, 1, 10., 0);
     // Add a vehicle

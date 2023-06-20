@@ -33,6 +33,6 @@ docs:
 	doxygen Doxyfile
 test:
 	clear
-	g++ -std=c++20 -O3 ./test.cpp ./src/VehicleType.cpp -o test.out
+	g++ -std=c++20 -O3 ./test.cpp ./src/VehicleType.cpp ./src/Vehicle.cpp ./src/Street.cpp -o test.out
 	./test.out
 	rm -r ./test.out
