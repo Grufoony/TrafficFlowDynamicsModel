@@ -41,18 +41,18 @@ public:
   uint8_t getType()
       const noexcept; // return the index of the vehicle type in _vehicleType
   void setPosition(int16_t);
-  uint16_t getPosition() const;
-  int16_t getPreviousPosition() const;
+  uint16_t getPosition() const noexcept;
+  int16_t getPreviousPosition() const noexcept;
   void setStreet(int);
   int getStreet() const;
-  uint16_t getDestination() const;
+  uint16_t getDestination() const noexcept;
   void setTimePenalty(int);
-  int getTimePenalty() const;
+  int getTimePenalty() const noexcept;
   void setVelocity(double);
-  double getVelocity() const;
-  void incrementTimeTraveled();
-  int getTimeTraveled() const;
-  void resetTimeTraveled();
+  double getVelocity() const noexcept;
+  void incrementTimeTraveled() noexcept;
+  int getTimeTraveled() const noexcept;
+  void resetTimeTraveled() noexcept;
 };
 
 #endif
