@@ -45,7 +45,7 @@ def constant():
     graph.setTemperature(300)
     graph.updateTransMatrix()
     for t in tqdm(range(15001)):
-        if t % 100 == 0:
+        if t % 25 == 0:
             graph.fprintTimeDistribution("./temp_data/", "k", 0.)
         if (t < 12e3) and (t % 60 == 0) and (t != 0):
             graph.addVehiclesUniformly(250)
@@ -81,9 +81,9 @@ def periodic():
         if t % 900 == 0:
             graph.fprintTimeDistribution("./temp_data/", "k", 0.)
         if (t % 300 == 0) and (t < 32400 * 1.5):
-            vehicles = abs(2100 * math.sin(2 * math.pi * t / 32400))
+            vehicles = abs(2200 * math.sin(2 * math.pi * t / 32400))
             if (t > 1.62e4) and (t < 2.43e4):
-                vehicles = vehicles * 1.125
+                vehicles = vehicles / 1.125
             graph.addVehiclesUniformly(int(vehicles))
         graph.evolve(False)
     plot()
