@@ -93,7 +93,7 @@ uint8_t Vehicle::getNVehicleType() {
 }
 /// @brief Set the position of the vehicle.
 /// @param pos The position of the vehicle, i.e. a positive integrer
-/// representing the index of the street.
+/// representing the index of the node.
 /// @throw std::invalid_argument if the position is negative.
 void Vehicle::setPosition(int16_t pos) {
   if (pos < 0) {
@@ -106,16 +106,23 @@ void Vehicle::setPosition(int16_t pos) {
 }
 /// @brief Get the position of the vehicle.
 /// @return The position of the vehicle, i.e. a positive integrer representing
-/// the index of the street.
+/// the index of the node.
 uint16_t Vehicle::getPosition() const noexcept { return _position; }
 /// @brief Get the previous position of the vehicle.
 /// @return The previous position of the vehicle, i.e. a positive integrer
-/// representing the index of the street. The previous position is -1 if the
+/// representing the index of the node. The previous position is -1 if the
 /// vehicle has not moved yet.
 int16_t Vehicle::getPreviousPosition() const noexcept {
   return _previousPosition;
 }
+/// @brief Set the street of the vehicle.
+/// @param street The street of the vehicle, i.e.
+/// a positive integrer representing the index of the street.
+/// The -1 is a jolly.
 void Vehicle::setStreet(int street) { _street = street; }
+/// @brief Get the street of the vehicle.
+/// @return The street of the vehicle, i.e.
+/// a positive integrer representing the index of the street.
 int Vehicle::getStreet() const { return _street; }
 /// @brief Set the time penalty of the vehicle.
 /// @param time The time penalty of the vehicle, i.e. a positive integrer.

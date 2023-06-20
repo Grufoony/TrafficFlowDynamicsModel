@@ -123,11 +123,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aad717e1a42203a8aa487485d93dbe156"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classVehicle.html#aad717e1a42203a8aa487485d93dbe156">getPreviousPosition</a> () const noexcept</td></tr>
 <tr class="memdesc:aad717e1a42203a8aa487485d93dbe156"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the previous position of the vehicle.  <a href="classVehicle.html#aad717e1a42203a8aa487485d93dbe156">More...</a><br /></td></tr>
 <tr class="separator:aad717e1a42203a8aa487485d93dbe156"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8965e1936cc1f397dfa4121ebded61a"><td class="memItemLeft" align="right" valign="top"><a id="af8965e1936cc1f397dfa4121ebded61a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setStreet</b> (int)</td></tr>
+<tr class="memitem:af8965e1936cc1f397dfa4121ebded61a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classVehicle.html#af8965e1936cc1f397dfa4121ebded61a">setStreet</a> (int)</td></tr>
+<tr class="memdesc:af8965e1936cc1f397dfa4121ebded61a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the street of the vehicle.  <a href="classVehicle.html#af8965e1936cc1f397dfa4121ebded61a">More...</a><br /></td></tr>
 <tr class="separator:af8965e1936cc1f397dfa4121ebded61a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7336a517e0489d163692d1138964f8d"><td class="memItemLeft" align="right" valign="top"><a id="ad7336a517e0489d163692d1138964f8d"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>getStreet</b> () const</td></tr>
+<tr class="memitem:ad7336a517e0489d163692d1138964f8d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classVehicle.html#ad7336a517e0489d163692d1138964f8d">getStreet</a> () const</td></tr>
+<tr class="memdesc:ad7336a517e0489d163692d1138964f8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the street of the vehicle.  <a href="classVehicle.html#ad7336a517e0489d163692d1138964f8d">More...</a><br /></td></tr>
 <tr class="separator:ad7336a517e0489d163692d1138964f8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3bd4685c0c70b3950fb9ea7647b447e2"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classVehicle.html#a3bd4685c0c70b3950fb9ea7647b447e2">getDestination</a> () const noexcept</td></tr>
 <tr class="memdesc:a3bd4685c0c70b3950fb9ea7647b447e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the destination of the vehicle.  <a href="classVehicle.html#a3bd4685c0c70b3950fb9ea7647b447e2">More...</a><br /></td></tr>
@@ -384,7 +384,7 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the position of the vehicle. </p>
-<dl class="section return"><dt>Returns</dt><dd>The position of the vehicle, i.e. a positive integrer representing the index of the street. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The position of the vehicle, i.e. a positive integrer representing the index of the node. </dd></dl>
 
 </div>
 </div>
@@ -412,7 +412,27 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get the previous position of the vehicle. </p>
-<dl class="section return"><dt>Returns</dt><dd>The previous position of the vehicle, i.e. a positive integrer representing the index of the street. The previous position is -1 if the vehicle has not moved yet. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The previous position of the vehicle, i.e. a positive integrer representing the index of the node. The previous position is -1 if the vehicle has not moved yet. </dd></dl>
+
+</div>
+</div>
+<a id="ad7336a517e0489d163692d1138964f8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7336a517e0489d163692d1138964f8d">&#9670;&nbsp;</a></span>getStreet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Vehicle::getStreet </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the street of the vehicle. </p>
+<dl class="section return"><dt>Returns</dt><dd>The street of the vehicle, i.e. a positive integrer representing the index of the street. </dd></dl>
 
 </div>
 </div>
@@ -583,13 +603,39 @@ Static Public Member Functions</h2></td></tr>
 <p>Set the position of the vehicle. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pos</td><td>The position of the vehicle, i.e. a positive integrer representing the index of the street. </td></tr>
+    <tr><td class="paramname">pos</td><td>The position of the vehicle, i.e. a positive integrer representing the index of the node. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname">std::invalid_argument</td><td>if the position is negative. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="af8965e1936cc1f397dfa4121ebded61a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8965e1936cc1f397dfa4121ebded61a">&#9670;&nbsp;</a></span>setStreet()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Vehicle::setStreet </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>street</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the street of the vehicle. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">street</td><td>The street of the vehicle, i.e. a positive integrer representing the index of the street. The -1 is a jolly. </td></tr>
   </table>
   </dd>
 </dl>
