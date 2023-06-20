@@ -30,9 +30,9 @@ PYBIND11_MODULE(TrafficModel, m) {
       .def("fprintVisual", &Graph::fprintVisual)
       .def("fprintHistogram", &Graph::fprintHistogram)
       .def("fprintTimeDistribution", &Graph::fprintTimeDistribution)
-      .def("fprintActualState", &Graph::fprintActualState)
-      .def("save", &Graph::save)
-      .def("test", &Graph::test);
+      .def("fprintActualState", &Graph::fprintActualState);
+  //   .def("save", &Graph::save)
+  //   .def("test", &Graph::test);
 
   // Street class
   pybind11::class_<Street>(m, "Street")
