@@ -4,6 +4,10 @@ from pybind11.setup_helpers import Pybind11Extension, build_ext
 
 __version__ = '1.0.0'
 
+'''
+Small script to build the extension module.
+'''
+
 ext_modules = [
 	Pybind11Extension(
 		"TrafficModel",

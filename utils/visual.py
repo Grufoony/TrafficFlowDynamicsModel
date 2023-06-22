@@ -6,6 +6,11 @@ from tqdm import tqdm
 from PIL import Image
 from PIL import ImageDraw
 
+'''
+Script to generate a gif from the data in the temp_img folder, produced by the main library.
+With this, one can see the evolution of the network over time.
+'''
+
 # clear the img folder
 for i in tqdm(range(len([name for name in os.listdir('./temp_img')])-1)):
     path = './temp_img/'+str(i)+'.png'

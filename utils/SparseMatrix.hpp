@@ -38,7 +38,8 @@ public:
               : _rows = index,
                 _cols = 1;
   };
-
+  /// @brief Function to read a matrix from a file and rewrite it in a listed way
+  /// @param filename name of the file
   static void encode(std::string const &filename) {
     std::fstream file;
     int rows, cols;
@@ -61,6 +62,8 @@ public:
     }
     file.close();
   }
+  /// @brief Function to read a matrix from a file and rewrite it as a full matrix
+  /// @param filename name of the file
   static void decode(std::string const &filename) {
     std::fstream file(filename);
     int rows, cols, index;

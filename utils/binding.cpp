@@ -2,6 +2,8 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
+// Binding code for the SparseMatrix class
+
 PYBIND11_MODULE(SparseMatrix, m) {
   m.doc() = "A library for managing sparse matrices.";
 
