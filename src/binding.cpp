@@ -17,10 +17,10 @@ PYBIND11_MODULE(TrafficModel, m) {
   // Graph class
   pybind11::class_<Graph>(m, "Graph")
       .def(pybind11::init<std::string>())
+      .def("setSeed", &Graph::setSeed)
       .def("addVehicle", static_cast<void (Graph::*)(int)>(&Graph::addVehicle))
       .def("addRndmVehicles", &Graph::addRndmVehicles)
       .def("addVehiclesUniformly", &Graph::addVehiclesUniformly)
-      //   .def("loadVehicles", &Graph::loadVehicles)
       .def("setTemperature", &Graph::setTemperature)
       .def("updateTransMatrix", &Graph::updateTransMatrix)
       .def("evolve", static_cast<void (Graph::*)()>(&Graph::evolve))

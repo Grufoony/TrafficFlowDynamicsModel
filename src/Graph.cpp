@@ -13,9 +13,6 @@
 
 double constexpr TEMP_NORM = 273.15e-6;
 
-std::random_device GlobalDev;
-std::mt19937 GlobalRNG(GlobalDev());
-
 // using Dijkstra to calculate distance
 int Graph::_minDistance(int const src, int const dst) const {
   std::vector<int> dist; // The output array. dist.at(i) will hold the shortest
@@ -65,6 +62,7 @@ int Graph::_minDistance(int const src, int const dst) const {
   return dist[dst];
 }
 
+// function to calculate the next step of a vehicle given the current position based on the minimum distance
 std::vector<int> Graph::_nextStep(int const src, int const dst) {
   auto const min = _minDistance(src, dst);
   std::vector<int> _nextStep;
@@ -113,7 +111,7 @@ void Graph::_evolve(bool reinsert) {
   // cicling through all the vehicles
   for (auto const &vehicle : _vehicles) {
     auto threshold = 0.;
-    auto const p = dist(GlobalRNG);
+    auto const p = dist(_rng);
     auto timePenalty = vehicle->getTimePenalty();
     vehicle->incrementTimeTraveled();
     if (timePenalty > 0 &&
@@ -242,6 +240,8 @@ Graph::Graph(std::string fName) {
   }
 }
 
+
+void Graph::setSeed(int const seed) { _rng.seed(seed); }
 /// @param type vehicle type
 void Graph::addVehicle(int type) {
   if (type < 0 || !(type < Vehicle::getNVehicleType())) {
@@ -260,7 +260,7 @@ void Graph::addRndmVehicles(int nVehicles) {
         "Graph::addRndmVehicles: nVehicles must be positive.\n");
   std::uniform_int_distribution<> dist(0, Vehicle::getNVehicleType() - 1);
   for (int i = 0; i < nVehicles; ++i) {
-    int index = dist(GlobalRNG);
+    int index = dist(_rng);
     this->addVehicle(index);
   }
 }
@@ -275,9 +275,9 @@ void Graph::addVehiclesUniformly(int nVehicles) {
                                        static_cast<int>(_streets.size() - 1));
   for (int i = 0; i < nVehicles; ++i) {
     this->addRndmVehicles(1);
-    int index = dist(GlobalRNG);
+    int index = dist(_rng);
     while (_streets[index]->isFull()) {
-      index = dist(GlobalRNG);
+      index = dist(_rng);
     }
     _streets[index]->addVehicle(_vehicles.back());
   }

@@ -24,6 +24,7 @@ private:
   int _time = 0;                 // time of the simulation
   double _meanTimeTraveled = 0.; // mean time traveled by vehicles
   int _nVehiclesToDst = 0;       // number of vehicles to destination
+  std::mt19937 _rng{std::random_device{}()};             // random number generator
 
   int _minDistance(int const, int const)
       const; // algorithm for min distance between two nodes
@@ -40,6 +41,7 @@ public:
   Graph(std::string); //!< import from file (only matrix)
   ~Graph() = default;
 
+  void setSeed(int const); //!< set the seed of the random number generator
   void addVehicle(int);            //!< add a vehicle of a type in _vehicles
                                    //!< street
   void addRndmVehicles(int);       //!< add vehicles of random type in _vehicles
