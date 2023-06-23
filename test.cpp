@@ -4,6 +4,7 @@
 #include "./src/VehicleType.hpp"
 #include "./utils/SparseMatrix.hpp"
 #include "./utils/doctest.h"
+#include "./utils/utils.hpp"
 
 TEST_CASE("Boolean Matrix") {
   SUBCASE("Default constructor") {
@@ -469,5 +470,34 @@ TEST_CASE("Street") {
     // Check the number of vehicles
     CHECK(s.getNVehicles() == 0);
     CHECK_THROWS(s.remVehicle());
+  }
+}
+
+// Utils
+
+TEST_CASE("utils") {
+  SUBCASE("minDistance") {
+    // Create a vector
+    std::vector<int> v{1, 2, 3};
+    std::vector<bool> sptSet{false, false, false};
+    // Check the minimum distance should be 0 cause of 1 is the minimum
+    CHECK(minDistance(v, sptSet, 3) == 0.);
+  }
+  SUBCASE("minDistance 2") {
+    // Create a vector
+    std::vector<int> v{1, 2, 3};
+    std::vector<bool> sptSet{true, true, false};
+    // Check the minimum distance should be 2 due to the true values
+    CHECK(minDistance(v, sptSet, 3) == 2);
+  }
+  SUBCASE("normalizeVec") {
+    // Create a vector
+    std::vector<double> v{1., 2., 3.};
+    // Normalize the vector
+    normalizeVec(v);
+    // Check the vector
+    CHECK(v[0] == 1. / 6);
+    CHECK(v[1] == 2. / 6);
+    CHECK(v[2] == 3. / 6);
   }
 }
