@@ -1,7 +1,7 @@
 *.json
 *.dll
 *.exe
-*.txt
+*info.txt
 /.vscode/*
 /temp_data/*
 /temp_img/*
