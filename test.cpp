@@ -1,4 +1,5 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include "./src/Graph.hpp"
 #include "./src/Street.hpp"
 #include "./src/Vehicle.hpp"
 #include "./src/VehicleType.hpp"
@@ -258,6 +259,32 @@ TEST_CASE("Boolean Matrix") {
       }
     }
   }
+  SUBCASE("print") {
+    SparseMatrix<bool> m(3, 3);
+    m.insert(0, 0, true);
+    m.insert(0, 1, true);
+    m.insert(1, 2, true);
+    std::stringstream ss;
+    ss << m;
+    // check edge list
+    CHECK(ss.str() == "3\t3\n5\t1\n1\t1\n0\t1\n");
+  }
+  SUBCASE("fprint") {
+    SparseMatrix<bool> m(3, 3);
+    m.insert(0, 0, true);
+    m.insert(0, 1, true);
+    m.insert(1, 2, true);
+    std::string filename = "./data/test/test0.txt";
+    m.fprint(filename);
+    // compare output with reference
+    std::ifstream f1(filename);
+    std::ifstream f2("./data/test/test0_ref.txt");
+    std::string s1((std::istreambuf_iterator<char>(f1)),
+                   std::istreambuf_iterator<char>());
+    std::string s2((std::istreambuf_iterator<char>(f2)),
+                    std::istreambuf_iterator<char>());
+    CHECK(s1 == s2);
+  }
 }
 
 // VehicleType
@@ -318,7 +345,7 @@ TEST_CASE("Vehicle") {
     CHECK(Vehicle::getVehicleType(3)->getSource() == 2);
     CHECK(Vehicle::getVehicleType(3)->getDestination() == 6);
     // Check exceptions
-    CHECK_THROWS(Vehicle::addVehicleType("./data/notExisting.txt"));
+    CHECK_THROWS(Vehicle::addVehicleType("./not/a/path"));
     CHECK_THROWS(Vehicle::addVehicleType("./data/vehicletype_old.dat"));
   }
   SUBCASE("Constructor and getters") {
@@ -500,4 +527,20 @@ TEST_CASE("utils") {
     CHECK(v[1] == 2. / 6);
     CHECK(v[2] == 3. / 6);
   }
+}
+
+// Graph
+
+TEST_CASE("Graph") {
+  SUBCASE("Constructor exception") {
+    CHECK_THROWS(Graph("./not/a/path"));
+  }
+  SUBCASE("setTemperature exception") {
+    Graph g("./data/matrix.dat");
+    CHECK_THROWS(g.setTemperature(-1.));
+  }
+  // SUBCASE("print matrix") {
+  //   Graph g("./data/matrix_old.dat");
+  //   g.printMatrix();
+  // }
 }
