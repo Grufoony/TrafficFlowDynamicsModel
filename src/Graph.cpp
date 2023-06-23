@@ -1,4 +1,5 @@
 #include "Graph.hpp"
+#include "../utils/utils.hpp"
 #include <algorithm>
 #include <cmath>
 #include <fstream>
@@ -14,53 +15,6 @@ double constexpr TEMP_NORM = 273.15e-6;
 
 std::random_device GlobalDev;
 std::mt19937 GlobalRNG(GlobalDev());
-
-// function for dijkstra
-int minDistance(std::vector<int> const &dist, std::vector<bool> const &sptSet,
-                int const _n) {
-  // Initialize min value
-  int min = std::numeric_limits<int>::max(), min_index = -1;
-
-  for (int v = 0; v < _n; ++v) {
-    if (!sptSet[v] && dist[v] <= min) {
-      min = dist[v], min_index = v;
-    }
-  }
-  return min_index;
-}
-
-void normalizeVec(std::vector<double> &vec) {
-  double sum = 0.;
-  for (auto it : vec)
-    sum += it;
-  if (static_cast<int>(sum) == 0)
-    return;
-  for (auto &it : vec)
-    it = it / sum;
-}
-
-void normalizeVec(std::map<int, double> &vec) {
-  double sum = 0.;
-  for (auto it : vec)
-    sum += it.second;
-  if (static_cast<int>(sum) != 0) {
-    for (auto &it : vec)
-      vec.insert_or_assign(it.first, it.second / sum);
-  }
-}
-
-void normalizeMat(SparseMatrix<double> &mat) {
-  for (int i = 0; i < mat.getRowDim(); ++i) {
-    double sum = 0.;
-    auto const &vec = mat.getRow(i);
-    for (auto it : vec)
-      sum += it.second;
-    if (static_cast<int>(sum) != 0) {
-      for (auto &it : vec)
-        mat.insert_or_assign(i, it.first, mat(i, it.first) / sum);
-    }
-  }
-}
 
 // using Dijkstra to calculate distance
 int Graph::_minDistance(int const src, int const dst) const {
@@ -374,7 +328,7 @@ void Graph::updateTransMatrix() {
         }
       }
     }
-    normalizeMat(matrix);
+    matrix = matrix.getNormRows();
     vehicle->setTransMatrix(matrix);
   }
 }
