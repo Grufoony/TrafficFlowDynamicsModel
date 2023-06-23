@@ -31,14 +31,3 @@ void normalizeVec(std::vector<double> &vec) {
   for (auto &it : vec)
     it = it / sum;
 }
-
-// function which normalizes map components to one
-void normalizeVec(std::map<int, double> &vec) {
-  double sum = 0.;
-  for (auto it : vec)
-    sum += it.second;
-  if (static_cast<int>(sum) != 0) {
-    for (auto &it : vec)
-      vec.insert_or_assign(it.first, it.second / sum);
-  }
-}
