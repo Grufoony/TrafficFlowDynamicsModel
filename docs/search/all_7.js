@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['max_5fsize_46',['max_size',['../classSparseMatrix.html#a9c32e97eca6501fa4ce314a6317a8e34',1,'SparseMatrix']]]
+  ['loadvehicles_47',['loadVehicles',['../classGraph.html#a5604e31f4b670574f37c1b6f16150b6d',1,'Graph']]]
 ];

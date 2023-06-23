@@ -242,11 +242,11 @@ template&lt;typename U &gt; </td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a4794cb64ff7798eb72ef1bd84296f376"><td class="memItemLeft" align="right" valign="top"><a id="a4794cb64ff7798eb72ef1bd84296f376"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>encode</b> (std::string const &amp;filename)</td></tr>
+<tr class="memitem:a4794cb64ff7798eb72ef1bd84296f376"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSparseMatrix.html#a4794cb64ff7798eb72ef1bd84296f376">encode</a> (std::string const &amp;filename)</td></tr>
+<tr class="memdesc:a4794cb64ff7798eb72ef1bd84296f376"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to read a matrix from a file and rewrite it in a listed way.  <a href="classSparseMatrix.html#a4794cb64ff7798eb72ef1bd84296f376">More...</a><br /></td></tr>
 <tr class="separator:a4794cb64ff7798eb72ef1bd84296f376"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab91b7fe700647124da58990328f9602c"><td class="memItemLeft" align="right" valign="top"><a id="ab91b7fe700647124da58990328f9602c"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>decode</b> (std::string const &amp;filename)</td></tr>
+<tr class="memitem:ab91b7fe700647124da58990328f9602c"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classSparseMatrix.html#ab91b7fe700647124da58990328f9602c">decode</a> (std::string const &amp;filename)</td></tr>
+<tr class="memdesc:ab91b7fe700647124da58990328f9602c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to read a matrix from a file and rewrite it as a full matrix.  <a href="classSparseMatrix.html#ab91b7fe700647124da58990328f9602c">More...</a><br /></td></tr>
 <tr class="separator:ab91b7fe700647124da58990328f9602c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
@@ -426,6 +426,78 @@ template&lt;typename T &gt; </div>
   <table class="params">
     <tr><td class="paramname">i</td><td>row index </td></tr>
     <tr><td class="paramname">j</td><td>column index </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ab91b7fe700647124da58990328f9602c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab91b7fe700647124da58990328f9602c">&#9670;&nbsp;</a></span>decode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void <a class="el" href="classSparseMatrix.html">SparseMatrix</a>&lt; T &gt;::decode </td>
+          <td>(</td>
+          <td class="paramtype">std::string const &amp;&#160;</td>
+          <td class="paramname"><em>filename</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Function to read a matrix from a file and rewrite it as a full matrix. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filename</td><td>name of the file </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a4794cb64ff7798eb72ef1bd84296f376"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4794cb64ff7798eb72ef1bd84296f376">&#9670;&nbsp;</a></span>encode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void <a class="el" href="classSparseMatrix.html">SparseMatrix</a>&lt; T &gt;::encode </td>
+          <td>(</td>
+          <td class="paramtype">std::string const &amp;&#160;</td>
+          <td class="paramname"><em>filename</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Function to read a matrix from a file and rewrite it in a listed way. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filename</td><td>name of the file </td></tr>
   </table>
   </dd>
 </dl>
