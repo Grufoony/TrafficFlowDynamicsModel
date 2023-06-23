@@ -1,14 +1,15 @@
+#ifndef UTILS_HPP
+#define UTILS_HPP
+
+// Some useful functions for the project
+
 #include <limits>
 #include <map>
 #include <vector>
 
-// Some useful functions for the project
-
-#pragma once
-
 // function for dijkstra which returns the index of the vertex with minimum
 // distance from the source
-int minDistance(std::vector<int> const &dist, std::vector<bool> const &sptSet,
+inline int minDistance(std::vector<int> const &dist, std::vector<bool> const &sptSet,
                 int const _n) {
   // Initialize min value
   int min = std::numeric_limits<int>::max(), min_index = -1;
@@ -22,7 +23,7 @@ int minDistance(std::vector<int> const &dist, std::vector<bool> const &sptSet,
 }
 
 // function which normalizes vector components to one
-void normalizeVec(std::vector<double> &vec) {
+inline void normalizeVec(std::vector<double> &vec) {
   double sum = 0.;
   for (auto it : vec)
     sum += it;
@@ -31,3 +32,5 @@ void normalizeVec(std::vector<double> &vec) {
   for (auto &it : vec)
     it = it / sum;
 }
+
+#endif
