@@ -9,6 +9,8 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
+// Binding code for Graph, Street, Vehicle, and VehicleType classes
+
 PYBIND11_MODULE(TrafficModel, m) {
   m.doc() = "A library for generating traffic flow dynamics data.";
 
@@ -18,7 +20,7 @@ PYBIND11_MODULE(TrafficModel, m) {
       .def("addVehicle", static_cast<void (Graph::*)(int)>(&Graph::addVehicle))
       .def("addRndmVehicles", &Graph::addRndmVehicles)
       .def("addVehiclesUniformly", &Graph::addVehiclesUniformly)
-      .def("loadVehicles", &Graph::loadVehicles)
+      //   .def("loadVehicles", &Graph::loadVehicles)
       .def("setTemperature", &Graph::setTemperature)
       .def("updateTransMatrix", &Graph::updateTransMatrix)
       .def("evolve", static_cast<void (Graph::*)()>(&Graph::evolve))
