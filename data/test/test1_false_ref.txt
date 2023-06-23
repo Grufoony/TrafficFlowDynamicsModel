@@ -1,0 +1,12 @@
+-------------------------
+NETWORK INFORMATIONS
+Nodes: 9
+Temperature: 0K
+Noise level: 0%
+Vehicles: 0
+	Type 0: 0
+	Type 1: 0
+	Type 2: 0
+	Type 3: 0
+Streets: 24
+-------------------------

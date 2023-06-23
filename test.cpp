@@ -539,8 +539,26 @@ TEST_CASE("Graph") {
     Graph g("./data/matrix.dat");
     CHECK_THROWS(g.setTemperature(-1.));
   }
-  // SUBCASE("print matrix") {
-  //   Graph g("./data/matrix_old.dat");
-  //   g.printMatrix();
-  // }
+  // to check the constructor we'll check all the print functions
+  SUBCASE("fprint") {
+    Graph g("./data/matrix_old.dat");
+    g.fprint(false);
+    // compare the two files
+    std::ifstream f1("./network_info.txt");
+    std::ifstream f2("./data/test/test1_false_ref.txt");
+    std::string s1((std::istreambuf_iterator<char>(f1)),
+                   std::istreambuf_iterator<char>());
+    std::string s2((std::istreambuf_iterator<char>(f2)),
+                    std::istreambuf_iterator<char>());
+    CHECK(s1 == s2);
+    g.fprint(true);
+    // compare the two files
+    std::ifstream f3("./network_info.txt");
+    std::ifstream f4("./data/test/test1_true_ref.txt");
+    std::string s3((std::istreambuf_iterator<char>(f3)),
+                   std::istreambuf_iterator<char>());
+    std::string s4((std::istreambuf_iterator<char>(f4)),
+                    std::istreambuf_iterator<char>());
+    CHECK(s3 == s4);
+  }
 }
