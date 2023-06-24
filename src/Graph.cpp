@@ -79,8 +79,7 @@ std::vector<int> Graph::_nextStep(int const src, int const dst) {
 
 void Graph::_evolve(bool reinsert) {
   ++_time;
-  int timeScale = 100;
-  if (_time % timeScale == 0) {
+  if (_time % _timeScale == 0) {
     int nVehicles_old = static_cast<int>(_vehicles.size());
     // erase vehicles that have reached their destination
     _vehicles.erase(
@@ -240,14 +239,32 @@ Graph::Graph(std::string fName) {
     _vehiclesOnStreet.push_back(0);
   }
 }
-
+/// @brief Set the seed for the random number generator
+/// @param seed seed for the random number generator
 void Graph::setSeed(int const seed) { _rng.seed(seed); }
+/// @brief Set the time scale for the simulation. Default value is 100
+/// @param timeScale time scale
+/// @throw std::invalid_argument if timeScale < 1
+void Graph::setTimeScale(int const timeScale) {
+  if (timeScale < 1) {
+    std::string msg = "Graph.cpp:" + std::to_string(__LINE__) + '\t' +
+                      "Invalid time scale.\n";
+    throw std::invalid_argument(msg);
+  } else {
+    _timeScale = timeScale;
+  }
+}
+/// @brief Get the time scale of the simulation
+/// @return time scale
+int Graph::getTimeScale() const noexcept { return _timeScale; }
+/// @brief Adds a vehicle with a given type
 /// @param type vehicle type
+/// @throw std::invalid_argument if type is invalid
 void Graph::addVehicle(int type) {
   if (type < 0 || !(type < Vehicle::getNVehicleType())) {
     std::string msg = "Graph.cpp:" + std::to_string(__LINE__) + '\t' +
                       "Invalid vehicle type.\n";
-    throw std::runtime_error(msg);
+    throw std::invalid_argument(msg);
   }
   _vehicles.push_back(std::make_shared<Vehicle>(Vehicle(type)));
 }
@@ -299,6 +316,9 @@ void Graph::setTemperature(double const temperature) {
                                 "positive.\n");
   _temperature = temperature;
 }
+/// @brief get the system temperature
+/// @return temperature
+double Graph::getTemperature() const noexcept { return _temperature; }
 /// @brief update the transition matrix
 /// @details The transition matrix is updated according to the expected
 /// traveltime using Dijsktra's algorithm. It uses also temperature to

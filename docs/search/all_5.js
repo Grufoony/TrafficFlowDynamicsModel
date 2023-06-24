@@ -17,12 +17,14 @@ var searchData=
   ['getrow_33',['getRow',['../classSparseMatrix.html#a9cd0410639a28758d55bada1923ceb06',1,'SparseMatrix']]],
   ['getstreet_34',['getStreet',['../classVehicle.html#ad7336a517e0489d163692d1138964f8d',1,'Vehicle']]],
   ['getstrengthvector_35',['getStrengthVector',['../classSparseMatrix.html#a735028ac1c776ca9026732cf30da00a3',1,'SparseMatrix']]],
-  ['gettimepenalty_36',['getTimePenalty',['../classVehicle.html#acb9ae9042697a0437c92da483cc9e77b',1,'Vehicle']]],
-  ['gettimetraveled_37',['getTimeTraveled',['../classVehicle.html#ac59ee017a597732f5c5d7d0bdae5ba6c',1,'Vehicle']]],
-  ['gettype_38',['getType',['../classVehicle.html#af736f984faf642a9761ef413f7f5f216',1,'Vehicle']]],
-  ['getvehicledensity_39',['getVehicleDensity',['../classStreet.html#a0c166cf2e397571bece279d86bb26fd9',1,'Street']]],
-  ['getvehicletype_40',['getVehicleType',['../classVehicle.html#a22a26924b63685e3c18366a0d4ca434a',1,'Vehicle']]],
-  ['getvelocity_41',['getVelocity',['../classVehicle.html#a3ea4bafe6341ab9ecefa107dfe1b4f6f',1,'Vehicle']]],
-  ['getvmax_42',['getVMax',['../classStreet.html#a9a399a3194d078eaa0cffc8a100f5bb1',1,'Street']]],
-  ['graph_43',['Graph',['../classGraph.html',1,'Graph'],['../classGraph.html#a368622628d0a2f19cdfba3ee836418de',1,'Graph::Graph()']]]
+  ['gettemperature_36',['getTemperature',['../classGraph.html#a7609091dec1dc70e974213c0109719a5',1,'Graph']]],
+  ['gettimepenalty_37',['getTimePenalty',['../classVehicle.html#acb9ae9042697a0437c92da483cc9e77b',1,'Vehicle']]],
+  ['gettimescale_38',['getTimeScale',['../classGraph.html#a16c71c6a175c4fc5b57d2d510a0525b7',1,'Graph']]],
+  ['gettimetraveled_39',['getTimeTraveled',['../classVehicle.html#ac59ee017a597732f5c5d7d0bdae5ba6c',1,'Vehicle']]],
+  ['gettype_40',['getType',['../classVehicle.html#af736f984faf642a9761ef413f7f5f216',1,'Vehicle']]],
+  ['getvehicledensity_41',['getVehicleDensity',['../classStreet.html#a0c166cf2e397571bece279d86bb26fd9',1,'Street']]],
+  ['getvehicletype_42',['getVehicleType',['../classVehicle.html#a22a26924b63685e3c18366a0d4ca434a',1,'Vehicle']]],
+  ['getvelocity_43',['getVelocity',['../classVehicle.html#a3ea4bafe6341ab9ecefa107dfe1b4f6f',1,'Vehicle']]],
+  ['getvmax_44',['getVMax',['../classStreet.html#a9a399a3194d078eaa0cffc8a100f5bb1',1,'Street']]],
+  ['graph_45',['Graph',['../classGraph.html',1,'Graph'],['../classGraph.html#a368622628d0a2f19cdfba3ee836418de',1,'Graph::Graph()']]]
 ];

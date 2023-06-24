@@ -15,10 +15,13 @@ var classGraph =
     [ "fprintStreets", "classGraph.html#a6b72ce1b34c1c3b1b9b53156e81df5b5", null ],
     [ "fprintTimeDistribution", "classGraph.html#a999e5b444a490024b1bfde896857cc9c", null ],
     [ "fprintVisual", "classGraph.html#ae5f2dd7b08b5e412719fca939370b4b1", null ],
+    [ "getTemperature", "classGraph.html#a7609091dec1dc70e974213c0109719a5", null ],
+    [ "getTimeScale", "classGraph.html#a16c71c6a175c4fc5b57d2d510a0525b7", null ],
     [ "print", "classGraph.html#ac834408bc1a9fde2337f5446609d85f3", null ],
     [ "printMatrix", "classGraph.html#aa3f3b7c247427a7298b62c7e1970a6b4", null ],
     [ "printStreets", "classGraph.html#a24036863a4d0dea1b58de661bba40be0", null ],
     [ "setSeed", "classGraph.html#a9228f475adfdf2fb1ccc4d6957c438d5", null ],
     [ "setTemperature", "classGraph.html#a70222d1b1b30e79ff60d7d7fa8748055", null ],
+    [ "setTimeScale", "classGraph.html#a900043b1e4e2f21acb7d17ed2801eab6", null ],
     [ "updateTransMatrix", "classGraph.html#a5abc2104b5ac818a1bea6254181cf838", null ]
 ];

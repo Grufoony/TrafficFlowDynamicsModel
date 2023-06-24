@@ -24,6 +24,7 @@ private:
   int _time = 0;                 // time of the simulation
   double _meanTimeTraveled = 0.; // mean time traveled by vehicles
   int _nVehiclesToDst = 0;       // number of vehicles to destination
+  uint16_t _timeScale = 100;     // time scale for the simulation
   std::mt19937 _rng{std::random_device{}()}; // random number generator
 
   int _minDistance(int const, int const)
@@ -41,12 +42,16 @@ public:
   Graph(std::string); //!< import from file (only matrix)
   ~Graph() = default;
 
-  void setSeed(int const);   //!< set the seed of the random number generator
-  void addVehicle(int);      //!< add a vehicle of a type in _vehicles
-                             //!< street
-  void addRndmVehicles(int); //!< add vehicles of random type in _vehicles
-  void addVehiclesUniformly(int);    //!< add vehicles uniformly on the streets
+  void setSeed(int const);      //!< set the seed of the random number generator
+  void setTimeScale(int const); //!< set the time scale
+  int getTimeScale() const noexcept; //!< get the time scale
+  void addVehicle(int);              //!< add a vehicle of a type in _vehicles
+                                     //!< street
+  void addRndmVehicles(int);      //!< add vehicles of random type in _vehicles
+  void addVehiclesUniformly(int); //!< add vehicles uniformly on the streets
   void setTemperature(double const); //!< set the temperature of the network
+  double getTemperature() const noexcept; //!< get the temperature of the
+                                          //!< network
   void updateTransMatrix(); //!< create all the transition matrices for all
                             //!< vehicle types
   void evolve(bool);        //!< evolve the network
