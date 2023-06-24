@@ -9,8 +9,8 @@
 
 // function for dijkstra which returns the index of the vertex with minimum
 // distance from the source
-inline int minDistance(std::vector<int> const &dist, std::vector<bool> const &sptSet,
-                int const _n) {
+inline int minDistance(std::vector<int> const &dist,
+                       std::vector<bool> const &sptSet, int const _n) {
   // Initialize min value
   int min = std::numeric_limits<int>::max(), min_index = -1;
 

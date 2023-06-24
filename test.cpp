@@ -6,6 +6,7 @@
 #include "./utils/SparseMatrix.hpp"
 #include "./utils/doctest.h"
 #include "./utils/utils.hpp"
+#include <cstdio>
 
 TEST_CASE("Boolean Matrix") {
   SUBCASE("Default constructor") {
@@ -274,16 +275,17 @@ TEST_CASE("Boolean Matrix") {
     m.insert(0, 0, true);
     m.insert(0, 1, true);
     m.insert(1, 2, true);
-    std::string filename = "./data/test/test0.txt";
-    m.fprint(filename);
+    std::string fileName = "./data/test/temp.txt";
+    m.fprint(fileName);
     // compare output with reference
-    std::ifstream f1(filename);
+    std::ifstream f1(fileName);
     std::ifstream f2("./data/test/test0_ref.txt");
     std::string s1((std::istreambuf_iterator<char>(f1)),
                    std::istreambuf_iterator<char>());
     std::string s2((std::istreambuf_iterator<char>(f2)),
-                    std::istreambuf_iterator<char>());
+                   std::istreambuf_iterator<char>());
     CHECK(s1 == s2);
+    std::remove(fileName.c_str());
   }
 }
 
@@ -532,12 +534,22 @@ TEST_CASE("utils") {
 // Graph
 
 TEST_CASE("Graph") {
-  SUBCASE("Constructor exception") {
-    CHECK_THROWS(Graph("./not/a/path"));
-  }
+  SUBCASE("Constructor exception") { CHECK_THROWS(Graph("./not/a/path")); }
   SUBCASE("setTemperature exception") {
     Graph g("./data/matrix.dat");
     CHECK_THROWS(g.setTemperature(-1.));
+  }
+  SUBCASE("addVehicle exceptions") {
+    Graph g("./data/matrix.dat");
+    // VehicleType index < 0
+    CHECK_THROWS(g.addVehicle(-1));
+    // VehicleType index out of range
+    CHECK_THROWS(g.addVehicle(100));
+  }
+  SUBCASE("addRndVehicle exceptions") {
+    Graph g("./data/matrix.dat");
+    // VehicleType index < 0
+    CHECK_THROWS(g.addRndmVehicles(-1));
   }
   // to check the constructor we'll check all the print functions
   SUBCASE("fprint") {
@@ -549,16 +561,126 @@ TEST_CASE("Graph") {
     std::string s1((std::istreambuf_iterator<char>(f1)),
                    std::istreambuf_iterator<char>());
     std::string s2((std::istreambuf_iterator<char>(f2)),
-                    std::istreambuf_iterator<char>());
+                   std::istreambuf_iterator<char>());
     CHECK(s1 == s2);
     g.fprint(true);
-    // compare the two files
+    // compare the two files (verbose version)
     std::ifstream f3("./network_info.txt");
     std::ifstream f4("./data/test/test1_true_ref.txt");
     std::string s3((std::istreambuf_iterator<char>(f3)),
                    std::istreambuf_iterator<char>());
     std::string s4((std::istreambuf_iterator<char>(f4)),
-                    std::istreambuf_iterator<char>());
+                   std::istreambuf_iterator<char>());
     CHECK(s3 == s4);
   }
+  SUBCASE("fprintStreets without vehicles") {
+    Graph g("./data/matrix_old.dat");
+    std::string fileName = "./data/test/temp.txt";
+    g.fprintStreets(fileName);
+    // compare the two files
+    std::ifstream f1(fileName);
+    std::ifstream f2("./data/test/test2_ref.txt");
+    std::string s1((std::istreambuf_iterator<char>(f1)),
+                   std::istreambuf_iterator<char>());
+    std::string s2((std::istreambuf_iterator<char>(f2)),
+                   std::istreambuf_iterator<char>());
+    // Streets are print only if they have vehicles so this should be empty
+    CHECK(s1 == s2);
+    std::remove(fileName.c_str());
+  }
+  SUBCASE("fprintStreets with vehicles") {
+    Graph g("./data/matrix.dat");
+    g.setSeed(69);
+    g.addRndmVehicles(10);
+    g.updateTransMatrix();
+    g.evolve(false); // to put vehicles on the streets
+    std::string fileName = "./data/test/temp.txt";
+    g.fprintStreets(fileName);
+    // compare the two files
+    std::ifstream f1(fileName);
+    std::ifstream f2("./data/test/test4_ref.txt");
+    std::string s1((std::istreambuf_iterator<char>(f1)),
+                   std::istreambuf_iterator<char>());
+    std::string s2((std::istreambuf_iterator<char>(f2)),
+                    std::istreambuf_iterator<char>());
+    CHECK(s1 == s2);
+    std::remove(fileName.c_str());
+  }
+  SUBCASE("updateTransMatrix") {
+    Graph g("./data/matrix.dat");
+    // add a vehicle of type 0
+    g.addVehicle(1);
+    g.updateTransMatrix();
+    Vehicle v(1);
+    SparseMatrix<double> mat = v.getVehicleType(1)->getTransMatrix();
+    // check the matrix which should bring from 3 to 7 in a line
+    CHECK(mat(3, 4) == 1.);
+    CHECK(mat(4, 5) == 1.);
+    CHECK(mat(5, 6) == 1.);
+    CHECK(mat(6, 7) == 1.);
+    // check also that the vehicle cannot go back
+    CHECK(mat(7, 6) == 0.);
+    CHECK(mat(6, 5) == 0.);
+    CHECK(mat(5, 4) == 0.);
+    CHECK(mat(4, 3) == 0.);
+  }
+  SUBCASE("updateTransMatrix with noise") {
+    Graph g("./data/matrix.dat");
+    // add a vehicle of type 0
+    g.addVehicle(0);
+    // set a probability to fail
+    g.setTemperature(300);
+    g.updateTransMatrix();
+    Vehicle v(0);
+    SparseMatrix<double> mat = v.getVehicleType(0)->getTransMatrix();
+    // this vehicle has only two possible moves, one correct and one wrong
+    CHECK(std::abs(mat(0, 1) - 0.924418) < 1e-6);
+    CHECK(std::abs(mat(0, 12) - 0.0755823) < 1e-6);
+  }
+  SUBCASE("evolve") {
+    Graph g("./data/matrix.dat");
+    // add a vehicle of type 0
+    g.addVehicle(0);
+    g.updateTransMatrix();
+    g.evolve(false);
+    std::string fileName = "./data/test/temp.txt";
+    // should print 1 vehicle on street 0
+    g.fprintStreets(fileName);
+    // compare the two files
+    std::ifstream f1(fileName);
+    std::ifstream f2("./data/test/test3_ref.txt");
+    std::string s1((std::istreambuf_iterator<char>(f1)),
+                   std::istreambuf_iterator<char>());
+    std::string s2((std::istreambuf_iterator<char>(f2)),
+                    std::istreambuf_iterator<char>());
+    CHECK(s1 == s2);
+    std::remove(fileName.c_str());
+    // street is 500 meters long so it should take 36 steps to arrive
+    for (int i = 0; i < 36; i++) {
+      g.evolve(false);
+    }
+    // check that the vehicle has arrived to destination
+    g.fprintStreets(fileName);
+    // compare the two files
+    std::ifstream f3(fileName);
+    std::ifstream f4("./data/test/test2_ref.txt"); // empty file
+    std::string s3((std::istreambuf_iterator<char>(f3)),
+                   std::istreambuf_iterator<char>());
+    std::string s4((std::istreambuf_iterator<char>(f4)),
+                    std::istreambuf_iterator<char>());
+    CHECK(s3 == s4);
+    std::remove(fileName.c_str());
+  }
+
+  // SUBCASE("evolve with reinsertion") {
+  //   Graph g("./data/matrix.dat");
+  //   g.setSeed(69);
+  //   g.addVehicle(0);
+  //   g.updateTransMatrix();
+  //   for (int i = 0; i < 69; i++) {
+  //     g.evolve();
+  //   }
+  //   std::string fileName = "./data/test/temp.txt";
+  //   g.fprintStreets(fileName);
+  // }
 }
