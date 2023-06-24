@@ -238,6 +238,12 @@ Graph::Graph(std::string fName) {
   for (int i = 0; i < static_cast<int>(_streets.size()); ++i) {
     _vehiclesOnStreet.push_back(0);
   }
+  // sort streets by index
+  std::sort(
+      _streets.begin(), _streets.end(),
+      [](std::shared_ptr<Street> const &a, std::shared_ptr<Street> const &b) {
+        return a->getIndex() < b->getIndex();
+      });
 }
 /// @brief Set the seed for the random number generator
 /// @param seed seed for the random number generator
@@ -536,10 +542,14 @@ void Graph::fprintHistogram(std::string const &outFolder,
           fOut << vehicle->getTimeTraveled() / 60 << '\n';
         }
       }
+    } else {
+      std::string msg = "Graph::fprintHistogram: format must be latex or root.";
+      throw std::invalid_argument(msg);
     }
   } else {
-    throw std::invalid_argument("Graph::fprintHistogram: opt must be "
-                                "density or traveltime.\n");
+    std::string msg = "Graph::fprintHistogram: opt must be density or "
+                      "traveltime.";
+    throw std::invalid_argument(msg);
   }
   fOut.close();
 }
