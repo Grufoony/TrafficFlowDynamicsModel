@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['updatetransmatrix_69',['updateTransMatrix',['../classGraph.html#a5abc2104b5ac818a1bea6254181cf838',1,'Graph']]]
+  ['vehicle_71',['Vehicle',['../classVehicle.html',1,'Vehicle'],['../classVehicle.html#a8757cf8948070c0718362414f32c0f47',1,'Vehicle::Vehicle()']]],
+  ['vehicletype_72',['VehicleType',['../classVehicleType.html',1,'VehicleType'],['../classVehicleType.html#a976e785641bd5a3b4ff2f65ca4caab2f',1,'VehicleType::VehicleType()']]]
 ];

@@ -12,12 +12,13 @@ var classGraph =
     [ "fprintDistribution", "classGraph.html#a56f6748ea05bfd2ecd5c0d5079c9a7cf", null ],
     [ "fprintHistogram", "classGraph.html#aefe58e9230f9147dac42d4a58bd0987e", null ],
     [ "fprintMatrix", "classGraph.html#ab7c74fe77f8b5defc0687e2c0fbf54f8", null ],
+    [ "fprintStreets", "classGraph.html#a6b72ce1b34c1c3b1b9b53156e81df5b5", null ],
     [ "fprintTimeDistribution", "classGraph.html#a999e5b444a490024b1bfde896857cc9c", null ],
     [ "fprintVisual", "classGraph.html#ae5f2dd7b08b5e412719fca939370b4b1", null ],
-    [ "loadVehicles", "classGraph.html#a5604e31f4b670574f37c1b6f16150b6d", null ],
     [ "print", "classGraph.html#ac834408bc1a9fde2337f5446609d85f3", null ],
     [ "printMatrix", "classGraph.html#aa3f3b7c247427a7298b62c7e1970a6b4", null ],
     [ "printStreets", "classGraph.html#a24036863a4d0dea1b58de661bba40be0", null ],
+    [ "setSeed", "classGraph.html#a9228f475adfdf2fb1ccc4d6957c438d5", null ],
     [ "setTemperature", "classGraph.html#a70222d1b1b30e79ff60d7d7fa8748055", null ],
     [ "updateTransMatrix", "classGraph.html#a5abc2104b5ac818a1bea6254181cf838", null ]
 ];

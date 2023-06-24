@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['traffic_20flow_20dynamics_20model_68',['Traffic Flow Dynamics Model',['../index.html',1,'']]]
+  ['updatetransmatrix_70',['updateTransMatrix',['../classGraph.html#a5abc2104b5ac818a1bea6254181cf838',1,'Graph']]]
 ];

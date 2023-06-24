@@ -62,7 +62,8 @@ int Graph::_minDistance(int const src, int const dst) const {
   return dist[dst];
 }
 
-// function to calculate the next step of a vehicle given the current position based on the minimum distance
+// function to calculate the next step of a vehicle given the current position
+// based on the minimum distance
 std::vector<int> Graph::_nextStep(int const src, int const dst) {
   auto const min = _minDistance(src, dst);
   std::vector<int> _nextStep;
@@ -240,7 +241,6 @@ Graph::Graph(std::string fName) {
   }
 }
 
-
 void Graph::setSeed(int const seed) { _rng.seed(seed); }
 /// @param type vehicle type
 void Graph::addVehicle(int type) {
@@ -283,14 +283,14 @@ void Graph::addVehiclesUniformly(int nVehicles) {
   }
 }
 
-void Graph::loadVehicles(const char *fName) {
-  std::fstream data;
-  data.open(fName);
-  if (!data) {
-    throw std::runtime_error("Vehicles file does not exist.\n");
-  }
-  // TODO: add vehicles on _streets from file
-}
+// void Graph::loadVehicles(const char *fName) {
+//   std::fstream data;
+//   data.open(fName);
+//   if (!data) {
+//     throw std::runtime_error("Vehicles file does not exist.\n");
+//   }
+//   // TODO: add vehicles on _streets from file
+// }
 /// @brief set the system temperature
 /// @param temperature
 void Graph::setTemperature(double const temperature) {
@@ -415,6 +415,19 @@ void Graph::fprint(const bool printGraph) const noexcept {
   auto const rdbufBackup = std::cout.rdbuf();
   std::cout.rdbuf(fOut.rdbuf());
   this->print(printGraph);
+  std::cout.rdbuf(rdbufBackup);
+  fOut.close();
+}
+/// @brief Print information of every street on a file.
+/// @param fName name of the file where the information will be saved.
+/// Print information of every street like index, origin, destination, number of
+/// vehicles and input velocity.
+void Graph::fprintStreets(std::string const &fName) const noexcept {
+  std::ofstream fOut;
+  fOut.open(fName);
+  auto const rdbufBackup = std::cout.rdbuf();
+  std::cout.rdbuf(fOut.rdbuf());
+  this->printStreets();
   std::cout.rdbuf(rdbufBackup);
   fOut.close();
 }
