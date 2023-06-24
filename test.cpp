@@ -535,9 +535,17 @@ TEST_CASE("utils") {
 
 TEST_CASE("Graph") {
   SUBCASE("Constructor exception") { CHECK_THROWS(Graph("./not/a/path")); }
-  SUBCASE("setTemperature exception") {
+  SUBCASE("Temperature") {
     Graph g("./data/matrix.dat");
     CHECK_THROWS(g.setTemperature(-1.));
+    g.setTemperature(300.);
+    CHECK(g.getTemperature() == 300.);
+  }
+  SUBCASE("TimeScale") {
+    Graph g("./data/matrix.dat");
+    CHECK_THROWS(g.setTimeScale(-10));
+    g.setTimeScale(10);
+    CHECK(g.getTimeScale() == 10);
   }
   SUBCASE("addVehicle exceptions") {
     Graph g("./data/matrix.dat");
@@ -602,7 +610,7 @@ TEST_CASE("Graph") {
     std::string s1((std::istreambuf_iterator<char>(f1)),
                    std::istreambuf_iterator<char>());
     std::string s2((std::istreambuf_iterator<char>(f2)),
-                    std::istreambuf_iterator<char>());
+                   std::istreambuf_iterator<char>());
     CHECK(s1 == s2);
     std::remove(fileName.c_str());
   }
@@ -652,7 +660,7 @@ TEST_CASE("Graph") {
     std::string s1((std::istreambuf_iterator<char>(f1)),
                    std::istreambuf_iterator<char>());
     std::string s2((std::istreambuf_iterator<char>(f2)),
-                    std::istreambuf_iterator<char>());
+                   std::istreambuf_iterator<char>());
     CHECK(s1 == s2);
     std::remove(fileName.c_str());
     // street is 500 meters long so it should take 36 steps to arrive
@@ -667,20 +675,29 @@ TEST_CASE("Graph") {
     std::string s3((std::istreambuf_iterator<char>(f3)),
                    std::istreambuf_iterator<char>());
     std::string s4((std::istreambuf_iterator<char>(f4)),
-                    std::istreambuf_iterator<char>());
+                   std::istreambuf_iterator<char>());
     CHECK(s3 == s4);
     std::remove(fileName.c_str());
   }
-
-  // SUBCASE("evolve with reinsertion") {
-  //   Graph g("./data/matrix.dat");
-  //   g.setSeed(69);
-  //   g.addVehicle(0);
-  //   g.updateTransMatrix();
-  //   for (int i = 0; i < 69; i++) {
-  //     g.evolve();
-  //   }
-  //   std::string fileName = "./data/test/temp.txt";
-  //   g.fprintStreets(fileName);
-  // }
+  SUBCASE("evolve with reinsertion") {
+    Graph g("./data/matrix.dat");
+    g.setSeed(69);
+    g.addVehicle(0);
+    g.updateTransMatrix();
+    // default time scale is 100
+    for (int i = 0; i < 100; i++) {
+      g.evolve();
+    }
+    std::string fileName = "./data/test/temp.txt";
+    g.fprintStreets(fileName);
+    // compare the two files
+    std::ifstream f1(fileName);
+    std::ifstream f2("./data/test/test5_ref.txt");
+    std::string s1((std::istreambuf_iterator<char>(f1)),
+                   std::istreambuf_iterator<char>());
+    std::string s2((std::istreambuf_iterator<char>(f2)),
+                    std::istreambuf_iterator<char>());
+    CHECK(s1 == s2);
+    std::remove(fileName.c_str());
+  }
 }
