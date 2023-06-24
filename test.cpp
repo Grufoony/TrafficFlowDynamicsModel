@@ -596,7 +596,35 @@ TEST_CASE("Graph") {
     CHECK(s1 == s2);
     std::remove(fileName.c_str());
   }
-  SUBCASE("fprintStreets with vehicles") {
+  SUBCASE("addRndmVehicle") {
+    std::mt19937 gen(std::random_device{}());
+    gen.seed(69);
+    Graph g("./data/matrix.dat");
+    g.setSeed(69);
+    g.addRndmVehicles(1);
+    g.updateTransMatrix();
+    g.evolve(false); // to put vehicles on the streets
+    std::string fileName = "./data/test/temp.txt";
+    g.fprintStreets(fileName);
+    Graph f("./data/matrix.dat");
+    std::uniform_int_distribution<> dis(0, Vehicle::getNVehicleType() - 1);
+    f.addVehicle(dis(gen));
+    f.updateTransMatrix();
+    f.evolve(false); // to put vehicles on the streets
+    std::string fileName2 = "./data/test/temp2.txt";
+    f.fprintStreets(fileName2);
+    // compare the two files
+    std::ifstream f1(fileName);
+    std::ifstream f2(fileName2);
+    std::string s1((std::istreambuf_iterator<char>(f1)),
+                   std::istreambuf_iterator<char>());
+    std::string s2((std::istreambuf_iterator<char>(f2)),
+                   std::istreambuf_iterator<char>());
+    CHECK(s1 == s2);
+    std::remove(fileName.c_str());
+    std::remove(fileName2.c_str());
+  }
+  SUBCASE("fprintStreets with many vehicles") {
     Graph g("./data/matrix.dat");
     g.setSeed(69);
     g.addRndmVehicles(10);
@@ -696,8 +724,56 @@ TEST_CASE("Graph") {
     std::string s1((std::istreambuf_iterator<char>(f1)),
                    std::istreambuf_iterator<char>());
     std::string s2((std::istreambuf_iterator<char>(f2)),
-                    std::istreambuf_iterator<char>());
+                   std::istreambuf_iterator<char>());
     CHECK(s1 == s2);
     std::remove(fileName.c_str());
+  }
+  SUBCASE("evolve with many vehicles") {
+    Graph g("./data/matrix.dat");
+    g.setSeed(69);
+    g.addRndmVehicles(24);
+    g.updateTransMatrix();
+    for (int i = 0; i < 69; i++) {
+      g.evolve();
+    }
+    std::string fileName = "./data/test/temp.txt";
+    g.fprintStreets(fileName);
+    // compare the two files
+    std::ifstream f1(fileName);
+    std::ifstream f2("./data/test/test6_ref.txt");
+    std::string s1((std::istreambuf_iterator<char>(f1)),
+                   std::istreambuf_iterator<char>());
+    std::string s2((std::istreambuf_iterator<char>(f2)),
+                   std::istreambuf_iterator<char>());
+    CHECK(s1 == s2);
+    std::remove(fileName.c_str());
+  }
+  // Now we can check the statistics of the vehicles
+  SUBCASE("fprintVisual") {
+    Graph g("./data/matrix.dat");
+    g.addVehicle(0);
+    g.updateTransMatrix();
+    g.evolve();
+    std::string fileName = "./data/test/";
+    g.fprintVisual(fileName);
+    // compare the two files
+    std::ifstream f1(fileName + "1.dat");
+    std::ifstream f2("./data/test/test7_ref.txt");
+    std::string s1((std::istreambuf_iterator<char>(f1)),
+                   std::istreambuf_iterator<char>());
+    std::string s2((std::istreambuf_iterator<char>(f2)),
+                   std::istreambuf_iterator<char>());
+    CHECK(s1 == s2);
+    std::remove((fileName + "1.dat").c_str());
+  }
+  SUBCASE("fprintHistogram exceptions") {
+    Graph g("./data/matrix.dat");
+    g.addVehicle(0);
+    g.updateTransMatrix();
+    g.evolve();
+    std::string fileName = "./data/test/";
+    CHECK_THROWS(g.fprintHistogram(fileName, "density", -5, "root"));
+    CHECK_THROWS(g.fprintHistogram(fileName, "notvalid", 5, "root"));
+    CHECK_THROWS(g.fprintHistogram(fileName, "traveltime", 5, "notvalid"));
   }
 }
