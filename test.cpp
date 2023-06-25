@@ -821,8 +821,58 @@ TEST_CASE("Graph") {
     std::remove((outFolder + "1_den.dat").c_str());
   }
 
-
-  SUBCASE("fprintActualState output- q/k") {
+  SUBCASE("fprintTimeDistribution output - q") {
+    Graph g("./data/matrix.dat");
+    g.addVehicle(0);
+    g.updateTransMatrix();
+    g.evolve();
+    std::string outFolder = "./data/test/";
+    g.fprintTimeDistribution(outFolder, "q", 10.);
+    // compare the two files
+    std::ifstream f1(outFolder + "q-t.dat");
+    std::ifstream f2("./data/test/test11qt_ref.txt");
+    std::string s1((std::istreambuf_iterator<char>(f1)),
+                   std::istreambuf_iterator<char>());
+    std::string s2((std::istreambuf_iterator<char>(f2)),
+                    std::istreambuf_iterator<char>());
+    CHECK(s1 == s2);
+    std::remove((outFolder + "q-t.dat").c_str());
+  }
+  SUBCASE("fprintTimeDistribution output - k") {
+    Graph g("./data/matrix.dat");
+    g.addVehicle(0);
+    g.updateTransMatrix();
+    g.evolve();
+    std::string outFolder = "./data/test/";
+    g.fprintTimeDistribution(outFolder, "k", 0.);
+    // compare the two files
+    std::ifstream f1(outFolder + "k-t.dat");
+    std::ifstream f2("./data/test/test11kt_ref.txt");
+    std::string s1((std::istreambuf_iterator<char>(f1)),
+                   std::istreambuf_iterator<char>());
+    std::string s2((std::istreambuf_iterator<char>(f2)),
+                    std::istreambuf_iterator<char>());
+    CHECK(s1 == s2);
+    std::remove((outFolder + "k-t.dat").c_str());
+  }
+  SUBCASE("fprintTimeDistribution output - v") {
+    Graph g("./data/matrix.dat");
+    g.addVehicle(1);
+    g.updateTransMatrix();
+    g.evolve();
+    std::string outFolder = "./data/test/";
+    g.fprintTimeDistribution(outFolder, "u", 0.);
+    // compare the two files
+    std::ifstream f1(outFolder + "u-t.dat");
+    std::ifstream f2("./data/test/test11ut_ref.txt");
+    std::string s1((std::istreambuf_iterator<char>(f1)),
+                   std::istreambuf_iterator<char>());
+    std::string s2((std::istreambuf_iterator<char>(f2)),
+                    std::istreambuf_iterator<char>());
+    CHECK(s1 == s2);
+    std::remove((outFolder + "u-t.dat").c_str());
+  }
+  SUBCASE("fprintActualState output - q/k") {
     Graph g("./data/matrix.dat");
     g.addVehicle(0);
     g.updateTransMatrix();
@@ -839,7 +889,7 @@ TEST_CASE("Graph") {
     CHECK(s1 == s2);
     std::remove((outFolder + "q-k.dat").c_str());
   }
-  SUBCASE("fprintActualState output- u/k") {
+  SUBCASE("fprintActualState output - u/k") {
     Graph g("./data/matrix.dat");
     g.addVehicle(0);
     g.updateTransMatrix();
