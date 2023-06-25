@@ -754,26 +754,50 @@ TEST_CASE("Graph") {
     g.addVehicle(0);
     g.updateTransMatrix();
     g.evolve();
-    std::string fileName = "./data/test/";
-    g.fprintVisual(fileName);
+    std::string outFolder = "./data/test/";
+    g.fprintVisual(outFolder);
     // compare the two files
-    std::ifstream f1(fileName + "1.dat");
+    std::ifstream f1(outFolder + "1.dat");
     std::ifstream f2("./data/test/test7_ref.txt");
     std::string s1((std::istreambuf_iterator<char>(f1)),
                    std::istreambuf_iterator<char>());
     std::string s2((std::istreambuf_iterator<char>(f2)),
                    std::istreambuf_iterator<char>());
     CHECK(s1 == s2);
-    std::remove((fileName + "1.dat").c_str());
+    std::remove((outFolder + "1.dat").c_str());
   }
   SUBCASE("fprintHistogram exceptions") {
     Graph g("./data/matrix.dat");
     g.addVehicle(0);
     g.updateTransMatrix();
     g.evolve();
-    std::string fileName = "./data/test/";
-    CHECK_THROWS(g.fprintHistogram(fileName, "density", -5, "root"));
-    CHECK_THROWS(g.fprintHistogram(fileName, "notvalid", 5, "root"));
-    CHECK_THROWS(g.fprintHistogram(fileName, "traveltime", 5, "notvalid"));
+    std::string outFolder = "./data/test/";
+    CHECK_THROWS(g.fprintHistogram(outFolder, "density", -5, "root")); // negative number of bins
+    CHECK_THROWS(g.fprintHistogram(outFolder, "notValid", 5, "root")); // not valid quantity
+    CHECK_THROWS(g.fprintHistogram(outFolder, "traveltime", 5, "notValid")); // not valid format
+  }
+  SUBCASE("fprintDistribution exception") {
+    Graph g("./data/matrix.dat");
+    g.addVehicle(0);
+    g.updateTransMatrix();
+    g.evolve();
+    std::string outFolder = "./data/test/";
+    CHECK_THROWS(g.fprintDistribution(outFolder, "notValid")); // not valid quantity
+  }
+  SUBCASE("fprintTimeDistribution exception") {
+    Graph g("./data/matrix.dat");
+    g.addVehicle(0);
+    g.updateTransMatrix();
+    g.evolve();
+    std::string outFolder = "./data/test/";
+    CHECK_THROWS(g.fprintTimeDistribution(outFolder, "notValid", 42.)); // not valid quantity
+  }
+  SUBCASE("fprintActualState exception") {
+    Graph g("./data/matrix.dat");
+    g.addVehicle(0);
+    g.updateTransMatrix();
+    g.evolve();
+    std::string outFolder = "./data/test/";
+    CHECK_THROWS(g.fprintActualState(outFolder, "notValid")); // not valid quantity
   }
 }
