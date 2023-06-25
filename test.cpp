@@ -692,7 +692,7 @@ TEST_CASE("Graph") {
     CHECK(s1 == s2);
     std::remove(fileName.c_str());
     // street is 500 meters long so it should take 36 steps to arrive
-    for (int i = 0; i < 36; i++) {
+    for (int i = 0; i < 36; ++i) {
       g.evolve(false);
     }
     // check that the vehicle has arrived to destination
@@ -713,7 +713,7 @@ TEST_CASE("Graph") {
     g.addVehicle(0);
     g.updateTransMatrix();
     // default time scale is 100
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < 100; ++i) {
       g.evolve();
     }
     std::string fileName = "./data/test/temp.txt";
@@ -733,7 +733,7 @@ TEST_CASE("Graph") {
     g.setSeed(69);
     g.addRndmVehicles(24);
     g.updateTransMatrix();
-    for (int i = 0; i < 69; i++) {
+    for (int i = 0; i < 69; ++i) {
       g.evolve();
     }
     std::string fileName = "./data/test/temp.txt";
@@ -773,8 +773,8 @@ TEST_CASE("Graph") {
     g.evolve();
     std::string outFolder = "./data/test/";
     CHECK_THROWS(g.fprintHistogram(outFolder, "density", -5, "root")); // negative number of bins
-    CHECK_THROWS(g.fprintHistogram(outFolder, "notValid", 5, "root")); // not valid quantity
-    CHECK_THROWS(g.fprintHistogram(outFolder, "traveltime", 5, "notValid")); // not valid format
+    CHECK_THROWS(g.fprintHistogram(outFolder, "notValid", 6, "root")); // not valid quantity
+    CHECK_THROWS(g.fprintHistogram(outFolder, "traveltime", 70, "notValid")); // not valid format
   }
   SUBCASE("fprintDistribution exception") {
     Graph g("./data/matrix.dat");
@@ -799,5 +799,25 @@ TEST_CASE("Graph") {
     g.evolve();
     std::string outFolder = "./data/test/";
     CHECK_THROWS(g.fprintActualState(outFolder, "notValid")); // not valid quantity
+  }
+  SUBCASE("fprintHistogram output - density") {
+    Graph g("./data/matrix.dat");
+    // add a lot of vehicles in order to see a change in density
+    for (int i = 0; i < 50; ++i) {
+      g.addVehicle(0);
+    }
+    g.updateTransMatrix();
+    g.evolve();
+    std::string outFolder = "./data/test/";
+    g.fprintHistogram(outFolder, "density", 10, "notRelevant");
+    // compare the two files
+    std::ifstream f1(outFolder + "1_den.dat");
+    std::ifstream f2("./data/test/test8_ref.txt");
+    std::string s1((std::istreambuf_iterator<char>(f1)),
+                   std::istreambuf_iterator<char>());
+    std::string s2((std::istreambuf_iterator<char>(f2)),
+                   std::istreambuf_iterator<char>());
+    CHECK(s1 == s2);
+    std::remove((outFolder + "1_den.dat").c_str());
   }
 }
