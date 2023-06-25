@@ -821,6 +821,60 @@ TEST_CASE("Graph") {
     std::remove((outFolder + "1_den.dat").c_str());
   }
 
+  SUBCASE("fprintDistribution output - u/q") {
+    Graph g("./data/matrix.dat");
+    g.addVehicle(0);
+    g.updateTransMatrix();
+    // test also for time in file name
+    for (int i = 0; i < 10; ++i) {
+      g.evolve();
+    }
+    std::string outFolder = "./data/test/";
+    g.fprintDistribution(outFolder, "u/q");
+    // compare the two files
+    std::ifstream f1(outFolder + "10_u-q.dat");
+    std::ifstream f2("./data/test/test10uq_ref.txt");
+    std::string s1((std::istreambuf_iterator<char>(f1)),
+                   std::istreambuf_iterator<char>());
+    std::string s2((std::istreambuf_iterator<char>(f2)),
+                    std::istreambuf_iterator<char>());
+    CHECK(s1 == s2);
+    std::remove((outFolder + "u-q.dat").c_str());
+  }
+  SUBCASE("fprintDistribution output - q/k") {
+    Graph g("./data/matrix.dat");
+    g.addVehicle(2); // test for other vehicle types
+    g.updateTransMatrix();
+    g.evolve();
+    std::string outFolder = "./data/test/";
+    g.fprintDistribution(outFolder, "q/k");
+    // compare the two files
+    std::ifstream f1(outFolder + "1_q-k.dat");
+    std::ifstream f2("./data/test/test10qk_ref.txt");
+    std::string s1((std::istreambuf_iterator<char>(f1)),
+                   std::istreambuf_iterator<char>());
+    std::string s2((std::istreambuf_iterator<char>(f2)),
+                    std::istreambuf_iterator<char>());
+    CHECK(s1 == s2);
+    std::remove((outFolder + "q-k.dat").c_str());
+  }
+  SUBCASE("fprintDistribution output - u/k") {
+    Graph g("./data/matrix.dat");
+    g.addVehicle(0);
+    g.updateTransMatrix();
+    g.evolve();
+    std::string outFolder = "./data/test/";
+    g.fprintDistribution(outFolder, "u/k");
+    // compare the two files
+    std::ifstream f1(outFolder + "1_u-k.dat");
+    std::ifstream f2("./data/test/test10uk_ref.txt");
+    std::string s1((std::istreambuf_iterator<char>(f1)),
+                   std::istreambuf_iterator<char>());
+    std::string s2((std::istreambuf_iterator<char>(f2)),
+                    std::istreambuf_iterator<char>());
+    CHECK(s1 == s2);
+    std::remove((outFolder + "u-k.dat").c_str());
+  }
   SUBCASE("fprintTimeDistribution output - q") {
     Graph g("./data/matrix.dat");
     g.addVehicle(0);
@@ -861,7 +915,7 @@ TEST_CASE("Graph") {
     g.updateTransMatrix();
     g.evolve();
     std::string outFolder = "./data/test/";
-    g.fprintTimeDistribution(outFolder, "u", 0.);
+    g.fprintTimeDistribution(outFolder, "u", -10.);
     // compare the two files
     std::ifstream f1(outFolder + "u-t.dat");
     std::ifstream f2("./data/test/test11ut_ref.txt");
