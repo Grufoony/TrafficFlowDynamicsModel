@@ -38,6 +38,30 @@ TEST_CASE("Boolean Matrix") {
     // Check exceptions
     CHECK_THROWS(m(-1));
   }
+  SUBCASE("Encode") {
+    std::string fileName = "./data/test/convert.dat";
+    SparseMatrix<double>::encode(fileName);
+    // compare the two files
+    std::ifstream f1(fileName);
+    std::ifstream f2("./data/test/encoded_ref.dat");
+    std::string s1((std::istreambuf_iterator<char>(f1)),
+                   std::istreambuf_iterator<char>());
+    std::string s2((std::istreambuf_iterator<char>(f2)),
+                    std::istreambuf_iterator<char>());
+    CHECK(s1 == s2);
+  }
+  SUBCASE("Decode") {
+    std::string fileName = "./data/test/convert.dat";
+    SparseMatrix<double>::decode(fileName);
+    // compare the two files
+    std::ifstream f1(fileName);
+    std::ifstream f2("./data/test/matrix_ref.dat");
+    std::string s1((std::istreambuf_iterator<char>(f1)),
+                   std::istreambuf_iterator<char>());
+    std::string s2((std::istreambuf_iterator<char>(f2)),
+                    std::istreambuf_iterator<char>());
+    CHECK(s1 == s2);
+  }
   SUBCASE("Insertions") {
     // Create a boolean matrix
     SparseMatrix<bool> m(3, 3);
