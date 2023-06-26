@@ -508,7 +508,7 @@ void Graph::fprintHistogram(std::string const &outFolder,
     fOut << (nBins + 1.) * (1. / nBins);
   } else if (opt == "traveltime") {
     double binSize = 6e3 / nBins;
-    auto out = "./temp_data/" + std::to_string(_time);
+    auto out = outFolder + std::to_string(_time);
     if (format == "latex") {
       out += "_t.dat";
       fOut.open(out);
@@ -531,7 +531,7 @@ void Graph::fprintHistogram(std::string const &outFolder,
       normalizeVec(N);
       j = 0;
       for (auto const &n : N) {
-        fOut << std::setprecision(3) << j * binSize / 60 << '\t' << n << '\n';
+        fOut << std::setprecision(3) << j * binSize / 60. << '\t' << n << '\n';
         ++j;
       }
     } else if (format == "root") {
@@ -539,7 +539,7 @@ void Graph::fprintHistogram(std::string const &outFolder,
       fOut.open(out);
       for (auto const &vehicle : _vehicles) {
         if (vehicle->getPosition() == vehicle->getDestination()) {
-          fOut << vehicle->getTimeTraveled() / 60 << '\n';
+          fOut << vehicle->getTimeTraveled() / 60. << '\n';
         }
       }
     } else {
@@ -615,23 +615,24 @@ void Graph::fprintTimeDistribution(std::string const &outFolder,
   }
   meanDensity /= _streets.size();
   meanVelocity /= _streets.size();
+  std::string out;
+  double y = 0.;
   if (opt == "k") {
-    auto out = outFolder + "k-t.dat";
-    fOut.open(out, std::ios_base::app);
-    fOut << _time / 3.6e3 + timeZero << '\t' << meanDensity << '\n';
+    out = outFolder + "k-t.dat";
+    y = meanDensity;
   } else if (opt == "q") {
-    auto out = outFolder + "q-t.dat";
-    fOut.open(out, std::ios_base::app);
-    fOut << _time / 3.6e3 + timeZero << '\t' << meanDensity * meanVelocity
-         << '\n';
+    out = outFolder + "q-t.dat";
+    y = meanDensity * meanVelocity;
   } else if (opt == "u") {
-    auto out = outFolder + "u-t.dat";
-    fOut.open(out, std::ios_base::app);
-    fOut << _time / 3.6e3 + timeZero << '\t' << meanVelocity << '\n';
+    out = outFolder + "u-t.dat";
+    y = meanVelocity;
+
   } else {
     throw std::invalid_argument("Graph::fprintTimeDistribution: Invalid "
                                 "option.\n");
   }
+  fOut.open(out, std::ios_base::app);
+  fOut << _time / 3.6e3 + timeZero << '\t' << y << '\n';
   fOut.close();
 }
 /// @brief Print the means of some network's data in a format readable by LaTeX.
@@ -652,28 +653,19 @@ void Graph::fprintActualState(std::string const &outFolder,
   }
   meanDensity /= _streets.size();
   meanVelocity /= _streets.size();
+  std::string out;
+  double y = 0.;
   if (opt == "q/k") { // Print mean flow/density
-    // auto variance = 0.;
-    // for (auto const &street : _streets) {
-    //   variance += (street->getVehicleDensity() * 1e3 - meanDensity) *
-    //               (street->getVehicleDensity() * 1e3 - meanDensity);
-    // }
-    // variance = std::sqrt(variance / _streets.size());
-    auto out = outFolder + "q-k.dat";
-    fOut.open(out, std::ios_base::app);
-    fOut << meanDensity << '\t' << meanVelocity * meanDensity << '\n';
-    // auto const &street = _streets.at(69);
-    // std::cout << street->getVehicleDensity() * 1e3 << '\t'
-    //           << this->_getStreetMeanVelocity(street->getIndex()) *
-    //                  street->getVehicleDensity() * 3.6e3
-    //           << '\n';
+    out = outFolder + "q-k.dat";
+    y = meanVelocity * meanDensity;
   } else if (opt == "u/k") { // Print mean velocity/density
-    auto out = outFolder + "u-k.dat";
-    fOut.open(out, std::ios_base::app);
-    fOut << meanDensity << '\t' << meanVelocity << '\n';
+    out = outFolder + "u-k.dat";
+    y = meanVelocity;
   } else {
     throw std::invalid_argument("Graph::fprintActualState: Invalid option.\n");
   }
+  fOut.open(out, std::ios_base::app);
+  fOut << meanDensity << '\t' << y << '\n';
   fOut.close();
 }
 
