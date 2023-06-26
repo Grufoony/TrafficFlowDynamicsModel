@@ -2,7 +2,7 @@ var searchData=
 [
   ['setnlanes_62',['setNLanes',['../classStreet.html#a0a02776f5ec50181653f601f5734cef3',1,'Street']]],
   ['setposition_63',['setPosition',['../classVehicle.html#a3d9d5f53c8abab37cb1c9b8e9a42b589',1,'Vehicle']]],
-  ['setseed_64',['setSeed',['../classGraph.html#a9228f475adfdf2fb1ccc4d6957c438d5',1,'Graph']]],
+  ['setseed_64',['setSeed',['../classGraph.html#a9228f475adfdf2fb1ccc4d6957c438d5',1,'Graph::setSeed()'],['../classSparseMatrix.html#a3723dc707a354bf038e7a359a0084310',1,'SparseMatrix::setSeed()']]],
   ['setstreet_65',['setStreet',['../classVehicle.html#af8965e1936cc1f397dfa4121ebded61a',1,'Vehicle']]],
   ['settemperature_66',['setTemperature',['../classGraph.html#a70222d1b1b30e79ff60d7d7fa8748055',1,'Graph']]],
   ['settimepenalty_67',['setTimePenalty',['../classVehicle.html#a0281b574cfa8574e32407b9980abe030',1,'Vehicle']]],

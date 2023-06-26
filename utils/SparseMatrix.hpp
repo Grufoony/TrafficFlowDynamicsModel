@@ -1,4 +1,4 @@
-//! SparseMatrix class v1.6.4 by Grufoony
+//! SparseMatrix class v1.7.0 by Grufoony
 
 //!  This class implements a sparse matrix. The matrix is stored in a compressed
 //!  row format. ++ 20 requiered.
@@ -19,20 +19,23 @@ template <typename T> class SparseMatrix {
   std::unordered_map<int, T> _matrix = {};
   int _rows = 0, _cols = 0;
   static constexpr T _defaultReturn = 0;
+  bool _setSeed = false;
+  int _seed = 0;
+  uint _randomGeneratedNumbers;
 
 public:
   SparseMatrix() = default;
-  /// \brief SparseMatrix constructor
-  /// \param rows number of rows
-  /// \param cols number of columns
+  /// @brief SparseMatrix constructor
+  /// @param rows number of rows
+  /// @param cols number of columns
   SparseMatrix(int rows, int cols) {
     rows < 0 || cols < 0
         ? throw std::invalid_argument("SparseMatrix: rows and cols must be > 0")
         : _rows = rows,
           _cols = cols;
   };
-  /// \brief SparseMatrix constructor - colum
-  /// \param index number of rows
+  /// @brief SparseMatrix constructor - colum
+  /// @param index number of rows
   SparseMatrix(int index) {
     index < 0 ? throw std::invalid_argument("SparseMatrix: index must be > 0")
               : _rows = index,
@@ -89,50 +92,56 @@ public:
       }
     }
   }
-
-  /// \brief insert a value in the matrix
-  /// \param i row index
-  /// \param j column index
-  /// \param value value to insert
+  /// @brief Set random seed
+  /// @param seed seed
+  void setSeed(int seed) noexcept {
+    _seed = seed;
+    _randomGeneratedNumbers = 0;
+    _setSeed = true;
+  }
+  /// @brief insert a value in the matrix
+  /// @param i row index
+  /// @param j column index
+  /// @param value value to insert
   void insert(int i, int j, T value) {
     if (i >= _rows || j >= _cols || i < 0 || j < 0) {
       throw std::out_of_range("Index out of range");
     }
     _matrix.emplace(std::make_pair(i * _cols + j, value));
   };
-  /// \brief insert a value in the matrix
-  /// \param i index
-  /// \param value value to insert
+  /// @brief insert a value in the matrix
+  /// @param i index
+  /// @param value value to insert
   void insert(int i, T value) {
     if (i >= _rows * _cols || i < 0) {
       throw std::out_of_range("Index out of range");
     }
     _matrix.emplace(std::make_pair(i, value));
   };
-  /// \brief insert a value in the matrix. If the element already exist, it
+  /// @brief insert a value in the matrix. If the element already exist, it
   /// overwrites it
-  /// \param i row index
-  /// \param j column index
-  /// \param value value to insert
+  /// @param i row index
+  /// @param j column index
+  /// @param value value to insert
   void insert_or_assign(int i, int j, T value) {
     if (i >= _rows || j >= _cols || i < 0 || j < 0) {
       throw std::out_of_range("Index out of range");
     }
     _matrix.insert_or_assign(i * _cols + j, value);
   };
-  /// \brief insert a value in the matrix. If the element already exist, it
+  /// @brief insert a value in the matrix. If the element already exist, it
   /// overwrites it
-  /// \param index index in vectorial form
-  /// \param value value to insert
+  /// @param index index in vectorial form
+  /// @param value value to insert
   void insert_or_assign(int index, T value) {
     if (index < 0 || index > _rows * _cols - 1) {
       throw std::out_of_range("Index out of range");
     }
     _matrix.insert_or_assign(index, value);
   };
-  /// \brief remove a value from the matrix
-  /// \param i row index
-  /// \param j column index
+  /// @brief remove a value from the matrix
+  /// @param i row index
+  /// @param j column index
   void erase(int i, int j) {
     _matrix.find(i * _cols + j) != _matrix.end()
         ? _matrix.erase(i * _cols + j)
@@ -184,25 +193,25 @@ public:
     _rows = 0;
     _cols = 0;
   };
-  /// \brief check if the element is non zero
-  /// \param i row index
-  /// \param j column index
+  /// @brief check if the element is non zero
+  /// @param i row index
+  /// @param j column index
   bool contains(int i, int j) const {
     if (i >= _rows || j >= _cols || i < 0 || j < 0) {
       throw std::out_of_range("Index out of range");
     }
     return _matrix.contains(i * _cols + j);
   };
-  /// \brief check if the element is non zero
-  /// \param index index in vectorial form
+  /// @brief check if the element is non zero
+  /// @param index index in vectorial form
   bool contains(int const index) const {
     if (index < 0 || index > _rows * _cols - 1) {
       throw std::out_of_range("Index out of range");
     }
     return _matrix.contains(index);
   };
-  /// \brief get the input degree of all nodes
-  /// \return a SparseMatrix vector with the input degree of all nodes
+  /// @brief get the input degree of all nodes
+  /// @return a SparseMatrix vector with the input degree of all nodes
   SparseMatrix<int> getDegreeVector() {
     if (_rows != _cols) {
       throw std::runtime_error(
@@ -215,8 +224,8 @@ public:
     }
     return degreeVector;
   };
-  /// \brief get the strength of all nodes
-  /// \return a SparseMatrix vector with the strength of all nodes
+  /// @brief get the strength of all nodes
+  /// @return a SparseMatrix vector with the strength of all nodes
   SparseMatrix<double> getStrengthVector() {
     if (_rows != _cols) {
       throw std::runtime_error(
@@ -245,8 +254,8 @@ public:
     return laplacian;
   };
 
-  /// \brief get a row as a row vector
-  /// \param index row index
+  /// @brief get a row as a row vector
+  /// @param index row index
   SparseMatrix getRow(int index) const {
     if (index >= _rows || index < 0) {
       throw std::out_of_range("Index out of range");
@@ -259,8 +268,8 @@ public:
     }
     return row;
   }
-  /// \brief get a column as a column vector
-  /// \param index column index
+  /// @brief get a column as a column vector
+  /// @param index column index
   SparseMatrix getCol(int index) const {
     if (index >= _cols || index < 0) {
       throw std::out_of_range("Index out of range");
@@ -273,26 +282,26 @@ public:
     }
     return col;
   }
-  /// @brief get a random element from a row
+  /// @brief get a random non-zero element from a row
   /// @param index row index
   /// @return a pair containing the column index and the value
-  std::pair<int, T> getRndRowElement(int index) const {
+  std::pair<int, T> getRndRowElement(int index) {
     if (index >= _rows || index < 0)
       throw std::out_of_range("Index out of range");
-    auto const row = this->getRow(index);
+    auto row = this->getRow(index);
     if (row.size() == 0)
       throw std::runtime_error("SparseMatrix: row is empty");
     std::pair<int, T> res = row.getRndElement();
     res.first += index * _cols;
     return res;
   }
-  /// @brief get a random element from a column
+  /// @brief get a random non-zero element from a column
   /// @param index column index
   /// @return a pair containing the row index and the value
-  std::pair<int, T> getRndColElement(int index) const {
+  std::pair<int, T> getRndColElement(int index) {
     if (index >= _cols || index < 0)
       throw std::out_of_range("Index out of range");
-    auto const col = this->getCol(index);
+    auto col = this->getCol(index);
     if (col.size() == 0)
       throw std::runtime_error("SparseMatrix: col is empty");
     std::pair<int, T> res = col.getRndElement();
@@ -300,15 +309,20 @@ public:
     res.first += index;
     return res;
   }
-  /// @brief get a random element from the matrix
+  /// @brief get a random non-zero element from the matrix
   /// @return a pair containing the row index and the value
-  std::pair<int, T> getRndElement() const {
+  std::pair<int, T> getRndElement() {
     auto it = _matrix.begin();
-    std::random_device dev;
-    std::mt19937 rng(dev());
+    std::mt19937 rng(std::random_device{}());
+    if (_setSeed) {
+      rng.seed(_seed);
+      rng.discard(
+          _randomGeneratedNumbers); // maybe not that smart, but it works
+    }
     auto dist = std::uniform_int_distribution<int>(0, this->size() - 1);
     std::advance(it, dist(rng));
     std::pair<int, T> res = *it;
+    ++_randomGeneratedNumbers;
     return res;
   }
   /// @brief get a matrix of double with every row normalized to 1
@@ -347,11 +361,11 @@ public:
   }
   int getRowDim() const noexcept { return this->_rows; }
   int getColDim() const noexcept { return this->_cols; }
-  /// \brief get the number of non zero elements in the matrix
-  /// \return number of non zero elements
+  /// @brief get the number of non zero elements in the matrix
+  /// @return number of non zero elements
   int size() const noexcept { return _matrix.size(); };
-  /// \brief get the maximum number of elements in the matrix
-  /// \return maximum number of elements
+  /// @brief get the maximum number of elements in the matrix
+  /// @return maximum number of elements
   int max_size() const noexcept { return this->_rows * this->_cols; }
   T at(int i, int j) const {
     if (i >= _rows || j >= _cols || i < 0 || j < 0) {

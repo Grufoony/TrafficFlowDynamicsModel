@@ -179,29 +179,45 @@ TEST_CASE("Boolean Matrix") {
     m.insert(0, 0, true);
     m.insert(1, 2, true);
     m.insert(2, 1, true);
+    std::mt19937 gen(std::random_device{}());
+    gen.seed(69);
+    m.setSeed(69);
+    auto dist = std::uniform_int_distribution<int>(0, m.size() - 1);
     for (int i = 0; i < 9; ++i) {
+      auto it = m.begin();
       auto e = m.getRndElement();
-      CHECK(m.contains(e.first));
+      std::advance(it, dist(gen));
+      CHECK(e.first == (*it).first);
     }
   }
-  SUBCASE("Random Row") {
+  SUBCASE("Random Row Element") {
     SparseMatrix<bool> m(3, 3);
     m.insert(0, 0, true);
     m.insert(1, 2, true);
     m.insert(2, 1, true);
+    auto m2 = m;
+    m.setSeed(69);
+    m2.setSeed(69);
     for (int i = 0; i < 3; ++i) {
       auto e = m.getRndRowElement(i);
-      CHECK(m.contains(e.first));
+      // comparing using getRndElement (which is tested above)
+      CHECK(e.first == m2.getRow(i).getRndElement().first +
+                           i * 3); // convert row index to matrix index
     }
   }
-  SUBCASE("Random Column") {
+  SUBCASE("Random Column Element") {
     SparseMatrix<bool> m(3, 3);
     m.insert(0, 0, true);
     m.insert(1, 2, true);
     m.insert(2, 1, true);
+    auto m2 = m;
+    m.setSeed(69);
+    m2.setSeed(69);
     for (int i = 0; i < 3; ++i) {
       auto e = m.getRndColElement(i);
-      CHECK(m.contains(e.first));
+      // comparing using getRndElement (which is tested above)
+      CHECK(e.first == m2.getCol(i).getRndElement().first * 3 +
+                           i); // convert column index to matrix index
     }
   }
   SUBCASE("Normalized Rows") {
