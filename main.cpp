@@ -10,6 +10,11 @@
 #include <random>
 #include <string>
 
+// main file used to run the simulation for the report
+// the simulation can be run in different ways, the comments below explain how
+// to do any of them, uncomment the corresponding code and comment the rest
+// (with unwanted labels)
+
 void printExeTime(std::chrono::high_resolution_clock::duration interval) {
   auto duration =
       std::chrono::duration_cast<std::chrono::milliseconds>(interval).count();

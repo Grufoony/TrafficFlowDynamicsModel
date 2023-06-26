@@ -8,6 +8,8 @@
 #include "./utils/utils.hpp"
 #include <cstdio>
 
+// test file used to test the code
+
 TEST_CASE("Boolean Matrix") {
   SUBCASE("Default constructor") {
     // Create a boolean matrix
@@ -39,6 +41,7 @@ TEST_CASE("Boolean Matrix") {
     CHECK_THROWS(m(-1));
   }
   SUBCASE("Encode") {
+    // transorm a matrix into a list
     std::string fileName = "./data/test/convert.dat";
     SparseMatrix<double>::encode(fileName);
     // compare the two files
@@ -51,6 +54,7 @@ TEST_CASE("Boolean Matrix") {
     CHECK(s1 == s2);
   }
   SUBCASE("Decode") {
+    // transorm a list into a matrix
     std::string fileName = "./data/test/convert.dat";
     SparseMatrix<double>::decode(fileName);
     // compare the two files
@@ -72,8 +76,11 @@ TEST_CASE("Boolean Matrix") {
     for (int i = 1; i < 9; ++i) {
       CHECK(!m(i / 3, i % 3));
     }
+  }
+  SUBCASE("Insertion exceptions") {
+    SparseMatrix<bool> m(3, 3);
     // Check that an exception is thrown if the element is out of range
-    CHECK_THROWS(m(-1, -1));
+    CHECK_THROWS(m(-1, -2));
     CHECK_THROWS(m(3, 1));
   }
   SUBCASE("Deletions") {
@@ -95,19 +102,20 @@ TEST_CASE("Boolean Matrix") {
     SparseMatrix<bool> m(3, 3);
     m.insert(0, 0, true);
     CHECK(m.contains(0, 0));
+    // check if m contains only this element
     CHECK(!m.contains(0, 1));
-    CHECK_THROWS(m.contains(-1, -1));
+    // check out of range
+    CHECK_THROWS(m.contains(-2, -1));
   }
   SUBCASE("Get row") {
     SparseMatrix<bool> m(3, 3);
     // Create a row
     m.insert(0, 0, true);
-    m.insert(0, 1, true);
     m.insert(0, 2, true);
     auto row = m.getRow(0);
-    CHECK(row.size() == 3);
+    CHECK(row.size() == 2);
     CHECK(row(0));
-    CHECK(row(1));
+    CHECK(!row(1));
     CHECK(row(2));
     CHECK_THROWS(m.getRow(-1));
   }
@@ -115,12 +123,11 @@ TEST_CASE("Boolean Matrix") {
     SparseMatrix<bool> m(3, 3);
     // Create a column
     m.insert(0, 0, true);
-    m.insert(1, 0, true);
     m.insert(2, 0, true);
     auto col = m.getCol(0);
-    CHECK(col.size() == 3);
+    CHECK(col.size() == 2);
     CHECK(col(0));
-    CHECK(col(1));
+    CHECK(!col(1));
     CHECK(col(2));
     CHECK_THROWS(m.getCol(-1));
   }
@@ -132,16 +139,20 @@ TEST_CASE("Boolean Matrix") {
     SparseMatrix<bool> m(3, 3);
     CHECK(m.getColDim() == 3);
   }
-  SUBCASE("Get size") {
+  SUBCASE("Get max_size") {
+    // This is the maximum number of elements that can be stored in the matrix
     SparseMatrix<bool> m(3, 3);
     CHECK(m.max_size() == 9);
   }
-  SUBCASE("Get number of non-zero elements") {
+  SUBCASE("Get size") {
+    // This is the number of non-zero elements in the matrix
     SparseMatrix<bool> m(3, 3);
     m.insert(0, 0, true);
     m.insert(0, 1, true);
     m.insert(0, 2, true);
     CHECK(m.size() == 3);
+    m.insert(1, 1, true);
+    CHECK(m.size() == 4);
   }
   SUBCASE("Erase row") {
     SparseMatrix<bool> d(3, 3);
@@ -151,7 +162,8 @@ TEST_CASE("Boolean Matrix") {
     d.insert(2, 1, true);
     // Clone the matrix
     auto m = d;
-    // Erase the row (for each row)
+    // Erase the row (for each row) and check if all the other elements are
+    // rearranged correctly
     m.eraseRow(1);
     // Check the values
     CHECK(m(0, 0));
@@ -168,11 +180,14 @@ TEST_CASE("Boolean Matrix") {
     CHECK(m(0, 2));
   }
   SUBCASE("Erase column") {
+    // same as above (but for columns)
     SparseMatrix<bool> d(3, 3);
     d.insert(0, 0, true);
     d.insert(1, 2, true);
     d.insert(2, 1, true);
     auto m = d;
+    // Erase the row (for each row) and check if all the other elements are
+    // rearranged correctly
     m.eraseColumn(1);
     CHECK(m(0, 0));
     CHECK(m(1, 1));
@@ -194,6 +209,7 @@ TEST_CASE("Boolean Matrix") {
     m.insert(2, 1, true);
     m.insert(2, 2, true);
     auto v = m.getDegreeVector();
+    // check if the sum on all rows is done correctly
     CHECK(v(0) == 2);
     CHECK(v(1) == 1);
     CHECK(v(2) == 3);
@@ -222,6 +238,7 @@ TEST_CASE("Boolean Matrix") {
     auto m2 = m;
     m.setSeed(69);
     m2.setSeed(69);
+    // check random elements on every row
     for (int i = 0; i < 3; ++i) {
       auto e = m.getRndRowElement(i);
       // comparing using getRndElement (which is tested above)
@@ -237,6 +254,7 @@ TEST_CASE("Boolean Matrix") {
     auto m2 = m;
     m.setSeed(69);
     m2.setSeed(69);
+    // check random elements on every column
     for (int i = 0; i < 3; ++i) {
       auto e = m.getRndColElement(i);
       // comparing using getRndElement (which is tested above)
@@ -253,7 +271,8 @@ TEST_CASE("Boolean Matrix") {
     m.insert(1, 1, true);
     m.insert(1, 2, true);
     m.insert(2, 1, true);
-    // Get the normalized rows
+    // Get the normalized rows and check their values, comparig floats with a
+    // numeric limit
     auto v = m.getNormRows();
     CHECK(v(0, 0) - 1. / 3 < std::numeric_limits<double>::epsilon());
     CHECK(v(1, 1) - 1. / 2 < std::numeric_limits<double>::epsilon());
@@ -273,6 +292,8 @@ TEST_CASE("Boolean Matrix") {
     m.insert(1, 1, true);
     m.insert(1, 2, true);
     m.insert(2, 1, true);
+    // Get the normalized columns and check their values, comparig floats with a
+    // numeric limit
     auto v = m.getNormCols();
     CHECK(v(0, 0) - 1 < std::numeric_limits<double>::epsilon());
     CHECK(v(1, 1) - 1. / 3 < std::numeric_limits<double>::epsilon());
@@ -291,7 +312,7 @@ TEST_CASE("Boolean Matrix") {
     m.insert(1, 2, true);
     // Symmetrize the matrix
     m.symmetrize();
-    // Check the values
+    // Check the values after symmetrization
     for (int i = 0; i < 9; ++i) {
       if (i != 4 && i != 8 && i != 2 && i != 6) {
         CHECK(m.contains(i));
@@ -306,6 +327,8 @@ TEST_CASE("Boolean Matrix") {
     m.insert(0, 1, true);
     m.insert(1, 2, true);
     std::stringstream ss;
+    // here we can use the << operator instead of the print function because it
+    // does the same thing
     ss << m;
     // check edge list
     CHECK(ss.str() == "3\t3\n5\t1\n1\t1\n0\t1\n");
@@ -354,6 +377,7 @@ TEST_CASE("VehicleType") {
     // Get the transition matrix
     auto m2 = v.getTransMatrix();
     // Check the transition matrix
+    // Here we can compare floats with ==, I don't really know why but it works
     CHECK(m2(0, 0) == 0.3);
     CHECK(m2(0, 1) == 0.3);
     CHECK(m2(0, 2) == 0.4);
@@ -410,7 +434,11 @@ TEST_CASE("Vehicle") {
     Vehicle v2(1);
     CHECK(v2.getDestination() == 7);
   }
-  SUBCASE("Constructor exceptions") { CHECK_THROWS(Vehicle(12)); }
+  SUBCASE("Constructor exceptions") {
+    // out of range
+    CHECK_THROWS(Vehicle(12));
+    CHECK_THROWS(Vehicle(-1));
+  }
   SUBCASE("VehicleType") {
     auto v = Vehicle(0);
     // Check the vehicle type
@@ -424,7 +452,7 @@ TEST_CASE("Vehicle") {
   }
   SUBCASE("Position") {
     auto v = Vehicle(1);
-    CHECK(v.getPosition() == 3); // default value
+    CHECK(v.getPosition() == 3); // default VehicleType value
     // Set the position
     v.setPosition(10);
     // Check the position
@@ -650,6 +678,7 @@ TEST_CASE("Graph") {
     g.fprintStreets(fileName);
     Graph f("./data/matrix.dat");
     std::uniform_int_distribution<> dis(0, Vehicle::getNVehicleType() - 1);
+    // create by generating here
     f.addVehicle(dis(gen));
     f.updateTransMatrix();
     f.evolve(false); // to put vehicles on the streets
@@ -739,7 +768,7 @@ TEST_CASE("Graph") {
     }
     // check that the vehicle has arrived to destination
     g.fprintStreets(fileName);
-    // compare the two files
+    // compare the two files to verify that it has not been reinserted
     std::ifstream f3(fileName);
     std::ifstream f4("./data/test/test2_ref.txt"); // empty file
     std::string s3((std::istreambuf_iterator<char>(f3)),
@@ -760,7 +789,7 @@ TEST_CASE("Graph") {
     }
     std::string fileName = "./data/test/temp.txt";
     g.fprintStreets(fileName);
-    // compare the two files
+    // compare the two files to check the reinsertion
     std::ifstream f1(fileName);
     std::ifstream f2("./data/test/test5_ref.txt");
     std::string s1((std::istreambuf_iterator<char>(f1)),
@@ -850,7 +879,8 @@ TEST_CASE("Graph") {
   }
   SUBCASE("fprintHistogram output - density") {
     Graph g("./data/matrix.dat");
-    // add a lot of vehicles in order to see a change in density
+    // add a lot of vehicles of the same type in order to see a change in
+    // density
     for (int i = 0; i < 50; ++i) {
       g.addVehicle(0);
     }
@@ -875,12 +905,11 @@ TEST_CASE("Graph") {
     g.setTimeScale(50);
     std::string outFolder = "./data/test/";
     for (int i = 0; i < 25; ++i) {
-      g.evolve(false); // not reinserting to verify 0 traveltime
+      g.evolve(false);
     }
-    // here traveltime should be 0
     g.fprintHistogram(outFolder, "traveltime", 10, "root");
     g.fprintHistogram(outFolder, "traveltime", 10, "latex");
-    // compare the two files
+    // verify traveltime in all formats
     std::ifstream f1(outFolder + "25_root.dat");
     std::ifstream f2("./data/test/test8root_ref.txt");
     std::string s1((std::istreambuf_iterator<char>(f1)),
