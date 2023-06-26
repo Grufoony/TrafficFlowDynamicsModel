@@ -97,7 +97,10 @@ To do so, in the main folder you can just run:
 ```bash
 ./build.sh
 ```
-Then you can run any simulation done in the report using `python3` followed by one option (`constant`, `peaked`, `periodic`, `traveltime`).
+Then you can run any simulation done in the report running the `example.py` script with one option (`constant`, `peaked`, `periodic`, `traveltime`), for instance:
+```bash
+python3 example.py peaked
+```
 
 ## Testing
 The test for all the classes are into the *test.cpp* file.

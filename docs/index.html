@@ -123,19 +123,24 @@ Abstract</h1>
 <p>A partire dagli anni ’50 furono sviluppati numerosi modelli con l’intento di studiare i fenomeni connessi al traffico. Alcuni di essi riuscirono non solo a spiegare i fenomeni per i quali erano stati ideati ma misero in evidenza altre caratteristiche tipiche dei sistemi dinamici, come la presenza di cicli di isteresi e cambiamenti nella distribuzione dei tempi di percorrenza in situazioni di congestione. Questo lavoro si propone di verificare la validità di un modello semplificato ideato per evidenziare i comportamenti tipici di un sistema di traffico, in particolare le congestioni che si vengono a creare sulla rete stradale. Tale modello viene implementato per mezzo della libreria C++ <b>Traffic Flow Dynamics Model</b>. Ai fini dello studio vengono utilizzati i Diagrammi Fondamentali Macroscopici, particolari diagrammi che mettono in relazione gli osservabili principali di un network stradale quali velocità, densità e flusso. Variando il carico immesso nella rete stradale è stato possibile studiare il sistema in diversi regimi: carico costante, carico piccato e carico periodico. Mediante questi studi sono emerse diverse proprietà tipiche di ogni regime e, per alcuni di essi, è stata verificata e giustificata la presenza di uno o più cicli di isteresi. In ultimo è stata effettuata una breve analisi ad-hoc volta a evidenziare i cambiamenti nella distrubuzione dei tempi di percorrenza in relazione al regime di traffico considerato.</p>
 <h1><a class="anchor" id="autotoc_md4"></a>
 Download</h1>
-<p>You can obtain the library downloading the <em>source</em> dir from the repository.</p>
+<p>You can obtain the library downloading the <em>src</em> directory from the repository.</p>
 <p>Otherwise, you can directly download a release.</p>
 <h1><a class="anchor" id="autotoc_md5"></a>
 Compiling</h1>
-<p>Once created the main file, you can simply compile the source code using the Makefile. You can compile the program for a Linux distribution </p><pre class="fragment">make linux
-</pre><p> or for a windows distribution </p><pre class="fragment">make windows
-</pre><p> You can also run the library on Python keeping the optimization level given by C++. To make this you have to make the binding of the code on your personal environment.</p>
-<p>To do so, in the main folder you can just run: </p><pre class="fragment">./build.sh
-</pre> <h1><a class="anchor" id="autotoc_md6"></a>
+<p>To use the library correctly it's better to include at least the <a class="el" href="classGraph.html" title="Graph class.">Graph</a> and <a class="el" href="classVehicle.html" title="Vehicle class.">Vehicle</a> headers: </p><div class="fragment"><div class="line"> {c++}</div>
+<div class="line">#include &quot;./src/Graph.hpp&quot;</div>
+<div class="line">#include &quot;./src/Vehicle.hpp&quot;</div>
+</div><!-- fragment --><p> also, remember to link all the *.cpp* files when compiling your main, for instance: </p><div class="fragment"><div class="line">g++ -std=c++20 -O3 ./main.cpp ./src/Graph.cpp ./src/Street.cpp ./src/Vehicle.cpp ./src/VehicleType.cpp</div>
+</div><!-- fragment --><p> You can also try to work with the original <em>main.cpp</em> used for the report, building using the make file, like: </p><div class="fragment"><div class="line">make linux</div>
+</div><!-- fragment --><p> or: </p><div class="fragment"><div class="line">make windows</div>
+</div><!-- fragment --><p> Then, you can run the analysis you want to perform with the command <code>make</code> and one option (<code>constant</code>, <code>peaked</code>, <code>periodic</code>, <code>traveltime</code>). Make sure to uncomment all the necessary and comment the unnecessary into the main file before compiling it.</p>
+<p>An easier approach is to run the library on Python keeping the optimization level given by C++. To make this you have to make the binding of the code on your personal environment.</p>
+<p>To do so, in the main folder you can just run: </p><div class="fragment"><div class="line">./build.sh</div>
+</div><!-- fragment --><p> Then you can run any simulation done in the report running the <code>example.py</code> script with one option (<code>constant</code>, <code>peaked</code>, <code>periodic</code>, <code>traveltime</code>), for instance: </p><div class="fragment"><div class="line">python3 example.py peaked</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md6"></a>
 Testing</h1>
-<p>You can test the goodness of the compilation by running the script <em>example.py</em> which contains the analysis done in the thesis work. You can give the script an argument between <em>constant</em>, <em>peaked</em>, <em>periodic</em>, <em>traveltime</em>. One example may be </p><pre class="fragment">python3 example.py peaked
-</pre><p> Furthermore, you can also test the goodness of <a class="el" href="classSparseMatrix.html" title="SparseMatrix class v1.7.0 by Grufoony.">SparseMatrix</a> class by running </p><pre class="fragment">make test
-</pre><p> This last test uses <a href="https://github.com/doctest/doctest">doctest</a>.</p>
+<p>The test for all the classes are into the <em>test.cpp</em> file. To execute them, just run: </p><div class="fragment"><div class="line">make test</div>
+</div><!-- fragment --><p> Notice that these tests use <a href="https://github.com/doctest/doctest">doctest</a>.</p>
 <h1><a class="anchor" id="autotoc_md7"></a>
 Data</h1>
 <p>Once run the simulation you can print data in two formats:</p>
@@ -143,7 +148,7 @@ Data</h1>
 <li><b>latex</b>, which prints data in a format readable by the package <a href="https://pgfplots.sourceforge.net/"><em>pgfplots</em></a> of LaTeX;</li>
 <li><b>root</b>, which prints data in a format readable by the C++ framework <a href="https://root.cern/"><em>Root</em></a>, developed by CERN.</li>
 </ol>
-<p>There is also a way to visualize the network in which the streets change color based on their vehicle density. To do that there is a Python script, <em>visual.py</em> that prints a PNG file of an arbitrary instant of time. With this script you can also merge different PNG files into a unique GIF file, obtaining an output like this:</p>
+<p>There is also a way to visualize the network in which the streets change color based on their vehicle density. To do that there is a Python script, <code>visual.py</code> that prints a PNG file of an arbitrary instant of time. With this script you can also merge different PNG files into a unique GIF file, obtaining an output like this:</p>
 <p><img src="https://github.com/Grufoony/TrafficFlowDynamicsModel/blob/main/data/img/evolution.gif?raw=true" alt="" width="50%" height="50%" class="inline"/> </p>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
