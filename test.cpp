@@ -883,6 +883,8 @@ TEST_CASE("Graph") {
     std::string s4((std::istreambuf_iterator<char>(f4)),
                    std::istreambuf_iterator<char>());
     CHECK(s3 == s4);
+    std::remove((outFolder + "0_root.dat").c_str());
+    std::remove((outFolder + "0_t.dat").c_str());
     std::remove((outFolder + "50_root.dat").c_str());
     std::remove((outFolder + "50_t.dat").c_str());
   }
@@ -904,7 +906,7 @@ TEST_CASE("Graph") {
     std::string s2((std::istreambuf_iterator<char>(f2)),
                    std::istreambuf_iterator<char>());
     CHECK(s1 == s2);
-    std::remove((outFolder + "u-q.dat").c_str());
+    std::remove((outFolder + "10_u-q.dat").c_str());
   }
   SUBCASE("fprintDistribution output - q/k") {
     Graph g("./data/matrix.dat");
@@ -921,7 +923,7 @@ TEST_CASE("Graph") {
     std::string s2((std::istreambuf_iterator<char>(f2)),
                    std::istreambuf_iterator<char>());
     CHECK(s1 == s2);
-    std::remove((outFolder + "q-k.dat").c_str());
+    std::remove((outFolder + "1_q-k.dat").c_str());
   }
   SUBCASE("fprintDistribution output - u/k") {
     Graph g("./data/matrix.dat");
@@ -938,7 +940,7 @@ TEST_CASE("Graph") {
     std::string s2((std::istreambuf_iterator<char>(f2)),
                    std::istreambuf_iterator<char>());
     CHECK(s1 == s2);
-    std::remove((outFolder + "u-k.dat").c_str());
+    std::remove((outFolder + "1_u-k.dat").c_str());
   }
   SUBCASE("fprintTimeDistribution output - q") {
     Graph g("./data/matrix.dat");
