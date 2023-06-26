@@ -16,7 +16,7 @@ This project is part of a three-year thesis work for the Physics course at the A
 ## Citing
 If you use my code, please cite my work:
 
-Berselli, Gregorio  (2022) Modelli di traffico per la formazione della congestione su una rete stradale. [Laurea], Università di Bologna, Corso di Studio in Fisica [L-DM270] <http://amslaurea.unibo.it/view/cds/CDS9244/> 
+Berselli, Gregorio (2022) Modelli di traffico per la formazione della congestione su una rete stradale. [Laurea], Università di Bologna, Corso di Studio in Fisica [L-DM270] <http://amslaurea.unibo.it/view/cds/CDS9244/> 
 
     @phdthesis{amslaurea26332,
     author = {Gregorio Berselli},
@@ -65,39 +65,47 @@ ultimo è stata effettuata una breve analisi ad-hoc volta a evidenziare i cambia
 distrubuzione dei tempi di percorrenza in relazione al regime di traffico considerato.
 
 ## Download
-You can obtain the library downloading the *source* dir from the repository.
+You can obtain the library downloading the *src* directory from the repository.
 
 Otherwise, you can directly download a release.
 
 ## Compiling
-Once created the main file, you can simply compile the source code using the Makefile.
-You can compile the program for a Linux distribution
+To use the library correctly it's better to include at least the Graph and Vehicle headers:
+```c++
+#include "./src/Graph.hpp"
+#include "./src/Vehicle.hpp"
+```
+also, remember to link all the *.cpp* files when compiling your main, for instance:
+```bash
+g++ -std=c++20 -O3 ./main.cpp ./src/Graph.cpp ./src/Street.cpp ./src/Vehicle.cpp ./src/VehicleType.cpp
+```
+You can also try to work with the original *main.cpp* used for the report, building using the make file, like:
+```bash
+make linux
+```
+or:
+```bash
+make windows
+```
+Then, you can run the analysis you want to perform with the command `make` and one option (`constant`, `peaked`, `periodic`, `traveltime`).
+Make sure to uncomment all the necessary and comment the unnecessary into the main file before compiling it.
 
-    make linux
-
-or for a windows distribution
-
-    make windows
-
-You can also run the library on Python keeping the optimization level given by C++.
+An easier approach is to run the library on Python keeping the optimization level given by C++.
 To make this you have to make the binding of the code on your personal environment.
 
 To do so, in the main folder you can just run:
-
-    ./build.sh
+```bash
+./build.sh
+```
+Then you can run any simulation done in the report using `python3` followed by one option (`constant`, `peaked`, `periodic`, `traveltime`).
 
 ## Testing
-You can test the goodness of the compilation by running the script _example.py_ which contains the analysis done in the thesis work.
-You can give the script an argument between _constant_, _peaked_, _periodic_, _traveltime_.
-One example may be
-
-    python3 example.py peaked
-
-Furthermore, you can also test the goodness of SparseMatrix class by running
-
-    make test
-
-This last test uses [doctest](https://github.com/doctest/doctest).
+The test for all the classes are into the *test.cpp* file.
+To execute them, just run:
+```bash
+make test
+```
+Notice that these tests use [doctest](https://github.com/doctest/doctest).
 
 ## Data
 Once run the simulation you can print data in two formats:
@@ -106,7 +114,7 @@ Once run the simulation you can print data in two formats:
 2. **root**, which prints data in a format readable by the C++ framework [*Root*](https://root.cern/), developed by CERN.
 
 There is also a way to visualize the network in which the streets change color based on their vehicle density.
-To do that there is a Python script, *visual.py* that prints a PNG file of an arbitrary instant of time.
+To do that there is a Python script, `visual.py` that prints a PNG file of an arbitrary instant of time.
 With this script you can also merge different PNG files into a unique GIF file, obtaining an output like this:
 
 <img src="https://github.com/Grufoony/TrafficFlowDynamicsModel/blob/main/data/img/evolution.gif?raw=true" width="50%" height="50%"/>

@@ -47,7 +47,7 @@ TEST_CASE("Boolean Matrix") {
     std::string s1((std::istreambuf_iterator<char>(f1)),
                    std::istreambuf_iterator<char>());
     std::string s2((std::istreambuf_iterator<char>(f2)),
-                    std::istreambuf_iterator<char>());
+                   std::istreambuf_iterator<char>());
     CHECK(s1 == s2);
   }
   SUBCASE("Decode") {
@@ -59,7 +59,7 @@ TEST_CASE("Boolean Matrix") {
     std::string s1((std::istreambuf_iterator<char>(f1)),
                    std::istreambuf_iterator<char>());
     std::string s2((std::istreambuf_iterator<char>(f2)),
-                    std::istreambuf_iterator<char>());
+                   std::istreambuf_iterator<char>());
     CHECK(s1 == s2);
   }
   SUBCASE("Insertions") {
