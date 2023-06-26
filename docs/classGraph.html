@@ -227,7 +227,13 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <p>Adds a fixed number of vehicles with random types Adds a fixed number of vehicles with random types starting at their origin.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">nVehicles</td><td>number of vehicles </td></tr>
+    <tr><td class="paramname">nVehicles</td><td>number of vehiclesù </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>if nVehicles &lt; 0 </td></tr>
   </table>
   </dd>
 </dl>
@@ -288,6 +294,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">nVehicles</td><td>number of vehicles </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>if nVehicles &lt; 0 </td></tr>
   </table>
   </dd>
 </dl>
@@ -420,6 +432,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
   </table>
   </dd>
 </dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>if opt is not valid </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -460,6 +478,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <li>"u/k" to print the velocity/capacity distribution </li>
 </ul>
 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>if opt is not valid </td></tr>
   </table>
   </dd>
 </dl>
@@ -519,6 +543,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <li>"root" to print the data in a format readable by root. </li>
 </ul>
 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>if nBins &lt; 1 or format/option is invalid. </td></tr>
   </table>
   </dd>
 </dl>
@@ -603,6 +633,13 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <li>"u" to append the mean velocity of the network to the file u-t.dat </li>
 </ul>
 </td></tr>
+    <tr><td class="paramname">timeZero</td><td>is the time at which the simulation starts </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>if opt is not valid </td></tr>
   </table>
   </dd>
 </dl>
@@ -835,6 +872,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">temperature</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">std::invalid_argument</td><td>if temperature &lt; 0 </td></tr>
   </table>
   </dd>
 </dl>
