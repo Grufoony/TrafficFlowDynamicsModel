@@ -772,9 +772,12 @@ TEST_CASE("Graph") {
     g.updateTransMatrix();
     g.evolve();
     std::string outFolder = "./data/test/";
-    CHECK_THROWS(g.fprintHistogram(outFolder, "density", -5, "root")); // negative number of bins
-    CHECK_THROWS(g.fprintHistogram(outFolder, "notValid", 6, "root")); // not valid quantity
-    CHECK_THROWS(g.fprintHistogram(outFolder, "traveltime", 70, "notValid")); // not valid format
+    CHECK_THROWS(g.fprintHistogram(outFolder, "density", -5,
+                                   "root")); // negative number of bins
+    CHECK_THROWS(g.fprintHistogram(outFolder, "notValid", 6,
+                                   "root")); // not valid quantity
+    CHECK_THROWS(g.fprintHistogram(outFolder, "traveltime", 70,
+                                   "notValid")); // not valid format
   }
   SUBCASE("fprintDistribution exception") {
     Graph g("./data/matrix.dat");
@@ -782,7 +785,8 @@ TEST_CASE("Graph") {
     g.updateTransMatrix();
     g.evolve();
     std::string outFolder = "./data/test/";
-    CHECK_THROWS(g.fprintDistribution(outFolder, "notValid")); // not valid quantity
+    CHECK_THROWS(
+        g.fprintDistribution(outFolder, "notValid")); // not valid quantity
   }
   SUBCASE("fprintTimeDistribution exception") {
     Graph g("./data/matrix.dat");
@@ -790,7 +794,8 @@ TEST_CASE("Graph") {
     g.updateTransMatrix();
     g.evolve();
     std::string outFolder = "./data/test/";
-    CHECK_THROWS(g.fprintTimeDistribution(outFolder, "notValid", 42.)); // not valid quantity
+    CHECK_THROWS(g.fprintTimeDistribution(outFolder, "notValid",
+                                          42.)); // not valid quantity
   }
   SUBCASE("fprintActualState exception") {
     Graph g("./data/matrix.dat");
@@ -798,7 +803,8 @@ TEST_CASE("Graph") {
     g.updateTransMatrix();
     g.evolve();
     std::string outFolder = "./data/test/";
-    CHECK_THROWS(g.fprintActualState(outFolder, "notValid")); // not valid quantity
+    CHECK_THROWS(
+        g.fprintActualState(outFolder, "notValid")); // not valid quantity
   }
   SUBCASE("fprintHistogram output - density") {
     Graph g("./data/matrix.dat");
@@ -820,7 +826,66 @@ TEST_CASE("Graph") {
     CHECK(s1 == s2);
     std::remove((outFolder + "1_den.dat").c_str());
   }
-
+  SUBCASE("fprintHistogram output - traveltime") {
+    Graph g("./data/matrix.dat");
+    g.addVehicle(0);
+    g.updateTransMatrix();
+    g.setTimeScale(50);
+    std::string outFolder = "./data/test/";
+    for (int i = 0; i < 25; ++i) {
+      g.evolve(false); // not reinserting to verify 0 traveltime
+    }
+    // here traveltime should be 0
+    g.fprintHistogram(outFolder, "traveltime", 10, "root");
+    g.fprintHistogram(outFolder, "traveltime", 10, "latex");
+    // compare the two files
+    std::ifstream f1(outFolder + "25_root.dat");
+    std::ifstream f2("./data/test/test8root_ref.txt");
+    std::string s1((std::istreambuf_iterator<char>(f1)),
+                   std::istreambuf_iterator<char>());
+    std::string s2((std::istreambuf_iterator<char>(f2)),
+                   std::istreambuf_iterator<char>());
+    CHECK(s1 == s2);
+    std::ifstream f3(outFolder + "25_t.dat");
+    std::ifstream f4("./data/test/test8latex_ref.txt");
+    std::string s3((std::istreambuf_iterator<char>(f3)),
+                   std::istreambuf_iterator<char>());
+    std::string s4((std::istreambuf_iterator<char>(f4)),
+                   std::istreambuf_iterator<char>());
+    CHECK(s3 == s4);
+    std::remove((outFolder + "25_root.dat").c_str());
+    std::remove((outFolder + "25_t.dat").c_str());
+  }
+  SUBCASE("fprintHistogram output - 0 traveltime") {
+    Graph g("./data/matrix.dat");
+    g.addVehicle(0);
+    g.updateTransMatrix();
+    g.setTimeScale(50);
+    std::string outFolder = "./data/test/";
+    for (int i = 0; i < 50; ++i) {
+      g.evolve(false); // not reinserting to verify 0 traveltime
+    }
+    g.fprintHistogram(outFolder, "traveltime", 10, "root");
+    g.fprintHistogram(outFolder, "traveltime", 10, "latex");
+    // here traveltime should be 0 (or empty root file)
+    // compare the files
+    std::ifstream f1(outFolder + "50_root.dat");
+    std::ifstream f2("./data/test/test2_ref.txt"); // empty file
+    std::string s1((std::istreambuf_iterator<char>(f1)),
+                   std::istreambuf_iterator<char>());
+    std::string s2((std::istreambuf_iterator<char>(f2)),
+                   std::istreambuf_iterator<char>());
+    CHECK(s1 == s2);
+    std::ifstream f3(outFolder + "50_t.dat");
+    std::ifstream f4("./data/test/test9latex_ref.txt");
+    std::string s3((std::istreambuf_iterator<char>(f3)),
+                   std::istreambuf_iterator<char>());
+    std::string s4((std::istreambuf_iterator<char>(f4)),
+                   std::istreambuf_iterator<char>());
+    CHECK(s3 == s4);
+    std::remove((outFolder + "50_root.dat").c_str());
+    std::remove((outFolder + "50_t.dat").c_str());
+  }
   SUBCASE("fprintDistribution output - u/q") {
     Graph g("./data/matrix.dat");
     g.addVehicle(0);
@@ -837,7 +902,7 @@ TEST_CASE("Graph") {
     std::string s1((std::istreambuf_iterator<char>(f1)),
                    std::istreambuf_iterator<char>());
     std::string s2((std::istreambuf_iterator<char>(f2)),
-                    std::istreambuf_iterator<char>());
+                   std::istreambuf_iterator<char>());
     CHECK(s1 == s2);
     std::remove((outFolder + "u-q.dat").c_str());
   }
@@ -854,7 +919,7 @@ TEST_CASE("Graph") {
     std::string s1((std::istreambuf_iterator<char>(f1)),
                    std::istreambuf_iterator<char>());
     std::string s2((std::istreambuf_iterator<char>(f2)),
-                    std::istreambuf_iterator<char>());
+                   std::istreambuf_iterator<char>());
     CHECK(s1 == s2);
     std::remove((outFolder + "q-k.dat").c_str());
   }
@@ -871,7 +936,7 @@ TEST_CASE("Graph") {
     std::string s1((std::istreambuf_iterator<char>(f1)),
                    std::istreambuf_iterator<char>());
     std::string s2((std::istreambuf_iterator<char>(f2)),
-                    std::istreambuf_iterator<char>());
+                   std::istreambuf_iterator<char>());
     CHECK(s1 == s2);
     std::remove((outFolder + "u-k.dat").c_str());
   }
@@ -888,7 +953,7 @@ TEST_CASE("Graph") {
     std::string s1((std::istreambuf_iterator<char>(f1)),
                    std::istreambuf_iterator<char>());
     std::string s2((std::istreambuf_iterator<char>(f2)),
-                    std::istreambuf_iterator<char>());
+                   std::istreambuf_iterator<char>());
     CHECK(s1 == s2);
     std::remove((outFolder + "q-t.dat").c_str());
   }
@@ -905,7 +970,7 @@ TEST_CASE("Graph") {
     std::string s1((std::istreambuf_iterator<char>(f1)),
                    std::istreambuf_iterator<char>());
     std::string s2((std::istreambuf_iterator<char>(f2)),
-                    std::istreambuf_iterator<char>());
+                   std::istreambuf_iterator<char>());
     CHECK(s1 == s2);
     std::remove((outFolder + "k-t.dat").c_str());
   }
@@ -922,7 +987,7 @@ TEST_CASE("Graph") {
     std::string s1((std::istreambuf_iterator<char>(f1)),
                    std::istreambuf_iterator<char>());
     std::string s2((std::istreambuf_iterator<char>(f2)),
-                    std::istreambuf_iterator<char>());
+                   std::istreambuf_iterator<char>());
     CHECK(s1 == s2);
     std::remove((outFolder + "u-t.dat").c_str());
   }
@@ -956,7 +1021,7 @@ TEST_CASE("Graph") {
     std::string s1((std::istreambuf_iterator<char>(f1)),
                    std::istreambuf_iterator<char>());
     std::string s2((std::istreambuf_iterator<char>(f2)),
-                    std::istreambuf_iterator<char>());
+                   std::istreambuf_iterator<char>());
     CHECK(s1 == s2);
     std::remove((outFolder + "u-k.dat").c_str());
   }
