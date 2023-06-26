@@ -303,8 +303,9 @@ TEST_CASE("VehicleType") {
     VehicleType v(0, 1);
     // Create a transition matrix
     SparseMatrix<double> m(3, 3);
-    m.insert(0, 0, 0.5);
-    m.insert(0, 1, 0.5);
+    m.insert(0, 0, 0.3);
+    m.insert(0, 1, 0.3);
+    m.insert(0, 2, 0.4);
     m.insert(1, 1, 0.5);
     m.insert(1, 2, 0.5);
     m.insert(2, 2, 1.);
@@ -313,8 +314,9 @@ TEST_CASE("VehicleType") {
     // Get the transition matrix
     auto m2 = v.getTransMatrix();
     // Check the transition matrix
-    CHECK(m2(0, 0) == 0.5);
-    CHECK(m2(0, 1) == 0.5);
+    CHECK(m2(0, 0) == 0.3);
+    CHECK(m2(0, 1) == 0.3);
+    CHECK(m2(0, 2) == 0.4);
     CHECK(m2(1, 1) == 0.5);
     CHECK(m2(1, 2) == 0.5);
     CHECK(m2(2, 2) == 1.);
