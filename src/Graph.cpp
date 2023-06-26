@@ -77,7 +77,9 @@ std::vector<int> Graph::_nextStep(int const src, int const dst) {
   return _nextStep;
 }
 
-void Graph::_evolve(bool reinsert) {
+// remove vehicles that have reached their destination and add new vehicles if
+// asked.
+void Graph::_removeVehicles(bool reinsert) {
   ++_time;
   if (_time % _timeScale == 0) {
     int nVehicles_old = static_cast<int>(_vehicles.size());
@@ -107,23 +109,62 @@ void Graph::_evolve(bool reinsert) {
     _vehiclesOnStreet[i] = street->getNVehicles();
     i++;
   }
+}
+
+// get the time difference in a street in two different times
+int Graph::_getTimeDifference(std::shared_ptr<Vehicle> vehicle) const {
+  auto street = _streets[vehicle->getStreet()];
+  auto streetLength = street->getLength();
+  // time of travel if it keeps the same velocity
+  auto oldTime = static_cast<int>(streetLength / vehicle->getVelocity());
+  // time of travel if it changes velocity
+  auto newTime = static_cast<int>(streetLength / street->getInputVelocity());
+  return newTime - oldTime;
+}
+
+// change street of a vehicle
+void Graph::_changeStreet(std::shared_ptr<Vehicle> vehicle, double const &p) {
+  double threshold = 0.;
+  for (auto const &probMap : Vehicle::getVehicleType(vehicle->getType())
+                                 ->getTransMatrix()
+                                 .getRow(vehicle->getPosition())) {
+    threshold += probMap.second;
+    if (p < threshold) {
+      // street update
+      int streetIndex = _findStreet(vehicle->getPosition(),
+                                    probMap.first); // next street index
+      if (!(_streets.at(streetIndex)->isFull()) &&
+          !(vehicle->getPreviousPosition() ==
+            streetIndex)) { // check if i can move on (street not full)
+        if (!(vehicle->getStreet() <
+              0)) { // check if the vehicle is on a street
+          _streets.at(vehicle->getStreet())->remVehicle();
+        }
+        _streets.at(streetIndex)->addVehicle(vehicle);
+      } else {
+        vehicle->setVelocity(0.);
+      }
+      break;
+    }
+  }
+}
+
+void Graph::_evolve(bool reinsert) {
+  this->_removeVehicles(reinsert);
   std::uniform_real_distribution<> dist(0., 1.);
   // cicling through all the vehicles
   for (auto const &vehicle : _vehicles) {
-    auto threshold = 0.;
     auto const p = dist(_rng);
     auto timePenalty = vehicle->getTimePenalty();
     vehicle->incrementTimeTraveled();
     if (timePenalty > 0 &&
         vehicle->getVelocity() >
             std::numeric_limits<double>::epsilon()) { // check if the vehicle
-                                                      // can move
-      // if the vahicle cannot move checks if the vehicle could go faster
-      auto streetLength = _streets[vehicle->getStreet()]->getLength();
-      auto oldTime = static_cast<int>(streetLength / vehicle->getVelocity());
-      auto newTime = static_cast<int>(
-          streetLength / _streets[vehicle->getStreet()]->getInputVelocity());
-      auto dTime = newTime - oldTime;
+                                                      // can change street
+      // if not, check if it can tune its velocity
+      int dTime = this->_getTimeDifference(vehicle);
+      // if the difference is negative, then many vehicles exited the street, so
+      // the vehicle can move faster
       if (dTime < 0) {
         if ((timePenalty + dTime) > 0) {
           vehicle->setTimePenalty(timePenalty + dTime);
@@ -133,6 +174,8 @@ void Graph::_evolve(bool reinsert) {
         vehicle->setVelocity(
             _streets[vehicle->getStreet()]->getInputVelocity());
       } else {
+        // if the difference is positive, then many vehicles entered the street
+        // but they won't affect the vehicle
         vehicle->setTimePenalty(timePenalty - 1);
       }
     } else if (vehicle->getPosition() ==
@@ -142,29 +185,8 @@ void Graph::_evolve(bool reinsert) {
         _streets.at(vehicle->getStreet())->remVehicle();
         vehicle->setStreet(-1);
       }
-    } else {
-      for (auto const &probMap : Vehicle::getVehicleType(vehicle->getType())
-                                     ->getTransMatrix()
-                                     .getRow(vehicle->getPosition())) {
-        threshold += probMap.second;
-        if (p < threshold) {
-          // street update
-          int streetIndex = _findStreet(vehicle->getPosition(),
-                                        probMap.first); // next street index
-          if (!(_streets.at(streetIndex)->isFull()) &&
-              !(vehicle->getPreviousPosition() ==
-                streetIndex)) { // check if i can move on (street not full)
-            if (!(vehicle->getStreet() <
-                  0)) { // check if the vehicle is on a street
-              _streets.at(vehicle->getStreet())->remVehicle();
-            }
-            _streets.at(streetIndex)->addVehicle(vehicle);
-          } else {
-            vehicle->setVelocity(0.);
-          }
-          break;
-        }
-      }
+    } else { // the vehicle can change street
+      this->_changeStreet(vehicle, p);
     }
   }
 }
@@ -525,8 +547,6 @@ void Graph::fprintHistogram(std::string const &outFolder,
                 return false;
             });
         N.push_back(static_cast<double>(j));
-        // fOut << std::setprecision(3) << i * binSize / 60 << '\t' << n <<
-        // '\n';
       }
       normalizeVec(N);
       j = 0;
@@ -673,19 +693,5 @@ void Graph::fprintActualState(std::string const &outFolder,
 //   std::ofstream fOut;
 //   fOut.open(fileName);
 //   // TODO: save network state on file
-//   fOut.close();
-// }
-
-// // funzione da eliminare (DEBUG)
-// void Graph::test() {
-//   // to root file
-//   std::ofstream fOut;
-//   auto out = "./temp_data/" + std::to_string(_time) + "_root.dat";
-//   fOut.open(out);
-//   for (auto const &vehicle : _vehicles) {
-//     if (vehicle->getPosition() == vehicle->getDestination()) {
-//       fOut << vehicle->getTimeTraveled() / 60 << '\n';
-//     }
-//   }
 //   fOut.close();
 // }

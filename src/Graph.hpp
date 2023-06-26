@@ -31,8 +31,13 @@ private:
       const; // algorithm for min distance between two nodes
   std::vector<int>
   _nextStep(int const,
-            int const); // next step for the destination (min. distance)
-  void _evolve(bool);   // evolve the vehicle's position
+            int const);       // next step for the destination (min. distance)
+  void _removeVehicles(bool); // remove a vehicles from the network
+  int _getTimeDifference(
+      std::shared_ptr<Vehicle>) const; // get traveltime difference in a street
+  void _changeStreet(std::shared_ptr<Vehicle>,
+                     double const &); // change street of a vehicle
+  void _evolve(bool);                 // evolve the vehicle's position
   int _findStreet(int const,
                   int const) const; // find street with origin and destination
   double _getStreetMeanVelocity(int const) const; // get the mean velocity of a
@@ -80,9 +85,6 @@ public:
                          std::string const &) const; //!< print actual state
 
   //   void save(const char *) const noexcept; // TODO: save network in file
-
-  // funzione da eliminare che verrà usata per accedere alle private (DEBUG)
-  //   void test();
 };
 
 #endif
