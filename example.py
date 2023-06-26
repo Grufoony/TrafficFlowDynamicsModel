@@ -1,19 +1,39 @@
+import sys
+import math
+import glob
+import os
+import matplotlib.pyplot as plt
 import TrafficModel as tfdm
 from tqdm import tqdm
 import matplotlib
 matplotlib.use('TkAgg')
-import matplotlib.pyplot as plt
-import os
-import glob
-import math
-import sys
 
+'''
+Example script to show how to use the TrafficModel package
+The script can be run with the following arguments:
+  - constant:     constant traffic flow
+  - peaked:       peaked traffic flow
+  - periodic:     periodic traffic flow
+  - traveltime:   traveltime histogram
+These analyses are described in the report.
+'''
+
+
+# utility
 def clear():
+    '''
+    Clear the temp_data folder
+    '''
     files = glob.glob("./temp_data/*")
     for f in files:
         os.remove(f)
 
+
+# utility
 def plot():
+    '''
+    Plot the k distribution with respect to time
+    '''
     file = open("./temp_data/k-t.dat", "r")
     lines = file.readlines()
     file.close()
@@ -25,7 +45,12 @@ def plot():
     plt.plot(x, y)
     plt.show()
 
+
+# utility
 def hist(filename):
+    '''
+    Plot a histogram (used in the traveltime analysis)
+    '''
     file = open(filename, "r")
     lines = file.readlines()
     file.close()
@@ -37,8 +62,12 @@ def hist(filename):
     plt.bar(x, y)
     plt.show()
 
+
 # Constant analysis
 def constant():
+    '''
+    Run the constant analysis. For more information, see the report.
+    '''
     clear()
     graph = tfdm.Graph("./data/matrix.dat")
     tfdm.Vehicle.addVehicleType("./data/vehicletype.dat")
@@ -52,8 +81,12 @@ def constant():
         graph.evolve(False)
     plot()
 
+
 # Peaked analysis
 def peaked():
+    '''
+    Run the peaked analysis. For more information, see the report.
+    '''
     clear()
     graph = tfdm.Graph("./data/matrix.dat")
     tfdm.Vehicle.addVehicleType("./data/vehicletype.dat")
@@ -70,8 +103,12 @@ def peaked():
             graph.evolve(False)
     plot()
 
+
 # Periodic analysis
 def periodic():
+    '''
+    Run the periodic analysis. For more information, see the report.
+    '''
     clear()
     graph = tfdm.Graph("./data/matrix.dat")
     tfdm.Vehicle.addVehicleType("./data/vehicletype.dat")
@@ -88,8 +125,12 @@ def periodic():
         graph.evolve(False)
     plot()
 
+
 # Traveltime analysis
 def traveltime():
+    '''
+    Run the traveltime analysis. For more information, see the report.
+    '''
     clear()
     graph = tfdm.Graph("./data/matrix.dat")
     tfdm.Vehicle.addVehicleType("./data/vehicletype.dat")
@@ -107,6 +148,7 @@ def traveltime():
     hist("./temp_data/9000_t.dat")
     hist("./temp_data/12000_t.dat")
     hist("./temp_data/15000_t.dat")
+
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
