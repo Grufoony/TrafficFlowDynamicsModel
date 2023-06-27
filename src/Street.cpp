@@ -33,9 +33,8 @@ Street::Street(int src, int dst, double length, int index) {
   _index = index;
   if (_avgLength < 0) {
     _maxCapacity = std::numeric_limits<int>::max();
-  } else {
-    _maxCapacity = static_cast<int>(_length / _avgLength);
   }
+  _maxCapacity = static_cast<int>(_length / _avgLength);
 }
 /// @brief Get the origin node index.
 /// @return The origin node index.

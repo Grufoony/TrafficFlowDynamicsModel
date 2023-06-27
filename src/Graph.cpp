@@ -212,9 +212,8 @@ double Graph::_getStreetMeanVelocity(int const streetIndex) const {
   }
   if (i == 0) {
     return _streets[streetIndex]->getVMax();
-  } else {
-    return vCum / i;
   }
+  return vCum / i;
 }
 /// @brief Generate the graph from the matrix
 /// @param fName matrix file path
@@ -278,9 +277,8 @@ void Graph::setTimeScale(int const timeScale) {
     std::string msg = "Graph.cpp:" + std::to_string(__LINE__) + '\t' +
                       "Invalid time scale.\n";
     throw std::invalid_argument(msg);
-  } else {
-    _timeScale = timeScale;
   }
+  _timeScale = timeScale;
 }
 /// @brief Get the time scale of the simulation
 /// @return time scale
@@ -527,6 +525,11 @@ void Graph::fprintHistogram(std::string const &outFolder,
                       "Number of bins must be greater than one.\n";
     throw std::invalid_argument(msg);
   }
+  if (opt != "density" && opt != "traveltime") {
+    std::string msg = "Graph.cpp:" + std::to_string(__LINE__) + '\t' +
+                      "Option should be \"density\" or \"traveltime\".\n";
+    throw std::invalid_argument(msg);
+  }
   std::ofstream fOut;
   if (opt == "density") {
     auto out = outFolder + std::to_string(_time) + "_den.dat";
@@ -542,7 +545,12 @@ void Graph::fprintHistogram(std::string const &outFolder,
            << static_cast<double>(n) / _streets.size() << '\n';
     }
     fOut << (nBins + 1.) * (1. / nBins);
-  } else if (opt == "traveltime") {
+  } else { // traveltime
+    if (format != "latex" && format != "root") {
+      std::string msg = "Graph.cpp:" + std::to_string(__LINE__) + '\t' +
+                        "Format should be \"latex\" or \"root\".\n";
+      throw std::invalid_argument(msg);
+    }
     double binSize = 6e3 / nBins;
     auto out = outFolder + std::to_string(_time);
     if (format == "latex") {
@@ -568,7 +576,7 @@ void Graph::fprintHistogram(std::string const &outFolder,
         fOut << std::setprecision(3) << j * binSize / 60. << '\t' << n << '\n';
         ++j;
       }
-    } else if (format == "root") {
+    } else { // root format
       out += "_root.dat";
       fOut.open(out);
       for (auto const &vehicle : _vehicles) {
@@ -576,15 +584,7 @@ void Graph::fprintHistogram(std::string const &outFolder,
           fOut << vehicle->getTimeTraveled() / 60. << '\n';
         }
       }
-    } else {
-      std::string msg = "Graph.cpp:" + std::to_string(__LINE__) + '\t' +
-                        "Format should be \"latex\" or \"root\".\n";
-      throw std::invalid_argument(msg);
     }
-  } else {
-    std::string msg = "Graph.cpp:" + std::to_string(__LINE__) + '\t' +
-                      "Option should be \"density\" or \"traveltime\".\n";
-    throw std::invalid_argument(msg);
   }
   fOut.close();
 }
@@ -598,6 +598,11 @@ void Graph::fprintHistogram(std::string const &outFolder,
 /// @throw std::invalid_argument if opt is not valid
 void Graph::fprintDistribution(std::string const &outFolder,
                                std::string const &opt) const {
+  if (opt != "u/q" && opt != "q/k" && opt != "u/k") {
+    std::string msg = "Graph.cpp:" + std::to_string(__LINE__) + '\t' +
+                      "Option should be \"u/q\", \"q/k\" or \"u/k\".\n";
+    throw std::invalid_argument(msg);
+  }
   std::ofstream fOut;
   if (opt == "u/q") {
     auto out = outFolder + std::to_string(_time) + "_u-q.dat";
@@ -617,7 +622,7 @@ void Graph::fprintDistribution(std::string const &outFolder,
         fOut << street->getVehicleDensity() * 1e3 << '\t'
              << meanV * street->getVehicleDensity() * 3.6e3 << '\n';
     }
-  } else if (opt == "u/k") {
+  } else { // u/k
     auto out = outFolder + std::to_string(_time) + "_u-k.dat";
     fOut.open(out);
     for (auto const &street : _streets) {
@@ -626,10 +631,6 @@ void Graph::fprintDistribution(std::string const &outFolder,
         fOut << street->getVehicleDensity() * 1e3 << '\t' << meanV * 3.6
              << '\n';
     }
-  } else {
-    std::string msg = "Graph.cpp:" + std::to_string(__LINE__) + '\t' +
-                      "Option should be \"u/q\", \"q/k\" or \"u/k\".\n";
-    throw std::invalid_argument(msg);
   }
   fOut.close();
 }
@@ -645,6 +646,11 @@ void Graph::fprintDistribution(std::string const &outFolder,
 void Graph::fprintTimeDistribution(std::string const &outFolder,
                                    std::string const &opt,
                                    double const timeZero) const {
+  if (opt != "k" && opt != "q" && opt != "u") {
+    std::string msg = "Graph.cpp:" + std::to_string(__LINE__) + '\t' +
+                      "Option should be \"k\", \"q\" or \"u\".\n";
+    throw std::invalid_argument(msg);
+  }
   // timeZero in hours
   std::ofstream fOut;
   auto meanDensity = 0.;
@@ -663,14 +669,9 @@ void Graph::fprintTimeDistribution(std::string const &outFolder,
   } else if (opt == "q") {
     out = outFolder + "q-t.dat";
     y = meanDensity * meanVelocity;
-  } else if (opt == "u") {
+  } else { // velocity (u)
     out = outFolder + "u-t.dat";
     y = meanVelocity;
-
-  } else {
-    std::string msg = "Graph.cpp:" + std::to_string(__LINE__) + '\t' +
-                      "Option should be \"k\", \"q\" or \"u\".\n";
-    throw std::invalid_argument(msg);
   }
   fOut.open(out, std::ios_base::app);
   fOut << _time / 3.6e3 + timeZero << '\t' << y << '\n';
@@ -685,6 +686,11 @@ void Graph::fprintTimeDistribution(std::string const &outFolder,
 /// @throw std::invalid_argument if opt is not valid
 void Graph::fprintActualState(std::string const &outFolder,
                               std::string const &opt) const {
+  if (opt != "q/k" && opt != "u/k") {
+    std::string msg = "Graph.cpp:" + std::to_string(__LINE__) + '\t' +
+                      "Option should be \"q/k\" or \"u/k\".\n";
+    throw std::invalid_argument(msg);
+  }
   std::ofstream fOut;
   // Compute mean density and velocity
   auto meanDensity = 0.;
@@ -700,13 +706,9 @@ void Graph::fprintActualState(std::string const &outFolder,
   if (opt == "q/k") { // Print mean flow/density
     out = outFolder + "q-k.dat";
     y = meanVelocity * meanDensity;
-  } else if (opt == "u/k") { // Print mean velocity/density
+  } else { // Print mean velocity/density
     out = outFolder + "u-k.dat";
     y = meanVelocity;
-  } else {
-    std::string msg = "Graph.cpp:" + std::to_string(__LINE__) + '\t' +
-                      "Option should be \"q/k\" or \"u/k\".\n";
-    throw std::invalid_argument(msg);
   }
   fOut.open(out, std::ios_base::app);
   fOut << meanDensity << '\t' << y << '\n';

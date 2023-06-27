@@ -9,14 +9,13 @@ std::vector<std::shared_ptr<VehicleType>> Vehicle::_vehicleType;
 /// @param type The index of the vehicle type in _vehicleType.
 /// @throw std::invalid_argument if the vehicle type index is out of range.
 Vehicle::Vehicle(uint8_t type) {
-  if (type < static_cast<int>(_vehicleType.size())) {
-    _index = type;
-    _position = Vehicle::getVehicleType(this->getType())->getSource();
-  } else {
+  if (!(type < static_cast<int>(_vehicleType.size()))) {
     std::string msg = "Vehicle.cpp:" + std::to_string(__LINE__) + '\t' +
                       "Vehicle type index out of range.\n";
     throw std::invalid_argument(msg);
   }
+  _index = type;
+  _position = Vehicle::getVehicleType(this->getType())->getSource();
 }
 /// @brief Add a vehicle type in _vehicleType.
 /// @param src The source node.
@@ -52,23 +51,22 @@ void Vehicle::addVehicleType(std::string fName) {
   data.close();
   n = n / 2;
   data.open(fName);
-  if (n > 0) {
-    for (int i = 0; i < n; ++i) {
-      data >> src >> dst;
-      for (auto &v : _vehicleType) {
-        if (v->getSource() == src && v->getDestination() == dst) {
-          std::string msg = "Vehicle.cpp:" + std::to_string(__LINE__) + '\t' +
-                            "Vehicle type already exists.\n";
-          throw std::invalid_argument(msg);
-        }
-      }
-      _vehicleType.push_back(
-          std::make_shared<VehicleType>(VehicleType(src, dst)));
-    }
-  } else {
+  if (!(n > 0)) {
     std::string msg = "Vehicle.cpp:" + std::to_string(__LINE__) + '\t' +
                       "Vehicle type file: \'" + fName + " \' is empty.\n";
     throw std::runtime_error(msg);
+  }
+  for (int i = 0; i < n; ++i) {
+    data >> src >> dst;
+    for (auto &v : _vehicleType) {
+      if (v->getSource() == src && v->getDestination() == dst) {
+        std::string msg = "Vehicle.cpp:" + std::to_string(__LINE__) + '\t' +
+                          "Vehicle type already exists.\n";
+        throw std::invalid_argument(msg);
+      }
+    }
+    _vehicleType.push_back(
+        std::make_shared<VehicleType>(VehicleType(src, dst)));
   }
   data.close();
 }
