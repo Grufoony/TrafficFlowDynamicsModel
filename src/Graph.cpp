@@ -230,14 +230,19 @@ std::vector<double> Graph::_getDensityCounts(int const nBins) const {
 }
 // return travel time counts of all vehicles, in minutes
 std::vector<double> Graph::_getTravelTimeCounts(int const nBins) const {
-  std::vector<double> travelTimeCounts(nBins + 1, 0.);
-  for (auto const &vehicle : _vehicles) {
-    auto const travelTime = vehicle->getTimeTraveled();
-    int i = 0;
-    while (travelTime > (i + 1) * 6e3 / nBins) {
-      ++i;
-    }
-    ++travelTimeCounts[i];
+  std::vector<double> travelTimeCounts;
+  auto binSize = 6e3 / nBins;
+  for (int i = 0; i < nBins + 1; ++i) {
+    double count = std::count_if(
+        _vehicles.begin(), _vehicles.end(),
+        [i, binSize](std::shared_ptr<Vehicle> const &vehicle) {
+          if (vehicle->getPosition() == vehicle->getDestination()) {
+            return vehicle->getTimeTraveled() >= i * binSize &&
+                   vehicle->getTimeTraveled() < (i + 1) * binSize;
+          } else
+            return false;
+        });
+    travelTimeCounts.push_back(count);
   }
   return travelTimeCounts;
 }
@@ -580,10 +585,9 @@ void Graph::fprintHistogram(std::string const &outFolder,
   if (format == "latex") {
     out += "_t.dat";
     fOut.open(out);
-    int j;
     auto travelTimeCounts = this->_getTravelTimeCounts(nBins);
     normalizeVec(travelTimeCounts);
-    for (int j = 0; j < travelTimeCounts.size(); ++j) {
+    for (int j = 0; j < static_cast<int>(travelTimeCounts.size()); ++j) {
       fOut << std::setprecision(3) << j * 1e2 / nBins << '\t'
            << travelTimeCounts[j] << '\n';
     }
@@ -643,7 +647,7 @@ void Graph::fprintDistribution(std::string const &outFolder,
     y = u;
   }
   // print on file the results
-  for (int i = 0; i < x.size(); ++i) {
+  for (int i = 0; i < static_cast<int>(x.size()); ++i) {
     fOut << x[i] << '\t' << y[i] << '\n';
   }
   fOut.close();
