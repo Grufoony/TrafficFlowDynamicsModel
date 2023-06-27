@@ -545,48 +545,51 @@ void Graph::fprintHistogram(std::string const &outFolder,
            << static_cast<double>(n) / _streets.size() << '\n';
     }
     fOut << (nBins + 1.) * (1. / nBins);
-  } else { // traveltime
-    if (format != "latex" && format != "root") {
-      std::string msg = "Graph.cpp:" + std::to_string(__LINE__) + '\t' +
-                        "Format should be \"latex\" or \"root\".\n";
-      throw std::invalid_argument(msg);
+    fOut.close();
+    return;
+  }
+  // traveltime
+  if (format != "latex" && format != "root") {
+    std::string msg = "Graph.cpp:" + std::to_string(__LINE__) + '\t' +
+                      "Format should be \"latex\" or \"root\".\n";
+    throw std::invalid_argument(msg);
+  }
+  double binSize = 6e3 / nBins;
+  auto out = outFolder + std::to_string(_time);
+  if (format == "latex") {
+    out += "_t.dat";
+    fOut.open(out);
+    int j;
+    std::vector<double> N;
+    for (int i = 0; i < nBins + 1; ++i) {
+      j = std::count_if(
+          _vehicles.begin(), _vehicles.end(),
+          [i, binSize](std::shared_ptr<Vehicle> const &vehicle) {
+            if (vehicle->getPosition() == vehicle->getDestination()) {
+              return vehicle->getTimeTraveled() >= i * binSize &&
+                     vehicle->getTimeTraveled() < (i + 1) * binSize;
+            } else
+              return false;
+          });
+      N.push_back(static_cast<double>(j));
     }
-    double binSize = 6e3 / nBins;
-    auto out = outFolder + std::to_string(_time);
-    if (format == "latex") {
-      out += "_t.dat";
-      fOut.open(out);
-      int j;
-      std::vector<double> N;
-      for (int i = 0; i < nBins + 1; ++i) {
-        j = std::count_if(
-            _vehicles.begin(), _vehicles.end(),
-            [i, binSize](std::shared_ptr<Vehicle> const &vehicle) {
-              if (vehicle->getPosition() == vehicle->getDestination()) {
-                return vehicle->getTimeTraveled() >= i * binSize &&
-                       vehicle->getTimeTraveled() < (i + 1) * binSize;
-              } else
-                return false;
-            });
-        N.push_back(static_cast<double>(j));
-      }
-      normalizeVec(N);
-      j = 0;
-      for (auto const &n : N) {
-        fOut << std::setprecision(3) << j * binSize / 60. << '\t' << n << '\n';
-        ++j;
-      }
-    } else { // root format
-      out += "_root.dat";
-      fOut.open(out);
-      for (auto const &vehicle : _vehicles) {
-        if (vehicle->getPosition() == vehicle->getDestination()) {
-          fOut << vehicle->getTimeTraveled() / 60. << '\n';
-        }
-      }
+    normalizeVec(N);
+    for (int j = 0; j < N.size(); ++j) {
+      fOut << std::setprecision(3) << j * binSize / 60. << '\t' << N[j] << '\n';
+    }
+    fOut.close();
+    return;
+  }
+  // root format
+  out += "_root.dat";
+  fOut.open(out);
+  for (auto const &vehicle : _vehicles) {
+    if (vehicle->getPosition() == vehicle->getDestination()) {
+      fOut << vehicle->getTimeTraveled() / 60. << '\n';
     }
   }
   fOut.close();
+  return;
 }
 /// @brief Print some network's data distributions in a format readable by
 /// LaTeX. @param outFolder folder where the data file will be saved. @param opt
@@ -604,33 +607,34 @@ void Graph::fprintDistribution(std::string const &outFolder,
     throw std::invalid_argument(msg);
   }
   std::ofstream fOut;
+  std::vector<double> u, q, k, x, y;
+  for (auto const &street : _streets) {
+    auto meanV = this->_getStreetMeanVelocity(street->getIndex());
+    if (!(meanV < 0)) {
+      u.push_back(meanV * 3.6);
+      q.push_back(meanV * street->getVehicleDensity() * 3.6e3);
+      k.push_back(street->getVehicleDensity() * 1e3);
+    }
+  }
   if (opt == "u/q") {
     auto out = outFolder + std::to_string(_time) + "_u-q.dat";
     fOut.open(out);
-    for (auto const &street : _streets) {
-      auto meanV = this->_getStreetMeanVelocity(street->getIndex());
-      if (!(meanV < 0))
-        fOut << meanV * street->getVehicleDensity() * 3.6e3 << '\t'
-             << meanV * 3.6 << '\n';
-    }
+    x = q;
+    y = u;
   } else if (opt == "q/k") {
     auto out = outFolder + std::to_string(_time) + "_q-k.dat";
     fOut.open(out);
-    for (auto const &street : _streets) {
-      auto meanV = this->_getStreetMeanVelocity(street->getIndex());
-      if (!(meanV < 0))
-        fOut << street->getVehicleDensity() * 1e3 << '\t'
-             << meanV * street->getVehicleDensity() * 3.6e3 << '\n';
-    }
+    x = k;
+    y = q;
   } else { // u/k
     auto out = outFolder + std::to_string(_time) + "_u-k.dat";
     fOut.open(out);
-    for (auto const &street : _streets) {
-      auto meanV = this->_getStreetMeanVelocity(street->getIndex());
-      if (!(meanV < 0))
-        fOut << street->getVehicleDensity() * 1e3 << '\t' << meanV * 3.6
-             << '\n';
-    }
+    x = k;
+    y = u;
+  }
+  // print on file the results
+  for (int i = 0; i < x.size(); ++i) {
+    fOut << x[i] << '\t' << y[i] << '\n';
   }
   fOut.close();
 }
