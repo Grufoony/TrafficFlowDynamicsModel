@@ -42,6 +42,12 @@ private:
                   int const) const; // find street with origin and destination
   double _getStreetMeanVelocity(int const) const; // get the mean velocity of a
                                                   // street
+  std::vector<double>
+  _getDensityCounts(int const) const; // get the density
+                                      // counts of all streets
+  std::vector<double> _getTravelTimeCounts(int const) const; // get the travel
+                                                             // time counts of
+                                                             // all vehicles
 
 public:
   Graph(std::string); //!< import from file (only matrix)

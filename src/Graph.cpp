@@ -215,6 +215,32 @@ double Graph::_getStreetMeanVelocity(int const streetIndex) const {
   }
   return vCum / i;
 }
+// return density counts of all streets
+std::vector<double> Graph::_getDensityCounts(int const nBins) const {
+  std::vector<double> densityCounts(nBins + 1, 0.);
+  for (auto const &street : _streets) {
+    auto const density = street->getDensity();
+    int i = 0;
+    while (density > (i + 1) * (1. / nBins)) {
+      ++i;
+    }
+    ++densityCounts[i];
+  }
+  return densityCounts;
+}
+// return travel time counts of all vehicles, in minutes
+std::vector<double> Graph::_getTravelTimeCounts(int const nBins) const {
+  std::vector<double> travelTimeCounts(nBins + 1, 0.);
+  for (auto const &vehicle : _vehicles) {
+    auto const travelTime = vehicle->getTimeTraveled();
+    int i = 0;
+    while (travelTime > (i + 1) * 6e3 / nBins) {
+      ++i;
+    }
+    ++travelTimeCounts[i];
+  }
+  return travelTimeCounts;
+}
 /// @brief Generate the graph from the matrix
 /// @param fName matrix file path
 Graph::Graph(std::string fName) {
@@ -534,16 +560,12 @@ void Graph::fprintHistogram(std::string const &outFolder,
   if (opt == "density") {
     auto out = outFolder + std::to_string(_time) + "_den.dat";
     fOut.open(out);
-    int n;
+    auto const &densityCounts = this->_getDensityCounts(nBins);
     for (int i = 0; i < nBins + 1; ++i) {
-      n = std::count_if(_streets.begin(), _streets.end(),
-                        [i, nBins](std::shared_ptr<Street> const &street) {
-                          return street->getDensity() >= i * (1. / nBins) &&
-                                 street->getDensity() < (i + 1) * (1. / nBins);
-                        });
       fOut << std::setprecision(3) << i * (1. / nBins) << '\t'
-           << static_cast<double>(n) / _streets.size() << '\n';
+           << densityCounts[i] / _streets.size() << '\n';
     }
+
     fOut << (nBins + 1.) * (1. / nBins);
     fOut.close();
     return;
@@ -554,28 +576,16 @@ void Graph::fprintHistogram(std::string const &outFolder,
                       "Format should be \"latex\" or \"root\".\n";
     throw std::invalid_argument(msg);
   }
-  double binSize = 6e3 / nBins;
   auto out = outFolder + std::to_string(_time);
   if (format == "latex") {
     out += "_t.dat";
     fOut.open(out);
     int j;
-    std::vector<double> N;
-    for (int i = 0; i < nBins + 1; ++i) {
-      j = std::count_if(
-          _vehicles.begin(), _vehicles.end(),
-          [i, binSize](std::shared_ptr<Vehicle> const &vehicle) {
-            if (vehicle->getPosition() == vehicle->getDestination()) {
-              return vehicle->getTimeTraveled() >= i * binSize &&
-                     vehicle->getTimeTraveled() < (i + 1) * binSize;
-            } else
-              return false;
-          });
-      N.push_back(static_cast<double>(j));
-    }
-    normalizeVec(N);
-    for (int j = 0; j < N.size(); ++j) {
-      fOut << std::setprecision(3) << j * binSize / 60. << '\t' << N[j] << '\n';
+    auto travelTimeCounts = this->_getTravelTimeCounts(nBins);
+    normalizeVec(travelTimeCounts);
+    for (int j = 0; j < travelTimeCounts.size(); ++j) {
+      fOut << std::setprecision(3) << j * 1e2 / nBins << '\t'
+           << travelTimeCounts[j] << '\n';
     }
     fOut.close();
     return;
