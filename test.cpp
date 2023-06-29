@@ -12,7 +12,13 @@
 
 TEST_CASE("Boolean Matrix") {
   SUBCASE("Default constructor") {
-    // Create a boolean matrix
+    /*This test tests if the default constructor works correctly
+    The default constructor should create a matrix with 0 rows and 0 columns
+    and a max size of 0
+    GIVEN: the default constructor is called
+    WHEN: the matrix is created
+    THEN: the matrix should have 0 rows and 0 columns and a max size of 0
+    */
     SparseMatrix<bool> m;
     // Check the dimensions
     CHECK(m.getRowDim() == 0);
@@ -20,28 +26,44 @@ TEST_CASE("Boolean Matrix") {
     CHECK(m.max_size() == 0);
   }
   SUBCASE("Constructor with dimensions") {
-    // Create a boolean matrix
-    SparseMatrix<bool> m(3, 3);
+    /*This test tests if the constructor with dimensions works correctly
+    The constructor should create a matrix with the specified dimensions and a
+    max size equal to the product of the dimensions
+    GIVEN: the constructor is called with dimensions 3 and 4
+    WHEN: the matrix is created
+    THEN: the matrix should have 3 rows and 4 columns and a max size of 12
+    */
+    SparseMatrix<bool> m(3, 4);
     // Check the dimensions
     CHECK(m.getRowDim() == 3);
-    CHECK(m.getColDim() == 3);
-    CHECK(m.max_size() == 9);
-    // Check exceptions
+    CHECK(m.getColDim() == 4);
+    CHECK(m.max_size() == 12);
+    // Check out of range exceptions
     CHECK_THROWS(m(-1, 0));
     CHECK_THROWS(m(0, -1));
   }
   SUBCASE("Constructor with dimension") {
-    // Create a boolean matrix
+    /*This test tests if the constructor with dimension works correctly
+    The constructor should create a square matrix with the specified dimension
+    and a max size equal to the square of the dimension GIVEN: the constructor
+    is called with dimension 3 WHEN: the matrix is created THEN: the matrix
+    should have 3 rows and 3 columns and a max size of 9
+    */
     SparseMatrix<bool> m(3);
     // Check the dimensions
     CHECK(m.getRowDim() == 3);
     CHECK(m.getColDim() == 1);
     CHECK(m.max_size() == 3);
-    // Check exceptions
+    // Check out of range exceptions
     CHECK_THROWS(m(-1));
   }
   SUBCASE("Encode") {
-    // transorm a matrix into a list
+    /*This test tests if the encode function works correctly
+    The encode function should transform a matrix into a list
+    GIVEN: the encode function is called
+    WHEN: the function is called on a file
+    THEN: the function should transform the matrix into a list
+    */
     std::string fileName = "./data/test/convert.dat";
     SparseMatrix<double>::encode(fileName);
     // compare the two files
@@ -54,7 +76,12 @@ TEST_CASE("Boolean Matrix") {
     CHECK(s1 == s2);
   }
   SUBCASE("Decode") {
-    // transorm a list into a matrix
+    /*This test tests if the decode function works correctly
+    The decode function should transform a list into a matrix
+    GIVEN: the decode function is called
+    WHEN: the function is called on a file
+    THEN: the function should transform the list into a matrix
+    */
     std::string fileName = "./data/test/convert.dat";
     SparseMatrix<double>::decode(fileName);
     // compare the two files
@@ -67,7 +94,12 @@ TEST_CASE("Boolean Matrix") {
     CHECK(s1 == s2);
   }
   SUBCASE("Insertions") {
-    // Create a boolean matrix
+    /*This test tests if the insert function works correctly
+    The insert function should insert a value in the matrix
+    GIVEN: the insert function is called
+    WHEN: the function is called on a matrix
+    THEN: the function should insert a value in the matrix
+    */
     SparseMatrix<bool> m(3, 3);
     // Insert a true value
     m.insert(0, 0, true);
@@ -78,12 +110,24 @@ TEST_CASE("Boolean Matrix") {
     }
   }
   SUBCASE("Insertion exceptions") {
+    /*This test tests if the insert function throws exceptions correctly
+    The insert function should throw an exception if the inserted element is out
+    of range GIVEN: the insert function is called WHEN: the function is called
+    on a matrix THEN: the function should throw an exception if the inserted
+    element is out of range
+    */
     SparseMatrix<bool> m(3, 3);
     // Check that an exception is thrown if the element is out of range
-    CHECK_THROWS(m(-1, -2));
-    CHECK_THROWS(m(3, 1));
+    CHECK_THROWS(m.insert(-1, -2));
+    CHECK_THROWS(m.insert(3, 2, true));
   }
   SUBCASE("Deletions") {
+    /*This test tests if the erase function works correctly
+    The erase function should delete a value in the matrix
+    GIVEN: the erase function is called
+    WHEN: the function is called on a matrix
+    THEN: the function should delete a value in the matrix
+    */
     SparseMatrix<bool> m(3, 3);
     m.insert(0, 0, true);
     m.erase(0, 0);
@@ -91,6 +135,12 @@ TEST_CASE("Boolean Matrix") {
     CHECK(!m(0, 0));
   }
   SUBCASE("Clear") {
+    /*This test tests if the clear function works correctly
+    The clear function should delete all the elements and dimensions in the
+    matrix GIVEN: the clear function is called WHEN: the function is called on a
+    matrix THEN: the function should delete all the elements and dimensions in
+    the matrix
+    */
     SparseMatrix<bool> m(3, 3);
     m.insert(0, 0, true);
     m.clear();
@@ -99,6 +149,12 @@ TEST_CASE("Boolean Matrix") {
     CHECK_THROWS(m(0, 0));
   }
   SUBCASE("Contains") {
+    /*This test tests if the contains function works correctly
+    The contains function should return true if the matrix contains the element
+    GIVEN: the element is in the matrix
+    WHEN: the function is called
+    THEN: the function should return true
+    */
     SparseMatrix<bool> m(3, 3);
     m.insert(0, 0, true);
     CHECK(m.contains(0, 0));
@@ -108,44 +164,83 @@ TEST_CASE("Boolean Matrix") {
     CHECK_THROWS(m.contains(-2, -1));
   }
   SUBCASE("Get row") {
+    /*This test tests if the getRow function works correctly
+    The getRow function should return a vector containing the elements of the
+    row GIVEN: the getRow function is called WHEN: the function is called on a
+    matrix THEN: the function should return a vector (SparseMatrix) containing
+    the elements of the row
+    */
     SparseMatrix<bool> m(3, 3);
     // Create a row
     m.insert(0, 0, true);
     m.insert(0, 2, true);
     auto row = m.getRow(0);
+    // verify attributes and values
     CHECK(row.size() == 2);
     CHECK(row(0));
     CHECK(!row(1));
     CHECK(row(2));
+    // Check out of range exceptions
     CHECK_THROWS(m.getRow(-1));
+    CHECK_THROWS(m.getRow(3));
   }
   SUBCASE("Get column") {
+    /*This test tests if the getCol function works correctly
+    The getCol function should return a vector containing the elements of the
+    column GIVEN: the getCol function is called WHEN: the function is called on
+    a matrix THEN: the function should return a vector (SparseMatrix) containing
+    the elements of the column
+    */
     SparseMatrix<bool> m(3, 3);
     // Create a column
     m.insert(0, 0, true);
     m.insert(2, 0, true);
     auto col = m.getCol(0);
+    // verify attributes and values
     CHECK(col.size() == 2);
     CHECK(col(0));
     CHECK(!col(1));
     CHECK(col(2));
+    // Check out of range exceptions
     CHECK_THROWS(m.getCol(-1));
+    CHECK_THROWS(m.getCol(3));
   }
   SUBCASE("Get row dimension") {
+    /*This test tests if the getRowDim function works correctly
+    The getRowDim function should return the number of rows in the matrix
+    GIVEN: the getRowDim function is called
+    WHEN: the function is called on a matrix
+    THEN: the function should return the number of rows in the matrix
+    */
     SparseMatrix<bool> m(3, 3);
     CHECK(m.getRowDim() == 3);
   }
   SUBCASE("Get column dimension") {
+    /*This test tests if the getColDim function works correctly
+    The getColDim function should return the number of columns in the matrix
+    GIVEN: the getColDim function is called
+    WHEN: the function is called on a matrix
+    THEN: the function should return the number of columns in the matrix
+    */
     SparseMatrix<bool> m(3, 3);
     CHECK(m.getColDim() == 3);
   }
   SUBCASE("Get max_size") {
-    // This is the maximum number of elements that can be stored in the matrix
-    SparseMatrix<bool> m(3, 3);
-    CHECK(m.max_size() == 9);
+    /*This test tests if the max_size function works correctly
+    The max_size function should return the maximum number of elements that can
+    be stored in the matrix GIVEN: the max_size function is called WHEN: the
+    function is called on a matrix THEN: the function should return the maximum
+    number of elements that can be stored in the matrix
+    */
+    SparseMatrix<bool> m(3, 5);
+    CHECK(m.max_size() == 15);
   }
   SUBCASE("Get size") {
-    // This is the number of non-zero elements in the matrix
+    /*This test tests if the size function works correctly
+    The size function should return the number of non-zero elements in the
+    matrix GIVEN: the size function is called WHEN: the function is called on a
+    matrix THEN: the function should return the number of elements in the matrix
+    */
     SparseMatrix<bool> m(3, 3);
     m.insert(0, 0, true);
     m.insert(0, 1, true);
@@ -155,6 +250,12 @@ TEST_CASE("Boolean Matrix") {
     CHECK(m.size() == 4);
   }
   SUBCASE("Erase row") {
+    /*This test tests if the eraseRow function works correctly
+    The eraseRow function should delete all the elements in the row (and also
+    the row itself, reducing the number of rows by 1) GIVEN: the eraseRow
+    function is called WHEN: the function is called on a matrix THEN: the
+    function should delete all the elements in the row
+    */
     SparseMatrix<bool> d(3, 3);
     // Create a row
     d.insert(0, 0, true);
@@ -180,7 +281,12 @@ TEST_CASE("Boolean Matrix") {
     CHECK(m(0, 2));
   }
   SUBCASE("Erase column") {
-    // same as above (but for columns)
+    /*This test tests if the eraseColumn function works correctly
+    The eraseColumn function should delete all the elements in the column (and
+    also the column itself, reducing the number of columns by 1) GIVEN: the
+    eraseColumn function is called WHEN: the function is called on a matrix
+    THEN: the function should delete all the elements in the column
+    */
     SparseMatrix<bool> d(3, 3);
     d.insert(0, 0, true);
     d.insert(1, 2, true);
@@ -201,6 +307,12 @@ TEST_CASE("Boolean Matrix") {
     CHECK(m(2, 1));
   }
   SUBCASE("Degree vector") {
+    /*This test tests if the getDegreeVector function works correctly
+    The getDegreeVector function should return a vector containing the degree of
+    each row GIVEN: the getDegreeVector function is called WHEN: the function is
+    called on a matrix THEN: the function should return a vector containing the
+    degree of each row
+    */
     SparseMatrix<bool> m(3, 3);
     m.insert(0, 0, true);
     m.insert(0, 1, true);
@@ -215,6 +327,12 @@ TEST_CASE("Boolean Matrix") {
     CHECK(v(2) == 3);
   }
   SUBCASE("Random Elements") {
+    /*This test tests if the getRndElement function works correctly
+    The getRndElement function should return a random element in the matrix
+    GIVEN: the getRndElement function is called
+    WHEN: the function is called on a matrix
+    THEN: the function should return a random non-zero element in the matrix
+    */
     SparseMatrix<bool> m(3, 3);
     m.insert(0, 0, true);
     m.insert(1, 2, true);
@@ -231,6 +349,12 @@ TEST_CASE("Boolean Matrix") {
     }
   }
   SUBCASE("Random Row Element") {
+    /*This test tests if the getRndRowElement function works correctly
+    The getRndRowElement function should return a random element in the row
+    GIVEN: the getRndRowElement function is called
+    WHEN: the function is called on a matrix
+    THEN: the function should return a random non-zero element in the row
+    */
     SparseMatrix<bool> m(3, 3);
     m.insert(0, 0, true);
     m.insert(1, 2, true);
@@ -247,6 +371,12 @@ TEST_CASE("Boolean Matrix") {
     }
   }
   SUBCASE("Random Column Element") {
+    /*This test tests if the getRndColElement function works correctly
+    The getRndColElement function should return a random element in the column
+    GIVEN: the getRndColElement function is called
+    WHEN: the function is called on a matrix
+    THEN: the function should return a random non-zero element in the column
+    */
     SparseMatrix<bool> m(3, 3);
     m.insert(0, 0, true);
     m.insert(1, 2, true);
@@ -263,6 +393,12 @@ TEST_CASE("Boolean Matrix") {
     }
   }
   SUBCASE("Normalized Rows") {
+    /*This test tests if the getNormRows function works correctly
+    The getNormRows function should return a matrix containing the normalized
+    rows GIVEN: the getNormRows function is called WHEN: the function is called
+    on a matrix THEN: the function should return a matrix containing the
+    normalized rows
+    */
     SparseMatrix<bool> m(3, 3);
     // Create a row
     m.insert(0, 0, true);
@@ -285,6 +421,12 @@ TEST_CASE("Boolean Matrix") {
           std::numeric_limits<double>::epsilon());
   }
   SUBCASE("Normalized Columns") {
+    /*This test tests if the getNormCols function works correctly
+    The getNormCols function should return a matrix containing the normalized
+    columns GIVEN: the getNormCols function is called WHEN: the function is
+    called on a matrix THEN: the function should return a matrix containing the
+    normalized columns
+    */
     SparseMatrix<bool> m(3, 3);
     m.insert(0, 0, true);
     m.insert(0, 1, true);
@@ -306,6 +448,12 @@ TEST_CASE("Boolean Matrix") {
           std::numeric_limits<double>::epsilon());
   }
   SUBCASE("Symmetrization") {
+    /*This test tests if the symmetrize function works correctly
+    The symmetrize function should symmetrize the matrix
+    GIVEN: the symmetrize function is called
+    WHEN: the function is called on a matrix
+    THEN: the function should symmetrize the matrix
+    */
     SparseMatrix<bool> m(3, 3);
     m.insert(0, 0, true);
     m.insert(0, 1, true);
@@ -322,6 +470,12 @@ TEST_CASE("Boolean Matrix") {
     }
   }
   SUBCASE("print") {
+    /*This test tests if the print function (operator) works correctly
+    The print function should print the matrix in a file
+    GIVEN: the print function is called
+    WHEN: the function is called on a matrix
+    THEN: the function should print the matrix in a file
+    */
     SparseMatrix<bool> m(3, 3);
     m.insert(0, 0, true);
     m.insert(0, 1, true);
@@ -334,6 +488,12 @@ TEST_CASE("Boolean Matrix") {
     CHECK(ss.str() == "3\t3\n5\t1\n1\t1\n0\t1\n");
   }
   SUBCASE("fprint") {
+    /*This test tests if the fprint function works correctly
+    The fprint function should print the matrix in a file
+    GIVEN: the fprint function is called
+    WHEN: the function is called on a matrix
+    THEN: the function should print the matrix in a file
+    */
     SparseMatrix<bool> m(3, 3);
     m.insert(0, 0, true);
     m.insert(0, 1, true);

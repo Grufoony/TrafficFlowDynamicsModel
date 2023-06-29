@@ -424,165 +424,162 @@ $(document).ready(function(){initNavTree('SparseMatrix_8hpp_source.html',''); in
 <div class="line"><a name="l00400"></a><span class="lineno"><a class="line" href="classSparseMatrix.html#afd8333f660bd7113ff17622d982f7389">  400</a></span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classSparseMatrix.html#afd8333f660bd7113ff17622d982f7389">fprint</a>(std::string <span class="keyword">const</span> &amp;filename) <span class="keyword">const</span> noexcept {</div>
 <div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;    std::ofstream file(filename);</div>
 <div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;    file &lt;&lt; _rows &lt;&lt; <span class="charliteral">&#39;\t&#39;</span> &lt;&lt; _cols &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
-<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; _rows; ++i) {</div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; _cols; ++j) {</div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;        <span class="keyword">auto</span> <span class="keyword">const</span> &amp;it = _matrix.find(i * _cols + j);</div>
-<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;        it != _matrix.end() ? file &lt;&lt; it-&gt;second : file &lt;&lt; 0;</div>
-<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;        file &lt;&lt; <span class="charliteral">&#39;\t&#39;</span>;</div>
-<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;      }</div>
-<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;      file &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
-<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;    }</div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;    file.close();</div>
-<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;  }</div>
-<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160; </div>
-<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;  <span class="keyword">typename</span> std::unordered_map&lt;int, T&gt;::const_iterator begin() const noexcept {</div>
-<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;    <span class="keywordflow">return</span> _matrix.begin();</div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;    <span class="comment">// move buffer on file</span></div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;    <span class="keyword">auto</span> <span class="keyword">const</span> rdbufBackup = std::cout.rdbuf();</div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;    std::cout.rdbuf(file.rdbuf());</div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;    this-&gt;<a class="code" href="classSparseMatrix.html#a8e23459b7efe7a525ad0e507e849b0cb">print</a>();</div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;    std::cout.rdbuf(rdbufBackup);</div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;    file.close();</div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;  }</div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160; </div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;  <span class="keyword">typename</span> std::unordered_map&lt;int, T&gt;::const_iterator begin() const noexcept {</div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;    <span class="keywordflow">return</span> _matrix.begin();</div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;  }</div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;  <span class="keyword">typename</span> std::unordered_map&lt;int, T&gt;::const_iterator end() const noexcept {</div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;    <span class="keywordflow">return</span> _matrix.end();</div>
 <div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;  }</div>
-<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;  <span class="keyword">typename</span> std::unordered_map&lt;int, T&gt;::const_iterator end() const noexcept {</div>
-<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;    <span class="keywordflow">return</span> _matrix.end();</div>
-<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;  }</div>
-<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160; </div>
-<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;  T <span class="keyword">const</span> &amp;operator()(<span class="keywordtype">int</span> i, <span class="keywordtype">int</span> j) {</div>
-<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;    <span class="keywordflow">if</span> (i &gt;= _rows || j &gt;= _cols || i &lt; 0 || j &lt; 0) {</div>
-<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;      <span class="keywordflow">throw</span> std::out_of_range(<span class="stringliteral">&quot;Index out of range&quot;</span>);</div>
-<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;    }</div>
-<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;    <span class="keyword">auto</span> <span class="keyword">const</span> &amp;it = _matrix.find(i * _cols + j);</div>
-<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;    <span class="keywordflow">return</span> it != _matrix.end() ? it-&gt;second : _defaultReturn;</div>
-<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;  }</div>
-<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;  T <span class="keyword">const</span> &amp;operator()(<span class="keywordtype">int</span> index) {</div>
-<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;    <span class="keywordflow">if</span> (index &gt;= _rows * _cols || index &lt; 0) {</div>
-<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;      <span class="keywordflow">throw</span> std::out_of_range(<span class="stringliteral">&quot;Index out of range&quot;</span>);</div>
-<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;    }</div>
-<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;    <span class="keyword">auto</span> <span class="keyword">const</span> &amp;it = _matrix.find(index);</div>
-<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;    <span class="keywordflow">return</span> it != _matrix.end() ? it-&gt;second : _defaultReturn;</div>
-<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;  }</div>
-<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;  <span class="keyword">friend</span> std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, <span class="keyword">const</span> <a class="code" href="classSparseMatrix.html">SparseMatrix</a> &amp;m) {</div>
-<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;    os &lt;&lt; m._rows &lt;&lt; <span class="charliteral">&#39;\t&#39;</span> &lt;&lt; m._cols &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
-<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;it : m._matrix) {</div>
-<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;      os &lt;&lt; it.first &lt;&lt; <span class="charliteral">&#39;\t&#39;</span> &lt;&lt; it.second &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
-<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;    }</div>
-<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;    <span class="keywordflow">return</span> os;</div>
-<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;  }</div>
-<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;  <span class="keyword">friend</span> std::istream &amp;operator&gt;&gt;(std::istream &amp;is, <a class="code" href="classSparseMatrix.html">SparseMatrix</a> &amp;m) {</div>
-<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;    is &gt;&gt; m._rows &gt;&gt; m._cols;</div>
-<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;    <span class="keywordtype">int</span> index;</div>
-<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;    T value;</div>
-<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;    <span class="keywordflow">while</span> (is &gt;&gt; index &gt;&gt; value) {</div>
-<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;      m._matrix.emplace(std::make_pair(index, value));</div>
-<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;    }</div>
-<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;    <span class="keywordflow">return</span> is;</div>
-<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;  }</div>
-<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160; </div>
-<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U&gt;</div>
-<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;  <a class="code" href="classSparseMatrix.html">SparseMatrix</a> operator+(<span class="keyword">const</span> <a class="code" href="classSparseMatrix.html">SparseMatrix&lt;U&gt;</a> &amp;other)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;    <span class="keywordflow">if</span> (this-&gt;_rows != other._rows || this-&gt;_cols != other._cols) {</div>
-<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;      <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;SparseMatrix: dimensions do not match&quot;</span>);</div>
-<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;    }</div>
-<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;    <span class="keyword">auto</span> result = <a class="code" href="classSparseMatrix.html">SparseMatrix</a>(this-&gt;_rows, this-&gt;_cols);</div>
-<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;    std::unordered_map&lt;int, bool&gt; unique;</div>
-<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;it : this-&gt;_matrix) {</div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160; </div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;  T <span class="keyword">const</span> &amp;operator()(<span class="keywordtype">int</span> i, <span class="keywordtype">int</span> j) {</div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;    <span class="keywordflow">if</span> (i &gt;= _rows || j &gt;= _cols || i &lt; 0 || j &lt; 0) {</div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;      <span class="keywordflow">throw</span> std::out_of_range(<span class="stringliteral">&quot;Index out of range&quot;</span>);</div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;    }</div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;    <span class="keyword">auto</span> <span class="keyword">const</span> &amp;it = _matrix.find(i * _cols + j);</div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;    <span class="keywordflow">return</span> it != _matrix.end() ? it-&gt;second : _defaultReturn;</div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;  }</div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;  T <span class="keyword">const</span> &amp;operator()(<span class="keywordtype">int</span> index) {</div>
+<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;    <span class="keywordflow">if</span> (index &gt;= _rows * _cols || index &lt; 0) {</div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;      <span class="keywordflow">throw</span> std::out_of_range(<span class="stringliteral">&quot;Index out of range&quot;</span>);</div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;    }</div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;    <span class="keyword">auto</span> <span class="keyword">const</span> &amp;it = _matrix.find(index);</div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;    <span class="keywordflow">return</span> it != _matrix.end() ? it-&gt;second : _defaultReturn;</div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;  }</div>
+<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;  <span class="keyword">friend</span> std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, <span class="keyword">const</span> <a class="code" href="classSparseMatrix.html">SparseMatrix</a> &amp;m) {</div>
+<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;    os &lt;&lt; m._rows &lt;&lt; <span class="charliteral">&#39;\t&#39;</span> &lt;&lt; m._cols &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;it : m._matrix) {</div>
+<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;      os &lt;&lt; it.first &lt;&lt; <span class="charliteral">&#39;\t&#39;</span> &lt;&lt; it.second &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
+<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;    }</div>
+<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;    <span class="keywordflow">return</span> os;</div>
+<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;  }</div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;  <span class="keyword">friend</span> std::istream &amp;operator&gt;&gt;(std::istream &amp;is, <a class="code" href="classSparseMatrix.html">SparseMatrix</a> &amp;m) {</div>
+<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;    is &gt;&gt; m._rows &gt;&gt; m._cols;</div>
+<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;    <span class="keywordtype">int</span> index;</div>
+<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;    T value;</div>
+<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;    <span class="keywordflow">while</span> (is &gt;&gt; index &gt;&gt; value) {</div>
+<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;      m._matrix.emplace(std::make_pair(index, value));</div>
+<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;    }</div>
+<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;    <span class="keywordflow">return</span> is;</div>
+<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;  }</div>
+<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160; </div>
+<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U&gt;</div>
+<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;  <a class="code" href="classSparseMatrix.html">SparseMatrix</a> operator+(<span class="keyword">const</span> <a class="code" href="classSparseMatrix.html">SparseMatrix&lt;U&gt;</a> &amp;other)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;    <span class="keywordflow">if</span> (this-&gt;_rows != other._rows || this-&gt;_cols != other._cols) {</div>
+<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;      <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;SparseMatrix: dimensions do not match&quot;</span>);</div>
+<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;    }</div>
+<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;    <span class="keyword">auto</span> result = <a class="code" href="classSparseMatrix.html">SparseMatrix</a>(this-&gt;_rows, this-&gt;_cols);</div>
+<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;    std::unordered_map&lt;int, bool&gt; unique;</div>
+<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;it : this-&gt;_matrix) {</div>
+<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;      unique.insert_or_assign(it.first, <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;    }</div>
+<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;it : other._matrix) {</div>
 <div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;      unique.insert_or_assign(it.first, <span class="keyword">true</span>);</div>
 <div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;    }</div>
-<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;it : other._matrix) {</div>
-<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;      unique.insert_or_assign(it.first, <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;    }</div>
-<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;it : unique) {</div>
-<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;      result.insert(it.first / this-&gt;_cols, it.first % this-&gt;_cols,</div>
-<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;                    this-&gt;at(it.first) + other.at(it.first));</div>
-<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;    }</div>
-<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;    <span class="keywordflow">return</span> result;</div>
-<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;  }</div>
-<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U&gt;</div>
-<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;  <a class="code" href="classSparseMatrix.html">SparseMatrix</a> operator-(<span class="keyword">const</span> <a class="code" href="classSparseMatrix.html">SparseMatrix&lt;U&gt;</a> &amp;other)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;    <span class="keywordflow">if</span> (this-&gt;_rows != other._rows || this-&gt;_cols != other._cols) {</div>
-<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;      <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;SparseMatrix: dimensions do not match&quot;</span>);</div>
-<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;    }</div>
-<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;    <span class="keyword">auto</span> result = <a class="code" href="classSparseMatrix.html">SparseMatrix</a>(this-&gt;_rows, this-&gt;_cols);</div>
-<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;    std::unordered_map&lt;int, bool&gt; unique;</div>
-<div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;it : this-&gt;_matrix) {</div>
+<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;it : unique) {</div>
+<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;      result.insert(it.first / this-&gt;_cols, it.first % this-&gt;_cols,</div>
+<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;                    this-&gt;at(it.first) + other.at(it.first));</div>
+<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;    }</div>
+<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;  }</div>
+<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U&gt;</div>
+<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;  <a class="code" href="classSparseMatrix.html">SparseMatrix</a> operator-(<span class="keyword">const</span> <a class="code" href="classSparseMatrix.html">SparseMatrix&lt;U&gt;</a> &amp;other)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;    <span class="keywordflow">if</span> (this-&gt;_rows != other._rows || this-&gt;_cols != other._cols) {</div>
+<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;      <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;SparseMatrix: dimensions do not match&quot;</span>);</div>
+<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;    }</div>
+<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;    <span class="keyword">auto</span> result = <a class="code" href="classSparseMatrix.html">SparseMatrix</a>(this-&gt;_rows, this-&gt;_cols);</div>
+<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;    std::unordered_map&lt;int, bool&gt; unique;</div>
+<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;it : this-&gt;_matrix) {</div>
+<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;      unique.insert_or_assign(it.first, <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;    }</div>
+<div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;it : other._matrix) {</div>
 <div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;      unique.insert_or_assign(it.first, <span class="keyword">true</span>);</div>
 <div class="line"><a name="l00480"></a><span class="lineno">  480</span>&#160;    }</div>
-<div class="line"><a name="l00481"></a><span class="lineno">  481</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;it : other._matrix) {</div>
-<div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160;      unique.insert_or_assign(it.first, <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00483"></a><span class="lineno">  483</span>&#160;    }</div>
-<div class="line"><a name="l00484"></a><span class="lineno">  484</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;it : unique) {</div>
-<div class="line"><a name="l00485"></a><span class="lineno">  485</span>&#160;      result.insert(it.first / this-&gt;_cols, it.first % this-&gt;_cols,</div>
-<div class="line"><a name="l00486"></a><span class="lineno">  486</span>&#160;                    this-&gt;at(it.first) - other.at(it.first));</div>
-<div class="line"><a name="l00487"></a><span class="lineno">  487</span>&#160;    }</div>
-<div class="line"><a name="l00488"></a><span class="lineno">  488</span>&#160;    <span class="keywordflow">return</span> result;</div>
-<div class="line"><a name="l00489"></a><span class="lineno">  489</span>&#160;  }</div>
-<div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U&gt;</div>
-<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160;  <a class="code" href="classSparseMatrix.html">SparseMatrix</a> operator*(<span class="keyword">const</span> <a class="code" href="classSparseMatrix.html">SparseMatrix&lt;U&gt;</a> &amp;other)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160;    <span class="keywordflow">if</span> (this-&gt;_cols != other._rows) {</div>
-<div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160;      <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;SparseMatrix: dimensions do not match&quot;</span>);</div>
-<div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160;    }</div>
-<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;    <span class="keyword">auto</span> result = <a class="code" href="classSparseMatrix.html">SparseMatrix</a>(this-&gt;_rows, other._cols);</div>
-<div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; this-&gt;_rows; ++i) {</div>
-<div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160;      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; other._cols; ++j) {</div>
-<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;        T sum = 0;</div>
-<div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> k = 0; k &lt; this-&gt;_cols; ++k) {</div>
-<div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;          sum += this-&gt;at(i, k) * other.at(k, j);</div>
+<div class="line"><a name="l00481"></a><span class="lineno">  481</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;it : unique) {</div>
+<div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160;      result.insert(it.first / this-&gt;_cols, it.first % this-&gt;_cols,</div>
+<div class="line"><a name="l00483"></a><span class="lineno">  483</span>&#160;                    this-&gt;at(it.first) - other.at(it.first));</div>
+<div class="line"><a name="l00484"></a><span class="lineno">  484</span>&#160;    }</div>
+<div class="line"><a name="l00485"></a><span class="lineno">  485</span>&#160;    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00486"></a><span class="lineno">  486</span>&#160;  }</div>
+<div class="line"><a name="l00487"></a><span class="lineno">  487</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U&gt;</div>
+<div class="line"><a name="l00488"></a><span class="lineno">  488</span>&#160;  <a class="code" href="classSparseMatrix.html">SparseMatrix</a> operator*(<span class="keyword">const</span> <a class="code" href="classSparseMatrix.html">SparseMatrix&lt;U&gt;</a> &amp;other)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00489"></a><span class="lineno">  489</span>&#160;    <span class="keywordflow">if</span> (this-&gt;_cols != other._rows) {</div>
+<div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160;      <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;SparseMatrix: dimensions do not match&quot;</span>);</div>
+<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160;    }</div>
+<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160;    <span class="keyword">auto</span> result = <a class="code" href="classSparseMatrix.html">SparseMatrix</a>(this-&gt;_rows, other._cols);</div>
+<div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; this-&gt;_rows; ++i) {</div>
+<div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160;      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; other._cols; ++j) {</div>
+<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;        T sum = 0;</div>
+<div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> k = 0; k &lt; this-&gt;_cols; ++k) {</div>
+<div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160;          sum += this-&gt;at(i, k) * other.at(k, j);</div>
+<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;        }</div>
+<div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;        <span class="keywordflow">if</span> (sum != 0) {</div>
+<div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;          result.insert(i, j, sum);</div>
 <div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160;        }</div>
-<div class="line"><a name="l00502"></a><span class="lineno">  502</span>&#160;        <span class="keywordflow">if</span> (sum != 0) {</div>
-<div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160;          result.insert(i, j, sum);</div>
-<div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160;        }</div>
-<div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160;      }</div>
-<div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160;    }</div>
-<div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;    <span class="keywordflow">return</span> result;</div>
-<div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;  }</div>
-<div class="line"><a name="l00511"></a><span class="lineno"><a class="line" href="classSparseMatrix.html#a79d12d6cfcc81550c675ca5decdc0e3d">  511</a></span>&#160;  <a class="code" href="classSparseMatrix.html">SparseMatrix</a> <a class="code" href="classSparseMatrix.html#a79d12d6cfcc81550c675ca5decdc0e3d">operator++</a>() {</div>
-<div class="line"><a name="l00512"></a><span class="lineno">  512</span>&#160;    <span class="keyword">auto</span> transpost = <a class="code" href="classSparseMatrix.html">SparseMatrix</a>(this-&gt;_cols, this-&gt;_rows);</div>
-<div class="line"><a name="l00513"></a><span class="lineno">  513</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;it : _matrix) {</div>
-<div class="line"><a name="l00514"></a><span class="lineno">  514</span>&#160;      transpost.insert(it.first % _cols, it.first / _cols, it.second);</div>
-<div class="line"><a name="l00515"></a><span class="lineno">  515</span>&#160;    }</div>
-<div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160;    <span class="keywordflow">return</span> transpost;</div>
-<div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160;  }</div>
-<div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U&gt; <a class="code" href="classSparseMatrix.html">SparseMatrix</a> &amp;operator+=(<span class="keyword">const</span> <a class="code" href="classSparseMatrix.html">SparseMatrix&lt;U&gt;</a> &amp;other) {</div>
-<div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160;    <span class="keywordflow">if</span> (this-&gt;_rows != other._rows || this-&gt;_cols != other._cols) {</div>
-<div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;      <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;SparseMatrix: dimensions do not match&quot;</span>);</div>
-<div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160;    }</div>
-<div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;it : other._matrix) {</div>
-<div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;      this-&gt;<a class="code" href="classSparseMatrix.html#a3b8f8a6072a84cfa05f056897904405b">contains</a>(it.first)</div>
-<div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160;          ? this-&gt;<a class="code" href="classSparseMatrix.html#a21af04efe82db384fb12f97e1b03b9e9">insert_or_assign</a>(it.first,</div>
-<div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;                                   this-&gt;operator()(it.first) + it.second)</div>
-<div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160;          : this-&gt;<a class="code" href="classSparseMatrix.html#a32f9cbc205790dacbdda6a5b343fca97">insert</a>(it.first, it.second);</div>
-<div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160;    }</div>
-<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160;  }</div>
-<div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U&gt; <a class="code" href="classSparseMatrix.html">SparseMatrix</a> &amp;operator-=(<span class="keyword">const</span> <a class="code" href="classSparseMatrix.html">SparseMatrix&lt;U&gt;</a> &amp;other) {</div>
-<div class="line"><a name="l00531"></a><span class="lineno">  531</span>&#160;    <span class="keywordflow">if</span> (this-&gt;_rows != other._rows || this-&gt;_cols != other._cols) {</div>
-<div class="line"><a name="l00532"></a><span class="lineno">  532</span>&#160;      <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;SparseMatrix: dimensions do not match&quot;</span>);</div>
-<div class="line"><a name="l00533"></a><span class="lineno">  533</span>&#160;    }</div>
-<div class="line"><a name="l00534"></a><span class="lineno">  534</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;it : other._matrix) {</div>
-<div class="line"><a name="l00535"></a><span class="lineno">  535</span>&#160;      this-&gt;<a class="code" href="classSparseMatrix.html#a3b8f8a6072a84cfa05f056897904405b">contains</a>(it.first)</div>
-<div class="line"><a name="l00536"></a><span class="lineno">  536</span>&#160;          ? this-&gt;<a class="code" href="classSparseMatrix.html#a21af04efe82db384fb12f97e1b03b9e9">insert_or_assign</a>(it.first,</div>
-<div class="line"><a name="l00537"></a><span class="lineno">  537</span>&#160;                                   this-&gt;operator()(it.first) - it.second)</div>
-<div class="line"><a name="l00538"></a><span class="lineno">  538</span>&#160;          : this-&gt;<a class="code" href="classSparseMatrix.html#a32f9cbc205790dacbdda6a5b343fca97">insert</a>(it.first, -it.second);</div>
-<div class="line"><a name="l00539"></a><span class="lineno">  539</span>&#160;    }</div>
-<div class="line"><a name="l00540"></a><span class="lineno">  540</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00541"></a><span class="lineno">  541</span>&#160;  }</div>
-<div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U&gt; <a class="code" href="classSparseMatrix.html">SparseMatrix</a> &amp;operator*=(<span class="keyword">const</span> <a class="code" href="classSparseMatrix.html">SparseMatrix&lt;U&gt;</a> &amp;other) {</div>
-<div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160;    <span class="keywordflow">if</span> (this-&gt;_cols != other._rows) {</div>
-<div class="line"><a name="l00544"></a><span class="lineno">  544</span>&#160;      <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;SparseMatrix: dimensions do not match&quot;</span>);</div>
-<div class="line"><a name="l00545"></a><span class="lineno">  545</span>&#160;    }</div>
-<div class="line"><a name="l00546"></a><span class="lineno">  546</span>&#160;    <span class="keyword">auto</span> result = <a class="code" href="classSparseMatrix.html">SparseMatrix</a>(this-&gt;_rows, other._cols);</div>
-<div class="line"><a name="l00547"></a><span class="lineno">  547</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; this-&gt;_rows; ++i) {</div>
-<div class="line"><a name="l00548"></a><span class="lineno">  548</span>&#160;      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; other._cols; ++j) {</div>
-<div class="line"><a name="l00549"></a><span class="lineno">  549</span>&#160;        T sum = 0;</div>
-<div class="line"><a name="l00550"></a><span class="lineno">  550</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> k = 0; k &lt; this-&gt;_cols; ++k) {</div>
-<div class="line"><a name="l00551"></a><span class="lineno">  551</span>&#160;          sum += this-&gt;at(i, k) * other.at(k, j);</div>
+<div class="line"><a name="l00502"></a><span class="lineno">  502</span>&#160;      }</div>
+<div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160;    }</div>
+<div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160;    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160;  }</div>
+<div class="line"><a name="l00508"></a><span class="lineno"><a class="line" href="classSparseMatrix.html#a79d12d6cfcc81550c675ca5decdc0e3d">  508</a></span>&#160;  <a class="code" href="classSparseMatrix.html">SparseMatrix</a> <a class="code" href="classSparseMatrix.html#a79d12d6cfcc81550c675ca5decdc0e3d">operator++</a>() {</div>
+<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160;    <span class="keyword">auto</span> transpost = <a class="code" href="classSparseMatrix.html">SparseMatrix</a>(this-&gt;_cols, this-&gt;_rows);</div>
+<div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;it : _matrix) {</div>
+<div class="line"><a name="l00511"></a><span class="lineno">  511</span>&#160;      transpost.insert(it.first % _cols, it.first / _cols, it.second);</div>
+<div class="line"><a name="l00512"></a><span class="lineno">  512</span>&#160;    }</div>
+<div class="line"><a name="l00513"></a><span class="lineno">  513</span>&#160;    <span class="keywordflow">return</span> transpost;</div>
+<div class="line"><a name="l00514"></a><span class="lineno">  514</span>&#160;  }</div>
+<div class="line"><a name="l00515"></a><span class="lineno">  515</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U&gt; <a class="code" href="classSparseMatrix.html">SparseMatrix</a> &amp;operator+=(<span class="keyword">const</span> <a class="code" href="classSparseMatrix.html">SparseMatrix&lt;U&gt;</a> &amp;other) {</div>
+<div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160;    <span class="keywordflow">if</span> (this-&gt;_rows != other._rows || this-&gt;_cols != other._cols) {</div>
+<div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160;      <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;SparseMatrix: dimensions do not match&quot;</span>);</div>
+<div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;    }</div>
+<div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;it : other._matrix) {</div>
+<div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;      this-&gt;<a class="code" href="classSparseMatrix.html#a3b8f8a6072a84cfa05f056897904405b">contains</a>(it.first)</div>
+<div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160;          ? this-&gt;<a class="code" href="classSparseMatrix.html#a21af04efe82db384fb12f97e1b03b9e9">insert_or_assign</a>(it.first,</div>
+<div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;                                   this-&gt;operator()(it.first) + it.second)</div>
+<div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;          : this-&gt;<a class="code" href="classSparseMatrix.html#a32f9cbc205790dacbdda6a5b343fca97">insert</a>(it.first, it.second);</div>
+<div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160;    }</div>
+<div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160;  }</div>
+<div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U&gt; <a class="code" href="classSparseMatrix.html">SparseMatrix</a> &amp;operator-=(<span class="keyword">const</span> <a class="code" href="classSparseMatrix.html">SparseMatrix&lt;U&gt;</a> &amp;other) {</div>
+<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160;    <span class="keywordflow">if</span> (this-&gt;_rows != other._rows || this-&gt;_cols != other._cols) {</div>
+<div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160;      <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;SparseMatrix: dimensions do not match&quot;</span>);</div>
+<div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160;    }</div>
+<div class="line"><a name="l00531"></a><span class="lineno">  531</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;it : other._matrix) {</div>
+<div class="line"><a name="l00532"></a><span class="lineno">  532</span>&#160;      this-&gt;<a class="code" href="classSparseMatrix.html#a3b8f8a6072a84cfa05f056897904405b">contains</a>(it.first)</div>
+<div class="line"><a name="l00533"></a><span class="lineno">  533</span>&#160;          ? this-&gt;<a class="code" href="classSparseMatrix.html#a21af04efe82db384fb12f97e1b03b9e9">insert_or_assign</a>(it.first,</div>
+<div class="line"><a name="l00534"></a><span class="lineno">  534</span>&#160;                                   this-&gt;operator()(it.first) - it.second)</div>
+<div class="line"><a name="l00535"></a><span class="lineno">  535</span>&#160;          : this-&gt;<a class="code" href="classSparseMatrix.html#a32f9cbc205790dacbdda6a5b343fca97">insert</a>(it.first, -it.second);</div>
+<div class="line"><a name="l00536"></a><span class="lineno">  536</span>&#160;    }</div>
+<div class="line"><a name="l00537"></a><span class="lineno">  537</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00538"></a><span class="lineno">  538</span>&#160;  }</div>
+<div class="line"><a name="l00539"></a><span class="lineno">  539</span>&#160;  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> U&gt; <a class="code" href="classSparseMatrix.html">SparseMatrix</a> &amp;operator*=(<span class="keyword">const</span> <a class="code" href="classSparseMatrix.html">SparseMatrix&lt;U&gt;</a> &amp;other) {</div>
+<div class="line"><a name="l00540"></a><span class="lineno">  540</span>&#160;    <span class="keywordflow">if</span> (this-&gt;_cols != other._rows) {</div>
+<div class="line"><a name="l00541"></a><span class="lineno">  541</span>&#160;      <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;SparseMatrix: dimensions do not match&quot;</span>);</div>
+<div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160;    }</div>
+<div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160;    <span class="keyword">auto</span> result = <a class="code" href="classSparseMatrix.html">SparseMatrix</a>(this-&gt;_rows, other._cols);</div>
+<div class="line"><a name="l00544"></a><span class="lineno">  544</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; this-&gt;_rows; ++i) {</div>
+<div class="line"><a name="l00545"></a><span class="lineno">  545</span>&#160;      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; other._cols; ++j) {</div>
+<div class="line"><a name="l00546"></a><span class="lineno">  546</span>&#160;        T sum = 0;</div>
+<div class="line"><a name="l00547"></a><span class="lineno">  547</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> k = 0; k &lt; this-&gt;_cols; ++k) {</div>
+<div class="line"><a name="l00548"></a><span class="lineno">  548</span>&#160;          sum += this-&gt;at(i, k) * other.at(k, j);</div>
+<div class="line"><a name="l00549"></a><span class="lineno">  549</span>&#160;        }</div>
+<div class="line"><a name="l00550"></a><span class="lineno">  550</span>&#160;        <span class="keywordflow">if</span> (sum != 0) {</div>
+<div class="line"><a name="l00551"></a><span class="lineno">  551</span>&#160;          result.insert(i, j, sum);</div>
 <div class="line"><a name="l00552"></a><span class="lineno">  552</span>&#160;        }</div>
-<div class="line"><a name="l00553"></a><span class="lineno">  553</span>&#160;        <span class="keywordflow">if</span> (sum != 0) {</div>
-<div class="line"><a name="l00554"></a><span class="lineno">  554</span>&#160;          result.insert(i, j, sum);</div>
-<div class="line"><a name="l00555"></a><span class="lineno">  555</span>&#160;        }</div>
-<div class="line"><a name="l00556"></a><span class="lineno">  556</span>&#160;      }</div>
-<div class="line"><a name="l00557"></a><span class="lineno">  557</span>&#160;    }</div>
-<div class="line"><a name="l00558"></a><span class="lineno">  558</span>&#160;    *<span class="keyword">this</span> = result;</div>
-<div class="line"><a name="l00559"></a><span class="lineno">  559</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00560"></a><span class="lineno">  560</span>&#160;  }</div>
-<div class="line"><a name="l00561"></a><span class="lineno">  561</span>&#160;};</div>
-<div class="line"><a name="l00562"></a><span class="lineno">  562</span>&#160; </div>
-<div class="line"><a name="l00563"></a><span class="lineno">  563</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00553"></a><span class="lineno">  553</span>&#160;      }</div>
+<div class="line"><a name="l00554"></a><span class="lineno">  554</span>&#160;    }</div>
+<div class="line"><a name="l00555"></a><span class="lineno">  555</span>&#160;    *<span class="keyword">this</span> = result;</div>
+<div class="line"><a name="l00556"></a><span class="lineno">  556</span>&#160;    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00557"></a><span class="lineno">  557</span>&#160;  }</div>
+<div class="line"><a name="l00558"></a><span class="lineno">  558</span>&#160;};</div>
+<div class="line"><a name="l00559"></a><span class="lineno">  559</span>&#160; </div>
+<div class="line"><a name="l00560"></a><span class="lineno">  560</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclassSparseMatrix_html"><div class="ttname"><a href="classSparseMatrix.html">SparseMatrix</a></div><div class="ttdoc">SparseMatrix class v1.7.0 by Grufoony.</div><div class="ttdef"><b>Definition:</b> SparseMatrix.hpp:18</div></div>
 <div class="ttc" id="aclassSparseMatrix_html_a0e8677710d1ca5834b3b501dab6b6831"><div class="ttname"><a href="classSparseMatrix.html#a0e8677710d1ca5834b3b501dab6b6831">SparseMatrix::getNormRows</a></div><div class="ttdeci">SparseMatrix&lt; double &gt; getNormRows() const</div><div class="ttdoc">get a matrix of double with every row normalized to 1</div><div class="ttdef"><b>Definition:</b> SparseMatrix.hpp:330</div></div>
 <div class="ttc" id="aclassSparseMatrix_html_a21af04efe82db384fb12f97e1b03b9e9"><div class="ttname"><a href="classSparseMatrix.html#a21af04efe82db384fb12f97e1b03b9e9">SparseMatrix::insert_or_assign</a></div><div class="ttdeci">void insert_or_assign(int i, int j, T value)</div><div class="ttdoc">insert a value in the matrix. If the element already exist, it overwrites it</div><div class="ttdef"><b>Definition:</b> SparseMatrix.hpp:126</div></div>
@@ -594,7 +591,7 @@ $(document).ready(function(){initNavTree('SparseMatrix_8hpp_source.html',''); in
 <div class="ttc" id="aclassSparseMatrix_html_a4794cb64ff7798eb72ef1bd84296f376"><div class="ttname"><a href="classSparseMatrix.html#a4794cb64ff7798eb72ef1bd84296f376">SparseMatrix::encode</a></div><div class="ttdeci">static void encode(std::string const &amp;filename)</div><div class="ttdoc">Function to read a matrix from a file and rewrite it in a listed way.</div><div class="ttdef"><b>Definition:</b> SparseMatrix.hpp:47</div></div>
 <div class="ttc" id="aclassSparseMatrix_html_a60d0d81dccf54e68cbe4fb1ab063a6b2"><div class="ttname"><a href="classSparseMatrix.html#a60d0d81dccf54e68cbe4fb1ab063a6b2">SparseMatrix::SparseMatrix</a></div><div class="ttdeci">SparseMatrix(int rows, int cols)</div><div class="ttdoc">SparseMatrix constructor.</div><div class="ttdef"><b>Definition:</b> SparseMatrix.hpp:31</div></div>
 <div class="ttc" id="aclassSparseMatrix_html_a735028ac1c776ca9026732cf30da00a3"><div class="ttname"><a href="classSparseMatrix.html#a735028ac1c776ca9026732cf30da00a3">SparseMatrix::getStrengthVector</a></div><div class="ttdeci">SparseMatrix&lt; double &gt; getStrengthVector()</div><div class="ttdoc">get the strength of all nodes</div><div class="ttdef"><b>Definition:</b> SparseMatrix.hpp:229</div></div>
-<div class="ttc" id="aclassSparseMatrix_html_a79d12d6cfcc81550c675ca5decdc0e3d"><div class="ttname"><a href="classSparseMatrix.html#a79d12d6cfcc81550c675ca5decdc0e3d">SparseMatrix::operator++</a></div><div class="ttdeci">SparseMatrix operator++()</div><div class="ttdoc">transpose the matrix</div><div class="ttdef"><b>Definition:</b> SparseMatrix.hpp:511</div></div>
+<div class="ttc" id="aclassSparseMatrix_html_a79d12d6cfcc81550c675ca5decdc0e3d"><div class="ttname"><a href="classSparseMatrix.html#a79d12d6cfcc81550c675ca5decdc0e3d">SparseMatrix::operator++</a></div><div class="ttdeci">SparseMatrix operator++()</div><div class="ttdoc">transpose the matrix</div><div class="ttdef"><b>Definition:</b> SparseMatrix.hpp:508</div></div>
 <div class="ttc" id="aclassSparseMatrix_html_a7d51d6a348c1f61938442cd8767b498d"><div class="ttname"><a href="classSparseMatrix.html#a7d51d6a348c1f61938442cd8767b498d">SparseMatrix::getRndElement</a></div><div class="ttdeci">std::pair&lt; int, T &gt; getRndElement()</div><div class="ttdoc">get a random non-zero element from the matrix</div><div class="ttdef"><b>Definition:</b> SparseMatrix.hpp:314</div></div>
 <div class="ttc" id="aclassSparseMatrix_html_a84fb83fdf9040d1e75875915e2592883"><div class="ttname"><a href="classSparseMatrix.html#a84fb83fdf9040d1e75875915e2592883">SparseMatrix::SparseMatrix</a></div><div class="ttdeci">SparseMatrix(int index)</div><div class="ttdoc">SparseMatrix constructor - colum.</div><div class="ttdef"><b>Definition:</b> SparseMatrix.hpp:39</div></div>
 <div class="ttc" id="aclassSparseMatrix_html_a8e23459b7efe7a525ad0e507e849b0cb"><div class="ttname"><a href="classSparseMatrix.html#a8e23459b7efe7a525ad0e507e849b0cb">SparseMatrix::print</a></div><div class="ttdeci">void print() const noexcept</div><div class="ttdoc">print the matrix in standard output</div><div class="ttdef"><b>Definition:</b> SparseMatrix.hpp:388</div></div>
