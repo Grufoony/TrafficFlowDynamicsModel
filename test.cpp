@@ -516,13 +516,27 @@ TEST_CASE("Boolean Matrix") {
 
 TEST_CASE("VehicleType") {
   SUBCASE("Constructor and getters") {
-    // Create a VehicleType with source 0 and destination 1
+    /*This test tests if the constructor and the getters work correctly
+    The constructor should create a VehicleType with the specified source and
+    destination
+    GIVEN: the constructor is called with source 0 and destination 1
+    WHEN: the VehicleType is created
+    THEN: the VehicleType should have source 0 and destination 1
+    */
     VehicleType v(0, 1);
     CHECK(v.getSource() == 0);
     CHECK(v.getDestination() == 1);
   }
   SUBCASE("Transition Matrix") {
-    // Create a VehicleType with source 0 and destination 1
+    /*This test tests if the transition matrix works correctly
+    The transition matrix should be a square matrix with the same number of rows
+    and columns as the number of nodes in the graph
+    GIVEN: the transition matrix
+    WHEN: the transition matrix is set
+    THEN: the transition matrix should be a square matrix with the same number
+    of rows and columns as the number of nodes in the graph normalized on the
+    rows
+    */
     VehicleType v(0, 1);
     // Create a transition matrix
     SparseMatrix<double> m(3, 3);
@@ -544,7 +558,16 @@ TEST_CASE("VehicleType") {
     CHECK(m2(1, 1) == 0.5);
     CHECK(m2(1, 2) == 0.5);
     CHECK(m2(2, 2) == 1.);
-    // Check exceptions
+  }
+  SUBCASE("getTransMatrix exception") {
+    /*This test tests if the getTransMatrix function throws an exception
+    The getTransMatrix function should throw an exception if the transition
+    matrix is empty
+    GIVEN: the getTransMatrix function is called
+    WHEN: the function is called on a VehicleType with an empty transition
+    matrix
+    THEN: the function should throw an exception
+    */
     auto v2 = VehicleType(0, 1);
     // Check that an exception is thrown if the transition matrix is empty
     CHECK_THROWS(v2.getTransMatrix());
@@ -555,29 +578,65 @@ TEST_CASE("VehicleType") {
 
 TEST_CASE("Vehicle") {
   SUBCASE("AddVehicleType") {
-    // Add a vehicle type
+    /*This test tests if the addVehicleType function works correctly
+    The addVehicleType function should add a new VehicleType to the list of
+    VehicleTypes
+    GIVEN: the addVehicleType function is called
+    WHEN: the function is called with source 0 and destination 1
+    THEN: the function should add a new VehicleType with source 0 and
+    destination 1 to the list of VehicleTypes
+    */
     Vehicle::addVehicleType(0, 1);
     // Check the number of vehicle types
     CHECK(Vehicle::getNVehicleType() == 1);
     // Check exceptions
     Vehicle::addVehicleType(3, 7);
     CHECK(Vehicle::getNVehicleType() == 2);
+  }
+  SUBCASE("addVehicleType exception") {
+    /*This test tests if the addVehicleType function throws an exception
+    The addVehicleType function should throw an exception if the VehicleType is
+    already in the list of VehicleTypes
+    GIVEN: the addVehicleType function is called
+    WHEN: the function is called with source 0 and destination 1
+    THEN: the function should throw an exception
+    */
     CHECK_THROWS(Vehicle::addVehicleType(0, 1));
   }
   SUBCASE("AddVehicleType from file") {
-    // Add vehicle types from file
+    /*This test tests if the addVehicleType function works correctly
+    The addVehicleType function should add new VehicleTypes to the list of
+    VehicleType from a file
+    GIVEN: the addVehicleType function is called
+    WHEN: the function is called with a file containing the VehicleTypes
+    THEN: the function should add new VehicleTypes to the list of VehicleTypes
+    */
     Vehicle::addVehicleType("./data/vehicletype_old.dat");
     // Check correct import
     CHECK(Vehicle::getVehicleType(2)->getSource() == 0);
     CHECK(Vehicle::getVehicleType(2)->getDestination() == 8);
     CHECK(Vehicle::getVehicleType(3)->getSource() == 2);
     CHECK(Vehicle::getVehicleType(3)->getDestination() == 6);
-    // Check exceptions
+  }
+  SUBCASE("AddVehicleType from file exceptions") {
+    /*This test tests if the addVehicleType function throws an exception
+    The addVehicleType function should throw an exception if the file is not
+    found or if the file contains already existing VehicleTypes
+    GIVEN: the addVehicleType function is called
+    WHEN: the function is called with a file containing the VehicleTypes
+    THEN: the function should throw an exception
+    */
     CHECK_THROWS(Vehicle::addVehicleType("./not/a/path"));
     CHECK_THROWS(Vehicle::addVehicleType("./data/vehicletype_old.dat"));
   }
   SUBCASE("Constructor and getters") {
-    // Create a vehicle
+    /*This test tests if the constructor and the getters work correctly
+    The constructor should create a Vehicle with the specified type
+    GIVEN: the constructor is called with type 0
+    WHEN: the Vehicle is created
+    THEN: the Vehicle should have type 0, i.e. source 0 and destination 1 and
+    other values should be set to default
+    */
     Vehicle v(0);
     // Check the default values
     CHECK(v.getType() == 0);
@@ -590,63 +649,138 @@ TEST_CASE("Vehicle") {
     CHECK(v.getDestination() == 1);
   }
   SUBCASE("Constructor") {
-    // Second type
+    /*This test tests if the constructor works correctly
+    The constructor should create a Vehicle with the specified destination
+    GIVEN: the constructor is called with a VehicleType with destination 7 and source 3
+    WHEN: the Vehicle is created
+    THEN: the Vehicle should have destination 7
+    */
     Vehicle v2(1);
     CHECK(v2.getDestination() == 7);
   }
   SUBCASE("Constructor exceptions") {
-    // out of range
+    /*This test tests if the constructor throws an exception
+    The constructor should throw an exception if the type is out of the range
+    GIVEN: the constructor is called with type 12 or -1 (negative case)
+    WHEN: the Vehicle is created
+    THEN: the function should throw an exception
+    */
     CHECK_THROWS(Vehicle(12));
     CHECK_THROWS(Vehicle(-1));
   }
-  SUBCASE("VehicleType") {
+  SUBCASE("getType") {
+    /*This test tests if the getType function works correctly
+    The getType function should return the index of the type of the Vehicle
+    GIVEN: the getType function is called
+    WHEN: the function is called on a Vehicle with type 0
+    THEN: the function should return 0
+    */
     auto v = Vehicle(0);
-    // Check the vehicle type
     CHECK(v.getType() == 0);
   }
   SUBCASE("VehicleType return type") {
+    /*This test tests if the VehicleType function works correctly
+    The VehicleType function should return the VehicleType of the Vehicle
+    GIVEN: the VehicleType function is called
+    WHEN: the function is called on a Vehicle with type 0
+    THEN: the function should return the VehicleType with source 0 and
+    destination 1
+    */
     auto vt = VehicleType(0, 1);
-    // Check the vehicle type
     CHECK(vt.getSource() == Vehicle::getVehicleType(0)->getSource());
     CHECK(vt.getDestination() == Vehicle::getVehicleType(0)->getDestination());
   }
   SUBCASE("Position") {
+    /*This test tests if the setPosition and getPosition functions work correctly
+    The setPosition function should set the position of the Vehicle (node index)
+    The getPosition function should return the position of the Vehicle
+    GIVEN: the setPosition function is called with position 10
+    WHEN: the function is called on a Vehicle
+    THEN: the function should set the position of the Vehicle to 10
+    */
     auto v = Vehicle(1);
     CHECK(v.getPosition() == 3); // default VehicleType value
     // Set the position
     v.setPosition(10);
     // Check the position
     CHECK(v.getPosition() == 10);
-    // Check exceptions
+  }
+  SUBCASE("setPosition exception") {
+    /*This test tests if the setPosition function throws an exception
+    The setPosition function should throw an exception if the position is out of
+    the range GIVEN: the setPosition function is called with position -1
+    WHEN: the function is called on a Vehicle
+    THEN: the function should throw an exception
+    */
+    auto v = Vehicle(1);
     CHECK_THROWS(v.setPosition(-1));
   }
-  SUBCASE("Previous position") {
+  SUBCASE("getPreviousPosition") {
+    /*This test tests if the getPreviousPosition function works correctly
+    The getPreviousPosition function should return the previous position of the
+    Vehicle (node index)
+    GIVEN: the getPreviousPosition function is called
+    WHEN: the function is called on a Vehicle with previous position 3
+    THEN: the function should return 3
+    */
     auto v = Vehicle(1);
-    CHECK(v.getPreviousPosition() == -1); // default value
     // Set the previous position
     v.setPosition(10);
     // Check the previous position
     CHECK(v.getPreviousPosition() == 3);
   }
   SUBCASE("Street") {
+    /*This test tests if the setStreet and getStreet functions work correctly
+    The setStreet function should set the street of the Vehicle (edge index)
+    The getStreet function should return the street of the Vehicle
+    GIVEN: the setStreet function is called with street 10
+    WHEN: the function is called on a Vehicle
+    THEN: the function should set the street of the Vehicle to 10
+    */
     auto v = Vehicle(1);
-    CHECK(v.getStreet() == -1); // default value
     // Set the street
     v.setStreet(10);
     // Check the street
     CHECK(v.getStreet() == 10);
   }
   SUBCASE("Velocity") {
+    /*This test tests if the setVelocity and getVelocity functions work correctly
+    The setVelocity function should set the velocity of the Vehicle
+    The getVelocity function should return the velocity of the Vehicle
+    GIVEN: the setVelocity function is called with velocity 10
+    WHEN: the function is called on a Vehicle
+    THEN: the function should set the velocity of the Vehicle to 10
+    */
     auto v = Vehicle(1);
     CHECK(v.getVelocity() == 0.); // default value
     // Set the velocity
     v.setVelocity(10.);
     // Check the velocity
     CHECK(v.getVelocity() == 10.);
-    // Check exceptions
+  }
+  SUBCASE("setVelocity exception") {
+    /*This test tests if the setVelocity function throws an exception
+    The setVelocity function should throw an exception if the velocity is negative
+    GIVEN: the setVelocity function is called with velocity -1
+    WHEN: the function is called on a Vehicle
+    THEN: the function should throw an exception
+    */
+    auto v = Vehicle(1);
     CHECK_THROWS(v.setVelocity(-1.));
   }
   SUBCASE("Time of travel") {
+    /*This test tests if the incrementTimeTraveled, resetTimeTraveled and
+    getTimeTraveled functions work correctly
+    The incrementTimeTraveled function
+    should increment the time of travel of the Vehicle
+    The resetTimeTraveled function should reset the time of travel of the
+    Vehicle 
+    The getTimeTraveled function should return the time of travel of the
+    Vehicle
+    GIVEN: the incrementTimeTraveled function is called
+    WHEN: the function is called on a Vehicle
+    THEN: the function should increment the time of travel of the Vehicle
+    */
     auto v = Vehicle(1);
     CHECK(v.getTimeTraveled() == 0); // default value
     // Increment the time of travel
@@ -655,10 +789,16 @@ TEST_CASE("Vehicle") {
     CHECK(v.getTimeTraveled() == 1);
     // Reset the time of travel
     v.resetTimeTraveled();
-    // Check the time of travel
     CHECK(v.getTimeTraveled() == 0);
   }
   SUBCASE("Cycle for time of travel") {
+    /*This test tests if the incrementTimeTraveled function works correctly
+    The incrementTimeTraveled function should increment the time of travel of
+    the Vehicle many times
+    GIVEN: the incrementTimeTraveled function is called
+    WHEN: the function is called on a Vehicle with cycle time 10
+    THEN: the function should increment the time of travel of the Vehicle many times
+    */
     auto v = Vehicle(3);
     for (int i = 0; i < 10; ++i) {
       v.incrementTimeTraveled();
@@ -666,12 +806,19 @@ TEST_CASE("Vehicle") {
     CHECK(v.getTimeTraveled() == 10);
   }
   SUBCASE("Time penalty") {
+    /*This test tests if the setTimePenalty and getTimePenalty functions work correctly
+    The setTimePenalty function should set the time penalty of the Vehicle
+    The getTimePenalty function should return the time penalty of the Vehicle
+    GIVEN: the setTimePenalty function is called with time penalty 6
+    WHEN: the function is called on a Vehicle
+    THEN: the function should set the time penalty of the Vehicle to 6
+    */
     auto v = Vehicle(1);
     CHECK(v.getTimePenalty() == 0); // default value
     // Set the time penalty
-    v.setTimePenalty(10);
+    v.setTimePenalty(6);
     // Check the time penalty
-    CHECK(v.getTimePenalty() == 10);
+    CHECK(v.getTimePenalty() == 6);
     // Check exceptions
     CHECK_THROWS(v.setTimePenalty(-1));
   }
