@@ -400,14 +400,11 @@ public:
   void fprint(std::string const &filename) const noexcept {
     std::ofstream file(filename);
     file << _rows << '\t' << _cols << '\n';
-    for (int i = 0; i < _rows; ++i) {
-      for (int j = 0; j < _cols; ++j) {
-        auto const &it = _matrix.find(i * _cols + j);
-        it != _matrix.end() ? file << it->second : file << 0;
-        file << '\t';
-      }
-      file << '\n';
-    }
+    // move buffer on file
+    auto const rdbufBackup = std::cout.rdbuf();
+    std::cout.rdbuf(file.rdbuf());
+    this->print();
+    std::cout.rdbuf(rdbufBackup);
     file.close();
   }
 
