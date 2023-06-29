@@ -736,6 +736,8 @@ TEST_CASE("Graph") {
     g.updateTransMatrix();
     Vehicle v(0);
     SparseMatrix<double> mat = v.getVehicleType(0)->getTransMatrix();
+    // check that the direct path is not the shortest
+    CHECK(mat(0, 1) == 0.);
     // check the matrix which should bring from 0 to 1 passing from 12 and 13
     CHECK(mat(0, 12) == 1.);
     CHECK(mat(12, 13) == 1.);
