@@ -715,7 +715,6 @@ TEST_CASE("Graph") {
   }
   SUBCASE("updateTransMatrix") {
     Graph g("./data/matrix.dat");
-    // add a vehicle of type 0
     g.addVehicle(1);
     g.updateTransMatrix();
     Vehicle v(1);
@@ -730,6 +729,21 @@ TEST_CASE("Graph") {
     CHECK(mat(6, 5) == 0.);
     CHECK(mat(5, 4) == 0.);
     CHECK(mat(4, 3) == 0.);
+  }
+  SUBCASE("updateTransMatrix with non-uniform matrix") {
+    Graph g("./data/test/transition_matrix.dat");
+    g.addVehicle(0); // goes from 0 to 1
+    g.updateTransMatrix();
+    Vehicle v(0);
+    SparseMatrix<double> mat = v.getVehicleType(0)->getTransMatrix();
+    // check the matrix which should bring from 0 to 1 passing from 12 and 13
+    CHECK(mat(0, 12) == 1.);
+    CHECK(mat(12, 13) == 1.);
+    CHECK(mat(13, 1) == 1.);
+    // check also that the vehicle cannot go back
+    CHECK(mat(1, 13) == 0.);
+    CHECK(mat(13, 12) == 0.);
+    CHECK(mat(12, 0) == 0.);
   }
   SUBCASE("updateTransMatrix with noise") {
     Graph g("./data/matrix.dat");
