@@ -1040,8 +1040,13 @@ TEST_CASE("Street") {
     // VehicleType is added in the Vehicle test
     // Create a street
     Street s(0, 1, 10., 0);
-    // Add a vehicle
-    s.addVehicle(std::make_shared<Vehicle>(0));
+    auto v = std::make_shared<Vehicle>(0);
+    s.addVehicle(v);
+    // Check modified attributes of vehicle
+    CHECK(v->getPosition() == 1);
+    CHECK(v->getVelocity() == s.getVMax());
+    CHECK(v->getStreet() == 0);
+    CHECK(v->getTimePenalty() == static_cast<int>(10. / v->getVelocity()));
     // Check the number of vehicles
     CHECK(s.getNVehicles() == 1);
     // Remove a vehicle
