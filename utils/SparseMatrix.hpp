@@ -484,25 +484,25 @@ public:
     }
     return result;
   }
-  template <typename U>
-  SparseMatrix operator*(const SparseMatrix<U> &other) const {
-    if (this->_cols != other._rows) {
-      throw std::runtime_error("SparseMatrix: dimensions do not match");
-    }
-    auto result = SparseMatrix(this->_rows, other._cols);
-    for (int i = 0; i < this->_rows; ++i) {
-      for (int j = 0; j < other._cols; ++j) {
-        T sum = 0;
-        for (int k = 0; k < this->_cols; ++k) {
-          sum += this->at(i, k) * other.at(k, j);
-        }
-        if (sum != 0) {
-          result.insert(i, j, sum);
-        }
-      }
-    }
-    return result;
-  }
+  // template <typename U>
+  // SparseMatrix operator*(const SparseMatrix<U> &other) const {
+  //   if (this->_cols != other._rows) {
+  //     throw std::runtime_error("SparseMatrix: dimensions do not match");
+  //   }
+  //   auto result = SparseMatrix(this->_rows, other._cols);
+  //   for (int i = 0; i < this->_rows; ++i) {
+  //     for (int j = 0; j < other._cols; ++j) {
+  //       T sum = 0;
+  //       for (int k = 0; k < this->_cols; ++k) {
+  //         sum += this->at(i, k) * other.at(k, j);
+  //       }
+  //       if (sum != 0) {
+  //         result.insert(i, j, sum);
+  //       }
+  //     }
+  //   }
+  //   return result;
+  // }
   /// @brief transpose the matrix
   /// @return the transposed matrix
   SparseMatrix operator++() {
@@ -536,25 +536,26 @@ public:
     }
     return *this;
   }
-  template <typename U> SparseMatrix &operator*=(const SparseMatrix<U> &other) {
-    if (this->_cols != other._rows) {
-      throw std::runtime_error("SparseMatrix: dimensions do not match");
-    }
-    auto result = SparseMatrix(this->_rows, other._cols);
-    for (int i = 0; i < this->_rows; ++i) {
-      for (int j = 0; j < other._cols; ++j) {
-        T sum = 0;
-        for (int k = 0; k < this->_cols; ++k) {
-          sum += this->at(i, k) * other.at(k, j);
-        }
-        if (sum != 0) {
-          result.insert(i, j, sum);
-        }
-      }
-    }
-    *this = result;
-    return *this;
-  }
+  // template <typename U> SparseMatrix &operator*=(const SparseMatrix<U>
+  // &other) {
+  //   if (this->_cols != other._rows) {
+  //     throw std::runtime_error("SparseMatrix: dimensions do not match");
+  //   }
+  //   auto result = SparseMatrix(this->_rows, other._cols);
+  //   for (int i = 0; i < this->_rows; ++i) {
+  //     for (int j = 0; j < other._cols; ++j) {
+  //       T sum = 0;
+  //       for (int k = 0; k < this->_cols; ++k) {
+  //         sum += this->at(i, k) * other.at(k, j);
+  //       }
+  //       if (sum != 0) {
+  //         result.insert(i, j, sum);
+  //       }
+  //     }
+  //   }
+  //   *this = result;
+  //   return *this;
+  // }
 };
 
 #endif

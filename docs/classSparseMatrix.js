@@ -33,8 +33,6 @@ var classSparseMatrix =
     [ "max_size", "classSparseMatrix.html#a9c32e97eca6501fa4ce314a6317a8e34", null ],
     [ "operator()", "classSparseMatrix.html#aa33d577addaf30bf68c1724c1b2aa8e1", null ],
     [ "operator()", "classSparseMatrix.html#a9ab994bb94ec8a89d965417cb4257a92", null ],
-    [ "operator*", "classSparseMatrix.html#acfaac117cc4e47c5456130acbc3dd01b", null ],
-    [ "operator*=", "classSparseMatrix.html#a5c400a4534db7d4adfe5927b5f7ca78c", null ],
     [ "operator+", "classSparseMatrix.html#ae6961fc552ce92cabe1791f3c6c08808", null ],
     [ "operator++", "classSparseMatrix.html#a79d12d6cfcc81550c675ca5decdc0e3d", null ],
     [ "operator+=", "classSparseMatrix.html#a4cb090b2f590fdc91107fa23e716de4e", null ],
