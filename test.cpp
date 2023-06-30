@@ -50,10 +50,10 @@ TEST_CASE("Boolean Matrix") {
   }
   SUBCASE("Constructor with dimension") {
     /*This test tests if the constructor with dimension works correctly
-    The constructor should create a square matrix with the specified dimension
-    and a max size equal to the square of the dimension GIVEN: the constructor
-    is called with dimension 3 WHEN: the matrix is created THEN: the matrix
-    should have 3 rows and 3 columns and a max size of 9
+    The constructor should create a row vector with the specified dimension
+    GIVEN: the constructor is called with dimension 3
+    WHEN: the matrix is created
+    THEN: the matrix should have 3 rows and 1 column and a max size of 3
     */
     SparseMatrix<bool> m(3);
     // Check the dimensions
