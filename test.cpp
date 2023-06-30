@@ -10,6 +10,12 @@
 
 // test file used to test the code
 
+/****************************************************************************************
+ *                                                                                      *
+ *  TESTS FOR THE SPARSE MATRIX CLASS *
+ *                                                                                      *
+ ****************************************************************************************/
+
 TEST_CASE("Boolean Matrix") {
   SUBCASE("Default constructor") {
     /*This test tests if the default constructor works correctly
@@ -93,6 +99,18 @@ TEST_CASE("Boolean Matrix") {
                    std::istreambuf_iterator<char>());
     CHECK(s1 == s2);
   }
+  SUBCASE("Insertion exceptions") {
+    /*This test tests if the insert function throws exceptions correctly
+    The insert function should throw an exception if the inserted element is out
+    of range GIVEN: the insert function is called WHEN: the function is called
+    on a matrix THEN: the function should throw an exception if the inserted
+    element is out of range
+    */
+    SparseMatrix<bool> m(3, 3);
+    // Check that an exception is thrown if the element is out of range
+    CHECK_THROWS(m.insert(-1, -2));
+    CHECK_THROWS(m.insert(3, 2, true));
+  }
   SUBCASE("Insertions") {
     /*This test tests if the insert function works correctly
     The insert function should insert a value in the matrix
@@ -108,18 +126,6 @@ TEST_CASE("Boolean Matrix") {
     for (int i = 1; i < 9; ++i) {
       CHECK(!m(i / 3, i % 3));
     }
-  }
-  SUBCASE("Insertion exceptions") {
-    /*This test tests if the insert function throws exceptions correctly
-    The insert function should throw an exception if the inserted element is out
-    of range GIVEN: the insert function is called WHEN: the function is called
-    on a matrix THEN: the function should throw an exception if the inserted
-    element is out of range
-    */
-    SparseMatrix<bool> m(3, 3);
-    // Check that an exception is thrown if the element is out of range
-    CHECK_THROWS(m.insert(-1, -2));
-    CHECK_THROWS(m.insert(3, 2, true));
   }
   SUBCASE("Deletions") {
     /*This test tests if the erase function works correctly
@@ -512,7 +518,11 @@ TEST_CASE("Boolean Matrix") {
   }
 }
 
-// VehicleType
+/****************************************************************************************
+ *                                                                                      *
+ *  TESTS FOR THE VEHICLETYPE CLASS *
+ *                                                                                      *
+ ****************************************************************************************/
 
 TEST_CASE("VehicleType") {
   SUBCASE("Constructor and getters") {
@@ -526,6 +536,19 @@ TEST_CASE("VehicleType") {
     VehicleType v(0, 1);
     CHECK(v.getSource() == 0);
     CHECK(v.getDestination() == 1);
+  }
+  SUBCASE("getTransMatrix exception") {
+    /*This test tests if the getTransMatrix function throws an exception
+    The getTransMatrix function should throw an exception if the transition
+    matrix is empty
+    GIVEN: the getTransMatrix function is called
+    WHEN: the function is called on a VehicleType with an empty transition
+    matrix
+    THEN: the function should throw an exception
+    */
+    auto v2 = VehicleType(0, 1);
+    // Check that an exception is thrown if the transition matrix is empty
+    CHECK_THROWS(v2.getTransMatrix());
   }
   SUBCASE("Transition Matrix") {
     /*This test tests if the transition matrix works correctly
@@ -558,19 +581,6 @@ TEST_CASE("VehicleType") {
     CHECK(m2(1, 1) == 0.5);
     CHECK(m2(1, 2) == 0.5);
     CHECK(m2(2, 2) == 1.);
-  }
-  SUBCASE("getTransMatrix exception") {
-    /*This test tests if the getTransMatrix function throws an exception
-    The getTransMatrix function should throw an exception if the transition
-    matrix is empty
-    GIVEN: the getTransMatrix function is called
-    WHEN: the function is called on a VehicleType with an empty transition
-    matrix
-    THEN: the function should throw an exception
-    */
-    auto v2 = VehicleType(0, 1);
-    // Check that an exception is thrown if the transition matrix is empty
-    CHECK_THROWS(v2.getTransMatrix());
   }
 }
 
@@ -648,16 +658,6 @@ TEST_CASE("Vehicle") {
     CHECK(v.getTimeTraveled() == 0);
     CHECK(v.getDestination() == 1);
   }
-  SUBCASE("Constructor") {
-    /*This test tests if the constructor works correctly
-    The constructor should create a Vehicle with the specified destination
-    GIVEN: the constructor is called with a VehicleType with destination 7 and source 3
-    WHEN: the Vehicle is created
-    THEN: the Vehicle should have destination 7
-    */
-    Vehicle v2(1);
-    CHECK(v2.getDestination() == 7);
-  }
   SUBCASE("Constructor exceptions") {
     /*This test tests if the constructor throws an exception
     The constructor should throw an exception if the type is out of the range
@@ -667,6 +667,16 @@ TEST_CASE("Vehicle") {
     */
     CHECK_THROWS(Vehicle(12));
     CHECK_THROWS(Vehicle(-1));
+  }
+  SUBCASE("Constructor") {
+    /*This test tests if the constructor works correctly
+    The constructor should create a Vehicle with the specified destination
+    GIVEN: the constructor is called with a VehicleType with destination 7 and
+    source 3 WHEN: the Vehicle is created THEN: the Vehicle should have
+    destination 7
+    */
+    Vehicle v2(1);
+    CHECK(v2.getDestination() == 7);
   }
   SUBCASE("getType") {
     /*This test tests if the getType function works correctly
@@ -690,21 +700,6 @@ TEST_CASE("Vehicle") {
     CHECK(vt.getSource() == Vehicle::getVehicleType(0)->getSource());
     CHECK(vt.getDestination() == Vehicle::getVehicleType(0)->getDestination());
   }
-  SUBCASE("Position") {
-    /*This test tests if the setPosition and getPosition functions work correctly
-    The setPosition function should set the position of the Vehicle (node index)
-    The getPosition function should return the position of the Vehicle
-    GIVEN: the setPosition function is called with position 10
-    WHEN: the function is called on a Vehicle
-    THEN: the function should set the position of the Vehicle to 10
-    */
-    auto v = Vehicle(1);
-    CHECK(v.getPosition() == 3); // default VehicleType value
-    // Set the position
-    v.setPosition(10);
-    // Check the position
-    CHECK(v.getPosition() == 10);
-  }
   SUBCASE("setPosition exception") {
     /*This test tests if the setPosition function throws an exception
     The setPosition function should throw an exception if the position is out of
@@ -714,6 +709,21 @@ TEST_CASE("Vehicle") {
     */
     auto v = Vehicle(1);
     CHECK_THROWS(v.setPosition(-1));
+  }
+  SUBCASE("Position") {
+    /*This test tests if the setPosition and getPosition functions work
+    correctly The setPosition function should set the position of the Vehicle
+    (node index) The getPosition function should return the position of the
+    Vehicle GIVEN: the setPosition function is called with position 10 WHEN: the
+    function is called on a Vehicle THEN: the function should set the position
+    of the Vehicle to 10
+    */
+    auto v = Vehicle(1);
+    CHECK(v.getPosition() == 3); // default VehicleType value
+    // Set the position
+    v.setPosition(10);
+    // Check the position
+    CHECK(v.getPosition() == 10);
   }
   SUBCASE("getPreviousPosition") {
     /*This test tests if the getPreviousPosition function works correctly
@@ -743,9 +753,19 @@ TEST_CASE("Vehicle") {
     // Check the street
     CHECK(v.getStreet() == 10);
   }
+  SUBCASE("setVelocity exception") {
+    /*This test tests if the setVelocity function throws an exception
+    The setVelocity function should throw an exception if the velocity is
+    negative GIVEN: the setVelocity function is called with velocity -1 WHEN:
+    the function is called on a Vehicle THEN: the function should throw an
+    exception
+    */
+    auto v = Vehicle(1);
+    CHECK_THROWS(v.setVelocity(-1.));
+  }
   SUBCASE("Velocity") {
-    /*This test tests if the setVelocity and getVelocity functions work correctly
-    The setVelocity function should set the velocity of the Vehicle
+    /*This test tests if the setVelocity and getVelocity functions work
+    correctly The setVelocity function should set the velocity of the Vehicle
     The getVelocity function should return the velocity of the Vehicle
     GIVEN: the setVelocity function is called with velocity 10
     WHEN: the function is called on a Vehicle
@@ -758,23 +778,13 @@ TEST_CASE("Vehicle") {
     // Check the velocity
     CHECK(v.getVelocity() == 10.);
   }
-  SUBCASE("setVelocity exception") {
-    /*This test tests if the setVelocity function throws an exception
-    The setVelocity function should throw an exception if the velocity is negative
-    GIVEN: the setVelocity function is called with velocity -1
-    WHEN: the function is called on a Vehicle
-    THEN: the function should throw an exception
-    */
-    auto v = Vehicle(1);
-    CHECK_THROWS(v.setVelocity(-1.));
-  }
   SUBCASE("Time of travel") {
     /*This test tests if the incrementTimeTraveled, resetTimeTraveled and
     getTimeTraveled functions work correctly
     The incrementTimeTraveled function
     should increment the time of travel of the Vehicle
     The resetTimeTraveled function should reset the time of travel of the
-    Vehicle 
+    Vehicle
     The getTimeTraveled function should return the time of travel of the
     Vehicle
     GIVEN: the incrementTimeTraveled function is called
@@ -797,7 +807,8 @@ TEST_CASE("Vehicle") {
     the Vehicle many times
     GIVEN: the incrementTimeTraveled function is called
     WHEN: the function is called on a Vehicle with cycle time 10
-    THEN: the function should increment the time of travel of the Vehicle many times
+    THEN: the function should increment the time of travel of the Vehicle many
+    times
     */
     auto v = Vehicle(3);
     for (int i = 0; i < 10; ++i) {
@@ -805,11 +816,21 @@ TEST_CASE("Vehicle") {
     }
     CHECK(v.getTimeTraveled() == 10);
   }
+  SUBCASE("setTimePenalty exception") {
+    /*This test tests if the setTimePenalty function throws an exception
+    The setTimePenalty function should throw an exception if the time penalty is
+    negative GIVEN: the setTimePenalty function is called with time penalty -1
+    WHEN: the function is called on a Vehicle
+    THEN: the function should throw an exception
+    */
+    auto v = Vehicle(1);
+    CHECK_THROWS(v.setTimePenalty(-1));
+  }
   SUBCASE("Time penalty") {
-    /*This test tests if the setTimePenalty and getTimePenalty functions work correctly
-    The setTimePenalty function should set the time penalty of the Vehicle
-    The getTimePenalty function should return the time penalty of the Vehicle
-    GIVEN: the setTimePenalty function is called with time penalty 6
+    /*This test tests if the setTimePenalty and getTimePenalty functions work
+    correctly The setTimePenalty function should set the time penalty of the
+    Vehicle The getTimePenalty function should return the time penalty of the
+    Vehicle GIVEN: the setTimePenalty function is called with time penalty 6
     WHEN: the function is called on a Vehicle
     THEN: the function should set the time penalty of the Vehicle to 6
     */
@@ -819,51 +840,116 @@ TEST_CASE("Vehicle") {
     v.setTimePenalty(6);
     // Check the time penalty
     CHECK(v.getTimePenalty() == 6);
-    // Check exceptions
-    CHECK_THROWS(v.setTimePenalty(-1));
   }
 }
 
-// Street
+/****************************************************************************************
+ *                                                                                      *
+ *  TESTS FOR THE STREET CLASS *
+ *                                                                                      *
+ ****************************************************************************************/
 
 TEST_CASE("Street") {
+  SUBCASE("Constructor exceptions") {
+    /*This test tests if the constructor throws an exception
+    The constructor should throw an exception if the length is negative or if
+    the index is negative GIVEN: the constructor is called with length -10 or
+    index -1 WHEN: the Street is created THEN: the function should throw an
+    exception
+    */
+    CHECK_THROWS(Street(0, 1, -10., 0));
+    CHECK_THROWS(Street(0, 1, 10., -1));
+  }
   SUBCASE("Constructor and getters") {
-    // Create a street
+    /*This test tests if the constructor and the getters work correctly
+    The constructor should create a street with the specified origin,
+    destination, length and index GIVEN: the constructor is called with origin
+    0, destination 1, length 10 and index 0 WHEN: the street is created THEN:
+    the street should have origin 0, destination 1, length 10 and index 0 and
+    other values should be set to default
+    */
     Street s(0, 1, 10., 0);
     // Check the values
     CHECK(s.getOrigin() == 0);
     CHECK(s.getDestination() == 1);
     CHECK(s.getLength() == 10.);
     CHECK(s.getIndex() == 0);
+    // default values
     CHECK(!s.isFull());
     CHECK(s.getNVehicles() == 0);
-    CHECK(s.getVMax() == 13.9); // default value
+    CHECK(s.getVMax() == 13.9);
     CHECK(s.getInputVelocity() == s.getVMax());
     CHECK(s.getDensity() == 0.);
     CHECK(s.getVehicleDensity() == 0.);
     CHECK(s.getNLanes() == 1);
   }
+  SUBCASE("setNLanes exception") {
+    /*This test tests if the setNLanes function throws an exception
+    The setNLanes function should throw an exception if the number of lanes is
+    negative GIVEN: the setNLanes function is called with number of lanes -10
+    WHEN: the function is called on a street
+    THEN: the function should throw an exception
+    */
+    Street s(0, 1, 10., 0);
+    CHECK_THROWS(s.setNLanes(-10));
+  }
   SUBCASE("NLanes") {
-    // Create a street
+    /*This test tests if the setNLanes and getNLanes functions work correctly
+    The setNLanes function should set the number of lanes of the street
+    The getNLanes function should return the number of lanes of the street
+    GIVEN: the setNLanes function is called with number of lanes 2
+    WHEN: the function is called on a street
+    THEN: the function should set the number of lanes of the street to 2
+    */
     Street s(0, 1, 10., 0);
     // Set the number of lanes
     s.setNLanes(2);
     // Check the number of lanes
     CHECK(s.getNLanes() == 2);
-    // Check exceptions
-    CHECK_THROWS(s.setNLanes(-1));
+  }
+  SUBCASE("setVMax exception") {
+    /*This test tests if the setVMax function throws an exception
+    The setVMax function should throw an exception if the maximum velocity is
+    negative GIVEN: the setVMax function is called with maximum velocity -7
+    WHEN: the function is called on a street
+    THEN: the function should throw an exception
+    */
+    Street s(0, 1, 10., 0);
+    CHECK_THROWS(s.setVMax(-7.));
   }
   SUBCASE("VMax") {
-    // Create a street
+    /*This test tests if the setVMax and getVMax functions work correctly
+    The setVMax function should set the maximum velocity of the street
+    The getVMax function should return the maximum velocity of the street
+    GIVEN: the setVMax function is called with maximum velocity 10
+    WHEN: the function is called on a street
+    THEN: the function should set the maximum velocity of the street to 10
+    */
     Street s(0, 1, 10., 0);
     // Set the maximum velocity
     s.setVMax(10.);
     // Check the maximum velocity
     CHECK(s.getVMax() == 10.);
-    // Check exceptions
-    CHECK_THROWS(s.setVMax(-1.));
+  }
+  SUBCASE("remVehicle exception") {
+    /*This test tests if the remVehicle function throws an exception
+    The remVehicle function should throw an exception if the street is empty
+    GIVEN: the remVehicle function is called
+    WHEN: the function is called on a street
+    THEN: the function should throw an exception
+    */
+    // Create a street
+    Street s(0, 1, 10., 0);
+    CHECK_THROWS(s.remVehicle());
   }
   SUBCASE("Add and remove vehicles") {
+    /*This test tests if the addVehicle and remVehicle functions work correctly
+    The addVehicle function should add a vehicle to the street
+    The remVehicle function should remove a vehicle from the street
+    GIVEN: the addVehicle function is called with a vehicle of type 0
+    WHEN: the function is called on a street
+    THEN: the function should add a vehicle of type 0 to the street
+    */
     // VehicleType is added in the Vehicle test
     // Create a street
     Street s(0, 1, 10., 0);
@@ -875,29 +961,48 @@ TEST_CASE("Street") {
     s.remVehicle();
     // Check the number of vehicles
     CHECK(s.getNVehicles() == 0);
-    CHECK_THROWS(s.remVehicle());
   }
 }
 
-// Utils
+/****************************************************************************************
+ *                                                                                      *
+ *  TESTS FOR THE UTILS FUNCTIONS *
+ *                                                                                      *
+ ****************************************************************************************/
 
 TEST_CASE("utils") {
   SUBCASE("minDistance") {
-    // Create a vector
-    std::vector<int> v{1, 2, 3};
+    /*This test tests if the minDistance function works correctly
+    The minDistance function should return the minimum distance from the source
+    for nodes with sptSet false GIVEN: the minDistance function is called WHEN:
+    the function is called on a vector with distances 1, 2, 3 and a vector with
+    false, false, false THEN: the function should return 0 cause 1 is the
+    minimum
+    */
+    std::vector<int> v{1, 2, 3}; // distances
     std::vector<bool> sptSet{false, false, false};
-    // Check the minimum distance should be 0 cause of 1 is the minimum
     CHECK(minDistance(v, sptSet, 3) == 0.);
   }
   SUBCASE("minDistance 2") {
-    // Create a vector
-    std::vector<int> v{1, 2, 3};
+    /*This test tests if the minDistance function works correctly
+    The minDistance function should return the minimum distance from the source
+    for nodes with sptSet false GIVEN: the minDistance function is called WHEN:
+    the function is called on a vector with distances 1, 2, 3 and a vector with
+    true, true, false THEN: the function should return 2 cause 3 is the minimum
+    (only valid value)
+    */
+    std::vector<int> v{1, 2, 3}; // distances
     std::vector<bool> sptSet{true, true, false};
-    // Check the minimum distance should be 2 due to the true values
     CHECK(minDistance(v, sptSet, 3) == 2);
   }
   SUBCASE("normalizeVec") {
-    // Create a vector
+    /*This test tests if the normalizeVec function works correctly
+    The normalizeVec function should normalize the vector
+    GIVEN: the normalizeVec function is called
+    WHEN: the function is called on a vector with values 1, 2, 3
+    THEN: the function should normalize the vector to have the sum of the
+    elements equal to 1
+    */
     std::vector<double> v{1., 2., 3.};
     // Normalize the vector
     normalizeVec(v);
@@ -908,23 +1013,74 @@ TEST_CASE("utils") {
   }
 }
 
-// Graph
+/****************************************************************************************
+ *                                                                                      *
+ *  TESTS FOR THE GRAPH CLASS *
+ *                                                                                      *
+ ****************************************************************************************/
 
 TEST_CASE("Graph") {
-  SUBCASE("Constructor exception") { CHECK_THROWS(Graph("./not/a/path")); }
-  SUBCASE("Temperature") {
+  SUBCASE("Constructor exception") {
+    /*This test tests if the constructor throws an exception
+    The constructor should throw an exception if the file is not found
+    GIVEN: the constructor is called with a file that doesn't exist
+    WHEN: the constructor is called
+    THEN: the function should throw an exception
+    */
+    CHECK_THROWS(Graph("./not/a/path"));
+  }
+  SUBCASE("setTemperature exception") {
+    /*This test tests if the setTemperature function throws an exception
+    The setTemperature function should throw an exception if the temperature is
+    negative GIVEN: the setTemperature function is called with temperature -2
+    WHEN: the function is called on a graph
+    THEN: the function should throw an exception
+    */
     Graph g("./data/matrix.dat");
-    CHECK_THROWS(g.setTemperature(-1.));
+    CHECK_THROWS(g.setTemperature(-2.));
+  }
+  SUBCASE("Temperature") {
+    /*This test tests if the setTemperature and getTemperature functions work
+    correctly The setTemperature function should set the temperature of the
+    graph The getTemperature function should return the temperature of the graph
+    GIVEN: the setTemperature function is called with temperature 300
+    WHEN: the function is called on a graph
+    THEN: the function should set the temperature of the graph to 300
+    */
+    Graph g("./data/matrix.dat");
     g.setTemperature(300.);
     CHECK(g.getTemperature() == 300.);
   }
-  SUBCASE("TimeScale") {
+  SUBCASE("setTimeScale exception") {
+    /*This test tests if the setTimeScale function throws an exception
+    The setTimeScale function should throw an exception if the time scale is
+    negative GIVEN: the setTimeScale function is called with time scale -10
+    WHEN: the function is called on a graph
+    THEN: the function should throw an exception
+    */
     Graph g("./data/matrix.dat");
     CHECK_THROWS(g.setTimeScale(-10));
-    g.setTimeScale(10);
-    CHECK(g.getTimeScale() == 10);
+  }
+  SUBCASE("TimeScale") {
+    /*This test tests if the setTimeScale and getTimeScale functions work
+    correctly The setTimeScale function should set the time scale of the graph
+    The getTimeScale function should return the time scale of the graph
+    GIVEN: the setTimeScale function is called with time scale 42
+    WHEN: the function is called on a graph
+    THEN: the function should set the time scale of the graph to 42
+    */
+    Graph g("./data/matrix.dat");
+    g.setTimeScale(42);
+    CHECK(g.getTimeScale() == 42);
   }
   SUBCASE("addVehicle exceptions") {
+    /*This test tests if the addVehicle function throws an exception
+    The addVehicle function should throw an exception if the VehicleType is not
+    in the list of VehicleTypes, i.e. if the index is out of range
+    GIVEN: the addVehicle function is called with index 100 or -1 (negative
+    case) WHEN: thefunction is called on a graph THEN: the function should throw
+    an exception
+    */
     Graph g("./data/matrix.dat");
     // VehicleType index < 0
     CHECK_THROWS(g.addVehicle(-1));
@@ -932,12 +1088,25 @@ TEST_CASE("Graph") {
     CHECK_THROWS(g.addVehicle(100));
   }
   SUBCASE("addRndVehicle exceptions") {
+    /*This test tests if the addRndmVehicles function throws an exception
+    The addRndmVehicles function should throw an exception if the number of
+    vehicles is negative
+    GIVEN: the addRndmVehicles function is called with number of vehicles -1
+    WHEN: the function is called on a graph
+    THEN: the function should throw an exception
+    */
     Graph g("./data/matrix.dat");
     // VehicleType index < 0
     CHECK_THROWS(g.addRndmVehicles(-1));
   }
   // to check the constructor we'll check all the print functions
-  SUBCASE("fprint") {
+  SUBCASE("fprint - not verbose") {
+    /*This test tests if the fprint function works correctly
+    The fprint function should print the graph in a file
+    GIVEN: the fprint function is called
+    WHEN: the function is called on a graph
+    THEN: the function should print the graph's info in a file
+    */
     Graph g("./data/matrix_old.dat");
     g.fprint(false);
     // compare the two files
@@ -948,17 +1117,32 @@ TEST_CASE("Graph") {
     std::string s2((std::istreambuf_iterator<char>(f2)),
                    std::istreambuf_iterator<char>());
     CHECK(s1 == s2);
+  }
+  SUBCASE("fprint - verbose") {
+    /*This test tests if the fprint function works correctly
+    The fprint function should print the graph in a file
+    GIVEN: the fprint function is called
+    WHEN: the function is called on a graph
+    THEN: the function should print the graph's info in a file
+    */
+    Graph g("./data/matrix_old.dat");
     g.fprint(true);
-    // compare the two files (verbose version)
-    std::ifstream f3("./network_info.txt");
-    std::ifstream f4("./data/test/test1_true_ref.txt");
-    std::string s3((std::istreambuf_iterator<char>(f3)),
+    // compare the two files
+    std::ifstream f1("./network_info.txt");
+    std::ifstream f2("./data/test/test1_true_ref.txt");
+    std::string s1((std::istreambuf_iterator<char>(f1)),
                    std::istreambuf_iterator<char>());
-    std::string s4((std::istreambuf_iterator<char>(f4)),
+    std::string s2((std::istreambuf_iterator<char>(f2)),
                    std::istreambuf_iterator<char>());
-    CHECK(s3 == s4);
+    CHECK(s1 == s2);
   }
   SUBCASE("fprintStreets without vehicles") {
+    /*This test tests if the fprintStreets function works correctly
+    The fprintStreets function should print the streets in a file
+    GIVEN: the fprintStreets function is called
+    WHEN: the function is called on a graph
+    THEN: the function should print the streets' info in a file
+    */
     Graph g("./data/matrix_old.dat");
     std::string fileName = "./data/test/temp.txt";
     g.fprintStreets(fileName);
@@ -974,6 +1158,13 @@ TEST_CASE("Graph") {
     std::remove(fileName.c_str());
   }
   SUBCASE("addRndmVehicle") {
+    /*This test tests if the addRndmVehicle function works correctly
+    The addRndmVehicle function should add a vehicle of a random type to the
+    graph
+    GIVEN: the addRndmVehicle function is called (setting seed to 69)
+    WHEN: the function is called on a graph
+    THEN: the function should add a vehicle of a random type to the graph
+    */
     std::mt19937 gen(std::random_device{}());
     gen.seed(69);
     Graph g("./data/matrix.dat");
@@ -1003,6 +1194,12 @@ TEST_CASE("Graph") {
     std::remove(fileName2.c_str());
   }
   SUBCASE("fprintStreets with many vehicles") {
+    /*This test tests if the fprintStreets function works correctly
+    The fprintStreets function should print the streets in a file
+    GIVEN: the fprintStreets function is called
+    WHEN: the function is called on a graph
+    THEN: the function should print the streets' info in a file
+    */
     Graph g("./data/matrix.dat");
     g.setSeed(69);
     g.addRndmVehicles(10);
@@ -1021,6 +1218,13 @@ TEST_CASE("Graph") {
     std::remove(fileName.c_str());
   }
   SUBCASE("updateTransMatrix") {
+    /*This test tests if the updateTransMatrix function works correctly
+    The updateTransMatrix function should update the transition matrix of a
+    vehicle type according to the graph
+    GIVEN: the updateTransMatrix function is called
+    WHEN: the function is called on a graph
+    THEN: the function should update the transition matrix of a vehicle type
+    */
     Graph g("./data/matrix.dat");
     g.addVehicle(1);
     g.updateTransMatrix();
@@ -1038,6 +1242,13 @@ TEST_CASE("Graph") {
     CHECK(mat(4, 3) == 0.);
   }
   SUBCASE("updateTransMatrix with non-uniform matrix") {
+    /*This test tests if the updateTransMatrix function works correctly
+    The updateTransMatrix function should update the transition matrix of a
+    vehicle type according to the graph
+    GIVEN: the updateTransMatrix function is called
+    WHEN: the function is called on a graph
+    THEN: the function should update the transition matrix of a vehicle type
+    */
     Graph g("./data/test/transition_matrix.dat");
     g.addVehicle(0); // goes from 0 to 1
     g.updateTransMatrix();
@@ -1055,6 +1266,15 @@ TEST_CASE("Graph") {
     CHECK(mat(12, 0) == 0.);
   }
   SUBCASE("updateTransMatrix with noise") {
+    /*This test tests if the updateTransMatrix function works correctly
+    The updateTransMatrix function should update the transition matrix of a
+    vehicle type according to the graph
+    Adding noise means that the vehicle can go in the wrong direction with a
+    certain probability
+    GIVEN: the updateTransMatrix function is called
+    WHEN: the function is called on a graph
+    THEN: the function should update the transition matrix of a vehicle type
+    */
     Graph g("./data/matrix.dat");
     // add a vehicle of type 0
     g.addVehicle(0);
@@ -1068,6 +1288,12 @@ TEST_CASE("Graph") {
     CHECK(std::abs(mat(0, 12) - 0.0755823) < 1e-6);
   }
   SUBCASE("evolve") {
+    /*This test tests if the evolve function works correctly
+    The evolve function should evolve the graph for one step
+    GIVEN: the evolve function is called
+    WHEN: the function is called on a graph
+    THEN: the function should evolve the graph for one step
+    */
     Graph g("./data/matrix.dat");
     // add a vehicle of type 0
     g.addVehicle(0);
@@ -1085,6 +1311,21 @@ TEST_CASE("Graph") {
                    std::istreambuf_iterator<char>());
     CHECK(s1 == s2);
     std::remove(fileName.c_str());
+  }
+  SUBCASE("evolve until destination") {
+    /*This test tests if the evolve function works correctly
+    The evolve function should evolve the graph one step at a time
+    GIVEN: the evolve function is called
+    WHEN: the function is called on a graph, in a loop
+    THEN: the function should evolve the graph until the vehicle reaches its
+    destination
+    */
+    Graph g("./data/matrix.dat");
+    // add a vehicle of type 0
+    g.addVehicle(0);
+    g.updateTransMatrix();
+    g.evolve(false);
+    std::string fileName = "./data/test/temp.txt";
     // street is 500 meters long so it should take 36 steps to arrive
     for (int i = 0; i < 36; ++i) {
       g.evolve(false);
@@ -1092,16 +1333,24 @@ TEST_CASE("Graph") {
     // check that the vehicle has arrived to destination
     g.fprintStreets(fileName);
     // compare the two files to verify that it has not been reinserted
-    std::ifstream f3(fileName);
-    std::ifstream f4("./data/test/test2_ref.txt"); // empty file
-    std::string s3((std::istreambuf_iterator<char>(f3)),
+    std::ifstream f1(fileName);
+    std::ifstream f2("./data/test/test2_ref.txt"); // empty file
+    std::string s1((std::istreambuf_iterator<char>(f1)),
                    std::istreambuf_iterator<char>());
-    std::string s4((std::istreambuf_iterator<char>(f4)),
+    std::string s2((std::istreambuf_iterator<char>(f2)),
                    std::istreambuf_iterator<char>());
-    CHECK(s3 == s4);
+    CHECK(s1 == s2);
     std::remove(fileName.c_str());
   }
   SUBCASE("evolve with reinsertion") {
+    /*This test tests if the evolve function works correctly
+    The evolve function should evolve the graph one step at a time.
+    If the vehicle reaches its destination it should be reinserted in the graph
+    GIVEN: the evolve function is called
+    WHEN: the function is called on a graph, in a loop
+    THEN: the function should evolve the graph until the vehicle reaches its
+    destination, then it should reinsert the vehicle in its origin
+    */
     Graph g("./data/matrix.dat");
     g.setSeed(69);
     g.addVehicle(0);
@@ -1123,6 +1372,14 @@ TEST_CASE("Graph") {
     std::remove(fileName.c_str());
   }
   SUBCASE("evolve with many vehicles") {
+    /*This test tests if the evolve function works correctly
+    The evolve function should evolve the graph one step at a time, with many
+    vehicles
+    GIVEN: the evolve function is called
+    WHEN: the function is called on a graph, in a loop
+    THEN: the function should evolve the graph until the vehicle reaches its
+    destination, then it should reinsert the vehicles in their origins
+    */
     Graph g("./data/matrix.dat");
     g.setSeed(69);
     g.addRndmVehicles(24);
@@ -1144,6 +1401,12 @@ TEST_CASE("Graph") {
   }
   // Now we can check the statistics of the vehicles
   SUBCASE("fprintVisual") {
+    /*This test tests if the fprintVisual function works correctly
+    The fprintVisual function should print the graph street density in a file
+    GIVEN: the fprintVisual function is called
+    WHEN: the function is called on a graph
+    THEN: the function should print the graph's info in a file
+    */
     Graph g("./data/matrix.dat");
     g.addVehicle(0);
     g.updateTransMatrix();
@@ -1161,6 +1424,13 @@ TEST_CASE("Graph") {
     std::remove((outFolder + "1.dat").c_str());
   }
   SUBCASE("fprintHistogram exceptions") {
+    /*This test tests if the fprintHistogram function throws an exception
+    The fprintHistogram function should throw an exception if the number of bins
+    is negative or if the quantity is not valid or if the format is not valid
+    GIVEN: the fprintHistogram function is called with invalid parameters
+    WHEN: the function is called on a graph
+    THEN: the function should throw an exception
+    */
     Graph g("./data/matrix.dat");
     g.addVehicle(0);
     g.updateTransMatrix();
@@ -1174,6 +1444,13 @@ TEST_CASE("Graph") {
                                    "notValid")); // not valid format
   }
   SUBCASE("fprintDistribution exception") {
+    /*This test tests if the fprintDistribution function throws an exception
+    The fprintDistribution function should throw an exception if the quantity is
+    not valid
+    GIVEN: the fprintDistribution function is called with invalid parameters
+    WHEN: the function is called on a graph
+    THEN: the function should throw an exception
+    */
     Graph g("./data/matrix.dat");
     g.addVehicle(0);
     g.updateTransMatrix();
@@ -1183,6 +1460,13 @@ TEST_CASE("Graph") {
         g.fprintDistribution(outFolder, "notValid")); // not valid quantity
   }
   SUBCASE("fprintTimeDistribution exception") {
+    /*This test tests if the fprintTimeDistribution function throws an exception
+    The fprintTimeDistribution function should throw an exception if the
+    quantity is not valid
+    GIVEN: the fprintTimeDistribution function is called with invalid parameters
+    WHEN: the function is called on a graph
+    THEN: the function should throw an exception
+    */
     Graph g("./data/matrix.dat");
     g.addVehicle(0);
     g.updateTransMatrix();
@@ -1192,6 +1476,13 @@ TEST_CASE("Graph") {
                                           42.)); // not valid quantity
   }
   SUBCASE("fprintActualState exception") {
+    /*This test tests if the fprintActualState function throws an exception
+    The fprintActualState function should throw an exception if the quantity is
+    not valid
+    GIVEN: the fprintActualState function is called with invalid parameters
+    WHEN: the function is called on a graph
+    THEN: the function should throw an exception
+    */
     Graph g("./data/matrix.dat");
     g.addVehicle(0);
     g.updateTransMatrix();
@@ -1201,6 +1492,12 @@ TEST_CASE("Graph") {
         g.fprintActualState(outFolder, "notValid")); // not valid quantity
   }
   SUBCASE("fprintHistogram output - density") {
+    /*This test tests if the fprintHistogram function works correctly
+    The fprintHistogram function should print the graph street density in a file
+    GIVEN: the fprintHistogram function is called
+    WHEN: the function is called on a graph
+    THEN: the function should print the graph's info in a file
+    */
     Graph g("./data/matrix.dat");
     // add a lot of vehicles of the same type in order to see a change in
     // density
@@ -1222,6 +1519,13 @@ TEST_CASE("Graph") {
     std::remove((outFolder + "1_den.dat").c_str());
   }
   SUBCASE("fprintHistogram output - traveltime") {
+    /*This test tests if the fprintHistogram function works correctly
+    The fprintHistogram function should print the graph traveltime info in a
+    file GIVEN: the fprintHistogram function is called two times with different
+    parameters (format)
+    WHEN: the function is called on a graph
+    THEN: the function should print the graph's info in a file
+    */
     Graph g("./data/matrix.dat");
     g.addVehicle(0);
     g.updateTransMatrix();
@@ -1251,6 +1555,13 @@ TEST_CASE("Graph") {
     std::remove((outFolder + "25_t.dat").c_str());
   }
   SUBCASE("fprintHistogram output - 0 traveltime") {
+    /*This test tests if the fprintHistogram function works correctly
+    The fprintHistogram function should print the graph traveltime info in a
+    file Check if traveltime is 0 until the time reaches the time scale GIVEN:
+    the fprintHistogram function is called two times with different parameters
+    (format) WHEN: the function is called on a graph THEN: the function should
+    print the graph's info in a file
+    */
     Graph g("./data/matrix.dat");
     g.addVehicle(0);
     g.updateTransMatrix();
@@ -1283,6 +1594,12 @@ TEST_CASE("Graph") {
     std::remove((outFolder + "50_t.dat").c_str());
   }
   SUBCASE("fprintDistribution output - u/q") {
+    /*This test tests if the fprintDistribution function works correctly
+    The fprintDistribution function should print the graph u/q info in a file
+    GIVEN: the fprintDistribution function is called
+    WHEN: the function is called on a graph
+    THEN: the function should print the graph's info in a file
+    */
     Graph g("./data/matrix.dat");
     g.addVehicle(0);
     g.updateTransMatrix();
@@ -1303,6 +1620,12 @@ TEST_CASE("Graph") {
     std::remove((outFolder + "10_u-q.dat").c_str());
   }
   SUBCASE("fprintDistribution output - q/k") {
+    /*This test tests if the fprintDistribution function works correctly
+    The fprintDistribution function should print the graph q/k info in a file
+    GIVEN: the fprintDistribution function is called
+    WHEN: the function is called on a graph
+    THEN: the function should print the graph's info in a file
+    */
     Graph g("./data/matrix.dat");
     g.addVehicle(2); // test for other vehicle types
     g.updateTransMatrix();
@@ -1320,6 +1643,12 @@ TEST_CASE("Graph") {
     std::remove((outFolder + "1_q-k.dat").c_str());
   }
   SUBCASE("fprintDistribution output - u/k") {
+    /*This test tests if the fprintDistribution function works correctly
+    The fprintDistribution function should print the graph u/k info in a file
+    GIVEN: the fprintDistribution function is called
+    WHEN: the function is called on a graph
+    THEN: the function should print the graph's info in a file
+    */
     Graph g("./data/matrix.dat");
     g.addVehicle(0);
     g.updateTransMatrix();
@@ -1337,6 +1666,12 @@ TEST_CASE("Graph") {
     std::remove((outFolder + "1_u-k.dat").c_str());
   }
   SUBCASE("fprintTimeDistribution output - q") {
+    /*This test tests if the fprintTimeDistribution function works correctly
+    The fprintTimeDistribution function should print the graph q/t info in a
+    file GIVEN: the fprintTimeDistribution function is called WHEN: the function
+    is called on a graph THEN: the function should print the graph's info in a
+    file
+    */
     Graph g("./data/matrix.dat");
     g.addVehicle(0);
     g.updateTransMatrix();
@@ -1354,6 +1689,12 @@ TEST_CASE("Graph") {
     std::remove((outFolder + "q-t.dat").c_str());
   }
   SUBCASE("fprintTimeDistribution output - k") {
+    /*This test tests if the fprintTimeDistribution function works correctly
+    The fprintTimeDistribution function should print the graph k/t info in a
+    file GIVEN: the fprintTimeDistribution function is called WHEN: the function
+    is called on a graph THEN: the function should print the graph's info in a
+    file
+    */
     Graph g("./data/matrix.dat");
     g.addVehicle(0);
     g.updateTransMatrix();
@@ -1371,6 +1712,12 @@ TEST_CASE("Graph") {
     std::remove((outFolder + "k-t.dat").c_str());
   }
   SUBCASE("fprintTimeDistribution output - v") {
+    /*This test tests if the fprintTimeDistribution function works correctly
+    The fprintTimeDistribution function should print the graph v/t info in a
+    file GIVEN: the fprintTimeDistribution function is called WHEN: the function
+    is called on a graph THEN: the function should print the graph's info in a
+    file
+    */
     Graph g("./data/matrix.dat");
     g.addVehicle(1);
     g.updateTransMatrix();
@@ -1388,6 +1735,12 @@ TEST_CASE("Graph") {
     std::remove((outFolder + "u-t.dat").c_str());
   }
   SUBCASE("fprintActualState output - q/k") {
+    /*This test tests if the fprintActualState function works correctly
+    The fprintActualState function should print the graph q/k info in a file
+    GIVEN: the fprintActualState function is called
+    WHEN: the function is called on a graph
+    THEN: the function should print the graph's info in a file
+    */
     Graph g("./data/matrix.dat");
     g.addVehicle(0);
     g.updateTransMatrix();
@@ -1405,6 +1758,12 @@ TEST_CASE("Graph") {
     std::remove((outFolder + "q-k.dat").c_str());
   }
   SUBCASE("fprintActualState output - u/k") {
+    /*This test tests if the fprintActualState function works correctly
+    The fprintActualState function should print the graph u/k info in a file
+    GIVEN: the fprintActualState function is called
+    WHEN: the function is called on a graph
+    THEN: the function should print the graph's info in a file
+    */
     Graph g("./data/matrix.dat");
     g.addVehicle(0);
     g.updateTransMatrix();
