@@ -874,7 +874,9 @@ TEST_CASE("Vehicle") {
     Vehicle
     GIVEN: the incrementTimeTraveled function is called
     WHEN: the function is called on a Vehicle
-    THEN: the function should increment the time of travel of the Vehicle
+    THEN: the function should increment the time of travel of the Vehicle, then
+    the resetTimeTraveled function is called and the function should reset the
+    time of travel of the Vehicle
     */
     auto v = Vehicle(1);
     CHECK(v.getTimeTraveled() == 0); // default value
@@ -1047,6 +1049,106 @@ TEST_CASE("Street") {
     // Check the number of vehicles
     CHECK(s.getNVehicles() == 0);
   }
+  SUBCASE("getInputVelocity") {
+    /*This test tests if the getInputVelocity function works correctly
+    The getInputVelocity function should return the input velocity of the
+    street, which depends on the vehicle density on it
+    GIVEN: the getInputVelocity function is called
+    WHEN: the function is called on a street
+    THEN: the function should return the input velocity of the street
+    */
+    // Create a street
+    Street s(0, 1, 100., 0);
+    // Add a vehicle
+    auto v = Vehicle(0);
+    for (int i = 0; i < 10; ++i) {
+      s.addVehicle(std::make_shared<Vehicle>(v));
+    }
+    // Check the input velocity
+    CHECK(s.getInputVelocity() == 5.2125);
+  }
+  SUBCASE("getNVehicles") {
+    /*This test tests if the getNVehicles function works correctly
+    The getNVehicles function should return the number of vehicles on the
+    street
+    GIVEN: the getNVehicles function is called
+    WHEN: the function is called on a street with 2 vehicles
+    THEN: the function should return 2
+    */
+    // Create a street
+    Street s(0, 1, 10., 0);
+    // Add a vehicle
+    auto v = Vehicle(0);
+    s.addVehicle(std::make_shared<Vehicle>(v));
+    s.addVehicle(std::make_shared<Vehicle>(v));
+    // Check the number of vehicles
+    CHECK(s.getNVehicles() == 2);
+  }
+  SUBCASE("getIndex") {
+    /*This test tests if the getIndex function works correctly
+    The getIndex function should return the index of the street
+    GIVEN: the getIndex function is called
+    WHEN: the function is called on a street with index 10
+    THEN: the function should return 10
+    */
+    // Create a street
+    Street s(0, 1, 10., 10);
+    // Check the index
+    CHECK(s.getIndex() == 10);
+  }
+  SUBCASE("getLength") {
+    /*This test tests if the getLength function works correctly
+    The getLength function should return the length of the street
+    GIVEN: the getLength function is called
+    WHEN: the function is called on a street with length 10
+    THEN: the function should return 10
+    */
+    Street s(0, 1, 10., 0);
+    CHECK(s.getLength() == 10.);
+  }
+  SUBCASE("Full") {
+    /*This test tests if the isFull function works correctly
+    The isFull function should return true if the street is full
+    GIVEN: the isFull function is called
+    WHEN: the function is called on a street with 1 vehicle and length 8
+    THEN: the function should return true
+    */
+    // Create a street
+    Street s(0, 1, 8., 0);
+    // Add a vehicle
+    auto v = Vehicle(0);
+    s.addVehicle(std::make_shared<Vehicle>(v));
+    // Check if the street is full
+    CHECK(s.isFull());
+  }
+  SUBCASE("getDensity") {
+    /*This test tests if the getDensity function works correctly
+    The getDensity function should return the density of the street
+    GIVEN: the getDensity function is called
+    WHEN: the function is called on a street with 1 vehicle and length 16
+    THEN: the function should return 0.5
+    */
+    // Create a street
+    Street s(0, 1, 16., 0);
+    // Add a vehicle
+    auto v = Vehicle(0);
+    s.addVehicle(std::make_shared<Vehicle>(v));
+    // Check the density
+    CHECK(s.getDensity() == 0.5);
+  }
+  SUBCASE("getVehicleDensity") {
+    /*This test tests if the getVehicleDensity function works correctly
+    The getVehicleDensity function should return the vehicle density of the
+    street
+    GIVEN: the getVehicleDensity function is called
+    WHEN: the function is called on a street with 1 vehicle and length 10
+    THEN: the function should return 0.1
+    */
+    Street s(0, 1, 10., 0);
+    Vehicle v(0);
+    s.addVehicle(std::make_shared<Vehicle>(v));
+    CHECK(s.getVehicleDensity() == 0.1);
+  }
 }
 
 /****************************************************************************************
@@ -1184,6 +1286,19 @@ TEST_CASE("Graph") {
     // VehicleType index < 0
     CHECK_THROWS(g.addRndmVehicles(-1));
   }
+  SUBCASE("addVehiclesUniformly exception") {
+    /*This test tests if the addVehiclesUniformly function throws an exception
+    The addVehiclesUniformly function should throw an exception if the number of
+    vehicles is negative
+    GIVEN: the addVehiclesUniformly function is called with number of vehicles
+    -1
+    WHEN: the function is called on a graph
+    THEN: the function should throw an exception
+    */
+    Graph g("./data/matrix.dat");
+    // VehicleType index < 0
+    CHECK_THROWS(g.addVehiclesUniformly(-1));
+  }
   // to check the constructor we'll check all the print functions
   SUBCASE("fprint - not verbose") {
     /*This test tests if the fprint function works correctly
@@ -1277,6 +1392,31 @@ TEST_CASE("Graph") {
     CHECK(s1 == s2);
     std::remove(fileName.c_str());
     std::remove(fileName2.c_str());
+  }
+  SUBCASE("addVehiclesUniformly") {
+    /*This test tests if the addVehiclesUniformly function works correctly
+    The addVehiclesUniformly function should add vehicles of all types to the
+    graph, uniformly distributed on the streets (not starting from origin!)
+    GIVEN: the addVehiclesUniformly function is called (setting seed to 69)
+    WHEN: the function is called on a graph
+    THEN: the function should add vehicles of all types to the graph, uniformly
+    distributed on the streets
+    */
+    Graph g("./data/matrix.dat");
+    g.setSeed(69);
+    g.addVehiclesUniformly(4);
+    g.updateTransMatrix();
+    g.evolve(false); // to put vehicles on the streets
+    std::string fileName = "./data/test/temp.txt";
+    g.fprintStreets(fileName);
+    std::ifstream f1(fileName);
+    std::ifstream f2("./data/test/test2b_ref.txt");
+    std::string s1((std::istreambuf_iterator<char>(f1)),
+                   std::istreambuf_iterator<char>());
+    std::string s2((std::istreambuf_iterator<char>(f2)),
+                   std::istreambuf_iterator<char>());
+    CHECK(s1 == s2);
+    std::remove(fileName.c_str());
   }
   SUBCASE("fprintStreets with many vehicles") {
     /*This test tests if the fprintStreets function works correctly
