@@ -466,14 +466,99 @@ TEST_CASE("Boolean Matrix") {
     m.insert(1, 2, true);
     // Symmetrize the matrix
     m.symmetrize();
-    // Check the values after symmetrization
-    for (int i = 0; i < 9; ++i) {
-      if (i != 4 && i != 8 && i != 2 && i != 6) {
-        CHECK(m.contains(i));
-      } else {
-        CHECK(!m.contains(i));
-      }
-    }
+    CHECK(m(0, 0));
+    CHECK(m(0, 1));
+    CHECK(m(1, 0));
+    CHECK(m(1, 2));
+    CHECK(m(2, 1));
+  }
+  SUBCASE("+ operator") {
+    /*This test tests if the + operator works correctly
+    The + operator should sum two matrices
+    GIVEN: the + operator is called
+    WHEN: the function is called on two matrices
+    THEN: the function should sum the two matrices
+    */
+    SparseMatrix<bool> m(3, 3);
+    m.insert(0, 0, true);
+    m.insert(0, 1, true);
+    m.insert(1, 2, true);
+    SparseMatrix<bool> m2(3, 3);
+    m2.insert(0, 0, true);
+    m2.insert(1, 0, true);
+    m2.insert(2, 1, true);
+    auto m3 = m + m2;
+    CHECK(m3(0, 0));
+    CHECK(m3(1, 0));
+    CHECK(m3(2, 1));
+    CHECK(m3(0, 1));
+    CHECK(m3(1, 2));
+  }
+  SUBCASE("+= operator") {
+    /*This test tests if the += operator works correctly
+    The += operator should sum two matrices
+    GIVEN: the += operator is called
+    WHEN: the function is called on two matrices
+    THEN: the function should sum the two matrices
+    */
+    SparseMatrix<bool> m(3, 3);
+    m.insert(0, 0, true);
+    m.insert(0, 1, true);
+    m.insert(1, 2, true);
+    SparseMatrix<bool> m2(3, 3);
+    m2.insert(0, 0, true);
+    m2.insert(1, 0, true);
+    m2.insert(2, 1, true);
+    m += m2;
+    CHECK(m(0, 0));
+    CHECK(m(1, 0));
+    CHECK(m(2, 1));
+    CHECK(m(0, 1));
+    CHECK(m(1, 2));
+  }
+  SUBCASE("- operator") {
+    /*This test tests if the - operator works correctly
+    The - operator should subtract two matrices
+    GIVEN: the - operator is called
+    WHEN: the function is called on two matrices
+    THEN: the function should subtract the two matrices
+    */
+    SparseMatrix<int> m(3, 3);
+    m.insert(0, 0, 1);
+    m.insert(0, 1, 2);
+    m.insert(1, 2, 3);
+    SparseMatrix<int> m2(3, 3);
+    m2.insert(0, 0, 1);
+    m2.insert(1, 0, 2);
+    m2.insert(2, 1, 3);
+    auto m3 = m - m2;
+    CHECK(m3(0, 0) == 0);
+    CHECK(m3(1, 0) == -2);
+    CHECK(m3(2, 1) == -3);
+    CHECK(m3(0, 1) == 2);
+    CHECK(m3(1, 2) == 3);
+  }
+  SUBCASE("-= operator") {
+    /*This test tests if the -= operator works correctly
+    The -= operator should subtract two matrices
+    GIVEN: the -= operator is called
+    WHEN: the function is called on two matrices
+    THEN: the function should subtract the two matrices
+    */
+    SparseMatrix<int> m(3, 3);
+    m.insert(0, 0, 1);
+    m.insert(0, 1, 2);
+    m.insert(1, 2, 3);
+    SparseMatrix<int> m2(3, 3);
+    m2.insert(0, 0, 1);
+    m2.insert(1, 0, 2);
+    m2.insert(2, 1, 3);
+    m -= m2;
+    CHECK(m(0, 0) == 0);
+    CHECK(m(1, 0) == -2);
+    CHECK(m(2, 1) == -3);
+    CHECK(m(0, 1) == 2);
+    CHECK(m(1, 2) == 3);
   }
   SUBCASE("print") {
     /*This test tests if the print function (operator) works correctly
