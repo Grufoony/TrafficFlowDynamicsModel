@@ -121,11 +121,43 @@ TEST_CASE("Boolean Matrix") {
     SparseMatrix<bool> m(3, 3);
     // Insert a true value
     m.insert(0, 0, true);
+    m.insert(5, true);
     // Check all values
     CHECK(m(0, 0));
+    CHECK(m(1, 2));
     for (int i = 1; i < 9; ++i) {
-      CHECK(!m(i / 3, i % 3));
+      if (i != 5) {
+        CHECK(!m(i / 3, i % 3));
+      }
     }
+  }
+  SUBCASE("at - exceptions") {
+    /*This test tests if the at function throws exceptions correctly
+    The at function should throw an exception if the element is out of range
+    GIVEN: the at function is called
+    WHEN: the function is called on a matrix
+    THEN: the function should throw an exception if the element is out of range
+    */
+    SparseMatrix<bool> m(2, 3);
+    // Check that an exception is thrown if the element is out of range
+    CHECK_THROWS(m.at(-1, -2));
+    CHECK_THROWS(m.at(-2));
+    CHECK_THROWS(m.at(3, 2));
+    CHECK_THROWS(m.at(6));
+  }
+  SUBCASE("at") {
+    /*This test tests if the at function works correctly
+    The at function should return the value at the specified position
+    GIVEN: the at function is called
+    WHEN: the function is called on a matrix
+    THEN: the function should return the value at the specified position
+    */
+    SparseMatrix<bool> m(3, 3);
+    // Insert a true value
+    m.insert(1, 0, true);
+    // Check the value
+    CHECK(m.at(1, 0));
+    CHECK(m.at(3));
   }
   SUBCASE("Deletions") {
     /*This test tests if the erase function works correctly
@@ -1202,6 +1234,19 @@ TEST_CASE("utils") {
     CHECK(v[0] == 1. / 6);
     CHECK(v[1] == 2. / 6);
     CHECK(v[2] == 3. / 6);
+  }
+  SUBCASE("normalizeVec - zero sum") {
+    /*This test tests if the normalizeVec function works correctly
+    The normalizeVec function should normalize the vector
+    GIVEN: the normalizeVec function is called
+    WHEN: the function is called on a vector with values 0, 0, 0
+    THEN: the function should return the same vector
+    */
+    std::vector<double> v{0., 0., 0.};
+    normalizeVec(v);
+    CHECK(v[0] == 0.);
+    CHECK(v[1] == 0.);
+    CHECK(v[2] == 0.);
   }
 }
 
