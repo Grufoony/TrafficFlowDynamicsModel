@@ -97,59 +97,59 @@ $(document).ready(function(){initNavTree('Vehicle_8hpp_source.html',''); initRes
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define VEHICLE_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;VehicleType.hpp&quot;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="classVehicle.html">   13</a></span>&#160;<span class="keyword">class </span><a class="code" href="classVehicle.html">Vehicle</a> {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  <span class="keyword">static</span> std::vector&lt;std::shared_ptr&lt;VehicleType&gt;&gt; _vehicleType;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;  uint8_t _index;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  uint16_t _position;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  int16_t _previousPosition = -1;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  <span class="keywordtype">int</span> _street = -1;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  <span class="keywordtype">int</span> _timePenalty = 0;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  <span class="keywordtype">double</span> _velocity = 0.;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  <span class="keywordtype">int</span> _timeTraveled = 0;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <a class="code" href="classVehicle.html#a8757cf8948070c0718362414f32c0f47">Vehicle</a>(uint8_t); </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  <a class="code" href="classVehicle.html#a8757cf8948070c0718362414f32c0f47">Vehicle</a>(<span class="keyword">const</span> <a class="code" href="classVehicle.html">Vehicle</a> &amp;v)</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;      : _index(v._index), _position(v._position),</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        _previousPosition(v._previousPosition), _street(v._street),</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        _timePenalty(v._timePenalty), _velocity(v._velocity),</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        _timeTraveled(v._timeTraveled) {}</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  ~<a class="code" href="classVehicle.html">Vehicle</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classVehicle.html#aba83253a0f4cb6373be216c8702b1c47">addVehicleType</a>(uint16_t,</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;                             uint16_t); </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classVehicle.html#aba83253a0f4cb6373be216c8702b1c47">addVehicleType</a>(</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;      std::string); </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <span class="keyword">static</span> std::shared_ptr&lt;VehicleType&gt;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <a class="code" href="classVehicle.html#a22a26924b63685e3c18366a0d4ca434a">getVehicleType</a>(int8_t <span class="keyword">const</span>); </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="keyword">static</span> uint8_t</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <a class="code" href="classVehicle.html#a90acb78aef5d58ffaa9f23cf2ed7795c">getNVehicleType</a>(); </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  uint8_t <a class="code" href="classVehicle.html#af736f984faf642a9761ef413f7f5f216">getType</a>()</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;      <span class="keyword">const</span> noexcept; <span class="comment">// return the index of the vehicle type in _vehicleType</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classVehicle.html#a3d9d5f53c8abab37cb1c9b8e9a42b589">setPosition</a>(int16_t);</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  uint16_t <a class="code" href="classVehicle.html#a1a7280a497c183c5a066637bb022531a">getPosition</a>() <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  int16_t <a class="code" href="classVehicle.html#aad717e1a42203a8aa487485d93dbe156">getPreviousPosition</a>() <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classVehicle.html#af8965e1936cc1f397dfa4121ebded61a">setStreet</a>(<span class="keywordtype">int</span>);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <span class="keywordtype">int</span> <a class="code" href="classVehicle.html#ad7336a517e0489d163692d1138964f8d">getStreet</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  uint16_t <a class="code" href="classVehicle.html#a3bd4685c0c70b3950fb9ea7647b447e2">getDestination</a>() <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classVehicle.html#a0281b574cfa8574e32407b9980abe030">setTimePenalty</a>(<span class="keywordtype">int</span>);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="keywordtype">int</span> <a class="code" href="classVehicle.html#acb9ae9042697a0437c92da483cc9e77b">getTimePenalty</a>() <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classVehicle.html#a0390777909c5904ab8ad5b09412378e1">setVelocity</a>(<span class="keywordtype">double</span>);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keywordtype">double</span> <a class="code" href="classVehicle.html#a3ea4bafe6341ab9ecefa107dfe1b4f6f">getVelocity</a>() <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classVehicle.html#a56766d130f00b31e0304a73c3063bacb">incrementTimeTraveled</a>() noexcept;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <span class="keywordtype">int</span> <a class="code" href="classVehicle.html#ac59ee017a597732f5c5d7d0bdae5ba6c">getTimeTraveled</a>() <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classVehicle.html#aeeebd844e846e6e1bf3ed386ec3a2588">resetTimeTraveled</a>() noexcept;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;};</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aclassVehicle_html"><div class="ttname"><a href="classVehicle.html">Vehicle</a></div><div class="ttdoc">Vehicle class.</div><div class="ttdef"><b>Definition:</b> Vehicle.hpp:13</div></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;VehicleType.hpp&quot;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="classVehicle.html">   15</a></span>&#160;<span class="keyword">class </span><a class="code" href="classVehicle.html">Vehicle</a> {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  <span class="keyword">static</span> std::vector&lt;std::shared_ptr&lt;VehicleType&gt;&gt; _vehicleType;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  uint8_t _index;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  uint16_t _position;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  int16_t _previousPosition = -1;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  <span class="keywordtype">int</span> _street = -1;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  <span class="keywordtype">int</span> _timePenalty = 0;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  <span class="keywordtype">double</span> _velocity = 0.;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <span class="keywordtype">int</span> _timeTraveled = 0;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <a class="code" href="classVehicle.html#a8757cf8948070c0718362414f32c0f47">Vehicle</a>(uint8_t); </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <a class="code" href="classVehicle.html#a8757cf8948070c0718362414f32c0f47">Vehicle</a>(<span class="keyword">const</span> <a class="code" href="classVehicle.html">Vehicle</a> &amp;v)</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;      : _index(v._index), _position(v._position),</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        _previousPosition(v._previousPosition), _street(v._street),</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        _timePenalty(v._timePenalty), _velocity(v._velocity),</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        _timeTraveled(v._timeTraveled) {}</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  ~<a class="code" href="classVehicle.html">Vehicle</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classVehicle.html#aba83253a0f4cb6373be216c8702b1c47">addVehicleType</a>(uint16_t,</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                             uint16_t); </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="classVehicle.html#aba83253a0f4cb6373be216c8702b1c47">addVehicleType</a>(</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;      std::string); </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="keyword">static</span> std::shared_ptr&lt;VehicleType&gt;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <a class="code" href="classVehicle.html#a22a26924b63685e3c18366a0d4ca434a">getVehicleType</a>(int8_t <span class="keyword">const</span>); </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <span class="keyword">static</span> uint8_t</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <a class="code" href="classVehicle.html#a90acb78aef5d58ffaa9f23cf2ed7795c">getNVehicleType</a>(); </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  uint8_t <a class="code" href="classVehicle.html#af736f984faf642a9761ef413f7f5f216">getType</a>()</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;      <span class="keyword">const</span> noexcept; <span class="comment">// return the index of the vehicle type in _vehicleType</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classVehicle.html#a3d9d5f53c8abab37cb1c9b8e9a42b589">setPosition</a>(int16_t);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  uint16_t <a class="code" href="classVehicle.html#a1a7280a497c183c5a066637bb022531a">getPosition</a>() <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  int16_t <a class="code" href="classVehicle.html#aad717e1a42203a8aa487485d93dbe156">getPreviousPosition</a>() <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classVehicle.html#af8965e1936cc1f397dfa4121ebded61a">setStreet</a>(<span class="keywordtype">int</span>);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <span class="keywordtype">int</span> <a class="code" href="classVehicle.html#ad7336a517e0489d163692d1138964f8d">getStreet</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  uint16_t <a class="code" href="classVehicle.html#a3bd4685c0c70b3950fb9ea7647b447e2">getDestination</a>() <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classVehicle.html#a0281b574cfa8574e32407b9980abe030">setTimePenalty</a>(<span class="keywordtype">int</span>);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keywordtype">int</span> <a class="code" href="classVehicle.html#acb9ae9042697a0437c92da483cc9e77b">getTimePenalty</a>() <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classVehicle.html#a0390777909c5904ab8ad5b09412378e1">setVelocity</a>(<span class="keywordtype">double</span>);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <span class="keywordtype">double</span> <a class="code" href="classVehicle.html#a3ea4bafe6341ab9ecefa107dfe1b4f6f">getVelocity</a>() <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classVehicle.html#a56766d130f00b31e0304a73c3063bacb">incrementTimeTraveled</a>() noexcept;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <span class="keywordtype">int</span> <a class="code" href="classVehicle.html#ac59ee017a597732f5c5d7d0bdae5ba6c">getTimeTraveled</a>() <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classVehicle.html#aeeebd844e846e6e1bf3ed386ec3a2588">resetTimeTraveled</a>() noexcept;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;};</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aclassVehicle_html"><div class="ttname"><a href="classVehicle.html">Vehicle</a></div><div class="ttdoc">Vehicle class.</div><div class="ttdef"><b>Definition:</b> Vehicle.hpp:15</div></div>
 <div class="ttc" id="aclassVehicle_html_a0281b574cfa8574e32407b9980abe030"><div class="ttname"><a href="classVehicle.html#a0281b574cfa8574e32407b9980abe030">Vehicle::setTimePenalty</a></div><div class="ttdeci">void setTimePenalty(int)</div><div class="ttdoc">Set the time penalty of the vehicle.</div><div class="ttdef"><b>Definition:</b> Vehicle.cpp:128</div></div>
 <div class="ttc" id="aclassVehicle_html_a0390777909c5904ab8ad5b09412378e1"><div class="ttname"><a href="classVehicle.html#a0390777909c5904ab8ad5b09412378e1">Vehicle::setVelocity</a></div><div class="ttdeci">void setVelocity(double)</div><div class="ttdoc">Set the velocity of the vehicle.</div><div class="ttdef"><b>Definition:</b> Vehicle.cpp:147</div></div>
 <div class="ttc" id="aclassVehicle_html_a1a7280a497c183c5a066637bb022531a"><div class="ttname"><a href="classVehicle.html#a1a7280a497c183c5a066637bb022531a">Vehicle::getPosition</a></div><div class="ttdeci">uint16_t getPosition() const noexcept</div><div class="ttdoc">Get the position of the vehicle.</div><div class="ttdef"><b>Definition:</b> Vehicle.cpp:108</div></div>

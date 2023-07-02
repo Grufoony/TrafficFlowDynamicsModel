@@ -1,9 +1,11 @@
 #ifndef VEHICLE_HPP
 #define VEHICLE_HPP
 
-//! Vehicle class
+//! @brief Vehicle class
 
-//! This class is used to represent a vehicle.
+//! This class is used to represent a vehicle. It contains the vehicle type,
+//! the position, the street, the time penalty, the velocity and the time
+//! traveled.
 
 #include "VehicleType.hpp"
 #include <memory>

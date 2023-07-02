@@ -9,6 +9,11 @@
 #include <cstdint>
 #include <vector>
 
+//! @brief VehicleType class
+
+//! This class is used to represent a vehicle type. It contains the source and
+//! destination nodes, and the transition matrix.
+
 class VehicleType {
 private:
   uint16_t _trip[2];                 // 0=source, 1=destination

@@ -1,9 +1,12 @@
 #ifndef GRAPH_HPP
 #define GRAPH_HPP
 
-//! Graph class
+//! @brief Graph class
 
-//!  This class is used to represent a graph.
+//! This class is used to represent a graph. It contains the adjency matrix, the
+//! coordinates matrix, the streets, the vehicles, the number of vehicles on
+//! each street, the dimension, the temperature, the time, the mean time
+//! traveled and the number of vehicles to destination.
 
 #include "../utils/SparseMatrix.hpp"
 #include "Street.hpp"

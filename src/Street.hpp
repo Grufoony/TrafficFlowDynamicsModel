@@ -1,9 +1,12 @@
 #ifndef STREET_HPP
 #define STREET_HPP
 
-//! Street class
+//! @brief Street class
 
-//! This class is used to represent a street.
+//! This class is used to represent a street. It contains the source and
+//! destination nodes, the length, the maximum capacity, the number of vehicles
+//! on the street, the number of lanes, the maximum velocity and the index of
+//! the street.
 
 #include "Vehicle.hpp"
 #include <memory>
