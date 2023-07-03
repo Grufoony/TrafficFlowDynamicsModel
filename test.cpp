@@ -108,8 +108,20 @@ TEST_CASE("Boolean Matrix") {
     */
     SparseMatrix<bool> m(3, 3);
     // Check that an exception is thrown if the element is out of range
-    CHECK_THROWS(m.insert(-1, -2));
+    CHECK_THROWS(m.insert(-1, true));
     CHECK_THROWS(m.insert(3, 2, true));
+  }
+  SUBCASE("insert_or_assign exceptions") {
+    /*This test tests if the insert_or_assign function throws exceptions
+    correctly The insert_or_assign function should throw an exception if the
+    inserted element is out of range GIVEN: the insert_or_assign function is
+    called WHEN: the function is called on a matrix THEN: the function should
+    throw an exception if the inserted element is out of range
+    */
+    SparseMatrix<bool> m(3, 3);
+    // Check that an exception is thrown if the element is out of range
+    CHECK_THROWS(m.insert_or_assign(-1, -2, true));
+    CHECK_THROWS(m.insert_or_assign(3, 2, true));
   }
   SUBCASE("Insertions") {
     /*This test tests if the insert function works correctly
@@ -130,6 +142,21 @@ TEST_CASE("Boolean Matrix") {
         CHECK(!m(i / 3, i % 3));
       }
     }
+  }
+  SUBCASE("insert_or_assign") {
+    /*This test tests if the insert_or_assign function works correctly
+    The insert_or_assign function should insert a value in the matrix
+    or assign a new value to an existing element
+    GIVEN: the insert_or_assign function is called
+    WHEN: the function is called on a matrix
+    THEN: the function should insert a value in the matrix
+    */
+    SparseMatrix<int> m(4, 3);
+    // Insert a true value
+    m.insert_or_assign(1, 2, 10);
+    CHECK(m(1, 2) == 10);
+    m.insert_or_assign(1, 2, 20);
+    CHECK(m(1, 2) == 20);
   }
   SUBCASE("at - exceptions") {
     /*This test tests if the at function throws exceptions correctly
