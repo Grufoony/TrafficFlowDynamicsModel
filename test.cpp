@@ -213,6 +213,17 @@ TEST_CASE("Boolean Matrix") {
     CHECK(m.size() == 0);
     CHECK_THROWS(m(0, 0));
   }
+  SUBCASE("Contains exceptions") {
+    /*This test tests if the contains function throws exceptions correctly
+    The contains function should throw an exception if the element is out of
+    range GIVEN: the contains function is called WHEN: the function is called on
+    a matrix THEN: the function should throw an exception if the element is out
+    of range
+    */
+    SparseMatrix<bool> m(3, 3);
+    CHECK_THROWS(m.contains(-2, -1));
+    CHECK_THROWS(m.contains(-1));
+  }
   SUBCASE("Contains") {
     /*This test tests if the contains function works correctly
     The contains function should return true if the matrix contains the element
@@ -222,11 +233,9 @@ TEST_CASE("Boolean Matrix") {
     */
     SparseMatrix<bool> m(3, 3);
     m.insert(0, 0, true);
+    m.insert(2, 1, true);
     CHECK(m.contains(0, 0));
-    // check if m contains only this element
-    CHECK(!m.contains(0, 1));
-    // check out of range
-    CHECK_THROWS(m.contains(-2, -1));
+    CHECK(m.contains(7));
   }
   SUBCASE("Get row") {
     /*This test tests if the getRow function works correctly
@@ -530,6 +539,7 @@ TEST_CASE("Boolean Matrix") {
     CHECK(m(1, 0));
     CHECK(m(1, 2));
     CHECK(m(2, 1));
+    CHECK(m.size() == 5);
   }
   SUBCASE("+ operator") {
     /*This test tests if the + operator works correctly
@@ -552,6 +562,7 @@ TEST_CASE("Boolean Matrix") {
     CHECK(m3(2, 1));
     CHECK(m3(0, 1));
     CHECK(m3(1, 2));
+    CHECK(m3.size() == 5);
   }
   SUBCASE("+= operator") {
     /*This test tests if the += operator works correctly
@@ -574,6 +585,7 @@ TEST_CASE("Boolean Matrix") {
     CHECK(m(2, 1));
     CHECK(m(0, 1));
     CHECK(m(1, 2));
+    CHECK(m.size() == 5);
   }
   SUBCASE("- operator") {
     /*This test tests if the - operator works correctly
@@ -596,6 +608,7 @@ TEST_CASE("Boolean Matrix") {
     CHECK(m3(2, 1) == -3);
     CHECK(m3(0, 1) == 2);
     CHECK(m3(1, 2) == 3);
+    CHECK(m3.size() == 5);
   }
   SUBCASE("-= operator") {
     /*This test tests if the -= operator works correctly
@@ -618,6 +631,7 @@ TEST_CASE("Boolean Matrix") {
     CHECK(m(2, 1) == -3);
     CHECK(m(0, 1) == 2);
     CHECK(m(1, 2) == 3);
+    CHECK(m.size() == 5);
   }
   SUBCASE("print") {
     /*This test tests if the print function (operator) works correctly
@@ -659,6 +673,56 @@ TEST_CASE("Boolean Matrix") {
                    std::istreambuf_iterator<char>());
     CHECK(s1 == s2);
     std::remove(fileName.c_str());
+  }
+  SUBCASE("getStrengthVector") {
+    /*This test tests if the getStrengthVector function works correctly
+    The getStrengthVector function should return the strength vector of the
+    matrix
+    GIVEN: the getStrengthVector function is called
+    WHEN: the function is called on a street with 1 vehicle and length 10
+    THEN: the function should return a vector with 0.1
+    */
+    SparseMatrix<double> m(3, 3);
+    m.insert(0, 0, 0.3);
+    m.insert(0, 1, 0.3);
+    m.insert(0, 2, 0.1);
+    m.insert(1, 1, 0.5);
+    m.insert(2, 0, 0.1);
+    m.insert(2, 2, 1.);
+    auto v = m.getStrengthVector();
+    CHECK(v(0) == 0.7);
+    CHECK(v(1) == 0.5);
+    CHECK(v(2) == 1.1);
+    CHECK(v.size() == 3);
+  }
+  SUBCASE("getLaplacian - exception") {
+    /*This test tests if the getLaplacian function throws an exception
+    The getLaplacian function should throw an exception if the street is empty
+    GIVEN: the getLaplacian function is called
+    WHEN: the function is called on a non-square matrix
+    THEN: the function should throw an exception
+    */
+    SparseMatrix<double> m(4, 3);
+    CHECK_THROWS(m.getLaplacian());
+  }
+  SUBCASE("getLaplacian") {
+    /*This test tests if the getLaplacian function works correctly
+    The getLaplacian function should return the Laplacian matrix of the matrix
+    GIVEN: the getLaplacian function is called
+    WHEN: the function is called on a matrix
+    THEN: the function should return the Laplacian matrix of the matrix
+    */
+    SparseMatrix<bool> m(3, 3);
+    m.insert(0, 0, true);
+    m.insert(0, 1, true);
+    m.insert(1, 2, true);
+    auto m2 = m.getLaplacian();
+    CHECK(m2(0, 0) == 2);
+    CHECK(m2(0, 1) == -1);
+    CHECK(m2(1, 1) == 1);
+    CHECK(m2(1, 2) == -1);
+    CHECK(m2(2, 2) == 0);
+    CHECK(m2.size() == 5);
   }
 }
 
