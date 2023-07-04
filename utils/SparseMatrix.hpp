@@ -367,6 +367,10 @@ public:
   /// @brief get the maximum number of elements in the matrix
   /// @return maximum number of elements
   int max_size() const noexcept { return this->_rows * this->_cols; }
+  /// @brief access an element of the matrix
+  /// @param i row index
+  /// @param j column index
+  /// @return the element
   T at(int i, int j) const {
     if (i >= _rows || j >= _cols || i < 0 || j < 0) {
       throw std::out_of_range("Index out of range");
@@ -374,6 +378,9 @@ public:
     auto const &it = _matrix.find(i * _cols + j);
     return it != _matrix.end() ? it->second : _defaultReturn;
   }
+  /// @brief access an element of the matrix
+  /// @param index index in vectorial form
+  /// @return the element
   T at(int index) const {
     if (index >= _rows * _cols || index < 0) {
       throw std::out_of_range("Index out of range");
@@ -381,7 +388,7 @@ public:
     auto const &it = _matrix.find(index);
     return it != _matrix.end() ? it->second : _defaultReturn;
   }
-
+  /// @brief symmetrize the matrix
   void symmetrize() { *this += this->operator++(); }
 
   /// @brief print the matrix in standard output
@@ -407,14 +414,20 @@ public:
     std::cout.rdbuf(rdbufBackup);
     file.close();
   }
-
+  /// @brief return the begin iterator of the matrix
+  /// @return the begin iterator
   typename std::unordered_map<int, T>::const_iterator begin() const noexcept {
     return _matrix.begin();
   }
+  /// @brief return the end iterator of the matrix
+  /// @return the end iterator
   typename std::unordered_map<int, T>::const_iterator end() const noexcept {
     return _matrix.end();
   }
-
+  /// @brief access an element of the matrix
+  /// @param i row index
+  /// @param j column index
+  /// @return the element
   T const &operator()(int i, int j) {
     if (i >= _rows || j >= _cols || i < 0 || j < 0) {
       throw std::out_of_range("Index out of range");
@@ -422,6 +435,9 @@ public:
     auto const &it = _matrix.find(i * _cols + j);
     return it != _matrix.end() ? it->second : _defaultReturn;
   }
+  /// @brief access an element of the matrix
+  /// @param index index in vectorial form
+  /// @return the element
   T const &operator()(int index) {
     if (index >= _rows * _cols || index < 0) {
       throw std::out_of_range("Index out of range");
@@ -429,6 +445,7 @@ public:
     auto const &it = _matrix.find(index);
     return it != _matrix.end() ? it->second : _defaultReturn;
   }
+  /// @brief print the matrix on a stream
   friend std::ostream &operator<<(std::ostream &os, const SparseMatrix &m) {
     os << m._rows << '\t' << m._cols << '\n';
     for (auto &it : m._matrix) {
@@ -436,6 +453,7 @@ public:
     }
     return os;
   }
+  /// @brief read the matrix from a stream
   friend std::istream &operator>>(std::istream &is, SparseMatrix &m) {
     is >> m._rows >> m._cols;
     int index;

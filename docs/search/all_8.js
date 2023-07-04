@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['operator_2b_2b_56',['operator++',['../classSparseMatrix.html#a79d12d6cfcc81550c675ca5decdc0e3d',1,'SparseMatrix']]]
+  ['max_5fsize_58',['max_size',['../classSparseMatrix.html#a9c32e97eca6501fa4ce314a6317a8e34',1,'SparseMatrix']]]
 ];

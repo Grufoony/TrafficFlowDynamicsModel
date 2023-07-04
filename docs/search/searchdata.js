@@ -1,9 +1,10 @@
 var indexSectionsWithContent =
 {
-  0: "acdefgimoprstuv",
+  0: "abcdefgimoprstuv",
   1: "gsv",
-  2: "acdefgimoprsuv",
-  3: "t"
+  2: "abcdefgimoprsuv",
+  3: "o",
+  4: "t"
 };
 
 var indexSectionNames =
@@ -11,7 +12,8 @@ var indexSectionNames =
   0: "all",
   1: "classes",
   2: "functions",
-  3: "pages"
+  3: "related",
+  4: "pages"
 };
 
 var indexSectionLabels =
@@ -19,6 +21,7 @@ var indexSectionLabels =
   0: "All",
   1: "Classes",
   2: "Functions",
-  3: "Pages"
+  3: "Friends",
+  4: "Pages"
 };
 

@@ -1,11 +1,9 @@
 var searchData=
 [
-  ['fprint_11',['fprint',['../classGraph.html#a6901a7df0fce99e31187a08da40b35e5',1,'Graph::fprint()'],['../classSparseMatrix.html#afd8333f660bd7113ff17622d982f7389',1,'SparseMatrix::fprint()']]],
-  ['fprintactualstate_12',['fprintActualState',['../classGraph.html#aec74b9b759332c52ed4127f11238b72f',1,'Graph']]],
-  ['fprintdistribution_13',['fprintDistribution',['../classGraph.html#a56f6748ea05bfd2ecd5c0d5079c9a7cf',1,'Graph']]],
-  ['fprinthistogram_14',['fprintHistogram',['../classGraph.html#aefe58e9230f9147dac42d4a58bd0987e',1,'Graph']]],
-  ['fprintmatrix_15',['fprintMatrix',['../classGraph.html#ab7c74fe77f8b5defc0687e2c0fbf54f8',1,'Graph']]],
-  ['fprintstreets_16',['fprintStreets',['../classGraph.html#a6b72ce1b34c1c3b1b9b53156e81df5b5',1,'Graph']]],
-  ['fprinttimedistribution_17',['fprintTimeDistribution',['../classGraph.html#a999e5b444a490024b1bfde896857cc9c',1,'Graph']]],
-  ['fprintvisual_18',['fprintVisual',['../classGraph.html#ae5f2dd7b08b5e412719fca939370b4b1',1,'Graph']]]
+  ['encode_8',['encode',['../classSparseMatrix.html#a4794cb64ff7798eb72ef1bd84296f376',1,'SparseMatrix']]],
+  ['end_9',['end',['../classSparseMatrix.html#a768768507d860eb22ea442e0335addce',1,'SparseMatrix']]],
+  ['erase_10',['erase',['../classSparseMatrix.html#ac5ca4be1ac9ef8facf3dabb757639bc3',1,'SparseMatrix']]],
+  ['erasecolumn_11',['eraseColumn',['../classSparseMatrix.html#afa897461687d58c72ca289111d6d9a9c',1,'SparseMatrix']]],
+  ['eraserow_12',['eraseRow',['../classSparseMatrix.html#ab807b4d2238096b3cd18591249985a8e',1,'SparseMatrix']]],
+  ['evolve_13',['evolve',['../classGraph.html#a40dce401fb65fcd29e6ddc1ccaeb3127',1,'Graph::evolve(bool)'],['../classGraph.html#afe7ffc0c4f75e34ee27c83dcd9b7f82b',1,'Graph::evolve()']]]
 ];
