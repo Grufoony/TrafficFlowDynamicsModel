@@ -1,10 +1,6 @@
 #ifndef VEHICLE_TYPE_HPP
 #define VEHICLE_TYPE_HPP
 
-//! VehicleType class
-
-//! This class is used to represent a vehicle type.
-
 #include "../utils/SparseMatrix.hpp"
 #include <cstdint>
 #include <vector>

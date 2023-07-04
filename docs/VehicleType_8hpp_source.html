@@ -96,32 +96,30 @@ $(document).ready(function(){initNavTree('VehicleType_8hpp_source.html',''); ini
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef VEHICLE_TYPE_HPP</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define VEHICLE_TYPE_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;../utils/SparseMatrix.hpp&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;../utils/SparseMatrix.hpp&quot;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="classVehicleType.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="classVehicleType.html">VehicleType</a> {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  uint16_t _trip[2];                 <span class="comment">// 0=source, 1=destination</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  <a class="code" href="classSparseMatrix.html">SparseMatrix&lt;double&gt;</a> _transMatrix; <span class="comment">// transition matrix</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="classVehicleType.html">   13</a></span>&#160;<span class="keyword">class </span><a class="code" href="classVehicleType.html">VehicleType</a> {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  uint16_t _trip[2];                 <span class="comment">// 0=source, 1=destination</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;  <a class="code" href="classSparseMatrix.html">SparseMatrix&lt;double&gt;</a> _transMatrix; <span class="comment">// transition matrix</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  <a class="code" href="classVehicleType.html#a976e785641bd5a3b4ff2f65ca4caab2f">VehicleType</a>(uint16_t, uint16_t);</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  ~<a class="code" href="classVehicleType.html">VehicleType</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  <a class="code" href="classVehicleType.html#a976e785641bd5a3b4ff2f65ca4caab2f">VehicleType</a>(uint16_t, uint16_t);</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  ~<a class="code" href="classVehicleType.html">VehicleType</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  uint16_t <a class="code" href="classVehicleType.html#ac95afd3abb138bf674eb5672de313b0a">getSource</a>() <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  uint16_t <a class="code" href="classVehicleType.html#ae1398213aaa6f5f045e97766d5c8814a">getDestination</a>() <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classVehicleType.html#a62e646af421e7cbc5ef6f0f261fe6aaf">setTransMatrix</a>(<a class="code" href="classSparseMatrix.html">SparseMatrix&lt;double&gt;</a> &amp;); </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <a class="code" href="classSparseMatrix.html">SparseMatrix&lt;double&gt;</a> <span class="keyword">const</span> &amp;<a class="code" href="classVehicleType.html#a0af24bcbde89ec4deb3fd3921e05f75d">getTransMatrix</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;};</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  uint16_t <a class="code" href="classVehicleType.html#ac95afd3abb138bf674eb5672de313b0a">getSource</a>() <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  uint16_t <a class="code" href="classVehicleType.html#ae1398213aaa6f5f045e97766d5c8814a">getDestination</a>() <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="classVehicleType.html#a62e646af421e7cbc5ef6f0f261fe6aaf">setTransMatrix</a>(<a class="code" href="classSparseMatrix.html">SparseMatrix&lt;double&gt;</a> &amp;); </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <a class="code" href="classSparseMatrix.html">SparseMatrix&lt;double&gt;</a> <span class="keyword">const</span> &amp;<a class="code" href="classVehicleType.html#a0af24bcbde89ec4deb3fd3921e05f75d">getTransMatrix</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;};</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclassSparseMatrix_html"><div class="ttname"><a href="classSparseMatrix.html">SparseMatrix&lt; double &gt;</a></div></div>
-<div class="ttc" id="aclassVehicleType_html"><div class="ttname"><a href="classVehicleType.html">VehicleType</a></div><div class="ttdoc">VehicleType class.</div><div class="ttdef"><b>Definition:</b> VehicleType.hpp:17</div></div>
+<div class="ttc" id="aclassVehicleType_html"><div class="ttname"><a href="classVehicleType.html">VehicleType</a></div><div class="ttdoc">VehicleType class.</div><div class="ttdef"><b>Definition:</b> VehicleType.hpp:13</div></div>
 <div class="ttc" id="aclassVehicleType_html_a0af24bcbde89ec4deb3fd3921e05f75d"><div class="ttname"><a href="classVehicleType.html#a0af24bcbde89ec4deb3fd3921e05f75d">VehicleType::getTransMatrix</a></div><div class="ttdeci">SparseMatrix&lt; double &gt; const  &amp; getTransMatrix() const</div><div class="ttdoc">Get the transition matrix.</div><div class="ttdef"><b>Definition:</b> VehicleType.cpp:26</div></div>
 <div class="ttc" id="aclassVehicleType_html_a62e646af421e7cbc5ef6f0f261fe6aaf"><div class="ttname"><a href="classVehicleType.html#a62e646af421e7cbc5ef6f0f261fe6aaf">VehicleType::setTransMatrix</a></div><div class="ttdeci">void setTransMatrix(SparseMatrix&lt; double &gt; &amp;)</div><div class="ttdoc">set the transition matrix</div><div class="ttdef"><b>Definition:</b> VehicleType.cpp:20</div></div>
 <div class="ttc" id="aclassVehicleType_html_a976e785641bd5a3b4ff2f65ca4caab2f"><div class="ttname"><a href="classVehicleType.html#a976e785641bd5a3b4ff2f65ca4caab2f">VehicleType::VehicleType</a></div><div class="ttdeci">VehicleType(uint16_t, uint16_t)</div><div class="ttdoc">Create a new VehicleType object.</div><div class="ttdef"><b>Definition:</b> VehicleType.cpp:8</div></div>
