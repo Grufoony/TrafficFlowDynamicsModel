@@ -8,7 +8,7 @@ std::vector<std::shared_ptr<VehicleType>> Vehicle::_vehicleType;
 /// @brief Create a new Vehicle object.
 /// @param type The index of the vehicle type in _vehicleType.
 /// @throw std::invalid_argument if the vehicle type index is out of range.
-Vehicle::Vehicle(uint8_t type) {
+Vehicle::Vehicle(int type) {
   if (!(type < static_cast<int>(_vehicleType.size()))) {
     std::string msg = "Vehicle.cpp:" + std::to_string(__LINE__) + '\t' +
                       "Vehicle type index out of range.\n";
@@ -21,7 +21,7 @@ Vehicle::Vehicle(uint8_t type) {
 /// @param src The source node.
 /// @param dst The destination node.
 /// @throw std::invalid_argument if the vehicle type already exists.
-void Vehicle::addVehicleType(uint16_t src, uint16_t dst) {
+void Vehicle::addVehicleType(int src, int dst) {
   for (auto &v : _vehicleType) {
     if (v->getSource() == src && v->getDestination() == dst) {
       std::string msg = "Vehicle.cpp:" + std::to_string(__LINE__) + '\t' +
@@ -93,7 +93,7 @@ uint8_t Vehicle::getNVehicleType() {
 /// @param pos The position of the vehicle, i.e. a positive integrer
 /// representing the index of the node.
 /// @throw std::invalid_argument if the position is negative.
-void Vehicle::setPosition(int16_t pos) {
+void Vehicle::setPosition(int pos) {
   if (pos < 0) {
     std::string msg = "Vehicle.cpp:" + std::to_string(__LINE__) + '\t' +
                       "Position must be positive.\n";
@@ -110,9 +110,7 @@ uint16_t Vehicle::getPosition() const noexcept { return _position; }
 /// @return The previous position of the vehicle, i.e. a positive integrer
 /// representing the index of the node. The previous position is -1 if the
 /// vehicle has not moved yet.
-int16_t Vehicle::getPreviousPosition() const noexcept {
-  return _previousPosition;
-}
+int Vehicle::getPreviousPosition() const noexcept { return _previousPosition; }
 /// @brief Set the street of the vehicle.
 /// @param street The street of the vehicle, i.e.
 /// a positive integrer representing the index of the street.

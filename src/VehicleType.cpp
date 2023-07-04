@@ -5,7 +5,17 @@
 /// @brief Create a new VehicleType object.
 /// @param src The source node.
 /// @param dst The destination node.
-VehicleType::VehicleType(uint16_t src, uint16_t dst) {
+VehicleType::VehicleType(int src, int dst) {
+  if (src < 0 || dst < 0) {
+    std::string msg = "VehicleType.cpp:" + std::to_string(__LINE__) + '\t' +
+                      "Source or destination node index is negative.\n";
+    throw std::invalid_argument(msg);
+  }
+  if (src == dst) {
+    std::string msg = "VehicleType.cpp:" + std::to_string(__LINE__) + '\t' +
+                      "Source and destination node indices are equal.\n";
+    throw std::invalid_argument(msg);
+  }
   _trip[0] = src;
   _trip[1] = dst;
 }

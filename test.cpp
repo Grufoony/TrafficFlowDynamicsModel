@@ -746,6 +746,19 @@ TEST_CASE("Boolean Matrix") {
  ****************************************************************************************/
 
 TEST_CASE("VehicleType") {
+  SUBCASE("Constructor exceptions") {
+    /*This test tests if the constructor throws exceptions correctly
+    The constructor should throw an exception if the source and destination are
+    the same, or negative
+    GIVEN: the constructor is called
+    WHEN: the function is called with source 0 and destination 0 or negative
+    values THEN: the function should throw an exception
+    */
+    CHECK_THROWS(VehicleType(0, 0));
+    CHECK_THROWS(VehicleType(-3, 0));
+    CHECK_THROWS(VehicleType(0, -1));
+    CHECK_THROWS(VehicleType(-1, -2));
+  }
   SUBCASE("Constructor and getters") {
     /*This test tests if the constructor and the getters work correctly
     The constructor should create a VehicleType with the specified source and

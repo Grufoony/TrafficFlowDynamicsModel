@@ -16,7 +16,7 @@ private:
   SparseMatrix<double> _transMatrix; // transition matrix
 
 public:
-  VehicleType(uint16_t, uint16_t);
+  VehicleType(int, int);
   ~VehicleType() = default;
 
   uint16_t getSource() const noexcept;

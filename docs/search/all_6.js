@@ -13,7 +13,7 @@ var searchData=
   ['getnvehicletype_32',['getNVehicleType',['../classVehicle.html#a90acb78aef5d58ffaa9f23cf2ed7795c',1,'Vehicle']]],
   ['getorigin_33',['getOrigin',['../classStreet.html#adbcda4d948fa0ed62cdf60d8f20ddc5a',1,'Street']]],
   ['getposition_34',['getPosition',['../classVehicle.html#a1a7280a497c183c5a066637bb022531a',1,'Vehicle']]],
-  ['getpreviousposition_35',['getPreviousPosition',['../classVehicle.html#aad717e1a42203a8aa487485d93dbe156',1,'Vehicle']]],
+  ['getpreviousposition_35',['getPreviousPosition',['../classVehicle.html#aa870b148b73033ab761ba5b7e90454a6',1,'Vehicle']]],
   ['getrndcolelement_36',['getRndColElement',['../classSparseMatrix.html#a8f0c258a2b5011ad1939d8f0916dde85',1,'SparseMatrix']]],
   ['getrndelement_37',['getRndElement',['../classSparseMatrix.html#a7d51d6a348c1f61938442cd8767b498d',1,'SparseMatrix']]],
   ['getrndrowelement_38',['getRndRowElement',['../classSparseMatrix.html#a45a79de13e787618fab9106fe9bd5178',1,'SparseMatrix']]],
