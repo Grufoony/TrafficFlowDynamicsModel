@@ -270,7 +270,7 @@ Graph::Graph(std::string fName) {
   _adjMatrix = SparseMatrix<bool>(_n, _n);
 
   // import adj matrix from file
-  std::cout << "Importing adjacency matrix from file..." << '\n';
+  // std::cout << "Importing adjacency matrix from file..." << '\n';
   data.open(fName);
   int streetIndex = 0;
   for (int u = 0; u < _n; ++u) {
@@ -286,7 +286,7 @@ Graph::Graph(std::string fName) {
     }
   }
   data.close();
-  std::cout << "Done." << '\n';
+  // std::cout << "Done." << '\n';
   for (int i = 0; i < static_cast<int>(_streets.size()); ++i) {
     _vehiclesOnStreet.push_back(0);
   }
