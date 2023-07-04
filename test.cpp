@@ -286,8 +286,8 @@ TEST_CASE("Boolean Matrix") {
     WHEN: the function is called on a matrix
     THEN: the function should return the number of rows in the matrix
     */
-    SparseMatrix<bool> m(3, 3);
-    CHECK(m.getRowDim() == 3);
+    SparseMatrix<bool> m(7, 3);
+    CHECK(m.getRowDim() == 7);
   }
   SUBCASE("Get column dimension") {
     /*This test tests if the getColDim function works correctly
@@ -296,8 +296,8 @@ TEST_CASE("Boolean Matrix") {
     WHEN: the function is called on a matrix
     THEN: the function should return the number of columns in the matrix
     */
-    SparseMatrix<bool> m(3, 3);
-    CHECK(m.getColDim() == 3);
+    SparseMatrix<bool> m(3, 10);
+    CHECK(m.getColDim() == 10);
   }
   SUBCASE("Get max_size") {
     /*This test tests if the max_size function works correctly
@@ -633,24 +633,6 @@ TEST_CASE("Boolean Matrix") {
     CHECK(m(1, 2) == 3);
     CHECK(m.size() == 5);
   }
-  SUBCASE("print") {
-    /*This test tests if the print function (operator) works correctly
-    The print function should print the matrix in a file
-    GIVEN: the print function is called
-    WHEN: the function is called on a matrix
-    THEN: the function should print the matrix in a file
-    */
-    SparseMatrix<bool> m(3, 3);
-    m.insert(0, 0, true);
-    m.insert(0, 1, true);
-    m.insert(1, 2, true);
-    std::stringstream ss;
-    // here we can use the << operator instead of the print function because it
-    // does the same thing
-    ss << m;
-    // check edge list
-    CHECK(ss.str() == "3\t3\n5\t1\n1\t1\n0\t1\n");
-  }
   SUBCASE("fprint") {
     /*This test tests if the fprint function works correctly
     The fprint function should print the matrix in a file
@@ -723,6 +705,37 @@ TEST_CASE("Boolean Matrix") {
     CHECK(m2(1, 2) == -1);
     CHECK(m2(2, 2) == 0);
     CHECK(m2.size() == 5);
+  }
+  SUBCASE("operator <<") {
+    /*This test tests if the operator << works correctly
+    The << operator should print the matrix on a stream
+    GIVEN: the << operator is called
+    WHEN: the function is called on a matrix
+    THEN: the function should print the matrix on a stream
+    */
+    SparseMatrix<int> m(3, 3);
+    m.insert(0, 0, 7);
+    m.insert(0, 1, 3);
+    m.insert(1, 2, -5);
+    std::stringstream ss;
+    ss << m;
+    CHECK(ss.str() == "3\t3\n5\t-5\n1\t3\n0\t7\n");
+  }
+  SUBCASE("operator >>") {
+    /*This test tests if the >> operator works correctly
+    The >> operator should read a matrix from a stream
+    GIVEN: the >> operator is called
+    WHEN: the function is called on a matrix
+    THEN: the function should read a matrix from a stream
+    */
+    SparseMatrix<int> m;
+    std::stringstream ss("3\t3\n5\t10\n1\t4\n0\t-1\n");
+    ss >> m;
+    CHECK(m(5) == 10);
+    CHECK(m(1) == 4);
+    CHECK(m(0) == -1);
+    CHECK(m.size() == 3);
+    CHECK(m.max_size() == 9);
   }
 }
 
