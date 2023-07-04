@@ -64,7 +64,7 @@ PYBIND11_MODULE(TrafficModel, m) {
   // Vehicle class
   pybind11::class_<Vehicle>(m, "Vehicle")
       .def(pybind11::init<int>())
-      .def_static("addVehicleType", static_cast<void (*)(uint16_t, uint16_t)>(
+      .def_static("addVehicleType", static_cast<void (*)(int, int)>(
                                         &Vehicle::addVehicleType))
       .def_static("addVehicleType",
                   static_cast<void (*)(std::string)>(&Vehicle::addVehicleType))
