@@ -511,15 +511,12 @@ TEST_CASE("Boolean Matrix") {
     // Get the normalized columns and check their values, comparig floats with a
     // numeric limit
     auto v = m.getNormCols();
-    CHECK(v(0, 0) - 1 < std::numeric_limits<double>::epsilon());
-    CHECK(v(1, 1) - 1. / 3 < std::numeric_limits<double>::epsilon());
-    CHECK(v(2, 1) - 1. / 2 < std::numeric_limits<double>::epsilon());
-    CHECK(v(0, 0) + v(1, 0) + v(2, 0) - 1 <
-          std::numeric_limits<double>::epsilon());
-    CHECK(v(0, 1) + v(1, 1) + v(2, 1) - 1 <
-          std::numeric_limits<double>::epsilon());
-    CHECK(v(0, 2) + v(1, 2) + v(2, 2) - 1 <
-          std::numeric_limits<double>::epsilon());
+    CHECK(v(0, 0) == doctest::Approx(1.));
+    CHECK(v(1, 1) == doctest::Approx(1. / 3));
+    CHECK(v(1, 2) == doctest::Approx(1. / 2));
+    CHECK(v(0, 0) + v(1, 0) + v(2, 0) == doctest::Approx(1.));
+    CHECK(v(0, 1) + v(1, 1) + v(2, 1) == doctest::Approx(1.));
+    CHECK(v(0, 2) + v(1, 2) + v(2, 2) == doctest::Approx(1.));
   }
   SUBCASE("Symmetrization") {
     /*This test tests if the symmetrize function works correctly
@@ -672,9 +669,9 @@ TEST_CASE("Boolean Matrix") {
     m.insert(2, 0, 0.1);
     m.insert(2, 2, 1.);
     auto v = m.getStrengthVector();
-    CHECK(v(0) == 0.7);
-    CHECK(v(1) == 0.5);
-    CHECK(v(2) == 1.1);
+    CHECK(v(0) == doctest::Approx(0.7));
+    CHECK(v(1) == doctest::Approx(0.5));
+    CHECK(v(2) == doctest::Approx(1.1));
     CHECK(v.size() == 3);
   }
   SUBCASE("getLaplacian - exception") {
@@ -808,13 +805,12 @@ TEST_CASE("VehicleType") {
     // Get the transition matrix
     auto m2 = v.getTransMatrix();
     // Check the transition matrix
-    // Here we can compare floats with ==, I don't really know why but it works
-    CHECK(m2(0, 0) == 0.3);
-    CHECK(m2(0, 1) == 0.3);
-    CHECK(m2(0, 2) == 0.4);
-    CHECK(m2(1, 1) == 0.5);
-    CHECK(m2(1, 2) == 0.5);
-    CHECK(m2(2, 2) == 1.);
+    CHECK(m2(0, 0) == doctest::Approx(0.3));
+    CHECK(m2(0, 1) == doctest::Approx(0.3));
+    CHECK(m2(0, 2) == doctest::Approx(0.4));
+    CHECK(m2(1, 1) == doctest::Approx(0.5));
+    CHECK(m2(1, 2) == doctest::Approx(0.5));
+    CHECK(m2(2, 2) == doctest::Approx(1.));
   }
 }
 
@@ -1108,15 +1104,15 @@ TEST_CASE("Street") {
     // Check the values
     CHECK(s.getOrigin() == 0);
     CHECK(s.getDestination() == 1);
-    CHECK(s.getLength() == 10.);
+    CHECK(s.getLength() == doctest::Approx(10.));
     CHECK(s.getIndex() == 0);
     // default values
     CHECK(!s.isFull());
     CHECK(s.getNVehicles() == 0);
-    CHECK(s.getVMax() == 13.9);
+    CHECK(s.getVMax() == doctest::Approx(13.9));
     CHECK(s.getInputVelocity() == s.getVMax());
-    CHECK(s.getDensity() == 0.);
-    CHECK(s.getVehicleDensity() == 0.);
+    CHECK(s.getDensity() == doctest::Approx(0.));
+    CHECK(s.getVehicleDensity() == doctest::Approx(0.));
     CHECK(s.getNLanes() == 1);
   }
   SUBCASE("setNLanes exception") {
@@ -1165,7 +1161,7 @@ TEST_CASE("Street") {
     // Set the maximum velocity
     s.setVMax(10.);
     // Check the maximum velocity
-    CHECK(s.getVMax() == 10.);
+    CHECK(s.getVMax() == doctest::Approx(10.));
   }
   SUBCASE("remVehicle exception") {
     /*This test tests if the remVehicle function throws an exception
@@ -1219,7 +1215,7 @@ TEST_CASE("Street") {
       s.addVehicle(std::make_shared<Vehicle>(v));
     }
     // Check the input velocity
-    CHECK(s.getInputVelocity() == 5.2125);
+    CHECK(s.getInputVelocity() == doctest::Approx(5.2125));
   }
   SUBCASE("getNVehicles") {
     /*This test tests if the getNVehicles function works correctly
@@ -1258,7 +1254,7 @@ TEST_CASE("Street") {
     THEN: the function should return 10
     */
     Street s(0, 1, 10., 0);
-    CHECK(s.getLength() == 10.);
+    CHECK(s.getLength() == doctest::Approx(10.));
   }
   SUBCASE("Full") {
     /*This test tests if the isFull function works correctly
@@ -1288,7 +1284,7 @@ TEST_CASE("Street") {
     auto v = Vehicle(0);
     s.addVehicle(std::make_shared<Vehicle>(v));
     // Check the density
-    CHECK(s.getDensity() == 0.5);
+    CHECK(s.getDensity() == doctest::Approx(0.5));
   }
   SUBCASE("getVehicleDensity") {
     /*This test tests if the getVehicleDensity function works correctly
@@ -1301,7 +1297,7 @@ TEST_CASE("Street") {
     Street s(0, 1, 10., 0);
     Vehicle v(0);
     s.addVehicle(std::make_shared<Vehicle>(v));
-    CHECK(s.getVehicleDensity() == 0.1);
+    CHECK(s.getVehicleDensity() == doctest::Approx(0.1));
   }
 }
 
@@ -1322,7 +1318,7 @@ TEST_CASE("utils") {
     */
     std::vector<int> v{1, 2, 3}; // distances
     std::vector<bool> sptSet{false, false, false};
-    CHECK(minDistance(v, sptSet, 3) == 0.);
+    CHECK(minDistance(v, sptSet, 3) == doctest::Approx(0.));
   }
   SUBCASE("minDistance 2") {
     /*This test tests if the minDistance function works correctly
@@ -1348,9 +1344,9 @@ TEST_CASE("utils") {
     // Normalize the vector
     normalizeVec(v);
     // Check the vector
-    CHECK(v[0] == 1. / 6);
-    CHECK(v[1] == 2. / 6);
-    CHECK(v[2] == 3. / 6);
+    CHECK(v[0] == doctest::Approx(1. / 6));
+    CHECK(v[1] == doctest::Approx(2. / 6));
+    CHECK(v[2] == doctest::Approx(3. / 6));
   }
   SUBCASE("normalizeVec - zero sum") {
     /*This test tests if the normalizeVec function works correctly
@@ -1361,9 +1357,9 @@ TEST_CASE("utils") {
     */
     std::vector<double> v{0., 0., 0.};
     normalizeVec(v);
-    CHECK(v[0] == 0.);
-    CHECK(v[1] == 0.);
-    CHECK(v[2] == 0.);
+    CHECK(v[0] == doctest::Approx(0.));
+    CHECK(v[1] == doctest::Approx(0.));
+    CHECK(v[2] == doctest::Approx(0.));
   }
 }
 
@@ -1403,7 +1399,7 @@ TEST_CASE("Graph") {
     */
     Graph g("./data/matrix.dat");
     g.setTemperature(300.);
-    CHECK(g.getTemperature() == 300.);
+    CHECK(g.getTemperature() == doctest::Approx(300.));
   }
   SUBCASE("setTimeScale exception") {
     /*This test tests if the setTimeScale function throws an exception
@@ -1623,15 +1619,15 @@ TEST_CASE("Graph") {
     Vehicle v(1);
     SparseMatrix<double> mat = v.getVehicleType(1)->getTransMatrix();
     // check the matrix which should bring from 3 to 7 in a line
-    CHECK(mat(3, 4) == 1.);
-    CHECK(mat(4, 5) == 1.);
-    CHECK(mat(5, 6) == 1.);
-    CHECK(mat(6, 7) == 1.);
+    CHECK(mat(3, 4) == doctest::Approx(1.));
+    CHECK(mat(4, 5) == doctest::Approx(1.));
+    CHECK(mat(5, 6) == doctest::Approx(1.));
+    CHECK(mat(6, 7) == doctest::Approx(1.));
     // check also that the vehicle cannot go back
-    CHECK(mat(7, 6) == 0.);
-    CHECK(mat(6, 5) == 0.);
-    CHECK(mat(5, 4) == 0.);
-    CHECK(mat(4, 3) == 0.);
+    CHECK(mat(7, 6) == doctest::Approx(0.));
+    CHECK(mat(6, 5) == doctest::Approx(0.));
+    CHECK(mat(5, 4) == doctest::Approx(0.));
+    CHECK(mat(4, 3) == doctest::Approx(0.));
   }
   SUBCASE("updateTransMatrix with non-uniform matrix") {
     /*This test tests if the updateTransMatrix function works correctly
@@ -1647,15 +1643,15 @@ TEST_CASE("Graph") {
     Vehicle v(0);
     SparseMatrix<double> mat = v.getVehicleType(0)->getTransMatrix();
     // check that the direct path is not the shortest
-    CHECK(mat(0, 1) == 0.);
+    CHECK(mat(0, 1) == doctest::Approx(0.));
     // check the matrix which should bring from 0 to 1 passing from 12 and 13
-    CHECK(mat(0, 12) == 1.);
-    CHECK(mat(12, 13) == 1.);
-    CHECK(mat(13, 1) == 1.);
+    CHECK(mat(0, 12) == doctest::Approx(1.));
+    CHECK(mat(12, 13) == doctest::Approx(1.));
+    CHECK(mat(13, 1) == doctest::Approx(1.));
     // check also that the vehicle cannot go back
-    CHECK(mat(1, 13) == 0.);
-    CHECK(mat(13, 12) == 0.);
-    CHECK(mat(12, 0) == 0.);
+    CHECK(mat(1, 13) == doctest::Approx(0.));
+    CHECK(mat(13, 12) == doctest::Approx(0.));
+    CHECK(mat(12, 0) == doctest::Approx(0.));
   }
   SUBCASE("updateTransMatrix with noise") {
     /*This test tests if the updateTransMatrix function works correctly
@@ -1676,8 +1672,8 @@ TEST_CASE("Graph") {
     Vehicle v(0);
     SparseMatrix<double> mat = v.getVehicleType(0)->getTransMatrix();
     // this vehicle has only two possible moves, one correct and one wrong
-    CHECK(std::abs(mat(0, 1) - 0.924418) < 1e-6);
-    CHECK(std::abs(mat(0, 12) - 0.0755823) < 1e-6);
+    CHECK(mat(0, 1) == doctest::Approx(0.924418));
+    CHECK(mat(0, 12) == doctest::Approx(0.0755823));
   }
   SUBCASE("evolve") {
     /*This test tests if the evolve function works correctly
