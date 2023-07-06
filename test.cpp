@@ -102,9 +102,11 @@ TEST_CASE("Boolean Matrix") {
   SUBCASE("Insertion exceptions") {
     /*This test tests if the insert function throws exceptions correctly
     The insert function should throw an exception if the inserted element is out
-    of range GIVEN: the insert function is called WHEN: the function is called
-    on a matrix THEN: the function should throw an exception if the inserted
-    element is out of range
+    of range
+    GIVEN: the insert function is called
+    WHEN: the function is called on a matrix
+    THEN: the function should throw an exception if the inserted element is out
+    of range
     */
     SparseMatrix<bool> m(3, 3);
     // Check that an exception is thrown if the element is out of range
@@ -114,9 +116,11 @@ TEST_CASE("Boolean Matrix") {
   SUBCASE("insert_or_assign exceptions") {
     /*This test tests if the insert_or_assign function throws exceptions
     correctly The insert_or_assign function should throw an exception if the
-    inserted element is out of range GIVEN: the insert_or_assign function is
-    called WHEN: the function is called on a matrix THEN: the function should
-    throw an exception if the inserted element is out of range
+    inserted element is out of range
+    GIVEN: the insert_or_assign function is called
+    WHEN: the function is called on a matrix
+    THEN: the function should throw an exception if the inserted element is out
+    of range
     */
     SparseMatrix<bool> m(3, 3);
     // Check that an exception is thrown if the element is out of range
@@ -202,9 +206,11 @@ TEST_CASE("Boolean Matrix") {
   SUBCASE("Clear") {
     /*This test tests if the clear function works correctly
     The clear function should delete all the elements and dimensions in the
-    matrix GIVEN: the clear function is called WHEN: the function is called on a
-    matrix THEN: the function should delete all the elements and dimensions in
-    the matrix
+    matrix
+    GIVEN: the clear function is called
+    WHEN: the function is called on a matrix
+    THEN: the function should delete all the elements and dimensions in the
+    matrix
     */
     SparseMatrix<bool> m(3, 3);
     m.insert(0, 0, true);
@@ -216,9 +222,10 @@ TEST_CASE("Boolean Matrix") {
   SUBCASE("Contains exceptions") {
     /*This test tests if the contains function throws exceptions correctly
     The contains function should throw an exception if the element is out of
-    range GIVEN: the contains function is called WHEN: the function is called on
-    a matrix THEN: the function should throw an exception if the element is out
-    of range
+    range
+    GIVEN: the contains function is called
+    WHEN: the function is called on a matrix
+    THEN: the function should throw an exception if the element is out of range
     */
     SparseMatrix<bool> m(3, 3);
     CHECK_THROWS(m.contains(-2, -1));
@@ -240,9 +247,11 @@ TEST_CASE("Boolean Matrix") {
   SUBCASE("Get row") {
     /*This test tests if the getRow function works correctly
     The getRow function should return a vector containing the elements of the
-    row GIVEN: the getRow function is called WHEN: the function is called on a
-    matrix THEN: the function should return a vector (SparseMatrix) containing
-    the elements of the row
+    row
+    GIVEN: the getRow function is called
+    WHEN: the function is called on a matrix
+    THEN: the function should return a vector (SparseMatrix) containing the
+    elements of the row
     */
     SparseMatrix<bool> m(3, 3);
     // Create a row
@@ -261,9 +270,11 @@ TEST_CASE("Boolean Matrix") {
   SUBCASE("Get column") {
     /*This test tests if the getCol function works correctly
     The getCol function should return a vector containing the elements of the
-    column GIVEN: the getCol function is called WHEN: the function is called on
-    a matrix THEN: the function should return a vector (SparseMatrix) containing
-    the elements of the column
+    column
+    GIVEN: the getCol function is called
+    WHEN: the function is called on a matrix
+    THEN: the function should return a vector (SparseMatrix) containingthe
+    elements of the column
     */
     SparseMatrix<bool> m(3, 3);
     // Create a column
@@ -302,9 +313,11 @@ TEST_CASE("Boolean Matrix") {
   SUBCASE("Get max_size") {
     /*This test tests if the max_size function works correctly
     The max_size function should return the maximum number of elements that can
-    be stored in the matrix GIVEN: the max_size function is called WHEN: the
-    function is called on a matrix THEN: the function should return the maximum
-    number of elements that can be stored in the matrix
+    be stored in the matrix
+    GIVEN: the max_size function is called
+    WHEN: the function is called on a matrix
+    THEN: the function should return the maximum number of elements that can be
+    stored in the matrix
     */
     SparseMatrix<bool> m(3, 5);
     CHECK(m.max_size() == 15);
@@ -312,8 +325,10 @@ TEST_CASE("Boolean Matrix") {
   SUBCASE("Get size") {
     /*This test tests if the size function works correctly
     The size function should return the number of non-zero elements in the
-    matrix GIVEN: the size function is called WHEN: the function is called on a
-    matrix THEN: the function should return the number of elements in the matrix
+    matrix
+    GIVEN: the size function is called
+    WHEN: the function is called on a matrix
+    THEN: the function should return the number of elements in the matrix
     */
     SparseMatrix<bool> m(3, 3);
     m.insert(0, 0, true);
@@ -326,9 +341,10 @@ TEST_CASE("Boolean Matrix") {
   SUBCASE("Erase row") {
     /*This test tests if the eraseRow function works correctly
     The eraseRow function should delete all the elements in the row (and also
-    the row itself, reducing the number of rows by 1) GIVEN: the eraseRow
-    function is called WHEN: the function is called on a matrix THEN: the
-    function should delete all the elements in the row
+    the row itself, reducing the number of rows by 1)
+    GIVEN: the eraseRow function is called
+    WHEN: the function is called on a matrix
+    THEN: the function should delete all the elements in the row
     */
     SparseMatrix<bool> d(3, 3);
     // Create a row
@@ -357,8 +373,9 @@ TEST_CASE("Boolean Matrix") {
   SUBCASE("Erase column") {
     /*This test tests if the eraseColumn function works correctly
     The eraseColumn function should delete all the elements in the column (and
-    also the column itself, reducing the number of columns by 1) GIVEN: the
-    eraseColumn function is called WHEN: the function is called on a matrix
+    also the column itself, reducing the number of columns by 1)
+    GIVEN: the eraseColumn function is called
+    WHEN: the function is called on a matrix
     THEN: the function should delete all the elements in the column
     */
     SparseMatrix<bool> d(3, 3);
@@ -383,9 +400,10 @@ TEST_CASE("Boolean Matrix") {
   SUBCASE("Degree vector") {
     /*This test tests if the getDegreeVector function works correctly
     The getDegreeVector function should return a vector containing the degree of
-    each row GIVEN: the getDegreeVector function is called WHEN: the function is
-    called on a matrix THEN: the function should return a vector containing the
-    degree of each row
+    each row
+    GIVEN: the getDegreeVector function is called
+    WHEN: the function is called on a matrix
+    THEN: the function should return a vector containing the degree of each row
     */
     SparseMatrix<bool> m(3, 3);
     m.insert(0, 0, true);
@@ -469,9 +487,10 @@ TEST_CASE("Boolean Matrix") {
   SUBCASE("Normalized Rows") {
     /*This test tests if the getNormRows function works correctly
     The getNormRows function should return a matrix containing the normalized
-    rows GIVEN: the getNormRows function is called WHEN: the function is called
-    on a matrix THEN: the function should return a matrix containing the
-    normalized rows
+    rows
+    GIVEN: the getNormRows function is called
+    WHEN: the function is called on a matrix
+    THEN: the function should return a matrix containing the normalized rows
     */
     SparseMatrix<bool> m(3, 3);
     // Create a row
@@ -497,9 +516,10 @@ TEST_CASE("Boolean Matrix") {
   SUBCASE("Normalized Columns") {
     /*This test tests if the getNormCols function works correctly
     The getNormCols function should return a matrix containing the normalized
-    columns GIVEN: the getNormCols function is called WHEN: the function is
-    called on a matrix THEN: the function should return a matrix containing the
-    normalized columns
+    columns
+    GIVEN: the getNormCols function is called
+    WHEN: the function is called on a matrix
+    THEN: the function should return a matrix containing the normalized columns
     */
     SparseMatrix<bool> m(3, 3);
     m.insert(0, 0, true);
@@ -749,7 +769,8 @@ TEST_CASE("VehicleType") {
     the same, or negative
     GIVEN: the constructor is called
     WHEN: the function is called with source 0 and destination 0 or negative
-    values THEN: the function should throw an exception
+    values
+    THEN: the function should throw an exception
     */
     CHECK_THROWS(VehicleType(0, 0));
     CHECK_THROWS(VehicleType(-3, 0));
@@ -906,8 +927,9 @@ TEST_CASE("Vehicle") {
     /*This test tests if the constructor works correctly
     The constructor should create a Vehicle with the specified destination
     GIVEN: the constructor is called with a VehicleType with destination 7 and
-    source 3 WHEN: the Vehicle is created THEN: the Vehicle should have
-    destination 7
+    source 3
+    WHEN: the Vehicle is created
+    THEN: the Vehicle should have destination 7
     */
     Vehicle v2(1);
     CHECK(v2.getDestination() == 7);
@@ -948,9 +970,10 @@ TEST_CASE("Vehicle") {
     /*This test tests if the setPosition and getPosition functions work
     correctly The setPosition function should set the position of the Vehicle
     (node index) The getPosition function should return the position of the
-    Vehicle GIVEN: the setPosition function is called with position 10 WHEN: the
-    function is called on a Vehicle THEN: the function should set the position
-    of the Vehicle to 10
+    Vehicle
+    GIVEN: the setPosition function is called with position 10
+    WHEN: the function is called on a Vehicle
+    THEN: the function should set the position of the Vehicle to 10
     */
     auto v = Vehicle(1);
     CHECK(v.getPosition() == 3); // default VehicleType value
@@ -990,9 +1013,10 @@ TEST_CASE("Vehicle") {
   SUBCASE("setVelocity exception") {
     /*This test tests if the setVelocity function throws an exception
     The setVelocity function should throw an exception if the velocity is
-    negative GIVEN: the setVelocity function is called with velocity -1 WHEN:
-    the function is called on a Vehicle THEN: the function should throw an
-    exception
+    negative
+    GIVEN: the setVelocity function is called with velocity -1
+    WHEN: the function is called on a Vehicle
+    THEN: the function should throw an exception
     */
     auto v = Vehicle(1);
     CHECK_THROWS(v.setVelocity(-1.));
@@ -1055,7 +1079,8 @@ TEST_CASE("Vehicle") {
   SUBCASE("setTimePenalty exception") {
     /*This test tests if the setTimePenalty function throws an exception
     The setTimePenalty function should throw an exception if the time penalty is
-    negative GIVEN: the setTimePenalty function is called with time penalty -1
+    negative
+    GIVEN: the setTimePenalty function is called with time penalty -1
     WHEN: the function is called on a Vehicle
     THEN: the function should throw an exception
     */
@@ -1066,7 +1091,8 @@ TEST_CASE("Vehicle") {
     /*This test tests if the setTimePenalty and getTimePenalty functions work
     correctly The setTimePenalty function should set the time penalty of the
     Vehicle The getTimePenalty function should return the time penalty of the
-    Vehicle GIVEN: the setTimePenalty function is called with time penalty 6
+    Vehicle
+    GIVEN: the setTimePenalty function is called with time penalty 6
     WHEN: the function is called on a Vehicle
     THEN: the function should set the time penalty of the Vehicle to 6
     */
@@ -1089,9 +1115,10 @@ TEST_CASE("Street") {
   SUBCASE("Constructor exceptions") {
     /*This test tests if the constructor throws an exception
     The constructor should throw an exception if the length is negative or if
-    the index is negative GIVEN: the constructor is called with length -10 or
-    index -1 WHEN: the Street is created THEN: the function should throw an
-    exception
+    the index is negative
+    GIVEN: the constructor is called with length -10 or index -1
+    WHEN: the Street is created
+    THEN: the function should throw an exception
     */
     CHECK_THROWS(Street(0, 1, -10., 0));
     CHECK_THROWS(Street(0, 1, 10., -1));
@@ -1099,10 +1126,12 @@ TEST_CASE("Street") {
   SUBCASE("Constructor and getters") {
     /*This test tests if the constructor and the getters work correctly
     The constructor should create a street with the specified origin,
-    destination, length and index GIVEN: the constructor is called with origin
-    0, destination 1, length 10 and index 0 WHEN: the street is created THEN:
-    the street should have origin 0, destination 1, length 10 and index 0 and
-    other values should be set to default
+    destination, length and index
+    GIVEN: the constructor is called with origin 0, destination 1, length 10 and
+    index 0
+    WHEN: the street is created
+    THEN: the street should have origin 0, destination 1, length 10 and index 0
+    and other values should be set to default
     */
     Street s(0, 1, 10., 0);
     // Check the values
@@ -1122,7 +1151,8 @@ TEST_CASE("Street") {
   SUBCASE("setNLanes exception") {
     /*This test tests if the setNLanes function throws an exception
     The setNLanes function should throw an exception if the number of lanes is
-    negative GIVEN: the setNLanes function is called with number of lanes -10
+    negative
+    GIVEN: the setNLanes function is called with number of lanes -10
     WHEN: the function is called on a street
     THEN: the function should throw an exception
     */
@@ -1146,7 +1176,8 @@ TEST_CASE("Street") {
   SUBCASE("setVMax exception") {
     /*This test tests if the setVMax function throws an exception
     The setVMax function should throw an exception if the maximum velocity is
-    negative GIVEN: the setVMax function is called with maximum velocity -7
+    negative
+    GIVEN: the setVMax function is called with maximum velocity -7
     WHEN: the function is called on a street
     THEN: the function should throw an exception
     */
@@ -1315,10 +1346,11 @@ TEST_CASE("utils") {
   SUBCASE("minDistance") {
     /*This test tests if the minDistance function works correctly
     The minDistance function should return the minimum distance from the source
-    for nodes with sptSet false GIVEN: the minDistance function is called WHEN:
-    the function is called on a vector with distances 1, 2, 3 and a vector with
-    false, false, false THEN: the function should return 0 cause 1 is the
-    minimum
+    for nodes with sptSet false
+    GIVEN: the minDistance function is called
+    WHEN: the function is called on a vector with distances 1, 2, 3 and a vector
+    with false, false, false
+    THEN: the function should return 0 cause 1 is the minimum
     */
     std::vector<int> v{1, 2, 3}; // distances
     std::vector<bool> sptSet{false, false, false};
@@ -1327,10 +1359,11 @@ TEST_CASE("utils") {
   SUBCASE("minDistance 2") {
     /*This test tests if the minDistance function works correctly
     The minDistance function should return the minimum distance from the source
-    for nodes with sptSet false GIVEN: the minDistance function is called WHEN:
-    the function is called on a vector with distances 1, 2, 3 and a vector with
-    true, true, false THEN: the function should return 2 cause 3 is the minimum
-    (only valid value)
+    for nodes with sptSet false
+    GIVEN: the minDistance function is called
+    WHEN: the function is called on a vector with distances 1, 2, 3 and a vector
+    with true, true, false
+    THEN: the function should return 2 cause 3 is the minimum (only valid value)
     */
     std::vector<int> v{1, 2, 3}; // distances
     std::vector<bool> sptSet{true, true, false};
@@ -1386,7 +1419,8 @@ TEST_CASE("Graph") {
   SUBCASE("setTemperature exception") {
     /*This test tests if the setTemperature function throws an exception
     The setTemperature function should throw an exception if the temperature is
-    negative GIVEN: the setTemperature function is called with temperature -2
+    negative
+    GIVEN: the setTemperature function is called with temperature -2
     WHEN: the function is called on a graph
     THEN: the function should throw an exception
     */
@@ -1408,7 +1442,8 @@ TEST_CASE("Graph") {
   SUBCASE("setTimeScale exception") {
     /*This test tests if the setTimeScale function throws an exception
     The setTimeScale function should throw an exception if the time scale is
-    negative GIVEN: the setTimeScale function is called with time scale -10
+    negative
+    GIVEN: the setTimeScale function is called with time scale -10
     WHEN: the function is called on a graph
     THEN: the function should throw an exception
     */
@@ -1432,8 +1467,9 @@ TEST_CASE("Graph") {
     The addVehicle function should throw an exception if the VehicleType is not
     in the list of VehicleTypes, i.e. if the index is out of range
     GIVEN: the addVehicle function is called with index 100 or -1 (negative
-    case) WHEN: thefunction is called on a graph THEN: the function should throw
-    an exception
+    case)
+    WHEN: thefunction is called on a graph
+    THEN: the function should throw an exception
     */
     Graph g("./data/matrix.dat");
     // VehicleType index < 0
@@ -1913,7 +1949,8 @@ TEST_CASE("Graph") {
   SUBCASE("fprintHistogram output - traveltime") {
     /*This test tests if the fprintHistogram function works correctly
     The fprintHistogram function should print the graph traveltime info in a
-    file GIVEN: the fprintHistogram function is called two times with different
+    file
+    GIVEN: the fprintHistogram function is called two times with different
     parameters (format)
     WHEN: the function is called on a graph
     THEN: the function should print the graph's info in a file
@@ -1949,10 +1986,11 @@ TEST_CASE("Graph") {
   SUBCASE("fprintHistogram output - 0 traveltime") {
     /*This test tests if the fprintHistogram function works correctly
     The fprintHistogram function should print the graph traveltime info in a
-    file Check if traveltime is 0 until the time reaches the time scale GIVEN:
-    the fprintHistogram function is called two times with different parameters
-    (format) WHEN: the function is called on a graph THEN: the function should
-    print the graph's info in a file
+    file Check if traveltime is 0 until the time reaches the time scale
+    GIVEN: the fprintHistogram function is called two times with different
+    parameters (format)
+    WHEN: the function is called on a graph
+    THEN: the function should print the graph's info in a file
     */
     Graph g("./data/matrix.dat");
     g.addVehicle(0);
@@ -2060,9 +2098,10 @@ TEST_CASE("Graph") {
   SUBCASE("fprintTimeDistribution output - q") {
     /*This test tests if the fprintTimeDistribution function works correctly
     The fprintTimeDistribution function should print the graph q/t info in a
-    file GIVEN: the fprintTimeDistribution function is called WHEN: the function
-    is called on a graph THEN: the function should print the graph's info in a
     file
+    GIVEN: the fprintTimeDistribution function is called
+    WHEN: the function is called on a graph
+    THEN: the function should print the graph's info in a file
     */
     Graph g("./data/matrix.dat");
     g.addVehicle(0);
@@ -2083,9 +2122,10 @@ TEST_CASE("Graph") {
   SUBCASE("fprintTimeDistribution output - k") {
     /*This test tests if the fprintTimeDistribution function works correctly
     The fprintTimeDistribution function should print the graph k/t info in a
-    file GIVEN: the fprintTimeDistribution function is called WHEN: the function
-    is called on a graph THEN: the function should print the graph's info in a
     file
+    GIVEN: the fprintTimeDistribution function is called
+    WHEN: the function is called on a graph
+    THEN: the function should print the graph's info in a file
     */
     Graph g("./data/matrix.dat");
     g.addVehicle(0);
@@ -2106,9 +2146,10 @@ TEST_CASE("Graph") {
   SUBCASE("fprintTimeDistribution output - v") {
     /*This test tests if the fprintTimeDistribution function works correctly
     The fprintTimeDistribution function should print the graph v/t info in a
-    file GIVEN: the fprintTimeDistribution function is called WHEN: the function
-    is called on a graph THEN: the function should print the graph's info in a
     file
+    GIVEN: the fprintTimeDistribution function is called
+    WHEN: the function is called on a graph
+    THEN: the function should print the graph's info in a file
     */
     Graph g("./data/matrix.dat");
     g.addVehicle(1);
