@@ -201,6 +201,18 @@ TEST_CASE("Boolean Matrix") {
     CHECK(m.at(1, 0));
     CHECK(m.at(3));
   }
+  SUBCASE("erase - exception") {
+    /*This test tests if the erase function throws an exception correctly
+    The erase function should throw an exception if the element is out of range
+    GIVEN: the erase function is called
+    WHEN: the function is called on a matrix
+    THEN: the function should throw an exception if the element is out of range
+    */
+    SparseMatrix<bool> m(3, 3);
+    // Check that an exception is thrown if the element is out of range
+    CHECK_THROWS(m.erase(-1, -2));
+    CHECK_THROWS(m.erase(3, 2));
+  }
   SUBCASE("Deletions") {
     /*This test tests if the erase function works correctly
     The erase function should delete a value in the matrix
