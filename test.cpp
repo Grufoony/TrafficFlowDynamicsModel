@@ -31,6 +31,17 @@ TEST_CASE("Boolean Matrix") {
     CHECK(m.getColDim() == 0);
     CHECK(m.max_size() == 0);
   }
+  SUBCASE("Constructor - exceptions") {
+    /*This test tests if the constructor throws exceptions correctly
+    The constructor should throw an exception if the dimensions are negative
+    GIVEN: the constructor is called with negative dimensions
+    WHEN: the matrix is created
+    THEN: the matrix should throw an exception
+    */
+    CHECK_THROWS(SparseMatrix<bool>(-2, 0));
+    CHECK_THROWS(SparseMatrix<bool>(0, -10));
+    CHECK_THROWS(SparseMatrix<bool>(-4));
+  }
   SUBCASE("Constructor with dimensions") {
     /*This test tests if the constructor with dimensions works correctly
     The constructor should create a matrix with the specified dimensions and a
@@ -244,6 +255,17 @@ TEST_CASE("Boolean Matrix") {
     CHECK(m.contains(0, 0));
     CHECK(m.contains(7));
   }
+  SUBCASE("getRow - exceptions") {
+    /*This test tests if the getRow function throws exceptions correctly
+    The getRow function should throw an exception if the row is out of range
+    GIVEN: the getRow function is called
+    WHEN: the function is called on a matrix
+    THEN: the function should throw an exception if the row is out of range
+    */
+    SparseMatrix<bool> m(4, 3);
+    CHECK_THROWS(m.getRow(-1));
+    CHECK_THROWS(m.getRow(4));
+  }
   SUBCASE("Get row") {
     /*This test tests if the getRow function works correctly
     The getRow function should return a vector containing the elements of the
@@ -263,9 +285,18 @@ TEST_CASE("Boolean Matrix") {
     CHECK(row(0));
     CHECK(!row(1));
     CHECK(row(2));
-    // Check out of range exceptions
-    CHECK_THROWS(m.getRow(-1));
-    CHECK_THROWS(m.getRow(3));
+  }
+  SUBCASE("getColumn - exceptions") {
+    /*This test tests if the getColumn function throws exceptions correctly
+    The getColumn function should throw an exception if the column is out of
+    range
+    GIVEN: the getColumn function is called
+    WHEN: the function is called on a matrix
+    THEN: the function should throw an exception if the column is out of range
+    */
+    SparseMatrix<bool> m(3, 6);
+    CHECK_THROWS(m.getCol(-1));
+    CHECK_THROWS(m.getCol(6));
   }
   SUBCASE("Get column") {
     /*This test tests if the getCol function works correctly
@@ -286,9 +317,6 @@ TEST_CASE("Boolean Matrix") {
     CHECK(col(0));
     CHECK(!col(1));
     CHECK(col(2));
-    // Check out of range exceptions
-    CHECK_THROWS(m.getCol(-1));
-    CHECK_THROWS(m.getCol(3));
   }
   SUBCASE("Get row dimension") {
     /*This test tests if the getRowDim function works correctly
@@ -338,6 +366,17 @@ TEST_CASE("Boolean Matrix") {
     m.insert(1, 1, true);
     CHECK(m.size() == 4);
   }
+  SUBCASE("eraseRow - exception") {
+    /*This test tests if the eraseRow function throws an exception
+    The eraseRow function should throw an exception if the row is out of range
+    GIVEN: the eraseRow function is called
+    WHEN: the function is called on a matrix
+    THEN: the function should throw an exception if the row is out of range
+    */
+    SparseMatrix<bool> m(5, 3);
+    CHECK_THROWS(m.eraseRow(-1));
+    CHECK_THROWS(m.eraseRow(5));
+  }
   SUBCASE("Erase row") {
     /*This test tests if the eraseRow function works correctly
     The eraseRow function should delete all the elements in the row (and also
@@ -370,6 +409,18 @@ TEST_CASE("Boolean Matrix") {
     m.eraseRow(0);
     CHECK(m(0, 2));
   }
+  SUBCASE("eraseColumn - exception") {
+    /*This test tests if the eraseColumn function throws an exception
+    The eraseColumn function should throw an exception if the column is out of
+    range
+    GIVEN: the eraseColumn function is called
+    WHEN: the function is called on a matrix
+    THEN: the function should throw an exception if the column is out of range
+    */
+    SparseMatrix<bool> m(3, 5);
+    CHECK_THROWS(m.eraseColumn(-1));
+    CHECK_THROWS(m.eraseColumn(5));
+  }
   SUBCASE("Erase column") {
     /*This test tests if the eraseColumn function works correctly
     The eraseColumn function should delete all the elements in the column (and
@@ -397,6 +448,19 @@ TEST_CASE("Boolean Matrix") {
     CHECK(m(0, 0));
     CHECK(m(2, 1));
   }
+  SUBCASE("getDegreeVector - exceptions") {
+    /*This test tests if the getDegreeVector function throws an exception
+    The getDegreeVector function should throw an exception if the matrix is
+    empty
+    GIVEN: the getDegreeVector function is called
+    WHEN: the function is called on a matrix
+    THEN: the function should throw an exception if the matrix is empty
+    */
+    SparseMatrix<bool> m(1, 5);
+    SparseMatrix<bool> m2(3, 6);
+    CHECK_THROWS(m.getDegreeVector());
+    CHECK_THROWS(m2.getDegreeVector());
+  }
   SUBCASE("Degree vector") {
     /*This test tests if the getDegreeVector function works correctly
     The getDegreeVector function should return a vector containing the degree of
@@ -417,6 +481,16 @@ TEST_CASE("Boolean Matrix") {
     CHECK(v(0) == 2);
     CHECK(v(1) == 1);
     CHECK(v(2) == 3);
+  }
+  SUBCASE("getRndElement - exception") {
+    /*This test tests if the getRndElement function throws an exception
+    The getRndElement function should throw an exception if the matrix is empty
+    GIVEN: the getRndElement function is called
+    WHEN: the function is called on a matrix
+    THEN: the function should throw an exception if the matrix is empty
+    */
+    SparseMatrix<bool> m(3, 3);
+    CHECK_THROWS(m.getRndElement());
   }
   SUBCASE("Random Elements") {
     /*This test tests if the getRndElement function works correctly
@@ -440,6 +514,22 @@ TEST_CASE("Boolean Matrix") {
       CHECK(e.first == (*it).first);
     }
   }
+  SUBCASE("getRndRowElement - exceptions") {
+    /*This test tests if the getRndRowElement function throws an exception
+    The getRndRowElement function should throw an exception if the row is out of
+    range or if the row is empty
+    GIVEN: the getRndRowElement function is called
+    WHEN: the function is called on a matrix
+    THEN: the function should throw an exception if the row is out of range or
+    if the row is empty
+    */
+    SparseMatrix<bool> m(3, 3);
+    m.insert(0, 0, true);
+    m.insert(1, 2, true);
+    CHECK_THROWS(m.getRndRowElement(-1));
+    CHECK_THROWS(m.getRndRowElement(3));
+    CHECK_THROWS(m.getRndRowElement(2));
+  }
   SUBCASE("Random Row Element") {
     /*This test tests if the getRndRowElement function works correctly
     The getRndRowElement function should return a random element in the row
@@ -461,6 +551,22 @@ TEST_CASE("Boolean Matrix") {
       CHECK(e.first == m2.getRow(i).getRndElement().first +
                            i * 3); // convert row index to matrix index
     }
+  }
+  SUBCASE("getRndColElement - exceptions") {
+    /*This test tests if the getRndColElement function throws an exception
+    The getRndColElement function should throw an exception if the column is out
+    of range or if the column is empty
+    GIVEN: the getRndColElement function is called
+    WHEN: the function is called on a matrix
+    THEN: the function should throw an exception if the column is out of range
+    or if the column is empty
+    */
+    SparseMatrix<bool> m(3, 3);
+    m.insert(0, 0, true);
+    m.insert(1, 2, true);
+    CHECK_THROWS(m.getRndColElement(-1));
+    CHECK_THROWS(m.getRndColElement(3));
+    CHECK_THROWS(m.getRndColElement(1));
   }
   SUBCASE("Random Column Element") {
     /*This test tests if the getRndColElement function works correctly
@@ -672,6 +778,19 @@ TEST_CASE("Boolean Matrix") {
                    std::istreambuf_iterator<char>());
     CHECK(s1 == s2);
     std::remove(fileName.c_str());
+  }
+  SUBCASE("getStrengthVector - exception") {
+    /*This test tests if the getStrengthVector function throws an exception
+    The getStrengthVector function should throw an exception if the matrix is
+    not square
+    GIVEN: the getStrengthVector function is called
+    WHEN: the function is called on a non-square matrix
+    THEN: the function should throw an exception
+    */
+    SparseMatrix<double> m(4, 3);
+    SparseMatrix<double> m2(3, 4);
+    CHECK_THROWS(m.getStrengthVector());
+    CHECK_THROWS(m2.getStrengthVector());
   }
   SUBCASE("getStrengthVector") {
     /*This test tests if the getStrengthVector function works correctly
