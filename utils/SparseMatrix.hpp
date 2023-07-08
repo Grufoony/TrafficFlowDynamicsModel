@@ -28,6 +28,7 @@ public:
   /// @brief SparseMatrix constructor
   /// @param rows number of rows
   /// @param cols number of columns
+  /// @throw std::invalid_argument if rows or cols are < 0
   SparseMatrix(int rows, int cols) {
     rows < 0 || cols < 0
         ? throw std::invalid_argument("SparseMatrix: rows and cols must be > 0")
@@ -36,6 +37,7 @@ public:
   };
   /// @brief SparseMatrix constructor - colum
   /// @param index number of rows
+  /// @throw std::invalid_argument if index is < 0
   SparseMatrix(int index) {
     index < 0 ? throw std::invalid_argument("SparseMatrix: index must be > 0")
               : _rows = index,
@@ -103,6 +105,7 @@ public:
   /// @param i row index
   /// @param j column index
   /// @param value value to insert
+  /// @throw std::out_of_range if the index is out of range
   void insert(int i, int j, T value) {
     if (i >= _rows || j >= _cols || i < 0 || j < 0) {
       throw std::out_of_range("Index out of range");
@@ -112,6 +115,7 @@ public:
   /// @brief insert a value in the matrix
   /// @param i index
   /// @param value value to insert
+  /// @throw std::out_of_range if the index is out of range
   void insert(int i, T value) {
     if (i >= _rows * _cols || i < 0) {
       throw std::out_of_range("Index out of range");
@@ -123,6 +127,7 @@ public:
   /// @param i row index
   /// @param j column index
   /// @param value value to insert
+  /// @throw std::out_of_range if the index is out of range
   void insert_or_assign(int i, int j, T value) {
     if (i >= _rows || j >= _cols || i < 0 || j < 0) {
       throw std::out_of_range("Index out of range");
@@ -133,6 +138,7 @@ public:
   /// overwrites it
   /// @param index index in vectorial form
   /// @param value value to insert
+  /// @throw std::out_of_range if the index is out of range
   void insert_or_assign(int index, T value) {
     if (index < 0 || index > _rows * _cols - 1) {
       throw std::out_of_range("Index out of range");
@@ -142,13 +148,19 @@ public:
   /// @brief remove a value from the matrix
   /// @param i row index
   /// @param j column index
+  /// @throw std::out_of_range if the index is out of range
+  /// @throw std::runtime_error if the element is not found
   void erase(int i, int j) {
+    if (i >= _rows || j >= _cols || i < 0 || j < 0) {
+      throw std::out_of_range("Index out of range");
+    }
     _matrix.find(i * _cols + j) != _matrix.end()
         ? _matrix.erase(i * _cols + j)
-        : throw std::out_of_range("Index out of range");
+        : throw std::runtime_error("SparseMatrix: element not found");
   };
   /// @brief remove a row from the matrix
   /// @param index row index
+  /// @throw std::out_of_range if the index is out of range
   void eraseRow(int index) {
     if (index < 0 || index > _rows - 1) {
       throw std::out_of_range("Index out of range");
@@ -169,6 +181,7 @@ public:
   };
   /// @brief remove a column from the matrix
   /// @param index column index
+  /// @throw std::out_of_range if the index is out of range
   void eraseColumn(int index) {
     if (index < 0 || index > _cols - 1) {
       throw std::out_of_range("Index out of range");
@@ -196,6 +209,8 @@ public:
   /// @brief check if the element is non zero
   /// @param i row index
   /// @param j column index
+  /// @return true if the element is non zero
+  /// @throw std::out_of_range if the index is out of range
   bool contains(int i, int j) const {
     if (i >= _rows || j >= _cols || i < 0 || j < 0) {
       throw std::out_of_range("Index out of range");
@@ -204,6 +219,8 @@ public:
   };
   /// @brief check if the element is non zero
   /// @param index index in vectorial form
+  /// @return true if the element is non zero
+  /// @throw std::out_of_range if the index is out of range
   bool contains(int const index) const {
     if (index < 0 || index > _rows * _cols - 1) {
       throw std::out_of_range("Index out of range");
@@ -212,6 +229,7 @@ public:
   };
   /// @brief get the input degree of all nodes
   /// @return a SparseMatrix vector with the input degree of all nodes
+  /// @throw std::runtime_error if the matrix is not square
   SparseMatrix<int> getDegreeVector() {
     if (_rows != _cols) {
       throw std::runtime_error(
@@ -226,6 +244,7 @@ public:
   };
   /// @brief get the strength of all nodes
   /// @return a SparseMatrix vector with the strength of all nodes
+  /// @throw std::runtime_error if the matrix is not square
   SparseMatrix<double> getStrengthVector() {
     if (_rows != _cols) {
       throw std::runtime_error(
@@ -238,6 +257,9 @@ public:
     }
     return strengthVector;
   };
+  /// @brief get the laplacian matrix
+  /// @return the laplacian matrix
+  /// @throw std::runtime_error if the matrix is not square
   SparseMatrix<int> getLaplacian() {
     if (_rows != _cols) {
       throw std::runtime_error(
@@ -256,6 +278,8 @@ public:
 
   /// @brief get a row as a row vector
   /// @param index row index
+  /// @return a row vector
+  /// @throw std::out_of_range if the index is out of range
   SparseMatrix getRow(int index) const {
     if (index >= _rows || index < 0) {
       throw std::out_of_range("Index out of range");
@@ -270,6 +294,8 @@ public:
   }
   /// @brief get a column as a column vector
   /// @param index column index
+  /// @return a column vector
+  /// @throw std::out_of_range if the index is out of range
   SparseMatrix getCol(int index) const {
     if (index >= _cols || index < 0) {
       throw std::out_of_range("Index out of range");
@@ -285,6 +311,7 @@ public:
   /// @brief get a random non-zero element from a row
   /// @param index row index
   /// @return a pair containing the column index and the value
+  /// @throw std::out_of_range if the index is out of range
   std::pair<int, T> getRndRowElement(int index) {
     if (index >= _rows || index < 0)
       throw std::out_of_range("Index out of range");
@@ -298,6 +325,7 @@ public:
   /// @brief get a random non-zero element from a column
   /// @param index column index
   /// @return a pair containing the row index and the value
+  /// @throw std::out_of_range if the index is out of range
   std::pair<int, T> getRndColElement(int index) {
     if (index >= _cols || index < 0)
       throw std::out_of_range("Index out of range");
@@ -311,7 +339,10 @@ public:
   }
   /// @brief get a random non-zero element from the matrix
   /// @return a pair containing the row index and the value
+  /// @throw std::runtime_error if the matrix is empty
   std::pair<int, T> getRndElement() {
+    if (this->size() == 0)
+      throw std::runtime_error("SparseMatrix: matrix is empty");
     auto it = _matrix.begin();
     std::mt19937 rng(std::random_device{}());
     if (_setSeed) {
@@ -359,7 +390,11 @@ public:
     }
     return normCols;
   }
+  /// @brief get the number of rows
+  /// @return number of rows
   int getRowDim() const noexcept { return this->_rows; }
+  /// @brief get the number of columns
+  /// @return number of columns
   int getColDim() const noexcept { return this->_cols; }
   /// @brief get the number of non zero elements in the matrix
   /// @return number of non zero elements
@@ -371,6 +406,7 @@ public:
   /// @param i row index
   /// @param j column index
   /// @return the element
+  /// @throw std::out_of_range if the index is out of range
   T at(int i, int j) const {
     if (i >= _rows || j >= _cols || i < 0 || j < 0) {
       throw std::out_of_range("Index out of range");
@@ -381,6 +417,7 @@ public:
   /// @brief access an element of the matrix
   /// @param index index in vectorial form
   /// @return the element
+  /// @throw std::out_of_range if the index is out of range
   T at(int index) const {
     if (index >= _rows * _cols || index < 0) {
       throw std::out_of_range("Index out of range");
@@ -428,6 +465,7 @@ public:
   /// @param i row index
   /// @param j column index
   /// @return the element
+  /// @throw std::out_of_range if the index is out of range
   T const &operator()(int i, int j) {
     if (i >= _rows || j >= _cols || i < 0 || j < 0) {
       throw std::out_of_range("Index out of range");
@@ -438,6 +476,7 @@ public:
   /// @brief access an element of the matrix
   /// @param index index in vectorial form
   /// @return the element
+  /// @throw std::out_of_range if the index is out of range
   T const &operator()(int index) {
     if (index >= _rows * _cols || index < 0) {
       throw std::out_of_range("Index out of range");

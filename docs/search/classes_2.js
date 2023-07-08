@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['vehicle_93',['Vehicle',['../classVehicle.html',1,'']]],
-  ['vehicletype_94',['VehicleType',['../classVehicleType.html',1,'']]]
+  ['vehicle_96',['Vehicle',['../classVehicle.html',1,'']]],
+  ['vehicletype_97',['VehicleType',['../classVehicleType.html',1,'']]]
 ];
