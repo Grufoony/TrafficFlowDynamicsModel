@@ -1127,6 +1127,17 @@ TEST_CASE("Vehicle") {
     auto v = Vehicle(0);
     CHECK(v.getType() == 0);
   }
+  SUBCASE("getVehicleType - exceptions") {
+    /*This test tests if the getVehicleType function throws an exception
+    The getVehicleType function should throw an exception if the index is out of
+    range
+    GIVEN: the getVehicleType function is called
+    WHEN: the function is called on a Vehicle with type 0
+    THEN: the function should throw an exception
+    */
+    CHECK_THROWS(Vehicle::getVehicleType(12));
+    CHECK_THROWS(Vehicle::getVehicleType(-3));
+  }
   SUBCASE("VehicleType return type") {
     /*This test tests if the VehicleType function works correctly
     The VehicleType function should return the VehicleType of the Vehicle
@@ -1660,7 +1671,7 @@ TEST_CASE("Graph") {
     // VehicleType index out of range
     CHECK_THROWS(g.addVehicle(100));
   }
-  SUBCASE("addRndVehicle exceptions") {
+  SUBCASE("addRndmVehicle exceptions") {
     /*This test tests if the addRndmVehicles function throws an exception
     The addRndmVehicles function should throw an exception if the number of
     vehicles is negative
