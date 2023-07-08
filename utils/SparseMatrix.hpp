@@ -502,7 +502,10 @@ public:
     }
     return is;
   }
-
+  /// @brief sum of two matrices
+  /// @param other the other matrix
+  /// @return the sum of the two matrices
+  /// @throw std::runtime_error if the dimensions do not match
   template <typename U>
   SparseMatrix operator+(const SparseMatrix<U> &other) const {
     if (this->_rows != other._rows || this->_cols != other._cols) {
@@ -522,6 +525,10 @@ public:
     }
     return result;
   }
+  /// @brief difference of two matrices
+  /// @param other the other matrix
+  /// @return the difference of the two matrices
+  /// @throw std::runtime_error if the dimensions do not match
   template <typename U>
   SparseMatrix operator-(const SparseMatrix<U> &other) const {
     if (this->_rows != other._rows || this->_cols != other._cols) {
@@ -569,6 +576,10 @@ public:
     }
     return transpost;
   }
+  /// @brief sum of two matrices
+  /// @param other the other matrix
+  /// @return the sum of the two matrices
+  /// @throw std::runtime_error if the dimensions do not match
   template <typename U> SparseMatrix &operator+=(const SparseMatrix<U> &other) {
     if (this->_rows != other._rows || this->_cols != other._cols) {
       throw std::runtime_error("SparseMatrix: dimensions do not match");
@@ -581,6 +592,10 @@ public:
     }
     return *this;
   }
+  /// @brief difference of two matrices
+  /// @param other the other matrix
+  /// @return the difference of the two matrices
+  /// @throw std::runtime_error if the dimensions do not match
   template <typename U> SparseMatrix &operator-=(const SparseMatrix<U> &other) {
     if (this->_rows != other._rows || this->_cols != other._cols) {
       throw std::runtime_error("SparseMatrix: dimensions do not match");
