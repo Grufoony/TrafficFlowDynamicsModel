@@ -20,7 +20,7 @@ template <typename T> class SparseMatrix {
   int _rows = 0, _cols = 0;
   static constexpr T _defaultReturn = 0;
   bool _setSeed = false;
-  int _seed = 0;
+  int _seed;
   uint _randomGeneratedNumbers;
 
 public:
