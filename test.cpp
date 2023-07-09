@@ -1308,12 +1308,14 @@ TEST_CASE("Vehicle") {
 TEST_CASE("Street") {
   SUBCASE("Constructor exceptions") {
     /*This test tests if the constructor throws an exception
-    The constructor should throw an exception if the length is negative or if
-    the index is negative
+    The constructor should throw an exception one of the arguments is negative
     GIVEN: the constructor is called with length -10 or index -1
     WHEN: the Street is created
     THEN: the function should throw an exception
     */
+    CHECK_THROWS(Street(-3, 1, 1., 0));
+    CHECK_THROWS(Street(0, -1, 1., 0));
+    CHECK_THROWS(Street(-5, -9, 3., 0));
     CHECK_THROWS(Street(0, 1, -10., 0));
     CHECK_THROWS(Street(0, 1, 10., -1));
   }
@@ -1341,6 +1343,18 @@ TEST_CASE("Street") {
     CHECK(s.getDensity() == doctest::Approx(0.));
     CHECK(s.getVehicleDensity() == doctest::Approx(0.));
     CHECK(s.getNLanes() == 1);
+  }
+  SUBCASE("origin and destination") {
+    /*This test tests if the getOrigin and getDestination functions work
+    correctly The getOrigin function should return the origin of the street The
+    getDestination function should return the destination of the street
+    GIVEN: the constructor is called with origin 3 and destination 9
+    WHEN: the street is created
+    THEN: the street should have origin 0 and destination 1
+    */
+    Street s(3, 9, 10., 0);
+    CHECK(s.getOrigin() == 3);
+    CHECK(s.getDestination() == 9);
   }
   SUBCASE("setNLanes exception") {
     /*This test tests if the setNLanes function throws an exception
