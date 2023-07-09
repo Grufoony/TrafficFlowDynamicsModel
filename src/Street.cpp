@@ -11,9 +11,18 @@ double Street::_vMin = 75e-2;
 /// @param dst The destination node.
 /// @param length The length of the street.
 /// @param index The index of the street.
-/// @throw std::invalid_argument If the length is not positive or if the index
-/// is negative.
+/// @throw std::invalid_argument If at least one of the parameters is negative.
 Street::Street(int src, int dst, double length, int index) {
+  if (src < 0) {
+    std::string msg = "Street.cpp:" + std::to_string(__LINE__) + '\t' +
+                      "Street source must be positive.\n";
+    throw std::invalid_argument(msg);
+  }
+  if (dst < 0) {
+    std::string msg = "Street.cpp:" + std::to_string(__LINE__) + '\t' +
+                      "Street destination must be positive.\n";
+    throw std::invalid_argument(msg);
+  }
   if (!(length > 0)) {
     std::string msg = "Street.cpp:" + std::to_string(__LINE__) + '\t' +
                       "Street length must be positive.\n";
