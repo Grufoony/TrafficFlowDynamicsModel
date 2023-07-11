@@ -2,7 +2,7 @@ from glob import glob
 from setuptools import setup, find_packages
 from pybind11.setup_helpers import Pybind11Extension, build_ext
 
-__version__ = '1.2.2'
+__version__ = '1.3.1'
 
 '''
 Small script to build the extension module.
