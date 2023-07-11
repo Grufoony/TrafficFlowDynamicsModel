@@ -2013,8 +2013,8 @@ TEST_CASE("Graph") {
     vehicles
     GIVEN: the evolve function is called
     WHEN: the function is called on a graph, in a loop
-    THEN: the function should evolve the graph until the vehicle reaches its
-    destination, then it should reinsert the vehicles in their origins
+    THEN: the function should evolve the graph until some vehicles reaches their
+    destination
     */
     Graph g("./data/matrix.dat");
     g.setSeed(69);
