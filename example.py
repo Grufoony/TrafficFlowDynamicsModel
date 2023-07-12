@@ -67,6 +67,8 @@ def hist(filename):
 def constant():
     '''
     Run the constant analysis. For more information, see the report.
+    Many vehicles are added to the network constantly.
+    The k distribution is plotted every 25 time steps.
     '''
     clear()
     graph = tfdm.Graph("./data/matrix.dat")
@@ -86,6 +88,8 @@ def constant():
 def peaked():
     '''
     Run the peaked analysis. For more information, see the report.
+    Many vehicles are added to the network at the beginning, in a short time.
+    The k distribution is plotted every 100 time steps.
     '''
     clear()
     graph = tfdm.Graph("./data/matrix.dat")
@@ -108,6 +112,8 @@ def peaked():
 def periodic():
     '''
     Run the periodic analysis. For more information, see the report.
+    Vehicles are added to the network periodically, with three peaks per day.
+    The k distribution is plotted every 900 time steps.
     '''
     clear()
     graph = tfdm.Graph("./data/matrix.dat")
@@ -130,6 +136,8 @@ def periodic():
 def traveltime():
     '''
     Run the traveltime analysis. For more information, see the report.
+    Vehicles are added constantly to the network.
+    The traveltime histogram is plotted every 3000 time steps.
     '''
     clear()
     graph = tfdm.Graph("./data/matrix.dat")
