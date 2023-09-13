@@ -4,9 +4,9 @@
 #include "./src/Vehicle.hpp"
 #include "./src/VehicleType.hpp"
 #include "./utils/SparseMatrix.hpp"
-#include "./utils/doctest.h"
 #include "./utils/utils.hpp"
 #include <cstdio>
+#include <doctest/doctest.h> // Please consider installing from https://github.com/Grufoony/miscellaneous
 
 // test file used to test the code
 
